@@ -47,6 +47,7 @@
 	]{abntex2}
 
 \usepackage{anteprojeto-tads}
+\usepackage[normalem]{ulem}
 
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
@@ -58,6 +59,9 @@
 \local{Brasilia, DF}
 \data{2017}
 
+
+\newcommand{\daniel}[2]{\sout{#1} {\color{red} #2}}
+\newcommand{\danielobs}[1]{{\color{red} $\diamond$ #1}}
 \begin{document}
 
 \selectlanguage{brazil}
@@ -65,17 +69,20 @@
 \imprimircapa
 \imprimirfolhaderosto*
 
+
+
 \section*{Introdução}
 	A comunicação é responsável por introduzir mudanças comportamentais e comerciais nas mais diferentes sociedades, seja ela por informações presentes em canais de televisão, outdoors ou até mesmo panfletos, em ambientes públicos ou privados.
 	
-	A divulgação de forma estática e de formas mais tradicionais (revistas e jornais) já não são as formas mais eficientes de se expor um conteúdo ou propaganda, para \cite{escobar2007} novas tecnologias de comunicação colocaram a interatividade em evidencia, então com o uso de novas ferramentas mais interativas com seu receptor, torna a leitura menos monótona e se consegue uma maior atenção do espectador, além de se conseguir atingir um maior numero de pessoas, de forma mais consistente.
+	A divulgação de forma estática e de formas mais tradicionais (revistas e jornais) já não são as formas mais eficientes de se expor um conteúdo ou propaganda, para \cite{escobar2007} novas tecnologias de comunicação colocaram a interatividade em evidencia, então,  \daniel{com o uso}{a utilização} de novas ferramentas mais interativas com seu receptor, torna a leitura menos monótona e \daniel{se}{} consegue uma maior atenção do espectador, além de se conseguir atingir um maior numero de pessoas\daniel{,}{} de forma mais consistente.
 	
 	Para \cite{machado2010}, o rápido crescimento das organizações juntamente com a internet obrigou elas a aderir novos conceitos de gestão. Pensando na maior abrangência, surge o conceito de sinalização digital, que para \cite{machado2010}, consiste na transmissão de conteúdo via internet,  onde essa mesma informação pode se ter receptores no mais diversos locais, independente de cidade, estado ou país com o uso de painéis e televisores apresentando informações e propagandas de forma dinâmica, podendo gerencia-las remotamente de acordo com a necessidade.
 	
 	Segundo a \cite{forbes2016}, pesquisas feitas pela agencia eMarketer afirmavam que até o final de 2016, 42\% da população da América latina iriam acessar regularmente as redes sociais. O uso das redes para disseminação de uma informação ou conteúdo vem se tornando uma das ferramentas mais atraentes para divulgações. Não apenas por ser um dos meios mais acessados atualmente, mas também por conta da maior facilidade de interações dos espectadores, usuários e empresas.
 	
-	Pensando não so na maior abrangência, mas também na interatividade, a expansão do conceito de sinalização digital com a união das mídias sociais permite não somente que as informações circulem fora de ambientes específicos, mas também que os receptores das informações transmitidas possam interagir quase que em tempo real com o conteúdo que é apresentado. Para \cite{santos2014}, no contexto do novo cenário da web é necessário um marketing em ambiente digital. 
+	Pensando não \daniel{so}{só} na maior abrangência, mas também na interatividade, a expansão do conceito de sinalização digital com a união das mídias sociais permite não somente que as informações circulem fora de ambientes específicos, mas também que os receptores das informações transmitidas possam interagir quase que em tempo real com o conteúdo que é apresentado. Para \cite{santos2014}, no contexto do novo cenário da web é necessário um marketing em ambiente digital. 
 	
+
 \section*{Revisão da Literatura}
 	
 
@@ -89,7 +96,7 @@
 	\subsection*{Marketing Digital}
 	\cite{santos2014} comenta que em um primeiro momento as estrategias de mercado era voltada para meios tradicionais como TV, rádio, jornais, revistas e outros. Com a popularização da internet foi necessário buscar outros meios de marketing, chegando ao marketing digital que é o uso das mídias sociais para exposição dos produtos.
 	
-	Na opinião de \cite{torres2000}, "As mídias sociais são sites na internet que permitem a criação e o compartilhamento de informações e conteúdos pelas pessoas e para as pessoas, nas quais o consumidor é ao mesmo tempo produtor e consumidor da informação. Elas recebem esse nome porque são sociais, ou seja, são livres e abertas à colaboração e interação de todos, e porque são mídias, ou seja, meios de transmissão de informações e conteúdo.". 
+	Na opinião de \cite{torres2000}, \daniel{"}{``}As mídias sociais são sites na internet que permitem a criação e o compartilhamento de informações e conteúdos pelas pessoas e para as pessoas, nas quais o consumidor é ao mesmo tempo produtor e consumidor da informação. Elas recebem esse nome porque são sociais, ou seja, são livres e abertas à colaboração e interação de todos, e porque são mídias, ou seja, meios de transmissão de informações e conteúdo.\daniel{"}{''}. 
 	
 	\subsection*{Trabalhos Relacionados}
 	Atualmente, uma solução encontrada que faz integração entre as redes sociais e ao conceito de sinalização digital é o software da OOZO, usando o kit Raspberry Pi, na sua versão mais completa é possível espelhar comentários das redes sociais e criar um filtro de hastag das redes sociais. Entretanto, todo o conteúdo é exibido apenas em tela publica, sendo possível apenas a pré-visualização em browsers \cite{oozo2017}.
