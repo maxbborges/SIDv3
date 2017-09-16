@@ -147,41 +147,65 @@
 
 \subsection*{Objetivos Específicos}
 	 \begin{itemize}
+	\item Implementar um sistema para um âmbito mais acadêmico, para melhorar a disseminação de informações dentro do Câmpus.
+	 	
 	\item Melhorias do sistema usado como base, o SID \cite{sobrinho2017}.
 	
-	\item Melhoria na integração do sistema com o Facebook.
+	\item Usar a ferramenta Graph API para melhoria na integração do sistema com o Facebook.
 	
 	\item Integrar o sistema com outras mídias sociais como o twitter.
 	
 	\item Implementação de uma versão mobile do sistema, para possíveis consultas ou exibição do conteúdo, tornando a exibição das informações multiplataforma, exibindo-a em painéis, TVs, paginas de internet ou celulares.
 	\end{itemize}
 \section*{Metodologia}
-
+	Partindo da pesquisa descritiva, será descrito os procedimentos e passos que foram seguidos e usados para obtenção do resultado desejado.
+	
+	A revisão de bibliografia é usada como meio de direcionamento do trabalho, usando comparações entre ferramentas desenvolvidas com o proposito principais de sinalização e marketing digital, partindo de tais soluções com o objetivo de avaliar os pontos negativos tendo como base as necessidades do Câmpus e então juntar ao processo de desenvolvimento os elementos que forem selecionados como principais e que são responsáveis por efetivar a disseminação da informação ao sistema de forma descentralizada e com o auxílio de ferramentas utilizadas no contexto WEB
+	 
+	Usando o SID como sistema base e com uma estrutura cliente-servidor, será implementado no sistema as interações com as redes sociais. As informações serão apresentadas em multiplataforma que são televisores, painéis, paginas web ou celulares, essas informações podem ser alteradas usando o servidor, um \textit{Raspberry Pi}, com o sistema instalado e conectado a internet. Após serem criadas ou modificadas, as publicadas poderão ser transmitidas e acessadas pelos clientes em distintas plataformas ao mesmo tempo.
+	
+	A metodologia presente neste trabalho está direcionada aos aspectos específicos	do desenvolvimento de ferramentas computacionais com o intuito de melhoria nos processo de comunicação e veiculação de informações
+	
 \section*{Cronograma e Descrição Orçamentária do Projeto}
 	\begin{enumerate}[label=\Roman*)]
-	\item Pesquisa do referencial teórico	
+	\item Levantamento Bibliográfico
 	
-	\item 
+	\item Implementação do sistema.
 	
-	\item 
+	\item Melhorias gerais no código e no banco de dados do sistema usado como base.
+	
+	\item Melhorias da interação do sistema com Facebook.
+	
+	\item Implementação de outras possíveis redes sociais.
+	
+	\item Mineração de dados para recuperação de comentários.
+	
+	\item Implementação da moderação dos comentários que serão publicados.
+	
+	\item Porte do sistema para mobile.
+	
+	\item Escrita da Monografia.
 	
 	\end{enumerate}
 
 \begin{table}[h!]
 	\centering
-	\caption{My caption}
+	\caption{Cronograma}
 	\label{my-label}
 	\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
 		\cline{2-11}
 		& \multicolumn{5}{c|}{2017}   & \multicolumn{5}{c|}{2018}   \\ \hline
 		\multicolumn{1}{|c|}{OBJ/MÊS} & AGO & SET & OUT & NOV & DEZ & FEV & MAR & ABR & MAI & JUN \\ \hline
-		\multicolumn{1}{|c|}{I}       & x   & x   &     &     &     &     &     &     &     &     \\ \hline
-		\multicolumn{1}{|c|}{II}      &     &     &     &     &     &     &     &     &     &     \\ \hline
-		\multicolumn{1}{|c|}{III}     &     &     &     &     &     &     &     &     &     &     \\ \hline
+		\multicolumn{1}{|c|}{I}		&X&X& & & & & & & &\\ \hline
+		\multicolumn{1}{|c|}{II}	& &X&X & & & & & & &\\ \hline
+		\multicolumn{1}{|c|}{III}	& & &X&X&X& & & & &\\ \hline
+		\multicolumn{1}{|c|}{IV}	& & & &X&X&X& & & &\\ \hline
+		\multicolumn{1}{|c|}{V}		& & & & &X&X& & & &\\ \hline
+		\multicolumn{1}{|c|}{VI}	& & & & & &X&X& & &\\ \hline
+		\multicolumn{1}{|c|}{VII}	& & & & & &X&X& & &\\ \hline
+		\multicolumn{1}{|c|}{VIII}	& & & & & & &X&X&X&\\ \hline
+		\multicolumn{1}{|c|}{IX}	& & & & & & & &X&X&X\\ \hline
 	\end{tabular}
 \end{table}
-
-\danielobs{preencha as tabelas.}
-
 \bibliography{bibliografia}
 \end{document}
