@@ -134,15 +134,23 @@
 			VII & SIM & NÃO & SIM & SIM & SIM \\ \hline
 		\end{tabular}
 	\end{table}
+	
+	\danielobs{Continuo não entendendo a tabela. Por que apenas o mangosigns é portável? Não entendi também por que o SID não possui o critério 5, uma vez que o servidor está desacoplado do cliente.}
 		
 \section*{Justificativa}
 	Atualmente, o IFB utiliza excepcionalmente o seu perfil do facebook e sua página oficial para realização das postagens referentes a informações da instituição, sendo necessário o administrador acessar cada página e realizar uma postagem independente em cada uma delas. Além de ser uma tarefa não trivial para se realizar todos os dias, a interatividade com e entre os usuários de cada página é algo um tanto quanto ruim, não somente pela falta de praticidade mas também pela falta de moderação das postagens e comentários.
 	
+	\danielobs{Faltou o gancho. Explique pro leitor o porque do nosso trabalho ser necessário neste ponto.}
+	
+	
 \section*{Proposta}
 	Usando uma estrutura cliente-servidor, utilizando o sistema SID como base e com a união do conceito de sinalização e marketing digital, a proposta é fazer com que o sistema apresente conteúdos referentes ao IFB e essas informações tenha integração com as redes sociais, incluindo o Facebook, Realizando uma mineração de dados para fazer uma filtragem dos comentários e apresentar postagens e comentários em tempo real nas, devidamente moderados, em telas ou dispositivos móveis espalhadas pelos Câmpus Taguatinga do Instituto Federal de Brasília. Na versão para dispositivos móveis, o servidor irá enviar informações e avisos distintos para cada aluno ou turma, através de um login com a matricula cadastrada no SGA (Sistema de Gestão Academica) do Câmpus.
 	
+	\danielobs{Substituta irá por poderá. O sistema poderá enviar mensagens personalizadas para os alunos ou professores.}
 \subsection*{Objetivos Gerais}
-	Com objetivo de diminuição da carência e aumento da facilidade de disseminação das informações e propagandas pertinentes ao IFB - Câmpus Taguatinga, o sistema deverá ser capaz de proporcionar objetividade e simplicidade nas informações a serem repassadas. Além de painéis instalados pelo Câmpus, ele deve ter a integração com as mídias sociais como Facebook e Twitter, unificando os sistemas de comunicação do IFB. Além das otimizações necessárias no sistema, será usada também técnicas de mineração de dados, para que seja possível selecionar conteúdos apropriados para inserção e publicação no sistema, filtrando informações e comentários que sejam mais propícios a ter reações positivas por partes dos telespectadores. Com a versão mobile do sistema, o aluno poderá não só ter acesso as propagandas que são publicadas de forma geral para o Câmpus, mas também a conteúdos específicos através da matricula do SGA, informações como mensagens encaminhada do professor para uma turma ou para um aluno especifico.
+	Com objetivo de diminuição da carência e aumento da facilidade de disseminação das informações e propagandas pertinentes ao IFB - Câmpus Taguatinga, o sistema deverá ser capaz de proporcionar objetividade e simplicidade nas informações a serem repassadas. Além de painéis instalados pelo Câmpus, ele deve ter a integração com as mídias sociais como Facebook e Twitter, unificando os sistemas de comunicação do IFB.
+	
+	 Além das otimizações necessárias no sistema, será usada também técnicas de mineração de dados, para que seja possível selecionar conteúdos apropriados para inserção e publicação no sistema, filtrando informações e comentários que sejam mais propícios a ter reações positivas por partes dos telespectadores. Com a versão mobile do sistema, o aluno poderá não só ter acesso as propagandas que são publicadas de forma geral para o Câmpus, mas também a conteúdos específicos através da matricula do SGA, informações como mensagens encaminhada do professor para uma turma ou para um aluno especifico.
 
 
 \subsection*{Objetivos Específicos}
@@ -167,6 +175,8 @@
 	Usando o SID como sistema base, uma estrutura cliente-servidor e conexão a \textit{Internet} , será implementado no sistema as interações com as redes sociais. As informações serão apresentadas em multiplataforma que podem ser televisores, painéis, paginas web ou celulares, essas informações podem ser alteradas acessando o servidor, um \textit{Raspberry Pi}, com o sistema instalado e conectado a Internet. Após serem criadas ou modificadas, as publicadas poderão ser transmitidas e acessadas pelos clientes em distintas plataformas ao mesmo tempo.
 	
 	A metodologia presente neste trabalho está direcionada aos aspectos específicos	do desenvolvimento de ferramentas computacionais com o intuito de melhoria nos processo de comunicação e veiculação de informações.
+	
+	\danielobs{Cadê a metodologia do desenvolvimento mobile. Mencione aqui a adoção de algum framework para desenvolver para mobile.}
 	
 \section*{Cronograma e Descrição Orçamentária do Projeto}
 	 O cronograma do projeto subdivide-se em diversas etapas, levando em conta os meses de agosto a dezembro de 2017 e fevereiro a junho de 2018, as etapas estão dispostas nesses meses da seguinte maneira:
@@ -198,6 +208,7 @@
 	
 	\end{enumerate}
 
+
 \begin{table}[h!]
 	\centering
 	\caption{Cronograma}
@@ -220,6 +231,8 @@
 		\multicolumn{1}{|c|}{XII}	& & & & & & & &X&X&X\\ \hline
 	\end{tabular}
 \end{table}
+
+	\danielobs{Coloque o tópico: defesa da monografia.}
 
 \bibliography{bibliografia}
 \end{document}
