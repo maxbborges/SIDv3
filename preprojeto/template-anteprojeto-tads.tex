@@ -100,7 +100,7 @@
 	\subsection*{Trabalhos Relacionados}
 	Atualmente, uma solução encontrada na literatura que faz integração entre \textit{marketing} digital e o conceito de sinalização digital é o software da OOZO, usando o kit \textit{Raspberry Pi}. Na sua versão mais completa é possível espelhar comentários e até mesmo criar um filtro de \textit{hashtag}, além de possuir em cada tela um \textit{QR code} de redirecionamento para a página da noticia completa. Entretanto, todo o conteúdo é exibido apenas em uma tela pública, painéis colocada em locais estratégicos de grande acesso público e com programação especificas, designadas pelo desenvolvedor com a assinatura de um serviço de exibição. Já em navegadores é possível apenas a pré-visualização das informações. Em sua versão gratuita, metade do conteúdo exibido será o seu e a outra parte será outras propagandas escolhidas pelos criados do software. \cite{oozo2017}.
 	
-	Outra solução encontrada é a MangoSigns, possui integração com as redes sociais, atualidades, informações do tempo e uma interface amigável. Entretanto, é necessário um dispositivo próprio chamado Mango Sing Box para que as modificações feitas na interface do programa sejam transmitidas para a TV, além de não possuir um \textit{QR code} para que o telespectador possa acessar a noticia completa. Em sua versão gratuita, a compatibilidade com as mídias sociais serão desabilitadas \cite{mango2017}.
+	Outra solução encontrada é a MangoSigns, possui integração com as redes sociais, atualidades, informações do tempo e uma interface amigável. Entretanto, é necessário um dispositivo android ou um próprio chamado Mango Sing Box para que as modificações feitas na interface do programa sejam transmitidas para a TV, além de não possuir um \textit{QR code} para que o telespectador possa acessar a noticia completa. Em sua versão gratuita, a compatibilidade com as mídias sociais serão desabilitadas \cite{mango2017}.
 	
 	O SID (Sistema Inteligente de Divulgação de Informações do IFG-Formosa), é outra solução, entretanto a integração com as redes sociais é pouca, limitando-se ao Facebook com postagens no perfil do usuário do sistema. Usando o \textit{Raspberry Pi}, o SID apresenta as informações que lhe são configuradas, conta com um \textit{QR Code} apresentado na tela para caso o telespectador tenha interesse em acessar a noticia completa \cite{sobrinho2017}.
 	
@@ -113,7 +113,7 @@
 	\item Comprometimento com o propósito: o sistema em questão possibilita a veiculação de informações através de mecanismos de sinalização digital?
 	\item Criação simples de divulgações: o operador possui facilidade de incluir novas divulgações com aspecto atrativo?
 	\item Portabilidade: é possível visualizar a divulgação em diferentes dispositivos?
-	\item Integração com redes sociais: o sistema integra-se nativamente de alguma forma com redes sociais?
+	\item Integração com redes sociais: o sistema integra-se nativamente de alguma forma com redes sociais, mesmo que de forma limitada?
 	\item O conteúdo pode ser gerenciado em um dispositivo diferente ao que é criado, fortalecendo a descentralização e manutenção?
 	\item A versão gratuita explora toda a capacidade do programa?
 	\item Usa um sistema/dispositivo de fácil obtenção (Aplicativo próprio ou de uso comum)?
@@ -125,28 +125,24 @@
 		\begin{tabular}{|c|c|c|c|c|c|}
 			\hline
 			Quesito/Sistema & OOZO & MangoSigns & SID & Screenly & XIBO \\ \hline
-			I & SIM & SIM & SIM & SIM & SIM \\ \hline
-			II & SIM  & SIM & SIM & SIM & SIM \\ \hline
-			III & NÃO & SIM & NÃO & NÃO & NÃO\\ \hline
-			IV & SIM & NÃO & SIM & NÃO & NÃO\\ \hline
-			V & NÃO & NÃO & NÃO & NÃO & NÃO\\ \hline
-			VI & NÃO & NÃO & SIM & NÃO & SIM  \\ \hline
-			VII & SIM & NÃO & SIM & SIM & SIM \\ \hline
+			I 				& SIM  & SIM		& SIM & SIM 	 & SIM	\\ \hline
+			II 				& SIM  & SIM 		& SIM & SIM 	 & SIM	\\ \hline
+			III				& NÃO  & SIM 		& NÃO & NÃO 	 & NÃO	\\ \hline
+			IV 				& SIM  & NÃO 		& SIM & NÃO 	 & NÃO	\\ \hline
+			V 				& SIM  & SIM 		& SIM & SIM 	 & SIM	\\ \hline
+			VI 				& NÃO  & NÃO 		& SIM & NÃO 	 & SIM	\\ \hline
+			VII 			& SIM  & SIM 		& SIM & SIM 	 & SIM	\\ \hline
 		\end{tabular}
 	\end{table}
 	
-	\danielobs{Continuo não entendendo a tabela. Por que apenas o mangosigns é portável? Não entendi também por que o SID não possui o critério 5, uma vez que o servidor está desacoplado do cliente.}
-		
 \section*{Justificativa}
-	Atualmente, o IFB utiliza excepcionalmente o seu perfil do facebook e sua página oficial para realização das postagens referentes a informações da instituição, sendo necessário o administrador acessar cada página e realizar uma postagem independente em cada uma delas. Além de ser uma tarefa não trivial para se realizar todos os dias, a interatividade com e entre os usuários de cada página é algo um tanto quanto ruim, não somente pela falta de praticidade mas também pela falta de moderação das postagens e comentários.
+	Atualmente, o IFB utiliza excepcionalmente o seu perfil do facebook e sua página oficial para realização das postagens referentes a informações da instituição, sendo necessário o administrador acessar cada página e realizar uma postagem independente em cada uma delas. Além de ser uma tarefa não trivial para se realizar todos os dias, a interatividade entre os usuários da página é algo um tanto quanto ruim, não somente pela falta de praticidade mas também pela falta de moderação das postagens e comentários.
 	
-	\danielobs{Faltou o gancho. Explique pro leitor o porque do nosso trabalho ser necessário neste ponto.}
-	
+	O sistema proposto, visa proporciona a integração dos meios usados atualmente para apresentação das informações referentes ao Câmpus, além da inclusão de outros meios. Com o uso do sistema proposto, será possível apresentar as mesmas informações em telas espalhadas por locais de maior movimento do Câmpus, na pagina do facebook da instituição e até mesmo por um dispositivo móvel pessoal do aluno ou professor. Além disso, será possível uma melhor integração entre as notícias publicadas e os telespectadores, pois o sistema contará com a exibição em tempo real de comentários feitos pelos usuários na publicação.
 	
 \section*{Proposta}
-	Usando uma estrutura cliente-servidor, utilizando o sistema SID como base e com a união do conceito de sinalização e marketing digital, a proposta é fazer com que o sistema apresente conteúdos referentes ao IFB e essas informações tenha integração com as redes sociais, incluindo o Facebook, Realizando uma mineração de dados para fazer uma filtragem dos comentários e apresentar postagens e comentários em tempo real nas, devidamente moderados, em telas ou dispositivos móveis espalhadas pelos Câmpus Taguatinga do Instituto Federal de Brasília. Na versão para dispositivos móveis, o servidor irá enviar informações e avisos distintos para cada aluno ou turma, através de um login com a matricula cadastrada no SGA (Sistema de Gestão Academica) do Câmpus.
+	Usando uma estrutura cliente-servidor, utilizando o sistema SID como base e com a união do conceito de sinalização e marketing digital, a proposta é fazer com que o sistema apresente conteúdos referentes ao IFB e essas informações tenha integração com as redes sociais, incluindo o Facebook, Realizando uma mineração de dados para fazer uma filtragem dos comentários e apresentar postagens e comentários em tempo real nas, devidamente moderados, em telas ou dispositivos móveis espalhadas pelos Câmpus Taguatinga do Instituto Federal de Brasília. Na versão para dispositivos móveis, o servidor poderá enviar informações e avisos distintos para cada aluno, turma ou professor, através de um login com a matricula cadastrada no SGA (Sistema de Gestão Academica) do Câmpus.
 	
-	\danielobs{Substituta irá por poderá. O sistema poderá enviar mensagens personalizadas para os alunos ou professores.}
 \subsection*{Objetivos Gerais}
 	Com objetivo de diminuição da carência e aumento da facilidade de disseminação das informações e propagandas pertinentes ao IFB - Câmpus Taguatinga, o sistema deverá ser capaz de proporcionar objetividade e simplicidade nas informações a serem repassadas. Além de painéis instalados pelo Câmpus, ele deve ter a integração com as mídias sociais como Facebook e Twitter, unificando os sistemas de comunicação do IFB.
 	
@@ -174,9 +170,7 @@
 	 
 	Usando o SID como sistema base, uma estrutura cliente-servidor e conexão a \textit{Internet} , será implementado no sistema as interações com as redes sociais. As informações serão apresentadas em multiplataforma que podem ser televisores, painéis, paginas web ou celulares, essas informações podem ser alteradas acessando o servidor, um \textit{Raspberry Pi}, com o sistema instalado e conectado a Internet. Após serem criadas ou modificadas, as publicadas poderão ser transmitidas e acessadas pelos clientes em distintas plataformas ao mesmo tempo.
 	
-	A metodologia presente neste trabalho está direcionada aos aspectos específicos	do desenvolvimento de ferramentas computacionais com o intuito de melhoria nos processo de comunicação e veiculação de informações.
-	
-	\danielobs{Cadê a metodologia do desenvolvimento mobile. Mencione aqui a adoção de algum framework para desenvolver para mobile.}
+	A metodologia presente neste trabalho está direcionada aos aspectos específicos	do desenvolvimento de ferramentas computacionais com o intuito de melhoria nos processo de comunicação e veiculação de informações através de varias plataformas, sejam elas mobile, web ou painéis. Para a versão mobile do sistema, será usado um framework de desenvolvimento especifica para a plataforma.
 	
 \section*{Cronograma e Descrição Orçamentária do Projeto}
 	 O cronograma do projeto subdivide-se em diversas etapas, levando em conta os meses de agosto a dezembro de 2017 e fevereiro a junho de 2018, as etapas estão dispostas nesses meses da seguinte maneira:
@@ -206,6 +200,8 @@
 	
 	\item Escrita da Monografia.
 	
+	\item Defesa de monografia
+	
 	\end{enumerate}
 
 
@@ -229,10 +225,9 @@
 		\multicolumn{1}{|c|}{X}		& & & & & & & &X&X&X\\ \hline
 		\multicolumn{1}{|c|}{XI}	& & & & & & & & &X&X\\ \hline
 		\multicolumn{1}{|c|}{XII}	& & & & & & & &X&X&X\\ \hline
+		\multicolumn{1}{|c|}{XII}	& & & & & & & & & &X\\ \hline
 	\end{tabular}
 \end{table}
-
-	\danielobs{Coloque o tópico: defesa da monografia.}
 
 \bibliography{bibliografia}
 \end{document}
