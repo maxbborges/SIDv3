@@ -1,0 +1,123 @@
+<div class="jumbotron">
+	<div style="width: 70%;">
+		<h3>Editar Dados da Divulgação:</h3>
+
+		<form
+			action="<?php
+			echo $this->url ( 'divulgacao', array (
+					'controller' => 'divulgacao',
+					'action' => 'editarDados' 
+			) );
+			?>"
+			method="POST" enctype="multipart/form-data">
+			<input value="<?php echo $this->editar->getDivId();?>" name="divid" style="display: none" />
+			<div id="div-cadastrar-divulgacao" class="form-group">
+				<br>
+				<h4>Legenda</h4>
+				<input value="<?php echo $this->editar->getLegenda();?>"
+					class="form-control" placeholder="Legenda" name="legenda">
+				<h4>Link de detalhes</h4>
+				<input value="<?php echo $this->editar->getLinkqr();?>"
+					class="form-control" placeholder="Link para mais informações"
+					name="linkqr">
+				<h4>Prioridade</h4>
+				<select class="form-control" name="prioridade" style="width: 60%">
+					<option value="<?php echo $this->editar->getPrioridade();?>"><?php echo $this->editar->getPrioridade();?></option>
+					<option value="Alta">Alta</option>
+					<option value="Mediana">Mediana</option>
+					<option value="Baixa">Baixa</option>
+				</select>
+				<h4>Data de término da divulgação</h4>
+			<?php
+			$partes = explode ( "-", $this->editar->getDatatermino () . "" );
+			?>
+			<select class="form-control" name="dia"
+					style="width: 80px; float: left;">
+					<option value="<?php echo $partes[2]?>"><?php echo $partes[2]?></option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>
+					<option value="31">31</option>
+
+				</select> <select class="form-control" name="mes"
+					style="width: 80px; float: left;">
+					<option value="<?php echo $partes[1]?>"><?php echo $partes[1]?></option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				</select> <select class="form-control" name="ano"
+					style="width: 80px; float: left;">
+					<option value="<?php echo $partes[0]?>"><?php echo $partes[0]?></option>
+				<?php
+				$ano = date ( 'Y' );
+				?>
+				<option value="<?php echo $ano?>"><?php echo $ano?></option>
+					<option value="<?php echo $ano+1?>"><?php echo $ano+1?></option>
+					<option value="<?php echo $ano+2?>"><?php echo $ano+2?></option>
+				</select> <a class="btn btn-default"
+					href="<?php
+					echo $this->url ( 'divulgacao', array (
+							'controller' => 'divulgacao',
+							'action' => 'listar'
+					) );
+					?>">Cancelar</a> <input type="submit" value="Atualizar"
+					class="btn btn-success" name="submit">
+			</div>
+		</form>
+
+	</div>
+	<div
+		style="float: right; margin-right: 10%; position: fixed; top: 73px; right: 8%;">
+		<h3>Editar Imagem:</h3>
+		<br>
+		<form
+			action="<?php
+			echo $this->url ( 'divulgacao', array (
+					'controller' => 'divulgacao',
+					'action' => 'editar-imagem' 
+			) );
+			?>"
+			method="POST" enctype="multipart/form-data">
+			<input value="<?php echo $this->editar->getDivId();?>" name="divid" style="display: none" />
+			<input type="file" class="form-control" name="imagem"
+				style="height: 0%"> <input type="submit" value="Atualizar Imagem"
+				class="btn btn-success" name="submit">
+		</form>
+	</div>
+</div>

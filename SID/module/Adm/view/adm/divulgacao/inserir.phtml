@@ -1,0 +1,97 @@
+<div class="jumbotron">
+
+	<h3>Nova Divulgação:</h3>
+	<form
+		action="<?php
+		echo $this->url ( 'divulgacao', array (
+				'controller' => 'divulgacao',
+				'action' => 'inserir' 
+		) );
+		?>"
+		method="POST" enctype="multipart/form-data">
+		<div id="div-cadastrar-divulgacao" class="form-group">
+			<input class="form-control" placeholder="Legenda" name="legenda"> <input
+				class="form-control" placeholder="Link para mais informações"
+				name="linkqr"> <select class="form-control" name="prioridade"
+				style="width: 30%">
+				<option value="">Prioridade</option>
+				<option value="Alta">Alta</option>
+				<option value="Mediana">Mediana</option>
+				<option value="Baixa">Baixa</option>
+			</select>
+			<h4>Data de término da divulgação</h4>
+
+			<select class="form-control" name="dia"
+				style="width: 80px; float: left;">
+				<option value="">Dia</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+				<option value="17">17</option>
+				<option value="18">18</option>
+				<option value="19">19</option>
+				<option value="20">20</option>
+				<option value="21">21</option>
+				<option value="22">22</option>
+				<option value="23">23</option>
+				<option value="24">24</option>
+				<option value="25">25</option>
+				<option value="26">26</option>
+				<option value="27">27</option>
+				<option value="28">28</option>
+				<option value="29">29</option>
+				<option value="30">30</option>
+				<option value="31">31</option>
+
+			</select> <select class="form-control" name="mes"
+				style="width: 80px; float: left;">
+				<option value="">Mês</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+			</select> <select class="form-control" name="ano"
+				style="width: 80px; float: left;">
+				<option value="">Ano</option>
+				<?php
+				$ano = date ( 'Y' );
+				?>
+				<option value="<?php echo $ano?>"><?php echo $ano?></option>
+				<option value="<?php echo $ano+1?>"><?php echo $ano+1?></option>
+				<option value="<?php echo $ano+2?>"><?php echo $ano+2?></option>
+			</select>
+			<br><br>
+			<h4>Imagem:</h4>
+			<input type="file" class="form-control" name="imagem"
+				style="height: 50px"> <br> <a class="btn btn-default"
+				href="<?php
+				echo $this->url ( 'divulgacao', array (
+						'controller' => 'divulgacao',
+						'action' => 'listar' 
+				) );
+				?>">Cancelar</a> <input type="submit" value="Inserir"
+				class="btn btn-success" name="submit">
+		</div>
+	</form>
+</div>

@@ -1,0 +1,26 @@
+<div class="jumbotron">
+	
+	<a href="<?php
+		echo $this->url ( 'divulgacao', array (
+			'controller' => 'divulgacao',
+			'action' => 'deletar' 
+		) );echo '?divid=' . $this->detalhes->getDivId();
+	?>" class="btn btn-default btnDetalhes"><img alt="Deletar" src="/img/delete.png" style="width: 79%; position: inherit;"></a>
+	 <a href="<?php
+	 	echo $this->url ( 'divulgacao', array (
+			'controller' => 'divulgacao',
+			'action' => 'editar-dados' 
+		) );echo '?divid=' . $this->detalhes->getDivId();
+	?>" class="btn btn-default btnDetalhes"><img alt="Editar" src="/img/reset2.png" style="width: 79%; position: inherit;"></a></li>
+	</a>
+	
+	<h3>Detalhes da divulgação</h3>
+	<br>
+	<img class="imgDetalhes" alt="<?php echo $this->detalhes->getDivId();?>" src="/imagem.php?divid=<?php echo $this->detalhes->getDivId();?>">
+	Legenda: <?php echo $this->detalhes->getLegenda();?><br>
+	Facebook ID: <?php echo $this->detalhes->getFbId();?><br>
+	Link: <?php echo $this->detalhes->getLinkqr();?><br>
+	Prioridade: <?php echo $this->detalhes->getPrioridade();?><br>
+	Data de Termino: <?php echo $this->detalhes->getDatatermino();?><br>
+
+</div>

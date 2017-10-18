@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comment version="3.0">
+  <caption>Collection of images</caption>
+  <note>Collection of images</note>
+  <place/>
+  <categories>
+    <category value="3d"/>
+    <category value="abstract"/>
+    <category value="black"/>
+    <category value="blue"/>
+    <category value="business"/>
+    <category value="collection"/>
+    <category value="communication"/>
+    <category value="computer"/>
+    <category value="concept"/>
+    <category value="design"/>
+    <category value="digital"/>
+    <category value="display"/>
+    <category value="entertainment"/>
+    <category value="film"/>
+    <category value="flat"/>
+    <category value="hd"/>
+    <category value="hdtv"/>
+    <category value="illustration"/>
+    <category value="image"/>
+    <category value="images"/>
+    <category value="internet"/>
+    <category value="media"/>
+    <category value="modern"/>
+    <category value="monitor"/>
+    <category value="multimedia"/>
+    <category value="panel"/>
+    <category value="photos"/>
+    <category value="picture"/>
+    <category value="pictures"/>
+    <category value="presentation"/>
+    <category value="render"/>
+    <category value="screen"/>
+    <category value="square"/>
+    <category value="technology"/>
+    <category value="television"/>
+    <category value="tv"/>
+    <category value="water"/>
+    <category value="wide"/>
+    <category value="photo"/>
+    <category value="group"/>
+    <category value="screens"/>
+    <category value="reflection"/>
+    <category value="pics"/>
+    <category value="collage"/>
+    <category value="live"/>
+    <category value="displays"/>
+  </categories>
+</comment>

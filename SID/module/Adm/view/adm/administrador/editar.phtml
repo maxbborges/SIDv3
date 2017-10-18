@@ -1,0 +1,25 @@
+<div class="jumbotron">
+
+	<h3>Atualizar dados do administrador:</h3>
+	<form
+		action="<?php echo $this->url( 'administrador', array (
+					'controller' => 'administrador',
+					'action' => 'editar' 
+			) );?>"
+		method="POST" enctype="multipart/form-data">
+		<div id="div-cadastrar-divulgacao" class="form-group">
+			<input class="form-control" placeholder="Nome" name="nome" value="<?php echo $this->editar->getNome();?>"> 
+			<input class="form-control" placeholder="Email" name="email" type="email" value="<?php echo $this->editar->getEmail();?>"> 
+			<h5>Se deseja trocar de senha, preencha os campos, caso contrário, deixe em branco!</h5>
+			
+			<input class="form-control" placeholder="Senha" name="senha" type="password"> 
+			
+			<input class="form-control" placeholder="Confirmação de senha" name="senhaConf" type="password"> 
+			<a href="<?php echo $this->url ( 'divulgacao', array (
+					'controller' => 'divulgacao',
+					'action' => 'listar' 
+			) );?>" class="btn btn-default">Cancelar</a>
+			<input class="form-control btn btn-success" name="submit" type="submit" value="Atualizar" style="width: 100px;">
+		</div>
+	</form>
+</div>
