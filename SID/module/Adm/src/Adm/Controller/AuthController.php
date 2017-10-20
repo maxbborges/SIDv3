@@ -20,7 +20,9 @@ class AuthController extends AbstractActionController {
 		
 		$permissions = [
 				'email',
-				'publish_actions'
+				'publish_actions',
+				'manage_pages',
+				'publish_pages'
 		];
 		
 		echo $ip = $this->getRequest()->getServer('REMOTE_ADDR');
