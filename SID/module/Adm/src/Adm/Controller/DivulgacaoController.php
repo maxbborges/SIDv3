@@ -52,16 +52,111 @@ class DivulgacaoController extends AbstractActionController {
 						'source' => $myFileToUpload,
 						'access_token' => $sessao->fb_access_token 
 				];
+
+
+												//Publicar na Pagina pessoal
 				
+				// try {
+				// 	$response = $fb->post ( '/me/photos', $data );// Envio para o Perfil do SID
+				// } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+				// 	echo 'Error: ' . $e->getMessage ();
+				// 	exit();
+				// }
+
+
+													//Publicar na Pagina
+
+
+				$tokenPagina = 'EAACVVnZBeZA2YBAEVJv8tkyEsgg7Sz7NRFWjo1K5EASrWOfZAwcJHH9n5nwJDYZBZAOO2ZBNKKRIl8LeWJAz8YJNuKUr7EvHtb4VISMBdloHTNnb2o0aesScxwYOEqYwDj6sBuRJWQfjNqFKtZC0CXBzrf1SXw3h90ZCgoCfrnioFXcndSJK4RS6DZBDcga9xB6QkkYYjimgzjgZDZD';
+
+				$idPagina = '415358248866659';
+
+				// $dados = [
+				// 	//'access_token' => $tokenPagina,	
+				// 	'message' => $text
+				// ];
+
+				// try {
+				// 	$response = $fb->post ( '/'.$idPagina.'/feed/', $dados, $tokenPagina );// Envio para o Perfil do SID
+				// } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+				// 	echo 'Error: ' . $e->getMessage ();
+				// 	exit();
+				// }
+				
+				// $graphNode = $response->getGraphNode (); // resposta
+
+
+
+													//Recuperar publicaçoes
+
+				// try {
+				// 	$response = $fb->get ( '/'.$idPagina.'/feed/', $tokenPagina );
+				// } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+				// 	echo 'Error: ' . $e->getMessage ();
+				// 	exit();
+				// }			
+
+				// $array = $response->getDecodedBody();
+
+				// foreach ($array as $value) {
+				// 	echo $value[0]['created_time']."<br>";
+				// 	echo $value[0]['message']."<br>";
+				// 	echo $value[0]['id']."<br>";
+				// }
+
+
+
+												// Recuperar Comentarios
+
+				$idPublicacao = '415358248866659_419055568496927';
+
+				// try {
+				// 	$response = $fb->get ( '/'.$idPublicacao.'/comments' , $tokenPagina );// Envio para o Perfil do SID
+				// } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+				// 	echo 'Error: ' . $e->getMessage ();
+				// 	exit();
+				// }
+
+				// $array = $response->getDecodedBody();
+
+				// foreach ($array as $value) {
+				// 	echo $value[0]['created_time']."<br>";
+				// 	echo $value[0]['from']['name']."<br>";
+				// 	echo $value[0]['from']['id']."<br>";
+				// 	echo $value[0]['message']."<br>";
+				// 	echo $value[0]['id']."<br>";
+				// }
+
+
+
+											// Recuperar Likes
+
 				try {
-					$response = $fb->post ( '/me/photos', $data );// Envio para o Perfil do SID
+					$response = $fb->get ( '/'.$idPublicacao.'/likes' , $tokenPagina );// Envio para o Perfil do SID
 				} catch ( Facebook\Exceptions\FacebookSDKException $e ) {
 					echo 'Error: ' . $e->getMessage ();
 					exit();
 				}
-				
-				$graphNode = $response->getGraphNode (); // resposta
-				
+
+				$array = $response->getDecodedBody();
+
+				foreach ($array as $value) {
+					echo $value[0]['id']."<br>";
+					echo $value[0]['name']."<br>";
+				}
+
+
+
+				//echo $a;
+				//echo $idPublicacao;
+
+				// echo '<pre>';
+				// var_dump($value[1]['id']);
+				// echo '<pre>';
+				// die;
+
+				echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'>".$a."</div>";
+
 				$fbId = $graphNode ['id'];
 				
 				$extensao = strrchr ( $nome, "." );
