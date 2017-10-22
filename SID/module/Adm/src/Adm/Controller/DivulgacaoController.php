@@ -67,7 +67,7 @@ class DivulgacaoController extends AbstractActionController {
 													//Publicar na Pagina
 
 
-				$tokenPagina = 'EAACVVnZBeZA2YBAEVJv8tkyEsgg7Sz7NRFWjo1K5EASrWOfZAwcJHH9n5nwJDYZBZAOO2ZBNKKRIl8LeWJAz8YJNuKUr7EvHtb4VISMBdloHTNnb2o0aesScxwYOEqYwDj6sBuRJWQfjNqFKtZC0CXBzrf1SXw3h90ZCgoCfrnioFXcndSJK4RS6DZBDcga9xB6QkkYYjimgzjgZDZD';
+				$tokenPagina = 'EAACVVnZBeZA2YBAJjeyZCXV3mPv4kgJ9ZCmdSPLw7LS6ac1ZA8w0J6oZBnm0LGCjWLXxZAVZB9aZAiiqocxJQFHwTp6uMpRpfZACRZAM7VaoZCrXhSmGLJFTGNHDqXPr9cFiCXrNAZC8AmByLFrRYUYjRJEq5dUGvHqLZAGzkD1esy1ZB7ZAfos7w7Jfkq0CfZCbdEnrg36AEnMbyENfbxAZDZD';
 
 				$idPagina = '415358248866659';
 
@@ -89,43 +89,50 @@ class DivulgacaoController extends AbstractActionController {
 
 													//Recuperar publicaçoes
 
-				// try {
-				// 	$response = $fb->get ( '/'.$idPagina.'/feed/', $tokenPagina );
-				// } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-				// 	echo 'Error: ' . $e->getMessage ();
-				// 	exit();
-				// }			
+				try {
+					$response = $fb->get ( '/'.$idPagina.'/feed/', $tokenPagina );
+				} catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+					echo 'Error: ' . $e->getMessage ();
+					exit();
+				}			
 
-				// $array = $response->getDecodedBody();
+				$array = $response->getDecodedBody();
 
-				// foreach ($array as $value) {
-				// 	echo $value[0]['created_time']."<br>";
-				// 	echo $value[0]['message']."<br>";
-				// 	echo $value[0]['id']."<br>";
-				// }
+				$teste = array();
+
+				foreach ($array as $value) {
+					echo $value[0]['created_time']."<br>";
+					echo $value[0]['message']."<br>";
+					echo $value[0]['id']."<br>";
+
+					$teste[]=$value[0]['id'];
+
+				}
+
+				//print_r ($teste[0]);
 
 
 
 												// Recuperar Comentarios
 
-				$idPublicacao = '415358248866659_419055568496927';
+				$idPublicacao = $teste[0];
 
-				// try {
-				// 	$response = $fb->get ( '/'.$idPublicacao.'/comments' , $tokenPagina );// Envio para o Perfil do SID
-				// } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-				// 	echo 'Error: ' . $e->getMessage ();
-				// 	exit();
-				// }
+				try {
+					$response = $fb->get ( '/'.$idPublicacao.'/comments' , $tokenPagina );// Envio para o Perfil do SID
+				} catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+					echo 'Error: ' . $e->getMessage ();
+					exit();
+				}
 
-				// $array = $response->getDecodedBody();
+				$array = $response->getDecodedBody();
 
-				// foreach ($array as $value) {
-				// 	echo $value[0]['created_time']."<br>";
-				// 	echo $value[0]['from']['name']."<br>";
-				// 	echo $value[0]['from']['id']."<br>";
-				// 	echo $value[0]['message']."<br>";
-				// 	echo $value[0]['id']."<br>";
-				// }
+				foreach ($array as $value) {
+					echo $value[0]['created_time']."<br>";
+					echo $value[0]['from']['name']."<br>";
+					echo $value[0]['from']['id']."<br>";
+					echo $value[0]['message']."<br>";
+					echo $value[0]['id']."<br>";
+				}
 
 
 
@@ -157,7 +164,9 @@ class DivulgacaoController extends AbstractActionController {
 
 				echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'>".$a."</div>";
 
-				$fbId = $graphNode ['id'];
+				//$fbId = $graphNode ['id'];
+
+				$fbId = "11111111";
 				
 				$extensao = strrchr ( $nome, "." );
 				
@@ -183,7 +192,8 @@ class DivulgacaoController extends AbstractActionController {
 					if ($res) {
 						echo "<div style='background-color: #14D700CC;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Divulgação inserida com sucesso!</div>";
 					} else {
-						echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Erro ao tentar enviar para o banco de dados!</div>";
+						// echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Erro ao tentar enviar para o banco de dados!</div>";
+						echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'> ".$fbId."</div>";
 					}
 				} else {
 					echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'>Erro de extensão da imagem, só é permitido '.jpg; .jpeg; .png'</div>";
