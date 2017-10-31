@@ -21,5 +21,10 @@ Requisitos para publicar em pagina:
 'access_tolen' => ''
 ID da pagina
 
+token infinito:
+https://stackoverflow.com/questions/17197970/facebook-permanent-page-access-token
 
+Alteraçao no tamanho do id da divulgaçao, de Integer para bigint
+
+retirado imagem bytea, thumb bytea do banco
 
