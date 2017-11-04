@@ -10,102 +10,108 @@ use Zend\Session\Container;
 class DivulgacaoController extends AbstractActionController {
 	public function listarAction() {
 		$em = $this->getServiceLocator ()->get ( 'Doctrine\ORM\EntityManager' );
-		
+
 		$query = $em->createQuery ( 'SELECT d.divId FROM Adm\Entity\Divulgacao d' );
 		$divs = $query->getResult ();
-		
+
 		return new ViewModel ( array (
-			'divulgacoes' => $divs 
+			'divulgacoes' => $divs
 		) );
 	}
-	
+
 	public function inserirAction() {
 		if ($this->getRequest ()->isPost ()) {
-			
+
             // Parâmetros do Cliente
 			$legenda = $_POST ['legenda'];
 			$linkQr = $_POST ['linkqr'];
 			$prioridade = $_POST ['prioridade'];
-			$dataTermino = $_POST ['ano'] . "-" . $_POST ['mes'] . "-" . $_POST ['dia'];
-			
-            // Verificação de campos vazios
-			if (isset ( $_FILES ['imagem'] ['name'] ) && $_POST ['legenda'] != null && $_POST ['linkqr'] != null && $_POST ['prioridade'] != null && $_POST ['ano'] != null && $_POST ['mes'] != null && $_POST ['dia'] != null && $_FILES ["imagem"] ["error"] == 0) {
-				
-                $sessao = new Container ( 'Auth' );// Obtem a sessão do usuário
-                
-                $arquivo_tmp = $_FILES ['imagem'] ['tmp_name'];// imagem do buffer temporário 
-                $nome = $_FILES ['imagem'] ['name'];
-                
-                // Parâmetros do facebook -> vide class Cofigure
-                $configure = new Configure ();
-                $newFacebook = $configure->newFacebook ();
-                
-                $fb = new \Facebook\Facebook ( $newFacebook );// passa parâmetros para a classe principal da Graph
-                
-                $myFileToUpload = $fb->fileToUpload ( $arquivo_tmp ); // prepara o arquivo passando para base64
-                
-                $text = $_POST['legenda'].". Para mais detalhes acesse: ".$_POST ['linkqr'];
-
-                $data = [ 
-                	'message' => $text,
-                	'caption' => $_POST ['linkqr'],
-                	'source' => $myFileToUpload,
-                        //'access_token' => $sessao->fb_access_token 
-                ];
 
 
-                                                //Publicar na Pagina pessoal
-                
-                // try {
-                //  $response = $fb->post ( '/me/photos', $data );// Envio para o Perfil do SID
-                // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-                //  echo 'Error: ' . $e->getMessage ();
-                //  exit();
-                // }
+      $sessao = new Container ( 'Auth' );// Obtem a sessão do usuário
+
+			// Parâmetros do facebook -> vide class Cofigure
+    	$configure = new Configure ();
+      $newFacebook = $configure->newFacebook ();
+
+      $fb = new \Facebook\Facebook ( $newFacebook );// passa parâmetros para a classe principal da Graph
+
+			// ARMAZENA AS INFORMAÇOES REFERENTES A LENGENDA E AO LINK COLOCADO NA PUBLICAÇÃO
+			if ($legenda != null && $linkQr != null){
+				$text = $legenda.". Para mais detalhes acesse: ".$linkQr;
+			}
+
+			if ($_POST ['prioridade'] != null){
+
+			}
+
+			if ($_POST ['ano'] != null && $_POST ['mes'] != null && $_POST ['dia'] != null){
+				$dataTermino = $_POST ['ano'] . "-" . $_POST ['mes'] . "-" . $_POST ['dia'];
+			} else {
+				//$dataTermino = "01-01-2020";
+			}
+
+			$tokenPagina = 'EAACVVnZBeZA2YBAJt7IBgHj9B8AdnUnFufJpbNas1ELBl7vH4dNKG6QEG5scrNsc1kz6T4OU2VzI04hxnIrRfylCOzlCxwjHJYNMcGZBQCSjuMKC7ZCIV9XidmPn7igPRZCTu7TZBQp5ZAZAQTMU0IYFd6NS1gmQqx6F3wZCrX2AwvTo6jdYZBiBsud';
+			$idPagina = '415358248866659';
+			//$postSelecionado = 0;
+
+			$erro = 0;
+
+																			// POSTAR NA PAGINA COM OU SEM IMAGEM
+
+			if(isset ( $_FILES ['imagem'] ['name'] ) && $_FILES ["imagem"] ["error"] == 0){
+					$arquivo_tmp = $_FILES ['imagem'] ['tmp_name'];// imagem do buffer temporário
+	      	$nome = $_FILES ['imagem'] ['name'];
+					$myFileToUpload = $fb->fileToUpload ( $arquivo_tmp ); // prepara o arquivo passando para base64
+					$extensao = strrchr ( $nome, "." );
+					$extensao = strtolower ( $extensao ); // Converte a extensao para mimusculo
+
+					if (strstr ( '.jpg;.jpeg;.png;.gif', $extensao )) {
+						$dados = [
+	      		//'url' => 'http://1.bp.blogspot.com/-nyE7Y4y-fzg/TlA6gdkxMmI/AAAAAAAAA-4/Y-tWAbDsrDw/s1600/legal.png', // ENVIA UMA IMAGEM A PARTIR DE UM LINK ONLINE
+	      		'message' => $text,
+	     			'source' => $myFileToUpload,
+	      		'caption' => $_POST ['linkqr'],
+						//'picture' => $myFileToUpload
+	       		];
+
+	      	$response = $fb->post ( '/'.$idPagina.'/photos/', $dados, $tokenPagina );
+					$graphNode = $response->getGraphNode ();
+				} else {
+					echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'>Erro de extensão da imagem, só é permitido '.jpg; .jpeg; .png'</div>";
+				}
+
+			} else {
+				$dados = [
+	      	'message' => $text,
+	        'caption' => $_POST ['linkqr'],
+
+	      ];
+	    	$response = $fb->post ( '/'.$idPagina.'/feed/', $dados, $tokenPagina );
+				$graphNode = $response->getGraphNode ();
+			}
+
+      // $data = [
+      // 	'message' => $text,
+      // 	'caption' => $_POST ['linkqr'],
+      // 	'source' => $myFileToUpload,
+      //  'access_token' => $sessao->fb_access_token
+      // ];
 
 
-                                                    //Publicar na Pagina sem foto
+                          //Publicar na Pagina pessoal
+      // try {
+      //  $response = $fb->post ( '/me/photos', $data );// Envio para o Perfil do SID
+      // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+      //  echo 'Error: ' . $e->getMessage ();
+      //  exit();
+      // }
 
+			// PEGAR OUTRO RESPONSE PARA PAGINA PESSOAL
 
-                $tokenPagina = 'EAACVVnZBeZA2YBAJt7IBgHj9B8AdnUnFufJpbNas1ELBl7vH4dNKG6QEG5scrNsc1kz6T4OU2VzI04hxnIrRfylCOzlCxwjHJYNMcGZBQCSjuMKC7ZCIV9XidmPn7igPRZCTu7TZBQp5ZAZAQTMU0IYFd6NS1gmQqx6F3wZCrX2AwvTo6jdYZBiBsud';
-
-                $idPagina = '415358248866659';
-
-                $postSelecionado = 0;
-
-                // $dados = [   
-                //  'message' => $text,
-                //  'picture' => $myFileToUpload
-                // ];
-
-                // try {
-                //  $response = $fb->post ( '/'.$idPagina.'/feed/', $dados, $tokenPagina );// Envio para o Perfil do SID
-                // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-                //  echo 'Error: ' . $e->getMessage ();
-                //  exit();
-                // }
-                
-                // $graphNode = $response->getGraphNode (); // resposta
-
-
-                                                    // Publicar na pagina com foto
-
-                $dados = [  
-                    //'url' => 'https://scontent.fbsb7-1.fna.fbcdn.net/v/t1.0-9/19702411_1290395001069450_5097736575801189523_n.jpg?oh=c8b979fd748cf7f837c2a161ba6bb440&oe=5A674E9A',
-                	'message' => $text,
-                	'source' => $myFileToUpload,
-                	'caption' => $_POST ['linkqr'],
-                ];
-
-                try {
-                    $response = $fb->post ( '/'.$idPagina.'/photos/', $dados, $tokenPagina );// Envio para o Perfil do SID
-                } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-                	echo 'Error: ' . $e->getMessage ();
-                	exit();
-                }
-                
-                $graphNode = $response->getGraphNode (); // resposta
-
+			//if ($erro == 0){
+			//$graphNode = $response->getGraphNode (); // resposta
+			//}
 
 
                                                     //Recuperar Albuns
@@ -145,7 +151,6 @@ class DivulgacaoController extends AbstractActionController {
                 //  echo $value[$postSelecionado]['link']."<br>";
                 //  echo $teste[] = $value[$postSelecionado]['id'];
                 // }
-// 
 
 
 
@@ -157,7 +162,7 @@ class DivulgacaoController extends AbstractActionController {
                 // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
                 //  echo 'Error: ' . $e->getMessage ();
                 //  exit();
-                // }            
+                // }
 
                 // $array = $response->getDecodedBody();
 
@@ -171,7 +176,7 @@ class DivulgacaoController extends AbstractActionController {
 
 
 
-                //                              // Recuperar Comentarios
+                                             // Recuperar Comentarios
 
                 // $idPublicacao = $teste[0];
 
@@ -223,40 +228,37 @@ class DivulgacaoController extends AbstractActionController {
                 //$fbId = $graphNode ['id'];
 
                 $fbId = '415358248866659';
-                
-                $extensao = strrchr ( $nome, "." );
-                
-                // Converte a extensao para mimusculo
-                $extensao = strtolower ( $extensao );
-                
-                if (strstr ( '.jpg;.jpeg;.png;.gif', $extensao )) {
-                	
+
+
+
+                //if (strstr ( '.jpg;.jpeg;.png;.gif', $extensao )) {
+
                     require_once 'public/Connection.php'; // arquivo de conexão com banco de dados como arquivo externo ao Zend
-                    
-                    $sql = "INSERT INTO divulgacao(legenda, fbid, linkqr, prioridade, datatermino) 
+
+                    $sql = "INSERT INTO divulgacao(legenda, fbid, linkqr, prioridade, datatermino)
                     VALUES('$legenda', '$fbId', '$linkQr', '$prioridade', '$dataTermino');";
-                    
+
                     $res = pg_exec ( $conn, $sql );
-                    
+
                     if ($res) {
                     	echo "<div style='background-color: #14D700CC;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Divulgação inserida com sucesso!</div>";
                     } else {
                     	echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Erro ao tentar enviar para o banco de dados!</div>";
                     }
-                } else {
-                	echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'>Erro de extensão da imagem, só é permitido '.jpg; .jpeg; .png'</div>";
-                }
-            } else {
-            	echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'>Não é permitido Campos vazios! Tente novamente.</div>";
-            }
+                // } else {
+                //
+                // }
+            // } else {
+            // 	echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'>Não é permitido Campos vazios! Tente novamente.</div>";
+            // }
         }
     }
 
     public function editarDadosAction() {
     	if ($this->getRequest ()->isPost ()) {
-    		
+
     		$em = $this->getServiceLocator ()->get ( "Doctrine\ORM\EntityManager" );
-    		
+
     		$divid = $this->getRequest ()->getPost ( 'divid' );
     		$legenda = $this->getRequest ()->getPost ( 'legenda' );
     		$linkqr = $this->getRequest ()->getPost ( 'linkqr' );
@@ -264,34 +266,34 @@ class DivulgacaoController extends AbstractActionController {
     		$dia = $this->getRequest ()->getPost ( 'dia' );
     		$mes = $this->getRequest ()->getPost ( 'mes' );
     		$ano = $this->getRequest ()->getPost ( 'ano' );
-    		
+
     		$datatermino = $ano . "-" . $mes . "-" . $dia;
-    		
+
     		$divulgacao = $em->find ( "Adm\Entity\Divulgacao", $divid );
-    		
+
     		try {
     			$divulgacao->setLegenda ( $legenda );
     			$divulgacao->setLinkqr ( $linkqr );
     			$divulgacao->setPrioridade ( $prioridade );
     			$divulgacao->setDatatermino ( $datatermino );
-    			
+
     			$em->merge ( $divulgacao );
     			$em->flush ();
     		} catch ( Exception $e ) {
     		}
-    		
+
     		return $this->redirect ()->toRoute ( 'divulgacao', array (
     			'controller' => 'divulgacao',
-    			'action' => 'listar' 
+    			'action' => 'listar'
     		) );
     	} else {
     		$divid = $_GET ['divid'];
-    		
+
     		$em = $this->getServiceLocator ()->get ( "Doctrine\ORM\EntityManager" );
     		$divulgacao = $em->find ( "Adm\Entity\Divulgacao", $divid );
-    		
+
     		return new ViewModel ( array (
-    			'editar' => $divulgacao 
+    			'editar' => $divulgacao
     		) );
     	}
     }
@@ -299,34 +301,34 @@ class DivulgacaoController extends AbstractActionController {
 
     public function editarImagemAction() {
     	if ($this->getRequest ()->isPost ()) {
-    		
+
     		$divid = $_POST ['divid'];
-    		
+
     		$arquivo_tmp = $_FILES ['imagem'] ['tmp_name'];
     		$nome = $_FILES ['imagem'] ['name'];
-    		
+
     		$extensao = strrchr ( $nome, "." );
-    		
+
             // Converte a extensao para mimusculo
     		$extensao = strtolower ( $extensao );
-    		
+
     		if (strstr ( '.jpg;.jpeg;.png', $extensao )) {
     			$file_name = $arquivo_tmp;
-    			
+
     			$img = fopen ( $file_name, 'r' ) or die ( "<div style='background-color: #e78686b3;width: 50%; float: right;'>Não foi possível abrir a Imagem!\n</div>" );
     			$data = fread ( $img, filesize ( $file_name ) );
-    			
+
     			$imagemBd = pg_escape_bytea ( $data );
     			fclose ( $img );
-    			
+
                 require_once 'public/Connection.php'; // arquivo de conexão com banco de dados
-                
+
                 // Antes de enviar para o banco, deverá enfiar para o facebook
-                
+
                 $sql = "UPDATE divulgacao SET imagem='$imagemBd' WHERE divId = '$divid';";
-                
+
                 $res = pg_exec ( $conn, $sql );
-                
+
                 if ($res) {
                 	echo 'Imagem atualizada!';
                 } else {
@@ -336,36 +338,36 @@ class DivulgacaoController extends AbstractActionController {
             	echo "<div style='background-color: #e78686b3;width: 50%; float: right;'>Erro de extensão da imagem, só é permitido '.jpg; .jpeg; .png'</div>";
             }
         }
-        
+
         return $this->redirect ()->toRoute ( 'divulgacao', array (
         	'controller' => 'divulgacao',
-        	'action' => 'listar' 
+        	'action' => 'listar'
         ) );
     }
 
 
     public function deletarAction() {
     	$divid = $_GET ['divid'];
-    	
+
     	$em = $this->getServiceLocator ()->get ( "Doctrine\ORM\EntityManager" );
     	$divulgacao = $em->find ( "Adm\Entity\Divulgacao", $divid );
     	$em->remove ( $divulgacao );
     	$em->flush ();
-    	
+
     	return $this->redirect ()->toRoute ( 'divulgacao', array (
     		'controller' => 'divulgacao',
-    		'action' => 'listar' 
+    		'action' => 'listar'
     	) );
     }
 
     public function detalhesAction() {
     	$divid = $_GET ['divid'];
-    	
+
     	$em = $this->getServiceLocator ()->get ( "Doctrine\ORM\EntityManager" );
     	$divulgacao = $em->find ( "Adm\Entity\Divulgacao", $divid );
-    	
+
     	return new ViewModel ( array (
-    		'detalhes' => $divulgacao 
+    		'detalhes' => $divulgacao
     	) );
     }
 
