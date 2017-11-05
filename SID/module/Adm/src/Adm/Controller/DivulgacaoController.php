@@ -53,9 +53,7 @@ class DivulgacaoController extends AbstractActionController {
 
 			$tokenPagina = 'EAACVVnZBeZA2YBAJt7IBgHj9B8AdnUnFufJpbNas1ELBl7vH4dNKG6QEG5scrNsc1kz6T4OU2VzI04hxnIrRfylCOzlCxwjHJYNMcGZBQCSjuMKC7ZCIV9XidmPn7igPRZCTu7TZBQp5ZAZAQTMU0IYFd6NS1gmQqx6F3wZCrX2AwvTo6jdYZBiBsud';
 			$idPagina = '415358248866659';
-			//$postSelecionado = 0;
-
-			$erro = 0;
+			$postSelecionado = 0;
 
 																			// POSTAR NA PAGINA COM OU SEM IMAGEM
 
@@ -75,6 +73,7 @@ class DivulgacaoController extends AbstractActionController {
 						//'picture' => $myFileToUpload
 	       		];
 
+															// ENVIA PARA O FACE COM FOTO
 	      	$response = $fb->post ( '/'.$idPagina.'/photos/', $dados, $tokenPagina );
 					$graphNode = $response->getGraphNode ();
 				} else {
@@ -155,96 +154,62 @@ class DivulgacaoController extends AbstractActionController {
 
 
 
-                //                                  //Recuperar publicaçoes
+//RECUPERA AS PUBLICAÇOES
+		$response = $fb->get ( '/'.$idPagina.'/feed/', $tokenPagina );
+		$postagens = $response->getDecodedBody();
 
-                // try {
-                //  $response = $fb->get ( '/'.$idPagina.'/feed/', $tokenPagina );
-                // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-                //  echo 'Error: ' . $e->getMessage ();
-                //  exit();
-                // }
+		//count($postagens['data']);
+//INFORMAÇOES RECUPERADAS:
+		$idPublicacao = $postagens['data'][0]['id'];
+		$msgPublicacao = $postagens['data'][0]['message'];
 
-                // $array = $response->getDecodedBody();
+//RECUPERA O object_id
+		$object_id = str_replace($idPagina."_","",$idPublicacao);
 
-                // $teste = array();
+//RECUPERA A URL DA FOTO DA PUBLICACAO
+		$response = $fb->get ( '/'.$object_id.'/picture/?redirect=false', $tokenPagina );
+		$fotoPublicacao = $response->getGraphNode();
+		$urlFoto = $fotoPublicacao['url'];
 
-                // foreach ($array as $value) {
-                //  echo $value[$postSelecionado]['created_time']."<br>";
-                //  echo $value[$postSelecionado]['message']."<br>";
-                //  echo teste[] = $value[$postSelecionado]['id'];
-                // }
+//RECUPERA INFORMAÇOES DA PUBLICACAO (idPublicacao ou object_id) (comments ou likes)
+		//$response = $fb->get ( '/'.$idPublicacao.'/likes' , $tokenPagina );
+		$response = $fb->get ( '/'.$idPublicacao.'/comments' , $tokenPagina );
+		$comentariosPublicacao = $response->getDecodedBody();
+		//$likesPublicacao = $response->getDecodedBody();
+    	// foreach ($comentariosPublicacao as $value) {
+    	//  echo $value[$postSelecionado]['created_time']."<br>";
+    	//  echo $value[$postSelecionado]['from']['name']."<br>";
+    	//  echo $value[$postSelecionado]['from']['id']."<br>";
+    	//  echo $value[$postSelecionado]['message']."<br>";
+    	//  echo $value[$postSelecionado]['id']."<br>";
+    	// }
 
+			// foreach ($array as $value) {
+			//  echo $value[$postSelecionado]['id']."<br>";
+			//  echo $value[$postSelecionado]['name']."<br>";
+			// }
 
-
-                                             // Recuperar Comentarios
-
-                // $idPublicacao = $teste[0];
-
-                // try {
-                //  $response = $fb->get ( '/'.$idPublicacao.'/comments' , $tokenPagina );// Envio para o Perfil do SID
-                // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-                //  echo 'Error: ' . $e->getMessage ();
-                //  exit();
-                // }
-
-                // $array = $response->getDecodedBody();
-
-                // foreach ($array as $value) {
-                //  echo $value[$postSelecionado]['created_time']."<br>";
-                //  echo $value[$postSelecionado]['from']['name']."<br>";
-                //  echo $value[$postSelecionado]['from']['id']."<br>";
-                //  echo $value[$postSelecionado]['message']."<br>";
-                //  echo $value[$postSelecionado]['id']."<br>";
-                // }
+      // echo '<pre>';
+      // var_dump($value[1]['id']);
+      // echo '<pre>';
+      // die;
 
 
+      $fbId = $idPagina;
 
-                //                          // Recuperar Likes
+//ENVIA PARA O BANCO
+      require_once 'public/Connection.php'; // arquivo de conexão com banco de dados como arquivo externo ao Zend
 
-                // try {
-                //  $response = $fb->get ( '/'.$idPublicacao.'/likes' , $tokenPagina );// Envio para o Perfil do SID
-                // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-                //  echo 'Error: ' . $e->getMessage ();
-                //  exit();
-                // }
+      $sql = "INSERT INTO divulgacao(legenda, fbid, linkqr, prioridade, datatermino)
+      VALUES('$legenda', '$fbId', '$linkQr', '$prioridade', '$dataTermino');";
 
-                // $array = $response->getDecodedBody();
+      $res = pg_exec ( $conn, $sql );
 
-                // foreach ($array as $value) {
-                //  echo $value[$postSelecionado]['id']."<br>";
-                //  echo $value[$postSelecionado]['name']."<br>";
-                // }
-
-
-
-                //echo $a;
-                //echo $idPublicacao;
-
-                // echo '<pre>';
-                // var_dump($value[1]['id']);
-                // echo '<pre>';
-                // die;
-
-                //$fbId = $graphNode ['id'];
-
-                $fbId = '415358248866659';
-
-
-
-                //if (strstr ( '.jpg;.jpeg;.png;.gif', $extensao )) {
-
-                    require_once 'public/Connection.php'; // arquivo de conexão com banco de dados como arquivo externo ao Zend
-
-                    $sql = "INSERT INTO divulgacao(legenda, fbid, linkqr, prioridade, datatermino)
-                    VALUES('$legenda', '$fbId', '$linkQr', '$prioridade', '$dataTermino');";
-
-                    $res = pg_exec ( $conn, $sql );
-
-                    if ($res) {
-                    	echo "<div style='background-color: #14D700CC;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Divulgação inserida com sucesso!</div>";
-                    } else {
-                    	echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Erro ao tentar enviar para o banco de dados!</div>";
-                    }
+      if ($res) {
+      	echo "<div style='background-color: #14D700CC;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Divulgação inserida com sucesso!</div>";
+      } else {
+      	echo "<div style='background-color: #e78686b3;width: 16%;float: right;padding: 1%;border-radius: 5%;'> Erro ao tentar enviar para o banco de dados!</div>";
+      }
                 // } else {
                 //
                 // }
