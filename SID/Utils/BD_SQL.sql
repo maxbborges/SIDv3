@@ -4,6 +4,7 @@ CREATE TABLE divulgacao (
 	linkqr character varying,
 	prioridade character varying,
 	legenda character varying,
+	object_id character varying,
 	datatermino date,
 	CONSTRAINT divulgacao_pkey PRIMARY KEY (divid)
 );
