@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Adm\Entity\DivulgacaoRepository")
  */
 class Divulgacao {
-	
+
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
@@ -18,32 +18,32 @@ class Divulgacao {
 	 * @var int
 	 */
 	public $divId;
-	
+
 	/**
 	 * @ORM\Column(type="string")
 	 */
 	public $fbId;
-	
+
 	/**
 	 * @ORM\Column(type="string")
 	 */
 	public $linkqr;
-	
+
 	/**
 	 * @ORM\Column(type="string")
 	 */
 	public $prioridade;
-	
+
 	/**
 	 * @ORM\Column(type="string")
 	 */
 	public $legenda;
-	
+
 	/**
 	 * @ORM\Column(type="string")
 	 */
-	public $imagem;
-	
+	public $object_id;
+
 	/**
 	 * @ORM\Column(type="string")
 	 */
@@ -83,11 +83,11 @@ class Divulgacao {
 		$this->legenda = $legenda;
 		return $this;
 	}
-	public function getImagem() {
-		return $this->imagem;
+	public function getObject_id() {
+		return $this->object_id;
 	}
-	public function setImagem($imagem) {
-		$this->imagem = $imagem;
+	public function setObject_id($object_id) {
+		$this->object_id = $object_id;
 		return $this;
 	}
 	public function getDatatermino() {

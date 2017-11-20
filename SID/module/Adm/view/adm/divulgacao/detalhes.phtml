@@ -1,26 +1,34 @@
 <div class="jumbotron">
-	
+
 	<a href="<?php
 		echo $this->url ( 'divulgacao', array (
 			'controller' => 'divulgacao',
-			'action' => 'deletar' 
+			'action' => 'deletar'
 		) );echo '?divid=' . $this->detalhes->getDivId();
 	?>" class="btn btn-default btnDetalhes"><img alt="Deletar" src="/img/delete.png" style="width: 79%; position: inherit;"></a>
 	 <a href="<?php
 	 	echo $this->url ( 'divulgacao', array (
 			'controller' => 'divulgacao',
-			'action' => 'editar-dados' 
+			'action' => 'editar-dados'
 		) );echo '?divid=' . $this->detalhes->getDivId();
 	?>" class="btn btn-default btnDetalhes"><img alt="Editar" src="/img/reset2.png" style="width: 79%; position: inherit;"></a></li>
 	</a>
-	
+
 	<h3>Detalhes da divulgação</h3>
 	<br>
-	<img class="imgDetalhes" alt="<?php echo $this->detalhes->getDivId();?>" src="/imagem.php?divid=<?php echo $this->detalhes->getDivId();?>">
+	<!-- <img class="imgDetalhes" alt="<?php echo $this->detalhes->getDivId();?>" src="/imagem.php?divid=<?php echo $this->detalhes->getDivId();?>"> -->
+	<img class="imgDetalhes" alt="<?php echo $this->detalhes->getDivId();?>" src="<?php
+			require_once '/var/www/html/tcc/SID/public/Connection.php';
+			$query = "SELECT object_id FROM divulgacao WHERE divid =".$this->detalhes->getDivId();
+			$res = pg_query ( $conn, $query ) or die ( pg_last_error ( $conn ) );
+			$row = pg_fetch_row($res);
+			echo "/imagens/".$row[0].".png";
+			?>">
 	Legenda: <?php echo $this->detalhes->getLegenda();?><br>
 	Facebook ID: <?php echo $this->detalhes->getFbId();?><br>
 	Link: <?php echo $this->detalhes->getLinkqr();?><br>
 	Prioridade: <?php echo $this->detalhes->getPrioridade();?><br>
 	Data de Termino: <?php echo $this->detalhes->getDatatermino();?><br>
+	Id da Publicacao: <?php echo $this->detalhes->getObject_id();?><br>
 
 </div>
