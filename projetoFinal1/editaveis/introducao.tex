@@ -9,3 +9,47 @@ Para \cite{machado2010}, o rápido crescimento das organizações juntamente com
 Segundo a \cite{forbes2016}, pesquisas feitas pela agencia eMarketer afirmavam que até o final de 2016, 42\% da população da América latina iriam acessar regularmente as redes sociais. O uso das redes para disseminação de uma informação ou conteúdo vem se tornando uma das ferramentas mais atraentes para divulgações. Não apenas por ser um dos meios mais acessados atualmente, mas também por conta da maior facilidade de interações dos espectadores, usuários e empresas.
 
 Pensando não só na maior abrangência, mas também na interatividade, a expansão do conceito de sinalização digital com a união das mídias sociais permite não somente que as informações circulem fora de ambientes específicos, mas também que os receptores das informações transmitidas possam interagir quase que em tempo real com o conteúdo que é apresentado. Para \cite{santos2014}, no contexto do novo cenário da web é necessário um \textit{marketing} em ambiente digital. 
+
+\section{Proposta}
+Usando uma estrutura cliente-servidor, utilizando o sistema SID como base e com a união do conceito de sinalização e marketing digital, a proposta é fazer com que o sistema apresente conteúdos referentes ao IFB e essas informações tenha integração com as redes sociais, incluindo o Facebook, Realizando uma mineração de dados para fazer uma filtragem dos comentários e apresentar postagens e comentários em tempo real nas, devidamente moderados, em telas ou dispositivos móveis espalhadas pelos Câmpus Taguatinga do Instituto Federal de Brasília. Na versão para dispositivos móveis, o servidor poderá enviar informações e avisos distintos para cada aluno, turma ou professor, através de um login com a matricula cadastrada no SGA (Sistema de Gestão Acadêmica) do Câmpus.
+
+\section{Motivação}
+A atenção do telespectador a uma determinada atração é algo crucial para o sucesso dessa ação, pois se o telespectador não vê a noticia que tem o intuito de repassar uma informação, não faz sentido essa informação está sendo exibida. Nesse intuito, a interatividade e o dinamismo é que pode chama a atenção do usuário a acompanhar uma determinada noticia ou matéria. Pensando nisso, vê-se a necessidade de um sistema onde é possível expor noticias referentes a instituição com facilidade e ainda contar com a interatividade do telespectador dessa noticia seja ele por meio de curtidas ou comentários na publicação.
+
+\section{Justificativa}
+Atualmente, o IFB utiliza excepcionalmente o seu perfil do Facebook e sua página oficial para realização das postagens referentes a informações da instituição, sendo necessário o administrador acessar cada página e realizar uma postagem independente em cada uma delas. Além de ser uma tarefa não trivial para se realizar todos os dias, a interatividade com os usuários da página com a publicação está restrita a necessidade do usuário acessar a pagina para visualizar e interagir, não somente pela falta de praticidade mas também não há uma moderação das postagens e comentários.
+
+O sistema proposto, visa proporciona a integração dos meios usados atualmente para apresentação das informações referentes ao Câmpus, além da inclusão de outros meios. Com o uso do sistema proposto, será possível apresentar as mesmas informações em telas espalhadas por locais de maior movimento do Câmpus, na pagina do Facebook da instituição e até mesmo por um dispositivo móvel pessoal do aluno ou professor. Além disso, será possível uma melhor integração entre as notícias publicadas e os telespectadores, pois o sistema contará com a exibição em tempo real de comentários feitos pelos usuários na publicação.
+
+\section{Objetivos}
+\subsection{Objetivos Gerais}
+	Com objetivo de diminuição da carência e aumento da facilidade de disseminação das informações e propagandas pertinentes ao IFB - Câmpus Taguatinga, o sistema deverá ser capaz de proporcionar objetividade e simplicidade nas informações a serem repassadas. Além de painéis instalados pelo Câmpus, ele deve ter a integração com as mídias sociais como Facebook e Twitter, unificando os sistemas de comunicação do IFB.
+	
+	 Além das otimizações necessárias no sistema, será usada também técnicas de mineração de dados, para que seja possível selecionar conteúdos apropriados para inserção e publicação no sistema, filtrando informações e comentários que sejam mais propícios a ter reações positivas por partes dos telespectadores. Com a versão mobile do sistema, o aluno poderá não só ter acesso as propagandas que são publicadas de forma geral para o Câmpus, mas também a conteúdos específicos através da matricula do SGA, informações como mensagens encaminhada do professor para uma turma ou para um aluno especifico.
+
+
+\subsection{Objetivos Específicos}
+	 \begin{itemize}
+	\item Implementar um sistema para um âmbito mais acadêmico, para melhorar a disseminação de informações dentro do Câmpus.
+	 	
+	\item Melhorias do sistema usado como base, o SID \cite{sobrinho2017}.
+	
+	\item Usar a ferramenta Graph API para melhoria na integração do sistema com o Facebook.
+	
+	\item Integrar o sistema com outras mídias sociais como o twitter.
+	
+	\item Implementação de uma versão mobile do sistema, para possíveis consultas ou exibição do conteúdo, tornando a exibição das informações multiplataforma, exibindo-a em painéis, TVs, paginas de Internet ou celulares.
+	
+	\item  Integração da versão mobile como o sistema SGA.
+	\end{itemize}
+\section{Metodologia}
+Partindo da pesquisa descritiva, será descrito os procedimentos e passos que foram seguidos e usados para obtenção do resultado desejado.
+	
+A revisão de bibliografia é usada como meio de direcionamento do trabalho, usando comparações entre ferramentas desenvolvidas com o proposito principais de sinalização e marketing digital, partindo de tais soluções com o objetivo de avaliar os pontos negativos tendo como base as necessidades do Câmpus e então juntar ao processo de desenvolvimento os elementos que forem selecionados como principais e que são responsáveis por efetivar a disseminação da informação ao sistema de forma descentralizada e com o auxílio de ferramentas utilizadas no contexto WEB
+	 
+Usando o SID como sistema base, uma estrutura cliente-servidor e conexão a \textit{Internet} , será implementado no sistema as interações com as redes sociais. As informações serão apresentadas em multiplataforma que podem ser televisores, painéis, paginas web ou celulares, essas informações podem ser alteradas acessando o servidor, um \textit{Raspberry Pi}, com o sistema instalado e conectado a Internet. Após serem criadas ou modificadas, as publicadas poderão ser transmitidas e acessadas pelos clientes em distintas plataformas ao mesmo tempo.
+	
+A metodologia presente neste trabalho está direcionada aos aspectos específicos	do desenvolvimento de ferramentas computacionais com o intuito de melhoria nos processo de comunicação e veiculação de informações através de varias plataformas, sejam elas mobile, web ou painéis. Para a versão mobile do sistema, será usado um framework de desenvolvimento especifica para a plataforma.
+	
+
+%\section{Organização}
