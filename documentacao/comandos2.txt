@@ -8,6 +8,8 @@ sudo apt-get install libapache2-mod-php7.0
 sudo apt-get install php7.0-pgsql
 //ERRO PHP EXTENSION DOM
 sudo apt-get install php-xml
+//MODULO QRCODE
+sudo apt-get install php7.0-gd
 
 //INSTALAR APACHE
 sudo apt-get install apache2
