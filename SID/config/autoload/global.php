@@ -9,7 +9,7 @@ return array(
 					'port'     => '5432',
 					'user'     => 'postgres',
 					'password' => '1234',
-					'dbname'   => 'sidiiff2.0'
+					'dbname'   => 'sidiiff2'
 				)
 			)
 		)
