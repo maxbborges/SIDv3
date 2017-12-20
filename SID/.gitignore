@@ -8,5 +8,6 @@ nbproject
 .project
 .settings
 /vendor
-/public/imagens
+!/vendor/phpqrcode
+/public/imagens/*
 composer.lock
