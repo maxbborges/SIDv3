@@ -29,7 +29,7 @@ class AuthController extends AbstractActionController {
 		// caminho de volta deve ser absoluto
 		// Será preciso adicionar o ip de domínio no aplicativo na plataforma de desenvolvedores no Facebook
 		// O domínio localhost já está definido, portando em uso.
-		$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.':8080/auth/callback', $permissions );
+		$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.':6670/auth/callback', $permissions );
 		
 		$result = new ViewModel(array (
 				'logar' => $loginUrl

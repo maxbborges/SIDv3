@@ -8,7 +8,7 @@ return array(
             'cliente' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/cliente',
+                    'route'    => '/cli',
                     'defaults' => array(
                         'controller' => 'Cliente\Controller\Index',
                         'action'     => 'index',
