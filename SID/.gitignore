@@ -7,7 +7,4 @@ nbproject
 .idea
 .project
 .settings
-/vendor
-!/vendor/phpqrcode
-/public/imagens/*
 composer.lock
