@@ -8,3 +8,5 @@ nbproject
 .project
 .settings
 composer.lock
+vendor/*
+!vendor/phpqrcode
