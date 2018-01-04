@@ -6,17 +6,34 @@ $id = $_GET['divid'];
 
 if ($conn) {
 
-	$query = "SELECT object_id FROM divulgacao WHERE divid = 2";
+	$query = "SELECT object_id FROM divulgacao WHERE divid =".$id;
 
 	$res = pg_query ( $conn, $query ) or die ( pg_last_error ( $conn ) );
 
 	$row = pg_fetch_row($res);
 
-	//header ( 'Content-type: image/png' );
-	$teste = "/var/www/html/tcc/SID/public/imagens/".$row[0].".png";
-	//echo "/var/www/html/tcc/SID/public/imagens/".$row[0].".png";
-	echo $teste;
+	// $name = $row[0].".png";
 
+	$teste1 = "imagens/".$row[0].".png";
+	//$teste = "/imagens/".$row[0].".png";
+	// return $teste;
+	// $teste = "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/19702411_1290395001069450_5097736575801189523_n.jpg?oh=b527ae34484db745f70b65c1bae81a69&oe=5AF82C68";
+//echo $teste;
+//echo "<img src=".$teste.">";
+
+
+// echo $teste;
+
+// var_dump($teste);
+
+//header ('content-type: image/png');
+readfile($teste1);
+
+
+//$json = json_decode(file_get_contents('./imagens/'.$row[0].'.php'));
+// $im = file_get_contents('./imagens/'.$row[0].'.php');
+// header('content-type: image/png');
+//echo file_get_contents('./imagens/'.$row[0].'.php');
 
 
 	//echo '/var/www/html/tcc/SID/public/imagens/'.$row[0].'.png';

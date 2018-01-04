@@ -21,16 +21,142 @@ class DivulgacaoController extends AbstractActionController
         ));
     }
 
+    public function a(){
+        $configure = new Configure();
+        $newFacebook = $configure->newFacebook();
+        $infPagina = $configure->infPagina();
+
+        $fb = new \Facebook\Facebook($newFacebook);
+
+        //RECUPERA AS PUBLICAÇOES
+        $response = $fb->get('/'.$infPagina['idPagina'].'/feed?fields=link,id,message', $infPagina['tokenPagina']);
+        $postagens = $response->getDecodedBody();
+
+        //var_dump(count($postagens['data']));
+        //INFORMAÇOES RECUPERADAS:
+        //Recupera as informaçoes da posição 0, ultima publicação feita.
+        $idPublicacao = $postagens['data'][0]['id'];
+        $msgPublicacao = $postagens['data'][0]['message'];
+        $urlPublicacao = $postagens['data'][0]['link'];
+
+        //RECUPERA O object_id
+        $object_id = str_replace($infPagina['idPagina']."_", "", $idPublicacao);
+
+        //RECUPERA A URL DA FOTO DA PUBLICACAO
+        $response = $fb->get('/'.$object_id.'/picture/?redirect=false', $infPagina['tokenPagina']);
+        $fotoPublicacao = $response->getGraphNode();
+        $urlFoto = $fotoPublicacao['url'];
+
+        //RECUPERA A URL DA PUBLICACAO
+        $response = $fb->get('/'.$object_id.'?fields=link', $infPagina['tokenPagina']);
+
+
+
+        //Recuperar Albuns
+        // try {
+        //  $response = $fb->get ( '/'.$idPagina.'/albums/', $tokenPagina);// Envio para o Perfil do SID
+        // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+        //  echo 'Error: ' . $e->getMessage ();
+        //  exit();
+        // }
+
+        // $array = $response->getDecodedBody();
+
+        // $teste = array();
+
+        // foreach ($array as $value) {
+        //  echo $value[$postSelecionado]['created_time']."<br>";
+        //  echo $value[$postSelecionado]['name']."<br>";
+        //  echo $teste[] = $value[$postSelecionado]['id'];
+        // }
+
+        //                              //Recupera 1 Album
+
+        // try {
+        //  $response = $fb->get ( '/'.$teste[0].'/photos?fields=link,id,created_time,name', $tokenPagina);// Envio para o Perfil do SID
+        // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+        //  echo 'Error: ' . $e->getMessage ();
+        //  exit();
+        // }
+
+        // $array = $response->getDecodedBody();
+
+        // $teste = array();
+
+        // foreach ($array as $value) {
+        //  echo $value[$postSelecionado]['created_time']."<br>";
+        //  echo $value[$postSelecionado]['name']."<br>";
+        //  echo $value[$postSelecionado]['link']."<br>";
+        //  echo $teste[] = $value[$postSelecionado]['id'];
+        // }
+
+
+
+
+
+
+        //RECUPERA INFORMAÇOES DA PUBLICACAO (idPublicacao ou object_id) (comments ou likes)
+        //$response = $fb->get ( '/'.$idPublicacao.'/likes' , $infPagina['tokenPagina']);
+        //$response = $fb->get('/415358248866659_445708995831584/comments', $infPagina['tokenPagina']);
+        //$comentariosPublicacao = $response->getDecodedBody();
+        // $likesPublicacao = $response->getDecodedBody();
+        // foreach ($comentariosPublicacao as $value) {
+        // echo $value[$postSelecionado]['created_time']."<br>";
+        // echo $value[$postSelecionado]['from']['name']."<br>";
+        // echo $value[$postSelecionado]['from']['id']."<br>";
+        // echo $value[$postSelecionado]['message']."<br>";
+        // echo $value[$postSelecionado]['id']."<br>";
+        // }
+
+
+        // foreach ($likesPublicacao as $value) {
+        //  echo $value[$postSelecionado]['id']."<br>";
+        //  echo $value[$postSelecionado]['name']."<br>";
+        // }
+
+
+
+
+
+        $postSelecionado = 1;
+
+
+        $response = $fb->get('/415358248866659_434307813638369/comments', $infPagina['tokenPagina']);
+        $comentariosPublicacao = $response->getDecodedBody();
+
+        $postSelecionado = 0;
+
+        $infPostagem = array(
+            'fotoPerfil' => 38,
+            'nome' => $comentariosPublicacao['data'][$postSelecionado]['from']['name'],
+            'mensagem' => $comentariosPublicacao['data'][$postSelecionado]['message'],
+            'datas' => $comentariosPublicacao['data'][$postSelecionado]['created_time']
+        );
+
+        $jsonString = json_encode($infPostagem);
+        $jsonObj = json_decode($jsonString);
+
+        //var_dump($jsonObj);
+
+        $testex = array(
+          'object_id' => $object_id,
+          'urlPublicacao' => $urlPublicacao
+        );
+
+        return ($testex);
+
+    }
+
+    // INSERIR NO FACEBOOK E NO BANCO DE DADOS
     public function inserirAction(){
         if ($this->getRequest()->isPost()) {
 
-            // Parâmetros do Cliente
+            // Recupera os parâmetros do HTML (module/Adm/view/adm/divultacao/inserir.phtml)
             $legenda = $_POST ['legenda'];
             $linkQr = $_POST ['linkqr'];
             $prioridade = $_POST ['prioridade'];
 
-
-
+            //Não publica se algum campo estiver em branco ou não preenchido.
             //if (isset ( $_FILES ['imagem'] ['name'] ) && $_POST ['ano'] != null && $_POST ['mes'] != null && $_POST ['dia'] != null && $_FILES ["imagem"] ["error"] == 0) {
             if (isset ( $_FILES ['imagem'] ['name'] ) && $_FILES ["imagem"] ["error"] == 0) {
                 $sessao = new Container('Auth');// Obtem a sessão do usuário
@@ -70,115 +196,33 @@ class DivulgacaoController extends AbstractActionController
                         //'picture' => $myFileToUpload
                     ];
 
-                    // ENVIA PARA O FACE COM FOTO
+                    // ENVIA PARA A PAGINA DO FACE
                     $response = $fb->post('/'.$infPagina['idPagina'].'/photos/', $dados, $infPagina['tokenPagina']);
                     $graphNode = $response->getGraphNode();
 
-
-
-                    // $data = [
-                    // 	'message' => $text,
-                    // 	'caption' => $_POST ['linkqr'],
-                    // 	'source' => $myFileToUpload,
-                    //  'access_token' => $sessao->fb_access_token
-                    // ];
-
-
-                    //Publicar na Pagina pessoal
-                    // try {
+                    // ENVIA PARA A PAGINA PESSOAL
+                    //  try {
                     //  $response = $fb->post ( '/me/photos', $data );// Envio para o Perfil do SID
                     // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
                     //  echo 'Error: ' . $e->getMessage ();
                     //  exit();
                     // }
+                    // $graphNode = $response->getGraphNode ();
 
-                    // PEGAR OUTRO RESPONSE PARA PAGINA PESSOAL
-
-                    //if ($erro == 0){
-                    //$graphNode = $response->getGraphNode (); // resposta
-                    //}
-
-
-                    //Recuperar Albuns
-                    // try {
-                    //  $response = $fb->get ( '/'.$idPagina.'/albums/', $tokenPagina);// Envio para o Perfil do SID
-                    // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-                    //  echo 'Error: ' . $e->getMessage ();
-                    //  exit();
-                    // }
-
-                    // $array = $response->getDecodedBody();
-
-                    // $teste = array();
-
-                    // foreach ($array as $value) {
-                    //  echo $value[$postSelecionado]['created_time']."<br>";
-                    //  echo $value[$postSelecionado]['name']."<br>";
-                    //  echo $teste[] = $value[$postSelecionado]['id'];
-                    // }
-
-                    //                              //Recupera 1 Album
-
-                    // try {
-                    //  $response = $fb->get ( '/'.$teste[0].'/photos?fields=link,id,created_time,name', $tokenPagina);// Envio para o Perfil do SID
-                    // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-                    //  echo 'Error: ' . $e->getMessage ();
-                    //  exit();
-                    // }
-
-                    // $array = $response->getDecodedBody();
-
-                    // $teste = array();
-
-                    // foreach ($array as $value) {
-                    //  echo $value[$postSelecionado]['created_time']."<br>";
-                    //  echo $value[$postSelecionado]['name']."<br>";
-                    //  echo $value[$postSelecionado]['link']."<br>";
-                    //  echo $teste[] = $value[$postSelecionado]['id'];
-                    // }
-
-
-
-
-                    //RECUPERA AS PUBLICAÇOES
-                    $response = $fb->get('/'.$infPagina['idPagina'].'/feed/', $infPagina['tokenPagina']);
-                    $postagens = $response->getDecodedBody();
-
-                    //count($postagens['data']);
-                    //INFORMAÇOES RECUPERADAS:
-                    $idPublicacao = $postagens['data'][0]['id'];
-                    $msgPublicacao = $postagens['data'][0]['message'];
-
-                    //RECUPERA O object_id
-                    $object_id = str_replace($infPagina['idPagina']."_", "", $idPublicacao);
-
-                    //RECUPERA A URL DA FOTO DA PUBLICACAO
-                    $response = $fb->get('/'.$object_id.'/picture/?redirect=false', $infPagina['tokenPagina']);
-                    $fotoPublicacao = $response->getGraphNode();
-                    $urlFoto = $fotoPublicacao['url'];
-
-                    //RECUPERA INFORMAÇOES DA PUBLICACAO (idPublicacao ou object_id) (comments ou likes)
-                    $response = $fb->get ( '/'.$idPublicacao.'/likes' , $infPagina['tokenPagina']);
-                    $response = $fb->get('/'.$idPublicacao.'/comments', $infPagina['tokenPagina']);
-                    $comentariosPublicacao = $response->getDecodedBody();
-                    //$likesPublicacao = $response->getDecodedBody();
-                    // foreach ($comentariosPublicacao as $value) {
-                    //  echo $value[$postSelecionado]['created_time']."<br>";
-                    //  echo $value[$postSelecionado]['from']['name']."<br>";
-                    //  echo $value[$postSelecionado]['from']['id']."<br>";
-                    //  echo $value[$postSelecionado]['message']."<br>";
-                    //  echo $value[$postSelecionado]['id']."<br>";
-                    // }
-
-                    // foreach ($array as $value) {
-                    //  echo $value[$postSelecionado]['id']."<br>";
-                    //  echo $value[$postSelecionado]['name']."<br>";
-                    // }
 
                     // echo '<pre>';
-                    // var_dump($value[1]['id']);
+                    //var_dump($comentariosPublicacao['data'][$postSelecionado]['from']['name']);
                     // echo '<pre>';
                     // die;
+
+
+                    $teste = new DivulgacaoController();
+                    $testes = $teste->a();
+                    $object_id = $testes['object_id'];
+                    $linkQr = $testes['urlPublicacao'];
+
+
+
 
                     $arquivo_destino = $infPagina['destinoLocal'].$object_id.".png";
 
@@ -251,9 +295,7 @@ class DivulgacaoController extends AbstractActionController
         }
     }
 
-
-    public function editarImagemAction()
-    {
+    public function editarImagemAction(){
         if ($this->getRequest()->isPost()) {
             $divid = $_POST ['divid'];
 
@@ -298,9 +340,7 @@ class DivulgacaoController extends AbstractActionController
         ));
     }
 
-
-    public function deletarAction()
-    {
+    public function deletarAction(){
         $divid = $_GET ['divid'];
 
         $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
@@ -314,8 +354,7 @@ class DivulgacaoController extends AbstractActionController
         ));
     }
 
-    public function detalhesAction()
-    {
+    public function detalhesAction(){
         $divid = $_GET ['divid'];
 
         $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");

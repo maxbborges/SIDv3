@@ -71,7 +71,7 @@ function listarImagens(){
 				$("#linkQr").append("<img style='display: none;' class='imgQR' id='linkQr"+id+"' src='qrcode.php?link="+dados[i].linkqr+"'></img>");
 				vetorLinkQr.push("linkQr"+id);
 
-				$("#slide").append("<img style='display: none;' id='"+"imagem"+id+"' height='100%' width='100%' src='/imagens/430736790662138.png' alt='Imagem Alt "+id+"' ></img>");
+				$("#slide").append("<img style='display: none;' id='"+"imagem"+id+"' src='imagem.php?divid="+id+"' alt='Imagem Alt "+id+"' ></img>");
 				vetorImagens.push("imagem"+id);
 
 				// $("#slide").append("<img style='display: none;' id='"+"imagem"+id+"' height='100%' width='100%' src='imagem.php?divid="+id+"' alt='Imagem Alt "+id+"' ></img>");
