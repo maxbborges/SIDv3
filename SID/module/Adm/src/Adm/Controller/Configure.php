@@ -34,7 +34,7 @@ class Configure {
 		return array (
 		'idPagina' => '415358248866659',
 		'tokenPagina' => 'EAACVVnZBeZA2YBAJt7IBgHj9B8AdnUnFufJpbNas1ELBl7vH4dNKG6QEG5scrNsc1kz6T4OU2VzI04hxnIrRfylCOzlCxwjHJYNMcGZBQCSjuMKC7ZCIV9XidmPn7igPRZCTu7TZBQp5ZAZAQTMU0IYFd6NS1gmQqx6F3wZCrX2AwvTo6jdYZBiBsud',
-		'destinoLocal' => '/var/www/html/tcc/SID/public/imagens/'
+		'destinoLocal' => './public/imagens/'
 		);
 	}
 
