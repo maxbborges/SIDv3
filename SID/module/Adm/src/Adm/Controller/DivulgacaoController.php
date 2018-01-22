@@ -32,7 +32,6 @@ class DivulgacaoController extends AbstractActionController
 
     //RECUPERA AS PUBLICAÇOES COM LINK,ID E MENSAGEM DE CADA UMA
     $postagens = ($fb->get('/'.$infPagina['idPagina'].'/feed?fields=link,id', $infPagina['tokenPagina']))->getDecodedBody();
-    //var_dump(count($postagens['data']));
 
     //Recupera as informaçoes da posição 0, ultima publicação feita.
     $idPublicacao = $postagens['data'][0]['id'];
@@ -159,20 +158,17 @@ class DivulgacaoController extends AbstractActionController
       //Não publica se algum campo estiver em branco ou não preenchido.
       //if (isset ( $_FILES ['imagem'] ['name'] ) && $_POST ['ano'] != null && $_POST ['mes'] != null && $_POST ['dia'] != null && $_FILES ["imagem"] ["error"] == 0) {
       if (isset ( $_FILES ['imagem'] ['name'] ) && $_FILES ["imagem"] ["error"] == 0) {
-        $sessao = new Container('Auth');// Obtem a sessão do usuário
+        // $sessao = new Container('Auth');// Obtem a sessão do usuário
 
         // Parâmetros do facebook -> vide class Cofigure
         // $configure = new Configure();
         // $newFacebook = $configure->newFacebook();
         // $infPagina = $configure->infPagina();
-        //
+        // //
         // $fb = new \Facebook\Facebook($newFacebook);// passa parâmetros para a classe principal da Graph
 
         // include_once (__DIR__.'/FbConnect.php');
         $fbConnect = (new FbConnect())->Connect();
-        // echo realpath("");
-        // $fbConnect = new FbConnect();
-        // echo realpath("");
         $fb = $fbConnect['fb'];
         $infPagina = $fbConnect['infPagina'];
 
