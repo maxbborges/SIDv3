@@ -16,7 +16,7 @@
 				class="configImg" ><li class="imagemLi"><img
 					alt="Imagem <?php echo $divulgacao['divId'];?>"
 					src="<?php
-							require_once '/var/www/html/tcc/SID/public/Connection.php';
+							require_once './public/Connection.php';
 							$query = "SELECT object_id FROM divulgacao WHERE divid =".$divulgacao['divId'];
 							$res = pg_query ( $conn, $query ) or die ( pg_last_error ( $conn ) );
 							$row = pg_fetch_row($res);

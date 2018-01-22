@@ -11,7 +11,6 @@ var contador = 0;
 
 $(document).ready(function(){
 	listarImagens();
-
 	// Divulgação Fixa
 	vetorLegenda.push("<marquee id='marquee' behavior='scroll' direction='left' scrollamount='30'><p>Conheça mais sobre o SID acessando o código QR ao lado</p></marquee>");
 	$("#linkQr").append("<img style='display: none;' class='imgQR' id='linkQr0' src='qrcode.php?link=https://dsnnunes.com.br/SID/'></img>");
@@ -63,6 +62,7 @@ function listarImagens(){
 		type: "POST",
 		dataType: "json",
 		success: function(dados){
+			console.log(dados);
 			for (var i = 0;i < dados.length; i++) {
 				var id = dados[i].divid;
 
@@ -71,30 +71,49 @@ function listarImagens(){
 				$("#linkQr").append("<img style='display: none;' class='imgQR' id='linkQr"+id+"' src='qrcode.php?link="+dados[i].linkqr+"'></img>");
 				vetorLinkQr.push("linkQr"+id);
 
-				$("#slide").append("<img style='display: none;' id='"+"imagem"+id+"' src='imagem.php?divid="+id+"' alt='Imagem Alt "+id+"' ></img>");
+				$("#slide").append("<img style='display: none;' id='"+"imagem"+id+"' height='100%' width='100%' src='imagem.php?divid="+id+"' alt='Imagem Alt "+id+"' ></img>");
 				vetorImagens.push("imagem"+id);
 
-				// $("#slide").append("<img style='display: none;' id='"+"imagem"+id+"' height='100%' width='100%' src='imagem.php?divid="+id+"' alt='Imagem Alt "+id+"' ></img>");
-				// vetorImagens.push("imagem"+id);
+				listarImagens2(id);
 
-				$("#imgPerfilComent").append("<img style='display: none;' id='"+"perfil"+id+"' height='100%' width='100%' src='img/fixa.jpeg' alt='Imagem Alt "+id+"' ></img>");
-				vetorImgPerfil.push("perfil"+id);
-
-				$("#nomeComent").append("<div  style='display: none;' id='"+"nomes"+id+"'>NOME</div");
-				vetorNomes.push("nomes"+id);
-
-				$("#textComent").append("<div style='display: none;' id='"+"comentarios"+id+"'>Comentarios</div>");
-				vetorComentarios.push("comentarios"+id);
-
-				$("#infoComent").append("<div style='display: none;' id='"+"informacoes"+id+"'>Informacoes</div>");
-				vetorInformacoes.push("informacoes"+id);
 
 				// $("#textComent").append("<img style='display: none;' id='"+"comentario"+id+"' height='100%' width='100%' src='https://scontent.fbsb1-1.fna.fbcdn.net/v/t1.0-9/19702411_1290395001069450_5097736575801189523_n.jpg?oh=e7d1ef703e0fb3e41f3796e4c2daffe3&oe=5AB6689A' alt='Imagem Alt "+id+"' ></img>");
 				// vetorComentario.push("comentario"+id);
 
 			}
 		}, error:function(dados){
-			// alert("Erro ao listar imagens!");
+			// alert("Erro ao listar imagens!!");
+		}
+	});
+}
+
+function listarImagens2(id){
+	$.ajax({
+		url:'cliente1.php',
+		// url:'../../module/Adm/src/Adm/Controller/RecuperarDados.php',
+		type: "POST",
+		dataType: "json",
+		success: function (response) {
+			// for(var j=0; j<response.length; j++){
+				console.log(response);
+
+			//var valor = Math.floor((Math.random()*response.length)+0);
+
+			$("#imgPerfilComent").append("<img style='display: none;' id='"+"perfil"+id+"' height='100%' width='100%' src='imagem.php?divid="+id+"' alt='Imagem Alt "+id+"' ></img>");
+			vetorImgPerfil.push("perfil"+id);
+
+			$("#nomeComent").append("<div  style='display: none;' id='"+"nomes"+id+"'>"+response[0]['from']['name']+"</div");
+			vetorNomes.push("nomes"+id);
+
+			$("#textComent").append("<div style='display: none;' id='"+"comentarios"+id+"'>"+response[0]['message']+"</div>");
+			vetorComentarios.push("comentarios"+id);
+
+			$("#infoComent").append("<div style='display: none;' id='"+"informacoes"+id+"'>Informacoes</div>");
+			vetorInformacoes.push("informacoes"+id);
+		// }
+		},
+		error: function () {
+			console.log(response+"a");
 		}
 	});
 }
