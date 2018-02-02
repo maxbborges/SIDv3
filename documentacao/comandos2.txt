@@ -1,3 +1,31 @@
+sudo apt-get install php7.0
+sudo apt-get install apache2
+sudo apt-get instal postgresql-9.5
+sudo apt-get install composer
+
+//INSTALAR DEPENDENCIAS, NA PASTA DO SID
+php composer.phar install
+
+//MODULOS: DOM, QRCODE, Apache, Postgres
+sudo apt-get install php-xml
+sudo apt-get install php7.0-gd
+sudo apt-get install libapache2-mod-php7.0
+sudo apt-get install php7.0-pgsql
+
+//Criar o Banco:
+sudo -u postgres psql
+alter user postgres with encrypted password '1234';
+create database sidiiff2;
+\c sidiiff2
+---> Use a tabela do arquivo BD_SQL na pasta SID/Utils
+
+//Colocar permissoes 775 para ./SID e 777 para ./SID/public/imagens
+
+
+
+
+///////////////////////////////////////////////
+
 sudo apt-get install python-software-properties
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update

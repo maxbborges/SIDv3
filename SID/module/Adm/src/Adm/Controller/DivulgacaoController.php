@@ -24,9 +24,7 @@ class DivulgacaoController extends AbstractActionController
     ));
   }
 
-  public function criarPublicacao(){
-    //Faz a conexao com o facebook
-    $fbConnect = (new FbConnect())->Connect();
+  public function criarPublicacao($fbConnect){
     $fb = $fbConnect['fb'];
     $infPagina = $fbConnect['infPagina'];
 
@@ -155,26 +153,15 @@ class DivulgacaoController extends AbstractActionController
       $linkQr = $_POST ['linkqr'];
       $prioridade = $_POST ['prioridade'];
 
-      //Não publica se algum campo estiver em branco ou não preenchido.
-      //if (isset ( $_FILES ['imagem'] ['name'] ) && $_POST ['ano'] != null && $_POST ['mes'] != null && $_POST ['dia'] != null && $_FILES ["imagem"] ["error"] == 0) {
-      if (isset ( $_FILES ['imagem'] ['name'] ) && $_FILES ["imagem"] ["error"] == 0) {
+      //NAO PUBLICA SE ALGUM CAMPO NAO ESTIVER PREENCHIDO
+      if (isset ( $_FILES ['imagem'] ['name'] ) && $_POST ['ano'] != null && $_POST ['mes'] != null && $_POST ['dia'] != null && $_FILES ["imagem"] ["error"] == 0) {
         // $sessao = new Container('Auth');// Obtem a sessão do usuário
 
-        // Parâmetros do facebook -> vide class Cofigure
-        // $configure = new Configure();
-        // $newFacebook = $configure->newFacebook();
-        // $infPagina = $configure->infPagina();
-        // //
-        // $fb = new \Facebook\Facebook($newFacebook);// passa parâmetros para a classe principal da Graph
-
-        // include_once (__DIR__.'/FbConnect.php');
         $fbConnect = (new FbConnect())->Connect();
-        $fb = $fbConnect['fb'];
-        $infPagina = $fbConnect['infPagina'];
+        $fb = $fbConnect['fb']; //INFORMAÇOES NECESSARIAS PARA REALIZAR A CONEXAO COM O FACEBOOK
+        $infPagina = $fbConnect['infPagina']; //INFORMAÇOES DA PAGINA
 
-
-
-        $arquivo_tmp = $_FILES ['imagem'] ['tmp_name'];// imagem do buffer temporário
+        $arquivo_tmp = $_FILES ['imagem'] ['tmp_name'];// ARAMAZENA A IMAGEM INCLUIDA EM UM BUFFER
         $nome = $_FILES ['imagem'] ['name'];
         $myFileToUpload = $fb->fileToUpload($arquivo_tmp); // prepara o arquivo passando para base64
         $extensao = strrchr($nome, ".");
@@ -188,10 +175,6 @@ class DivulgacaoController extends AbstractActionController
             $text = $legenda.". Para mais detalhes acesse: ".$linkQr;
           }
 
-          if ($_POST ['prioridade'] == null) {
-            $prioridade = 'alta';
-          }
-
           $dataTermino = $_POST ['ano'] . "-" . $_POST ['mes'] . "-" . $_POST ['dia'];
 
           $dados = [
@@ -203,7 +186,6 @@ class DivulgacaoController extends AbstractActionController
           ];
 
           // ENVIA PARA A PAGINA DO FACE
-
           try {
             $response = $fb->post('/'.$infPagina['idPagina'].'/photos/', $dados, $infPagina['tokenPagina']);
           } catch(FacebookExceptionsFacebookResponseException $e) {
@@ -213,34 +195,14 @@ class DivulgacaoController extends AbstractActionController
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             exit;
           }
-          $graphNode = $response->getGraphNode();
+          //$graphNode = $response->getGraphNode();
 
-          // ENVIA PARA A PAGINA PESSOAL
-          //  try {
-          //  $response = $fb->post ( '/me/photos', $data );// Envio para o Perfil do SID
-          // } catch ( Facebook\Exceptions\FacebookSDKException $e ) {
-          //  echo 'Error: ' . $e->getMessage ();
-          //  exit();
-          // }
-          // $graphNode = $response->getGraphNode ();
+          $cria_divulgacao = (new DivulgacaoController())->criarPublicacao($fbConnect);
+          $object_id = $cria_divulgacao['object_id'];
+          $linkQr = $cria_divulgacao['urlPublicacao'];
 
-
-          // echo '<pre>';
-          //var_dump($comentariosPublicacao['data'][$postSelecionado]['from']['name']);
-          // echo '<pre>';
-          // die;
-
-
-          $teste = new DivulgacaoController();
-          $testes = $teste->criarPublicacao();
-          $object_id = $testes['object_id'];
-          $linkQr = $testes['urlPublicacao'];
-
-
-
-
+          //ARMAZENA O ARQUIVO LOCALMENTE NA PASTA SID/public/imagens/
           $arquivo_destino = $infPagina['destinoLocal'].$object_id.".png";
-
           move_uploaded_file($arquivo_tmp, $arquivo_destino);
 
           $fbId = $infPagina['idPagina'];

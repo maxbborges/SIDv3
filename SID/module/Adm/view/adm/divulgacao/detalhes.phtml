@@ -18,7 +18,7 @@
 	<br>
 	<!-- <img class="imgDetalhes" alt="<?php echo $this->detalhes->getDivId();?>" src="/imagem.php?divid=<?php echo $this->detalhes->getDivId();?>"> -->
 	<img class="imgDetalhes" alt="<?php echo $this->detalhes->getDivId();?>" src="<?php
-			require_once '/var/www/html/tcc/SID/public/Connection.php';
+			require_once './public/Connection.php';
 			$query = "SELECT object_id FROM divulgacao WHERE divid =".$this->detalhes->getDivId();
 			$res = pg_query ( $conn, $query ) or die ( pg_last_error ( $conn ) );
 			$row = pg_fetch_row($res);
