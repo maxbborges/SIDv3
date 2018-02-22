@@ -5,15 +5,14 @@
 		action="<?php
 		echo $this->url ( 'divulgacao', array (
 				'controller' => 'divulgacao',
-				'action' => 'inserir' 
+				'action' => 'inserir'
 		) );
 		?>"
 		method="POST" enctype="multipart/form-data">
 		<div id="div-cadastrar-divulgacao" class="form-group">
-			<input class="form-control" placeholder="Legenda" name="legenda"> <input
-				class="form-control" placeholder="Link para mais informações"
-				name="linkqr"> <select class="form-control" name="prioridade"
-				style="width: 30%">
+			<input class="form-control" placeholder="Legenda" name="legenda">
+			<textarea class="form-control" placeholder="Texto para exibida na publicação" name="linkqr"></textarea>
+			<select class="form-control" name="prioridade" style="width: 30%">
 				<option value="">Prioridade</option>
 				<option value="Alta">Alta</option>
 				<option value="Mediana">Mediana</option>
@@ -88,7 +87,7 @@
 				href="<?php
 				echo $this->url ( 'divulgacao', array (
 						'controller' => 'divulgacao',
-						'action' => 'listar' 
+						'action' => 'listar'
 				) );
 				?>">Cancelar</a> <input type="submit" value="Inserir"
 				class="btn btn-success" name="submit">

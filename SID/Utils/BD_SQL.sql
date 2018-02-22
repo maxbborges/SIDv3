@@ -15,3 +15,5 @@ CREATE TABLE adm (
 	email varchar,
 	senha varchar
 );
+
+insert into divulgacao values (0,null,'www.google.com.br',null,'conheca o SID','fixa','2030-01-01');
