@@ -69,24 +69,38 @@ class RestfulbdController extends AbstractRestfulController
     $res = pg_exec($conn, $sql);
 
     while($linha = pg_fetch_array($res,$row = NULL, $result_type = PGSQL_ASSOC)){
+      // Verifica se a o DIVID não é zero, pois a posicao 0 é destinada a publicação fixa, não possuindo Comentarios.
       if ($linha['divid']!=0){
+        // Requisita os paramentros de conexão com o facebook e faz a conexão.
         require_once (__DIR__.'/Configure1.php');
         $configure = new Configure();
         $infPagina = $configure->infPagina();
         $fb = new \Facebook\Facebook($configure->newFacebook());
+
+        // Recupera todos os comentarios da publicação, usando o object_id de cada uma.
         $comentarios = ($fb->get('/'.$linha['object_id'].'/comments', $infPagina['tokenPagina']))->getDecodedBody();
 
+        // Verifica se a publicação possui Comentarios.
+        if($comentarios['data']!=null){
+          // precorre todo todas as informaçoes dos comentarios e coloca a foto do usuario q publicou em cada uma delas.
+          for($i=0; $i<count($comentarios['data']); $i++){
+            $urlFoto = ($fb->get("/".$comentarios['data'][$i]['from']['id']."/?fields=picture.type(large)", $infPagina['tokenPagina']))->getDecodedBody();
+            $url['urlFoto'] = $urlFoto['picture']['data']['url'];
+            $arrayComentarios[$i+1] = array_merge($comentarios['data'][$i], $url);
+          }
+        }
       }
+
       $json[$posicao] = array(
         'bd' => $linha,
-        'comentarios' => (empty($comentarios)) ? null : $comentarios['data'],
+        'comentarios' => $arrayComentarios,
       );
+      $arrayComentarios=null;
       $posicao++;
     }
 
     $json = json_encode($json);
-    $response = $this->getResponseWithHeader()
-    ->setContent($json);
+    $response = $this->getResponseWithHeader()->setContent($json);
     return $response;
   }
 
@@ -112,9 +126,7 @@ class RestfulbdController extends AbstractRestfulController
   public function getResponseWithHeader(){
     $response = $this->getResponse();
     $response->getHeaders()
-    //make can accessed by *
     ->addHeaderLine('Access-Control-Allow-Origin','*')
-    //set allow methods
     ->addHeaderLine('Access-Control-Allow-Methods','POST PUT DELETE GET');
 
     header('Content-Type: application/json;charset=UTF-8');

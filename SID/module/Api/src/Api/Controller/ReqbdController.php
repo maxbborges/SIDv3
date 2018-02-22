@@ -17,8 +17,7 @@ class ReqbdController extends AbstractActionController
 		$id = $this->params()->fromQuery('id', 'get');
 
 		$ip = $this->getRequest()->getServer('REMOTE_ADDR');
-		$client->setUri('http://'.$ip.':6670'.$this->getRequest()->getBaseUrl().'/bd');
-		// $client->setUri('http://localhost:6670'.$this->getRequest()->getBaseUrl().'/bd');
+		$client->setUri("http://".$_SERVER['HTTP_HOST'].$this->getRequest()->getBaseUrl().'/bd');
 
 		switch($method) {
 			case 'get' :
@@ -38,7 +37,6 @@ class ReqbdController extends AbstractActionController
 
 			$adapter->connect('localhost', 6670);
 			$uri = $client->getUri().'?id=1';
-			// send with PUT Method, with $data parameter
 			$adapter->write('PUT', new \Zend\Uri\Uri($uri), 1.1, array(), http_build_query($data));
 
 			$responsecurl = $adapter->read();
@@ -53,8 +51,7 @@ class ReqbdController extends AbstractActionController
 			$adapter = $client->getAdapter();
 
 			$adapter->connect('localhost', 6670	);
-			$uri = $client->getUri().'?id=1'; //send parameter id = 1
-			// send with DELETE Method
+			$uri = $client->getUri().'?id=1';
 			$adapter->write('DELETE', new \Zend\Uri\Uri($uri), 1.1, array());
 
 			$responsecurl = $adapter->read();
@@ -67,10 +64,8 @@ class ReqbdController extends AbstractActionController
 			return $response;
 		}
 
-		//if get/get-list/create
 		$response = $client->send();
 		if (!$response->isSuccess()) {
-			// report failure
 			$message = $response->getStatusCode() . ': ' . $response->getReasonPhrase();
 
 			$response = $this->getResponse();
