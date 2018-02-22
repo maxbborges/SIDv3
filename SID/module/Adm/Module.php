@@ -12,33 +12,37 @@ use Adm\Service\User as UserService;
 class Module {
 	public function init(ModuleManager $moduleManager) {
 		$sharedEvents = $moduleManager->getEventManager ()->getSharedManager ();
-		
+
 		$sharedEvents->attach ( 'Zend\Mvc\Controller\AbstractActionController', MvcEvent::EVENT_DISPATCH, array (
 				$this,
-				'Autenticacao' 
+				'Autenticacao'
 		), 99 );
 	}
+
+	// Verifica se a rota precisa ou não de Autenticacao.
 	public function Autenticacao($e) {
+		// Pega o endereço e simplifica para a rota expecifica.
 		$controller = $e->getTarget ();
 		$rota = $controller->getEvent ()->getRouteMatch ()->getMatchedRouteName ();
-		
-		// echo "Rota = ".$rota."<br>";
-		
+
 		$sessao = new Container ( 'Auth' );
-		
-		// echo "admin = ".$sessao->admin."<br>";
-		
-		if ($rota != "cliente" && $rota != "auth" && $rota != "auth/default" && $rota != "auth/index" && $rota != "auth/callback" && $rota != "auth/sair") {
+
+		// Pega a string $rota e quebra nos locais onde tem /
+		$rotaExterna = explode("/",$rota);
+
+		// verifica se a rota é: "home" que é o / ou alguma outra das rotas do mudulo adm.
+		if ($rotaExterna[0]=="home" || $rotaExterna[0]=="divulgacao" || $rotaExterna[0]=="administrador" || $rotaExterna[0]=="imagem") {
 			if (! $sessao->admin) {
 				return $controller->redirect ()->toRoute ( 'auth' );
 			}
 		}
 	}
+
 	public function onBootstrap(MvcEvent $e) {
 		$eventManager = $e->getApplication ()->getEventManager ();
 		$moduleRouteListener = new ModuleRouteListener ();
 		$moduleRouteListener->attach ( $eventManager );
-		
+
 		// Início
 		$e->getApplication ()->getEventManager ()->getSharedManager ()->attach ( 'Zend\Mvc\Controller\AbstractActionController', 'dispatch', function ($e) {
 			$controller = $e->getTarget ();
@@ -58,9 +62,9 @@ class Module {
 		return array (
 				'Zend\Loader\StandardAutoloader' => array (
 						'namespaces' => array (
-								__NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__ 
-						) 
-				) 
+								__NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
+						)
+				)
 		);
 	}
 	public function getServiceConfig() {
@@ -71,8 +75,8 @@ class Module {
 						},
 						'Adm\Service\User' => function ($service) {
 							return new UserService ( $service->get ( 'Doctrine\ORM\EntityManager' ) );
-						} 
-				) 
+						}
+				)
 		);
 	}
 }
