@@ -6,7 +6,7 @@
 			action="<?php
 			echo $this->url ( 'divulgacao', array (
 					'controller' => 'divulgacao',
-					'action' => 'editarDados' 
+					'action' => 'editarDados'
 			) );
 			?>"
 			method="POST" enctype="multipart/form-data">
@@ -15,11 +15,7 @@
 				<br>
 				<h4>Legenda</h4>
 				<input value="<?php echo $this->editar->getLegenda();?>"
-					class="form-control" placeholder="Legenda" name="legenda">
-				<h4>Link de detalhes</h4>
-				<input value="<?php echo $this->editar->getLinkqr();?>"
-					class="form-control" placeholder="Link para mais informações"
-					name="linkqr">
+					class="form-control" placeholder="Legenda" name="legenda" readonly="true">
 				<h4>Prioridade</h4>
 				<select class="form-control" name="prioridade" style="width: 60%">
 					<option value="<?php echo $this->editar->getPrioridade();?>"><?php echo $this->editar->getPrioridade();?></option>
@@ -103,14 +99,14 @@
 
 	</div>
 	<div
-		style="float: right; margin-right: 10%; position: fixed; top: 73px; right: 8%;">
+		style="float: right; margin-right: 20%; position: fixed; top: 73px; right: 8%;">
 		<h3>Editar Imagem:</h3>
 		<br>
 		<form
 			action="<?php
 			echo $this->url ( 'divulgacao', array (
 					'controller' => 'divulgacao',
-					'action' => 'editar-imagem' 
+					'action' => 'editar-imagem'
 			) );
 			?>"
 			method="POST" enctype="multipart/form-data">

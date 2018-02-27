@@ -21,44 +21,22 @@ class DivulgacaoController extends AbstractActionController
     ));
   }
 
-  public function criarPublicacao($fbConnect){
-    $fb = $fbConnect['fb'];
-    $infPagina = $fbConnect['infPagina'];
-
-    //RECUPERA AS PUBLICAÇOES COM LINK,ID E MENSAGEM DE CADA UMA
-    $postagens = ($fb->get('/'.$infPagina['idPagina'].'/feed?fields=link,id', $infPagina['tokenPagina']))->getDecodedBody();
-
-    //Recupera as informaçoes da posição 0, ultima publicação feita.
-    $idPublicacao = $postagens['data'][0]['id'];
-    $urlPublicacao = $postagens['data'][0]['link'];
-
-    //CRIA O object_id DA PUBLICACAO
-    $object_id = str_replace($infPagina['idPagina']."_", "", $idPublicacao);
-
-    $listaDeInformacoes = array(
-      'object_id' => $object_id,
-      'urlPublicacao' => $urlPublicacao
-    );
-
-    return ($listaDeInformacoes);
-
-  }
-
   // INSERIR NO FACEBOOK E NO BANCO DE DADOS
   public function inserirAction(){
     if ($this->getRequest()->isPost()) {
       // Recupera os parâmetros do HTML (module/Adm/view/adm/divulgacao/inserir.phtml)
       $legenda = $_POST ['legenda'];
-      $linkQr = $_POST ['linkqr'];
+      $textoPublicacao = $_POST ['textoPublicacao'];
       $prioridade = $_POST ['prioridade'];
 
-      //NAO PUBLICA SE ALGUM CAMPO NAO ESTIVER PREENCHIDO
+      //NAO PUBLICA SE ALGUM CAMPO NAO ESTIVER PREENCHIDO NO SERVIDOR
       if (isset ( $_FILES ['imagem'] ['name'] ) && $_POST ['ano'] != null && $_POST ['mes'] != null && $_POST ['dia'] != null && $_FILES ["imagem"] ["error"] == 0) {
-        // $sessao = new Container('Auth');// Obtem a sessão do usuário
+        // Recupera os dados necessarios para conexão com o facebook
+        $configure = new Configure();
+        $newFacebook = $configure->newFacebook();
+        $infPagina = $configure->infPagina();
+        $fb = new \Facebook\Facebook($newFacebook);
 
-        $fbConnect = (new FbConnect())->Connect();
-        $fb = $fbConnect['fb']; //INFORMAÇOES NECESSARIAS PARA REALIZAR A CONEXAO COM O FACEBOOK
-        $infPagina = $fbConnect['infPagina']; //INFORMAÇOES DA PAGINA
 
         $arquivo_tmp = $_FILES ['imagem'] ['tmp_name'];// ARAMAZENA A IMAGEM INCLUIDA EM UM BUFFER
         $nome = $_FILES ['imagem'] ['name'];
@@ -70,8 +48,8 @@ class DivulgacaoController extends AbstractActionController
         if (strstr('.jpg;.jpeg;.png;.gif', $extensao)) {
 
           // ARMAZENA AS INFORMAÇOES REFERENTES A LENGENDA E AO LINK COLOCADO NA PUBLICAÇÃO
-          if ($legenda != null && $linkQr != null) {
-            $text = $legenda.". Para mais detalhes acesse: ".$linkQr;
+          if ($textoPublicacao != null) {
+            $text = $textoPublicacao;
           }
 
           $dataTermino = $_POST ['ano'] . "-" . $_POST ['mes'] . "-" . $_POST ['dia'];
@@ -80,27 +58,21 @@ class DivulgacaoController extends AbstractActionController
             //'url' => 'http://1.bp.blogspot.com/-nyE7Y4y-fzg/TlA6gdkxMmI/AAAAAAAAA-4/Y-tWAbDsrDw/s1600/legal.png', // ENVIA UMA IMAGEM A PARTIR DE UM LINK ONLINE
             'message' => $text,
             'source' => $myFileToUpload,
-            'caption' => $_POST ['linkqr'],
+            'caption' => $_POST ['textoPublicacao'],
             //'picture' => $myFileToUpload
           ];
 
           // ENVIA PARA A PAGINA DO FACE
-          try {
-            $response = $fb->post('/'.$infPagina['idPagina'].'/photos/', $dados, $infPagina['tokenPagina']);
-          } catch(FacebookExceptionsFacebookResponseException $e) {
-            echo 'Graph returned an error: ' . $e->getMessage();
-            exit;
-          } catch(FacebookExceptionsFacebookSDKException $e) {
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
-          }
-          //$graphNode = $response->getGraphNode();
+          $response = $fb->post('/'.$infPagina['idPagina'].'/photos/', $dados, $infPagina['tokenPagina']);
+          $facebookPost = $response->getGraphNode();
 
-          $cria_divulgacao = (new DivulgacaoController())->criarPublicacao($fbConnect);
-          $object_id = $cria_divulgacao['object_id'];
-          $linkQr = $cria_divulgacao['urlPublicacao'];
+          // Recupera o link e o da publicação feita usando o ID
+          $postagens = ($fb->get('/'.$facebookPost['id'].'/?fields=link', $infPagina['tokenPagina']))->getDecodedBody();
+          $object_id = $postagens['id'];
+          $linkQr = $postagens['link'];
 
-          //ARMAZENA O ARQUIVO LOCALMENTE NA PASTA SID/public/imagens/
+          //ARMAZENA O ARQUIVO LOCALMENTE NA PASTA SID/public/
+          //Local definido no arquivo Configure, no metodo infPagina()
           $arquivo_destino = $infPagina['destinoLocal'].$object_id.".png";
           move_uploaded_file($arquivo_tmp, $arquivo_destino);
 
@@ -134,7 +106,6 @@ class DivulgacaoController extends AbstractActionController
 
       $divid = $this->getRequest()->getPost('divid');
       $legenda = $this->getRequest()->getPost('legenda');
-      $linkqr = $this->getRequest()->getPost('linkqr');
       $prioridade = $this->getRequest()->getPost('prioridade');
       $dia = $this->getRequest()->getPost('dia');
       $mes = $this->getRequest()->getPost('mes');
@@ -146,7 +117,6 @@ class DivulgacaoController extends AbstractActionController
 
       try {
         $divulgacao->setLegenda($legenda);
-        $divulgacao->setLinkqr($linkqr);
         $divulgacao->setPrioridade($prioridade);
         $divulgacao->setDatatermino($datatermino);
 
@@ -173,6 +143,8 @@ class DivulgacaoController extends AbstractActionController
 
   public function editarImagemAction(){
     if ($this->getRequest()->isPost()) {
+
+
       $divid = $_POST ['divid'];
 
       $arquivo_tmp = $_FILES ['imagem'] ['tmp_name'];

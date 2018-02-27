@@ -8,14 +8,11 @@ use Zend\View\Model\ViewModel;
 use Adm\Controller\Configure;
 
 class AuthController extends AbstractActionController {
+	// É a redirecionado quando se digita IP:porta/auth ou alguma das paginas q é necessario login
 	public function indexAction() {
-		$sessao = new Container ( 'Auth' );
-
-		$configure = new Configure ();
-		$newFacebook = $configure->newFacebook ();
-
+		// Recupera as informaçoes de configuração do facebook
+		$newFacebook = (new Configure ())->newFacebook ();
 		$fb = new \Facebook\Facebook ( $newFacebook );
-
 		$helper = $fb->getRedirectLoginHelper ();
 
 		$permissions = [
@@ -25,12 +22,7 @@ class AuthController extends AbstractActionController {
 				'publish_pages'
 		];
 
-		// $ip = $this->getRequest()->getServer('REMOTE_ADDR');
 		echo $ip = $_SERVER['HTTP_HOST'];
-		// caminho de volta deve ser absoluto
-		// Será preciso adicionar o ip de domínio no aplicativo na plataforma de desenvolvedores no Facebook
-		// O domínio localhost já está definido, portando em uso.
-		// $loginUrl = $helper->getLoginUrl ( 'http://'.$ip.':6670/auth/callback', $permissions );
 		$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.'/auth/callback', $permissions );
 
 		$result = new ViewModel(array (
@@ -41,6 +33,7 @@ class AuthController extends AbstractActionController {
 		return $result;
 
 	}
+
 	public function callbackAction() {
 		$sessao = new Container ( 'Auth' );
 

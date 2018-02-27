@@ -25,7 +25,7 @@ class Module {
 		$controller = $e->getTarget ();
 		$rota = $controller->getEvent ()->getRouteMatch ()->getMatchedRouteName ();
 
-		$sessao = new Container ( 'Auth' );
+		$sessao = new Container ('Auth');
 
 		// Pega a string $rota e quebra nos locais onde tem /
 		$rotaExterna = explode("/",$rota);
