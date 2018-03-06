@@ -13,9 +13,9 @@ return array(
 	'controllers' => array(
 		'invokables' => array(
 			'Api\Controller\Reqbd' => 'Api\Controller\ReqbdController',
-			'Api\Controller\Reqfb' => 'Api\Controller\ReqfbController',
+			'Api\Controller\Reqmobile' => 'Api\Controller\ReqmobileController',
 			'Api\Controller\Restfulbd' => 'Api\Controller\RestfulbdController',
-			'Api\Controller\Restfulfb' => 'Api\Controller\RestfulfbController',
+			'Api\Controller\Restfulmobile' => 'Api\Controller\RestfulmobileController',
 
 		),
 	),
@@ -46,6 +46,32 @@ return array(
 						),
 					),
 				),
+			),
+			'mobile' => array(
+					'type' => 'Zend\Mvc\Router\Http\Literal',
+					'options' => array(
+							'route'    => '/mobile',
+							'defaults' => array(
+									'__NAMESPACE__' => 'Api\Controller',
+									'controller' => 'Restfulmobile',
+							),
+					),
+					'may_terminate' => true,
+					'child_routes' => array(
+						'reqbd' => array(
+							'type'    => 'segment',
+							'options' => array(
+								'route'    => '/[/:action]',
+								'constraints' => array(
+									'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+								),
+								'defaults' => array(
+									'controller' => 'Reqmobile',
+									'action'     => 'index'
+								),
+							),
+						),
+					),
 			),
 		),
 	),
