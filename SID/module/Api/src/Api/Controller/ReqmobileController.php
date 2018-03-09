@@ -13,60 +13,25 @@ class ReqmobileController extends AbstractActionController
     $client = new HttpClient();
     $client->setAdapter('Zend\Http\Client\Adapter\Curl');
 
-    $method = $this->params()->fromQuery('method', 'get');
+    $method = $this->getRequest()->getServer('REQUEST_METHOD');
     $id = $this->params()->fromQuery('id', 'get');
 
-    $ip = $this->getRequest()->getServer('REMOTE_ADDR');
     $client->setUri("http://".$_SERVER['HTTP_HOST'].$this->getRequest()->getBaseUrl().'/mobile');
 
     switch($method) {
-      case 'get' :
-      $client->setMethod('GET');
-      $client->setParameterGET(array('id'=>$id));
-      break;
-      case 'get-list' :
-      $client->setMethod('GET');
-      break;
-      case 'post' :
-      $data = array (
-        'id_professor'=>$this->params()->fromQuery('matricula', 'get'),
-        'id_turma'=>$this->params()->fromQuery('id', 'get'),
-        'menssagem'=>$this->params()->fromQuery('menssagem', 'get')
-      );
-      $client->setMethod('POST');
-      $client->setParameterPOST($data);
-      break;
-      case 'update' :
-      $data = array('name'=>'ikhsan');
-      $adapter = $client->getAdapter();
-
-      $adapter->connect('localhost', 6670);
-      $uri = $client->getUri().'?id=1';
-      $adapter->write('PUT', new \Zend\Uri\Uri($uri), 1.1, array(), http_build_query($data));
-
-      $responsecurl = $adapter->read();
-      list($headers, $content) = explode("\r\n\r\n", $responsecurl, 2);
-      $response = $this->getResponse();
-
-      $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
-      $response->setContent($content);
-
-      return $response;
-      case 'delete' :
-      $adapter = $client->getAdapter();
-
-      $adapter->connect('localhost', 6670	);
-      $uri = $client->getUri().'?id=1';
-      $adapter->write('DELETE', new \Zend\Uri\Uri($uri), 1.1, array());
-
-      $responsecurl = $adapter->read();
-      list($headers, $content) = explode("\r\n\r\n", $responsecurl, 2);
-      $response = $this->getResponse();
-
-      $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
-      $response->setContent($content);
-
-      return $response;
+      case 'GET':
+        $client->setMethod('GET');
+        $client->setParameterGET(array('id'=>$id));
+        break;
+      case 'POST' :
+        $data = array (
+          'id_professor'=>$this->params()->fromQuery('matricula', 'get'),
+          'id_turma'=>$this->params()->fromQuery('id', 'get'),
+          'menssagem'=>$this->params()->fromQuery('menssagem', 'get')
+        );
+        $client->setMethod('POST');
+        $client->setParameterPOST($data);
+        break;
     }
 
     $response = $client->send();

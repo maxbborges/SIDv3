@@ -10,13 +10,12 @@ class RestfulmobileController extends AbstractRestfulController
 
   public function get($id){
     require_once 'public/Connection.php';
-    $sql = "select aluno.matricula, aluno.nome as nome_aluno, matriculado.id_turma, professor.nome as nome_professor, menssagem.menssagem from aluno inner join matriculado on aluno.matricula=matriculado.matricula_aluno inner join menssagem on matriculado.id_turma=menssagem.id_turma inner join professor on menssagem.id_professor=professor.matricula where aluno.matricula='".$id."'";
+    $sql = "select aluno.matricula as matricula_aluno, aluno.nome as nome_aluno, matriculado.id_turma, professor.nome as nome_professor, menssagem.menssagem from aluno inner join matriculado on aluno.matricula=matriculado.matricula_aluno inner join menssagem on matriculado.id_turma=menssagem.id_turma inner join professor on menssagem.id_professor=professor.matricula where aluno.matricula='".$id."'";
     $res = pg_exec($conn, $sql);
     while($linha = pg_fetch_array($res,$row = NULL, $result_type = PGSQL_ASSOC)){
       $vetor[] = array_map('htmlentities', $linha);
     }
     $json = json_encode($vetor);
-
 
     $response = $this->getResponseWithHeader()->setContent($json);
     return $response;
@@ -25,7 +24,7 @@ class RestfulmobileController extends AbstractRestfulController
   public function getList(){
     require_once 'public/Connection.php';
 
-    $sql = "select matricula,id_turma,menssagem,nome from menssagem left join professor on professor.matricula=id_professor order by matricula;";
+    $sql = "select matricula as matricula_professor, nome as nome_professor, id_turma,menssagem from menssagem left join professor on professor.matricula=id_professor order by matricula;";
     $res = pg_exec($conn, $sql);
     while($linha = pg_fetch_array($res,$row = NULL, $result_type = PGSQL_ASSOC)){
       $vetor[] = array_map('htmlentities', $linha);
@@ -50,18 +49,6 @@ class RestfulmobileController extends AbstractRestfulController
       ->setContent(json_encode('Inserido com sucesso!'));
       return $response;
     }
-  }
-
-  public function update($id, $data){
-    $response = $this->getResponseWithHeader()
-    ->setContent(__METHOD__.'ira atualiza') ;
-    return $response;
-  }
-
-  public function delete($id){
-    $response = $this->getResponseWithHeader()
-    ->setContent(__METHOD__.'ira deletar') ;
-    return $response;
   }
 
   // configure response
