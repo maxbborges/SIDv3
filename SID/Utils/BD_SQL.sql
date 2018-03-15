@@ -22,7 +22,8 @@ CREATE TABLE turma (
 
 CREATE TABLE aluno(
 	nome varchar,
-	matricula varchar NOT NULL PRIMARY KEY
+	matricula varchar NOT NULL PRIMARY KEY,
+	senha varchar NOT NULL
 );
 
 CREATE TABLE matriculado(
@@ -31,21 +32,31 @@ CREATE TABLE matriculado(
 );
 
 CREATE TABLE professor(
-	nome varchar,
 	matricula varchar NOT NULL PRIMARY KEY
+	nome varchar,
+	senha varchar,
 );
 
 CREATE TABLE menssagem(
-	id_professor varchar REFERENCES professor(matricula),
-	id_turma varchar REFERENCES turma(id),
-	menssagem varchar NOT NULL PRIMARY KEY
+	id_menssagem serial,
+	id_professor varchar NOT NULL REFERENCES professor(matricula),
+	id_turma varchar NOT NULL REFERENCES turma(id),
+	menssagem varchar NOT NULL
 );
 
 insert into divulgacao values (0,null,'www.google.com.br',null,'conheca o SID','fixa','2030-01-01');
 
 
 insert into turma values ('turma2014');
-insert into aluno values ('aluno1','1');
+insert into aluno values ('aluno1','1',md5('123'));
 insert into matriculado values ('1','turma2014');
-insert into professor values ('professor1','1');
-insert into menssagem values ('1','turma2014','mensagem do professor1');
+insert into professor values ('1','professor1',md5('123'));
+insert into menssagem (id_professor,id_turma,menssagem) values ('1','turma2014','mensagem do professor1');
+
+select * from aluno where senha = md5('123');
+
+drop table menssagem;
+drop table professor;
+drop table matriculado;
+drop table turma;
+drop table aluno;

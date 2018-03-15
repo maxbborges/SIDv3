@@ -15,23 +15,20 @@ class ReqmobileController extends AbstractActionController
 
     $method = $this->getRequest()->getServer('REQUEST_METHOD');
     $id = $this->params()->fromQuery('id', 'get');
+    $bodyPost = $this->params()->fromPost();
+
 
     $client->setUri("http://".$_SERVER['HTTP_HOST'].$this->getRequest()->getBaseUrl().'/mobile');
 
     switch($method) {
       case 'GET':
-        $client->setMethod('GET');
-        $client->setParameterGET(array('id'=>$id));
-        break;
+      $client->setMethod('GET');
+      $client->setParameterGET(array('id'=>$id));
+      break;
       case 'POST' :
-        $data = array (
-          'id_professor'=>$this->params()->fromQuery('matricula', 'get'),
-          'id_turma'=>$this->params()->fromQuery('id', 'get'),
-          'menssagem'=>$this->params()->fromQuery('menssagem', 'get')
-        );
-        $client->setMethod('POST');
-        $client->setParameterPOST($data);
-        break;
+      $client->setMethod('POST');
+      $client->setParameterPOST($bodyPost);
+      break;
     }
 
     $response = $client->send();
