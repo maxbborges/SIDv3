@@ -16,17 +16,17 @@ class AuthController extends AbstractActionController {
 		$helper = $fb->getRedirectLoginHelper ();
 
 		$permissions = [
-				'email',
-				'publish_actions',
-				'manage_pages',
-				'publish_pages'
+			'email',
+			'publish_actions',
+			'manage_pages',
+			'publish_pages'
 		];
 
 		echo $ip = $_SERVER['HTTP_HOST'];
 		$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.'/auth/callback', $permissions );
 
 		$result = new ViewModel(array (
-				'logar' => $loginUrl
+			'logar' => $loginUrl
 		));
 		$result->setTerminal(true);
 
@@ -45,7 +45,7 @@ class AuthController extends AbstractActionController {
 		$helper = $fb->getRedirectLoginHelper ();
 
 		try {
-			$accessToken = $helper->getAccessToken ();
+			$accessToken = $helper->getAccessToken ('http://'.$_SERVER['HTTP_HOST'].'/auth/callback');
 		} catch ( Facebook\Exceptions\FacebookResponseException $e ) {
 			// When Graph returns an error
 
@@ -83,22 +83,22 @@ class AuthController extends AbstractActionController {
 
 			//echo 'conectado';
 			return $this->redirect ()->toRoute ( 'divulgacao', array (
-					'controller' => 'divulgacao',
-					'action' => 'listar'
-			) );
-		}else{
-			echo "Facebook Login Incorreto!";
-			exit;
+				'controller' => 'divulgacao',
+				'action' => 'listar'
+				) );
+			}else{
+				echo "Facebook Login Incorreto!";
+				exit;
+			}
 		}
-	}
-	public function sairAction() {
-		$sessao = new Container ( "Auth" );
+		public function sairAction() {
+			$sessao = new Container ( "Auth" );
 
-		$sessao->getManager ()->destroy ();
+			$sessao->getManager ()->destroy ();
 
-		return $this->redirect ()->toRoute ( 'auth', array (
+			return $this->redirect ()->toRoute ( 'auth', array (
 				'controller' => 'auth',
 				'action' => 'index'
-		) );
-	}
-}
+				) );
+			}
+		}
