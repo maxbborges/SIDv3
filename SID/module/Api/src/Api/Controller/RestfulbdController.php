@@ -15,6 +15,8 @@ class RestfulbdController extends AbstractRestfulController
   }
 
   public function getList(){
+    $json = array();
+    $arrayComentarios = array();
     require_once (__DIR__.'/Configure1.php');
     $configure = new Configure();
     $infPagina = $configure->infPagina();
