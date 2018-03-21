@@ -16,7 +16,10 @@ return array(
 			'Api\Controller\Reqmobile' => 'Api\Controller\ReqmobileController',
 			'Api\Controller\Restfulbd' => 'Api\Controller\RestfulbdController',
 			'Api\Controller\Restfulmobile' => 'Api\Controller\RestfulmobileController',
-
+			'Api\Controller\Professores' => 'Api\Controller\ProfessoresController',
+			'Api\Controller\Alunos' => 'Api\Controller\AlunosController',
+			'Api\Controller\Menssagens' => 'Api\Controller\MenssagensController',
+			'Api\Controller\Turmas' => 'Api\Controller\TurmasController',
 		),
 	),
 	'router' => array(
@@ -70,6 +73,46 @@ return array(
 									'action'     => 'index'
 								),
 							),
+						),
+						'professores' => array(
+								'type' => 'segment',
+								'options' => array(
+										'route'    => '/professores/',
+										'defaults' => array(
+												'__NAMESPACE__' => 'Api\Controller',
+												'controller' => 'Professores',
+										),
+								),
+						),
+						'alunos' => array(
+								'type' => 'segment',
+								'options' => array(
+										'route'    => '/alunos/',
+										'defaults' => array(
+												'__NAMESPACE__' => 'Api\Controller',
+												'controller' => 'Alunos',
+										),
+								),
+						),
+						'menssagens' => array(
+								'type' => 'segment',
+								'options' => array(
+										'route'    => '/menssagens/',
+										'defaults' => array(
+												'__NAMESPACE__' => 'Api\Controller',
+												'controller' => 'Menssagens',
+										),
+								),
+						),
+						'Turmas' => array(
+								'type' => 'segment',
+								'options' => array(
+										'route'    => '/turmas/',
+										'defaults' => array(
+												'__NAMESPACE__' => 'Api\Controller',
+												'controller' => 'Turmas',
+										),
+								),
 						),
 					),
 			),
