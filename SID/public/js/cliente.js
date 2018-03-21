@@ -25,7 +25,8 @@ $(document).ready(function(){
 
 					// Apresenta na tela o QRCODE, a imagem e a legenda da publicação. Dados salvos no banco de dados.
 					$("#linkQr").append("<img class='imgQR' id='linkQrx' src='qrcode.php?link="+dados[posicao]['bd']['linkqr']+"'></img>");
-					$("#slide").append("<img id='imagemx' height='100%' width='100%' src='data:image/png;base64,"+dados[posicao]['imagem']+"' alt='Imagem Alt 1' ></img>");
+					$("#slide").append("<img id='imagemx' height='100%' width='100%' src='"+dados[posicao]['imagem']+"' alt='Imagem Alt 1' ></img>");
+					//$("#slide").append("<img id='imagemx' height='100%' width='100%' src='data:image/png;base64,"+dados[posicao]['imagem']+"' alt='Imagem Alt 1' ></img>");
 					$('#divLegenda').append("<marquee id='marquee' behavior='scroll' direction='left' scrollamount='30'><p>"+dados[posicao]['bd']['legenda']+"</p></marquee>");
 
 					// Apresenta informaçoes como: Texto, foto de perfil, nome e data das publicaçoes.

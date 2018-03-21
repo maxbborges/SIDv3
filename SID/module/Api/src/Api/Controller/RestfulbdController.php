@@ -15,8 +15,6 @@ class RestfulbdController extends AbstractRestfulController
   }
 
   public function getList(){
-    $json = array();
-    $arrayComentarios = array();
     require_once (__DIR__.'/Configure1.php');
     $configure = new Configure();
     $infPagina = $configure->infPagina();
@@ -39,6 +37,7 @@ class RestfulbdController extends AbstractRestfulController
 
           // Requisita os paramentros de conexão com o facebook e faz a conexão.
           $fb = new \Facebook\Facebook($configure->newFacebook());
+          $imagem = ($fb->get('/'.$linha['object_id'].'?fields=images', $infPagina['tokenPagina']))->getDecodedBody();
 
           // Recupera todos os comentarios da publicação, usando o object_id de cada uma.
           $comentarios = ($fb->get('/'.$linha['object_id'].'/comments', $infPagina['tokenPagina']))->getDecodedBody();
@@ -67,7 +66,8 @@ class RestfulbdController extends AbstractRestfulController
         $json[] = array(
           'bd' => $linha, // Informaçoes do Banco
           'comentarios' => $arrayComentarios, // Informaçoes do Face
-          'imagem' => base64_encode(file_get_contents($infPagina['destinoLocal'].$linha['object_id'].".png")), // base64 da imagem armazenada localmente
+          'imagem' => $imagem['images'][0]['source'],
+          // 'imagem' => base64_encode(file_get_contents($infPagina['destinoLocal'].$linha['object_id'].".png")), // base64 da imagem armazenada localmente
         );
 
         $arrayComentarios=null;
