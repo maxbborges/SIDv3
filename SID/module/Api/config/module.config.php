@@ -20,6 +20,7 @@ return array(
 			'Api\Controller\Alunos' => 'Api\Controller\AlunosController',
 			'Api\Controller\Menssagens' => 'Api\Controller\MenssagensController',
 			'Api\Controller\Turmas' => 'Api\Controller\TurmasController',
+			'Api\Controller\Login' => 'Api\Controller\LoginController',
 		),
 	),
 	'router' => array(
@@ -111,6 +112,16 @@ return array(
 										'defaults' => array(
 												'__NAMESPACE__' => 'Api\Controller',
 												'controller' => 'Turmas',
+										),
+								),
+						),
+						'login' => array(
+								'type' => 'segment',
+								'options' => array(
+										'route'    => '/login/',
+										'defaults' => array(
+												'__NAMESPACE__' => 'Api\Controller',
+												'controller' => 'Login',
 										),
 								),
 						),
