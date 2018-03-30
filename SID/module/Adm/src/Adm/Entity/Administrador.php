@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Adm\Entity\AdministradorRepository")
  */
 class Administrador {
-	
+
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
@@ -18,38 +18,53 @@ class Administrador {
 	 * @var int
 	 */
 	public $admId;
-	
+
+	/**
+	 * @ORM\Column(type="bigint")
+	 * @var string
+	 */
+	public $fbId;
+
 	/**
 	 * @ORM\Column(type="string")
 	 * @var string
 	 */
 	public $nome;
-	
+
 	/**
 	 * @ORM\Column(type="string")
 	 * @var string
 	 */
 	public $email;
-	
+
 	/**
 	 * @ORM\Column(type="string")
 	 * @var string
 	 */
 	public $senha;
-	
+
 	public function getAmdId(){
 		return $this->admId;
 	}
-	
+
 	public function setAdmId($admId){
 		$this->admId  = $admId;
 		return $this;
 	}
-	
+
+	public function getFbId(){
+		return $this->admfbId;
+	}
+
+	public function setFbId($fbId){
+		$this->fbId  = $fbId;
+		return $this;
+	}
+
 	public function getNome(){
 		return $this->nome;
 	}
-	
+
 	public function setNome($nome){
 		$this->nome = $nome;
 		return $this;
@@ -57,7 +72,7 @@ class Administrador {
 	public function getEmail(){
 		return $this->email;
 	}
-	
+
 	public function setEmail($email){
 		$this->email = $email;
 		return $this;
@@ -65,12 +80,12 @@ class Administrador {
 	public function getSenha(){
 		return $this->senha;
 	}
-	
+
 	public function setSenha($senha){
 		$this->senha = $senha;
 		return $this;
 	}
-	
+
 	public function toArray(){
 		return array(
 			'usuId' =>$this->getAdmId(),
@@ -79,5 +94,5 @@ class Administrador {
 			'password' => $this->getSenha()
 		);
 	}
-	
+
 }

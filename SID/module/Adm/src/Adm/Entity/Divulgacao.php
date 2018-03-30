@@ -32,11 +32,6 @@ class Divulgacao {
 	/**
 	 * @ORM\Column(type="string")
 	 */
-	public $prioridade;
-
-	/**
-	 * @ORM\Column(type="string")
-	 */
 	public $legenda;
 
 	/**
@@ -48,6 +43,11 @@ class Divulgacao {
 	 * @ORM\Column(type="string")
 	 */
 	public $datatermino;
+
+	/**
+	 * @ORM\Column(type="string")
+	 */
+	public $datainicio;
 	public function getDivId() {
 		return $this->divId;
 	}
@@ -69,13 +69,6 @@ class Divulgacao {
 		$this->linkqr = $linkqr;
 		return $this;
 	}
-	public function getPrioridade() {
-		return $this->prioridade;
-	}
-	public function setPrioridade($prioridade) {
-		$this->prioridade = $prioridade;
-		return $this;
-	}
 	public function getLegenda() {
 		return $this->legenda;
 	}
@@ -90,6 +83,14 @@ class Divulgacao {
 		$this->object_id = $object_id;
 		return $this;
 	}
+	public function getDatainicio() {
+		return $this->datainicio;
+	}
+	public function setDatainicio($datainicio) {
+		$this->datainicio = $datainicio;
+		return $this;
+	}
+
 	public function getDatatermino() {
 		return $this->datatermino;
 	}

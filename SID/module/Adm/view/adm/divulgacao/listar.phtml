@@ -2,53 +2,53 @@
 
 	<div id="divGaleria" style="margin: auto;">
 		<ul id="galeria">
-		<?php if(sizeof($this->divulgacoes)){?>
-    		<?php foreach ($this->divulgacoes as $divulgacao){ ?>
+			<?php if(sizeof($this->divulgacoes)){?>
+				<?php foreach ($this->divulgacoes as $divulgacao){ ?>
 
-				<a
-				href="<?php
+					<a
+					href="<?php
 
-				echo $this->url ( 'divulgacao', array (
+					echo $this->url ( 'divulgacao', array (
 						'controller' => 'divulgacao',
 						'action' => 'detalhes'
-				) );echo '?divid=' . $divulgacao ['divId'];
-				?>"
-				class="configImg" ><li class="imagemLi"><img
-					alt="Imagem <?php echo $divulgacao['divId'];?>"
-					src="<?php
+						) );echo '?divid=' . $divulgacao ['divId'];
+						?>"
+						class="configImg" ><li class="imagemLi"><img
+							alt="Imagem <?php echo $divulgacao['divId'];?>"
+							src="<?php
 							require_once './public/Connection.php';
 							$query = "SELECT object_id FROM divulgacao WHERE divid =".$divulgacao['divId'];
 							$res = pg_query ( $conn, $query ) or die ( pg_last_error ( $conn ) );
 							$row = pg_fetch_row($res);
 							echo "/imagens/".$row[0].".png";
 							?>"
-					style="width: 100%; height: 70%; border-radius: 2%; background-color: #DADADA"> <a
-					href="<?php
+							style="width: 100%; height: 70%; border-radius: 2%; background-color: #DADADA"> <a
+							href="
+							<?php
+							echo $this->url ( 'divulgacao', array (
+								'controller' => 'divulgacao',
+								'action' => 'deletar'
+								) );
+							echo '?divid=' . $divulgacao ['divId'];
+							?>" class="mais btn btn-default" onclick="if(confirm('Esta ação irá excluir a publicação do facebook também! Cuidado ao clicar em ok!')){return true;} else {return false;}">
+							<img alt="Deletar" src="/img/delete.png" style="width: 79%; position: inherit;"></a> <a
+								href="<?php
 
-				echo $this->url ( 'divulgacao', array (
-						'controller' => 'divulgacao',
-						'action' => 'deletar'
-				) );echo '?divid=' . $divulgacao ['divId'];
-				?>"
-					class="mais btn btn-default"><img alt="Deletar" src="/img/delete.png" style="width: 79%; position: inherit;"></a> <a
-					href="<?php
+								echo $this->url ( 'divulgacao', array (
+									'controller' => 'divulgacao',
+									'action' => 'editar-dados'
+									) );
+									echo '?divid=' . $divulgacao ['divId'];
+									?>" class="mais btn btn-default"><img alt="Editar" src="/img/reset2.png" style="width: 79%; position: inherit;"></a></li></a>
 
-				echo $this->url ( 'divulgacao', array (
-						'controller' => 'divulgacao',
-						'action' => 'editar-dados'
-				) );
-				echo '?divid=' . $divulgacao ['divId'];
-				?>"
-					class="mais btn btn-default"><img alt="Editar" src="/img/reset2.png" style="width: 79%; position: inherit;"></a></li></a>
-
-    		<?php }?>
-		<?php
-		} else {
-			?>
-			<li>Nenhuma Divulgação no banco de dados! Click em "Novo" para adicionar.</li>
-		<?php
-		}
-		?>
-		</ul>
-	</div>
-</div>
+								<?php }?>
+								<?php
+							} else {
+								?>
+								<li>Nenhuma Divulgação no banco de dados! Click em "Novo" para adicionar.</li>
+								<?php
+							}
+							?>
+						</ul>
+					</div>
+				</div>

@@ -10,11 +10,23 @@ use Adm\Controller\Configure;
 class AuthController extends AbstractActionController {
 	// É a redirecionado quando se digita IP:porta/auth ou alguma das paginas q é necessario login
 	public function indexAction() {
+		$sessao = new Container ( 'Auth' );
 		// Recupera as informaçoes de configuração do facebook
-		$newFacebook = (new Configure ())->newFacebook ();
-		$fb = new \Facebook\Facebook ( $newFacebook );
-		$helper = $fb->getRedirectLoginHelper ();
+		// $newFacebook = (new Configure ())->newFacebook ();
+		$em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$query = $em->createQuery('SELECT c.app_id, c.app_secret, c.default_graph_version, c.fileupload FROM Adm\Entity\Config c');
+		$configFacebook = $query->getResult();
 
+		$newFacebook = array(
+			'app_id' => $configFacebook[0]['app_id'],
+			'app_secret' => $configFacebook[0]['app_secret'],
+			'default_graph_version' => $configFacebook[0]['default_graph_version'],
+			'fileUpload' => $configFacebook[0]['fileupload']
+		);
+		$sessao->newFacebook = $newFacebook;
+		$fb = new \Facebook\Facebook ( $newFacebook );
+
+		$helper = $fb->getRedirectLoginHelper ();
 		$permissions = [
 			'email',
 			'publish_actions',
@@ -36,11 +48,7 @@ class AuthController extends AbstractActionController {
 
 	public function callbackAction() {
 		$sessao = new Container ( 'Auth' );
-
-		$configure = new Configure ();
-		$newFacebook = $configure->newFacebook ();
-
-		$fb = new \Facebook\Facebook ( $newFacebook );
+		$fb = new \Facebook\Facebook ( $sessao->newFacebook );
 
 		$helper = $fb->getRedirectLoginHelper ();
 
@@ -70,25 +78,30 @@ class AuthController extends AbstractActionController {
 			exit ();
 		}
 		$me = $response->getGraphUser ();
-		$parametros = $configure->Config();
 
-		if($me->getProperty('email') == $parametros['email'] && $me->getProperty('id') == $parametros['fbId']){
-			// adicionando elementos na sessão que foi permitida
+		$em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+		$query = $em->createQuery('SELECT c.email, c.senha, c.fbId FROM Adm\Entity\Administrador c');
+		$adminstradores = $query->getResult();
 
-			$sessao->admin = true;
-			$sessao->fb_access_token = ( string ) $accessToken;
-			$sessao->nome = $me->getProperty ( 'first_name' );
-			$sessao->fbId = $me->getProperty ( 'id' );
-			$sessao->email = $me->getProperty ( 'email' );
+		for ($cont=0;$cont<count($adminstradores);$cont++){
+			if($me->getProperty('email') == $adminstradores[$cont]['email'] && $me->getProperty('id') == $adminstradores[$cont]['fbId']){
+				$sessao->admin = true;
+				$sessao->fb_access_token = ( string ) $accessToken;
+				$sessao->nome = $me->getProperty ( 'first_name' );
+				$sessao->fbId = $me->getProperty ( 'id' );
+				$sessao->email = $me->getProperty ( 'email' );
 
-			//echo 'conectado';
-			return $this->redirect ()->toRoute ( 'divulgacao', array (
-				'controller' => 'divulgacao',
-				'action' => 'listar'
-				) );
-			}else{
-				echo "Facebook Login Incorreto!";
-				exit;
+				return $this->redirect ()->toRoute ( 'divulgacao', array (
+					'controller' => 'divulgacao',
+					'action' => 'listar'
+					) );
+				}
+				if($cont==(count($adminstradores)-1)){
+					$this->redirect ()->toRoute('auth',array(
+						'controller' => 'auth',
+						'action' => 'index'
+					));
+				}
 			}
 		}
 		public function sairAction() {

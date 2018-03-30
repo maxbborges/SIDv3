@@ -2,18 +2,29 @@ CREATE TABLE divulgacao (
 	divid serial NOT NULL,
 	fbid bigint,
 	linkqr character varying,
-	prioridade character varying,
 	legenda character varying,
 	object_id character varying,
 	datatermino date,
+	datainicio date,
 	CONSTRAINT divulgacao_pkey PRIMARY KEY (divid)
 );
 
 CREATE TABLE adm (
-	admid serial primary key,
+	admid serial,
+	fbid bigint NOT NULL primary key,
 	nome varchar,
 	email varchar,
 	senha varchar
+);
+
+CREATE TABLE config(
+	app_id varchar PRIMARY KEY,
+	app_secret varchar,
+	default_graph_version varchar,
+	fileUpload boolean,
+	id_pagina varchar,
+	tokenPagina varchar,
+	destinoLocal varchar
 );
 
 CREATE TABLE turma (
@@ -44,7 +55,7 @@ CREATE TABLE menssagem(
 	menssagem varchar NOT NULL
 );
 
-insert into divulgacao values (0,null,'www.google.com.br',null,'conheca o SID','fixa','2030-01-01');
+insert into divulgacao values (0,null,'www.google.com.br','conheca o SID','fixa','2030-01-01');
 
 
 insert into turma values ('turma2014');
@@ -52,6 +63,7 @@ insert into aluno values ('aluno1','1',md5('123'));
 insert into matriculado values ('1','turma2014');
 insert into professor values ('1','professor1',md5('123'));
 insert into menssagem (id_professor,id_turma,menssagem) values ('1','turma2014','mensagem do professor1');
+insert into adm (fbid,nome,email,senha) values (1371436046298678,'maxwell','maxbborges@gmail.com',md5('123'));
 
 select * from aluno where senha = md5('123');
 

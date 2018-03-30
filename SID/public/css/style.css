@@ -49,7 +49,16 @@ input, select, a {
 	float: left;
 }
 
+.datainicio {
+	width: 15%;
+	float: left;
+}
+
 #div-datatermino h4, select {
+	position: inherit;
+}
+
+#div-datainicio h4, select {
 	position: inherit;
 }
 
