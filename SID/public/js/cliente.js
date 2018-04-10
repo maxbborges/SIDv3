@@ -41,8 +41,7 @@ function trocaPublicacao(dados){
 
 	// Apresenta na tela o QRCODE, a imagem e a legenda da publicação. Dados salvos no banco de dados.
 	$("#linkQr").append("<img class='imgQR' id='linkQrx' src='qrcode.php?link="+dados[posicao]['bd']['linkqr']+"'></img>");
-	$("#slide").append("<img id='imagemx' height='100%' width='100%' src='"+dados[posicao]['imagem']+"' alt='Imagem Alt 1' ></img>");
-	//$("#slide").append("<img id='imagemx' height='100%' width='100%' src='data:image/png;base64,"+dados[posicao]['imagem']+"' alt='Imagem Alt 1' ></img>");
+	$("#slide").append("<img id='imagemx' height='100%' width='100%' src='data:image/png;base64,"+dados[posicao]['imagem']+"' alt='Imagem Divulgacao' ></img>");
 	$('#divLegenda').append("<marquee id='marquee' behavior='scroll' direction='left' scrollamount='30'><p>"+dados[posicao]['bd']['legenda']+"</p></marquee>");
 	// Apresenta informaçoes como: Texto, foto de perfil, nome e data das publicaçoes.
 	// Caso não seja encontrado nenhum comentario ele apresenta o else.
@@ -56,7 +55,7 @@ function trocaPublicacao(dados){
 		var hora = new Date(dados[posicao]['comentarios'][posicaoComentario]['created_time']).toLocaleTimeString();
 
 		//Recupera Imagem, comentario, nome e informaçoes da publicação que foi armazenada no Array dados.
-		$("#imgPerfilComent").append("<img id='perfil' height='100%' width='100%' src="+dados[posicao]['comentarios'][posicaoComentario]['urlFoto']+" alt='Imagem Alt VALOR' ></img>");
+		$("#imgPerfilComent").append("<img id='perfil' height='100%' width='100%' src="+dados[posicao]['comentarios'][posicaoComentario]['urlFoto']+" alt='Imagem Perfil' ></img>");
 		$("#nomeComent").append("<div id='nomes'>"+dados[posicao]['comentarios'][posicaoComentario]['from']['name']+"</div");
 		$("#textComent").append("<div>"+dados[posicao]['comentarios'][posicaoComentario]['message']+"</div>");
 		$("#infoComent").append("<br><div>Postado em: "+data+" as "+hora+"</div>");

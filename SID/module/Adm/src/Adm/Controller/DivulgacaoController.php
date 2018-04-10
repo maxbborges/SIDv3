@@ -69,9 +69,28 @@ class DivulgacaoController extends AbstractActionController
                 $object_id = $postagens['id'];
                 $linkQr = $postagens['link'];
 
-                //ARMAZENA O FOTO QUE FOI PUBLICADA, LOCALMENTE.
+                //Armazena a foto original localmente
                 $arquivo_destino = $configFacebook[0]['destinoLocal'].$object_id.".png";
                 move_uploaded_file($arquivo_tmp, $arquivo_destino);
+
+                //Recupera a imagem que foi criada
+                $imagem = imagecreatefrompng($arquivo_destino);
+                list( $largura, $altura ) = getimagesize($arquivo_destino);
+                $proporcao = 0.4;
+                if($largura>1000){
+                  $proporcao = 0.4;
+                  $nova_largura = $largura * $proporcao;
+                  $nova_altura = $altura * $proporcao;
+
+                  $nova_imagem = imagecreatetruecolor( $nova_largura, $nova_altura );
+                  imagecopyresampled($nova_imagem, $imagem, 0, 0, 0, 0,
+                  $nova_largura, $nova_altura, $largura, $altura);
+
+                  //Substitui a imagem original pela imagem com tamanho reduzido
+                  imagepng($nova_imagem, $arquivo_destino , 1 );
+                  imagedestroy($nova_imagem);
+                }
+                imagedestroy($imagem);
 
                 // Armazenda o ID de quem fez a publicação.
                 $fbId = $configFacebook[0]['id_pagina'];
