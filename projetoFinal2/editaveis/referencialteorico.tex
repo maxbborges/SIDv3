@@ -40,10 +40,14 @@ FALAR SOBRE OS TIPOS DE LINGUAGEM (BAIXO E ALTO NÍVEL)
 FALAR SOBRE ORIENTAÇÃO A OBJETO
 
 \subsection{PHP}
-Sendo a linguagem PHP utilizada para estruturação no lado do servidor neste trabalho.........
+O PHP é uma das linguagens de programação mais populares no mundo, para \cite[p.2]{vaswani2010}, é a ferramenta  escolhida por milhões de pessoas no planeta para desenvolvimento de aplicações \textit{Web}. Isso porque o PHP é desenvolvido e mantido mundialmente por uma comunidade voluntária. 
+
+Para \cite[p.2]{vaswani2010}, as razões pela popularização do PHP como linguagem de programação se dá pelo fato de não ser complicada de se aprender, escalável, de fácil obtenção e muito funcional com aplicações de terceiros. Além disso, desenvolvedores relatam grandes níveis de satisfação como a linguagem.
+
+Sendo a linguagem PHP utilizada para estruturação do projeto e toda a parte do lado do servidor neste trabalho, é usada em conjunto com o Framework ZEND e a API Graph. 
 
 \subsection{JavaScript - JS}
-Sendo a linguagem JS utilizada para estruturação do lado cliente e \textit{mobile} neste trabalho.........
+Sendo a linguagem JS utilizada para estruturação do lado cliente e \textit{mobile} neste trabalho,
 
 \section{Banco de Dados}
 
@@ -57,8 +61,24 @@ Sendo a linguagem JS utilizada para estruturação do lado cliente e \textit{mob
 
 \section{Frameworks}
 \subsection{ZEND}
+Zend Framework é uma coleção de pacotes profissionais para PHP, podendo ser usado na versão 5.6 ou maior do PHP \cite{zend2018}, ele oferece completa orientação a objeto, boas praticas, reusabilidade, internacionalização, código aberto, suporte da comunidade, boa documentação, entre várias outras vantagens \cite{vaswani2010}[p.4-5].
+
+\cite[p.3]{vaswani2010} e xplica que o Zend oferece uma completa implementação do \textit{Model-View-Controler}(MVC), servindo para aplicações de médio e grande complexidade e é geralmente usada no desenvolvimento de aplicações \textit{Web}.
+
+Usado em conjunto com o PHP para estruturação do projeto, o Zend oferece a facilidade de separação de módulos, essa funcionalidade foi usada para divisão do projeto em três diferentes módulos, são eles, administrador, cliente e API, onde cada um dos módulos oferece diferentes funcionalidades.
+
 \subsection{Doctrine}
+Nas aplicações que armazenam informações no banco de dados é feito uma camada de abstração dos dados do banco, com o gerenciamento de conexões e execução de consultas SQL. O Zend cria um \textit{Object-Relational Mapping}(ORM) usando o doctrine.
+
+O doctrine é usado para obter dados de um banco, usando o ORM ele cria um mapeamento do dados para simplificar as tarefas de consulta \cite[p.102]{vaswani2010}.
+
+O doctrine é usado na aplicação para fazer a comunicação entre a aplicação criada e o banco de dados. Com ele é possível fazer a inserção, listagem, edição e exclusão de dados.
+
 \subsection{Cordova}
+Cordova é um \textit{framework} mantido pela Apache, disponível para diversos sistemas e é usado para criação de aplicativos multiplataforma, utilizando-se de linguagens \textit{Web} como HTML, CSS e javascript é possível desenvolver para diversas plataformas distintas, seja ela \textit{browser}, Android, iOS e outras \cite{prezotto2017}.
+
+No intuito da criação de um aplicativo multiplataforma, o SID \textit{mobile} foi desenvolvido usando o \textit{framework} Cordova. Com ele é possível criar o executável e posteriormente a instalação do aplicativo desenvolvido nos mais diversos \textit{smartphones}.
+
 \subsection{Framework7}
 
 \section{Arquitetura Cliente-Servidor}
