@@ -1,22 +1,50 @@
 \chapter[API]{API}
-\section{Visão Geral}
-Um sistema de permissões é utilizando na Graph API para controlar o acesso, a publicação e a edição de informações. Assim, para que alguma modificação no modulo administrador possa ser feita, é necessário possuir as permissões adequadas. As permissões necessárias para o completo uso do aplicativo foram configuradas durante o desenvolvimento do SID e serão solicitadas autorização por parte do usuário que tentar acessar.
 
--------------- CONTINUA -----------
+-------------------FALAR SOBRE API
+
+\section{Visão Geral}
+Para integração entre o Facebook e outros aplicativos externos é necessário o uso de uma API, a API disponibilizada pela rede social em questão é a Graph. Ela é usada para que aplicativos externos possam realizar as requisições de dados, possibilitando consulta e gerência dos dados presentes na rede social. 
+
+Um sistema de permissões é utilizando na Graph API para controle de acesso, de publicação e de edição de informações. Assim, para que alguma modificação no modulo administrador possa ser efetivada, é necessário possuir as permissões adequadas. As permissões necessárias para o completo uso do aplicativo foram configuradas durante o desenvolvimento do SID e serão solicitadas durante o processo de login do usuário que tentar acessar.
+
+As permissões descrevem quais as possíveis ações e requisições podem ser feitas em cooperação com a Graph API, elas determinam quais tipos de dados pode-se gerenciar e quais as possíveis respostas o sistema pode retornar.
+
+Seguindo a estrutura de um grafo, a Graph API possui nós, arestas e atributos (campos). Nós são objetos individuais, cada nova página, usuário, comentário ou foto criada no Facebook é considerado um nó. Usando o nó é possível se obter as bordas, no caso fotos de uma página ou comentários em uma foto. A página do SID é um nó, usando o ID único dela é possível criar novas publicações que serão vinculadas a esse nó, essas novas publicaçãos serão formados do ID da página acrescidos de um ID único da foto, esse ID único da foto é considerado um outro nó. Usando ele é possível recuperar comentários e \textit{likes} \cite{facebook2018b}.
+
+A autenticação no módulo administrador é feita usando um usuário cadastrado no Facebook e registrado no banco de dados. O uso de um usuário vinculado a rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação. 
+
+Para autenticação e efetivação das requisições feitas pelo aplicativo para o Facebook é usando um \textit{token} de acesso, que é obtido após a efetivação de login do usuário com o Facebook. O \textit{token} é uma cadeia de caracteres que identifica um usuário, aplicativo ou página, identificando a sessão. Em cada nova requisição a rede social, o \textit{token} será usado, se autorizado, a aplicação poderá enviar requisições HTTP usando seus identificadores únicos, recebendo a respectiva resposta.
+
 
 \section{Elementos Usados}
 Para publicação no perfil pessoal, a Graph API requisita duas permissões, sendo a “email”, onde é requisitado o acesso ao endereço de email do usuário para que seja possível a autenticação do SID com o Facebook e a “publish\underline{{ }}actions”, onde fornece acesso a realização de publicações em nome da pessoa que está usando o aplicativo \cite{facebook2018a}.
 
 Como o SID será usado em uma página e não em no perfil no pessoal, duas novas autenticações foram necessárias, sendo a “manage\underline{{ }}pages”, usada para recuperar as permissões de acesso a pagina e a “publish\underline{{ }}pages”, usada parar permitir que aplicativos publiquem na página \cite{facebook2018a}.
 
-Cada nova página ou foto criada no Facebook é considerado um nó, possuindo um ID único, usando o nó é possível se obter as bordas, no caso fotos de uma página ou comentários em uma foto. Partindo desse princípio, a página do SID é um nó, usando o ID único dela é possível criar novas publicações que serão vinculadas a esse nó, possuindo o ID da página acrescidos de um ID único da foto, gerando um novo nó \cite{facebook2018b}.
-
-Usando o identificador da foto é possível recuperar informações da borda, que são informações como a URL, comentários e curtidas. Esse recurso é utilizado para recuperar o endereço da publicação e os comentários e curtidas que serão apresentados respectivamente no QRCode e na coluna de comentários do módulo cliente.
+Usando o identificador único da foto é possível recuperar informações da borda, que são informações como a URL, comentários e curtidas. Esse recurso é utilizado para recuperar o endereço da publicação, os comentários e curtidas que serão apresentados respectivamente no QRCode e na coluna de comentários do módulo cliente.
 
 Na criação de uma nova publicação, usando o SID, são passados para a Graph API dois parâmetros para inserção, onde o primeiro deles é “messagem”, onde será passado o texto que será exibido no publicação e o outro é “source”, onde será passado a imagem para ser exibida juntamente com o texto.
 
-——————– CONTINUA ———————
-
-
+Alguns elementos que são solicitados pela aplicação na criação de uma nova publicação, são omitidos para o Facebook, pois esses dados serão usados apenas para serem armazenados no banco. Os elementos omitidos são os campos data de inicio, a data de termino e a legenda. 
 
 \section{Integração}
+Qualquer divulgação inserida na pagina do SID no Facebook utiliza-se do nó “photo”, ou seja, a divulgação que o SID repassa à Graph API contém a mesma estrutura de uma imagem postada por um usuário convencional desta rede social. 
+
+--------------- TROCAR A NUMERAÇAO DA FIGURA
+
+A Figura 1 mostra como é estruturada uma divulgação enviada ao perfil do SID no Facebook através da integração com a Graph API. Neste caso, o ``imagem''(\textit{source}) é a foto e o campo ``imagem''(\textit{message}) recebe “Sistema inteligente de Divulgação de Informações do IFB-SID”. 
+
+
+Para criação de uma nova publicação é enviado ao Facebook o \textit{token} da pagina que está armazenado no banco.
+
+--------------- CONTINUA
+
+
+--------------- TROCAR A FOTO
+
+ \begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.6]{figuras/administrador1}
+\caption{Divulgação enviada a pagina do SID}
+\label{Rotulo}
+\end{figure}
