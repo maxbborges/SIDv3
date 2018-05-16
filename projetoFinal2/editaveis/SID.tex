@@ -2,10 +2,10 @@
 --------------------- FALAR SOBRE O SID
 
 \section{Visão Geral}
-O SID está estruturado em duas possíveis vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma forma mais intuitiva, dinâmica e amigável para o administrador e para o usuário do sistema. Atendendo ao objetivo principal, onde é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
+O SID está estruturado em duas possíveis vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que possua integração com as redes sociais mais intuitiva, dinâmica e amigável para o administrador e para o usuário do sistema. Atendendo ao objetivo principal, onde é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
 
 Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em três módulos, o primeiro deles é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo modulo, no caso o módulo cliente, nesse segundo módulo será apresentado as informações que foram cadastradas no módulo
-administrador e serão propagadas por monitores ou celulares. O terceiro módulo não é acessível, ele é encarregado de fazer toda recuperação dos dados que será apresentada na vertente WEB e \textit{mobile}.
+administrador e serão propagadas por monitores ou celulares. O terceiro módulo é o \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como o WEB, mas com o incremento de troca de mensagens entre professores e alunos. 
 
 A arquitetura cliente-servidor mostrou-se necessário para minimizar o processamento do cliente, centralizando o processamento das informações em um sistema mais robusto.
 
@@ -23,32 +23,44 @@ O administrador é responsável por gerenciar todas as informações do sistema,
    \item Imagem: Será a imagem enviada para o Facebook, para o cliente e para o mobile. Essa imagem pode ser um \textit{banner} de apresentação de um evento, por exemplo.
  \end{enumerate}
  
- ------ MUDAR NUMERO DAS FIGURAS!
- 
- A Figura 2, consiste em representar como os elementos supracitados são inseridos a partir da visão do operador do sistema no módulo administrador. O diagrama de sequência para esta funcionalidade encontra-se na Figura 10.
+
+ A Figura \ref{fig:administrador1}, consiste em representar como os elementos supracitados são inseridos a partir da visão do operador do sistema no módulo administrador. O diagrama de sequência para esta funcionalidade encontra-se na Figura 10.
 
  
- \begin{figure}[!htb]
+ \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{figuras/administrador1}
 \caption{Página de inserção no módulo administrador.}
-\label{Rotulo}
+\label{fig:administrador1}
 \end{figure}
 
 -- ESCREVER MAIS
 
 \section{Modulo Cliente}
+Figura \ref{fig:cliente1}
 -- FALAR SOBRE
 
  ------------- MUDAR IMAGEM
-\begin{figure}[!htb]
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{figuras/cliente1}
+\caption{Página do cliente}
+\label{fig:cliente1}
+\end{figure}
+
+
+\section{Modulo Mobile}
+Figura \ref{fig:mobile1}
+
+ ------------- MUDAR IMAGEM
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{figuras/administrador1}
 \caption{Página de inserção no módulo administrador.}
-\label{Rotulo}
+\label{fig:mobile1}
 \end{figure}
 
-\section{Modulo API}
+
 \section{Arquitetura}
 ------ COLOCAR DIAGRAMA DE CLASSES
 
