@@ -13,18 +13,20 @@ O administrador é responsável por gerenciar todas as informações do sistema,
 
 
 --------------- FALAR SOBRE COMO O SID FOI DESENVOLVIDO
-
 \section{Modulo Administrador}
- \begin{enumerate}
+--------------- FALAR SOBRE O MODULO
+
+\begin{enumerate}
    \item Legenda: É um campo de texto destinado a informação a ser repassada de forma sucinta e clara ao usuário final por intermédio cliente ou mobile. 
    \item Texto: É todo o texto que será enviado ao Facebook, contendo informações como descrição da publicação, data e horário da realização e um possível \textit{link} para acesso a mais informações. 
    \item Data de Início: É a data inicial em que o publicação começará a ser exibida no cliente e no mobile.
    \item Data de Término: É a data final em que o publicação deixará de ser exibida no cliente e no mobile.
    \item Imagem: Será a imagem enviada para o Facebook, para o cliente e para o mobile. Essa imagem pode ser um \textit{banner} de apresentação de um evento, por exemplo.
  \end{enumerate}
- 
 
- A Figura \ref{fig:administrador1}, consiste em representar como os elementos supracitados são inseridos a partir da visão do operador do sistema no módulo administrador. O diagrama de sequência para esta funcionalidade encontra-se na Figura 10.
+A Figura \ref{fig:administrador1}, consiste em representar como os elementos supracitados são inseridos a partir da visão do operador do sistema no módulo administrador. O diagrama de sequência para esta funcionalidade encontra-se na
+ 
+ --------- COLOCAR O DIAGRAMA -----------
 
  
  \begin{figure}[H]
@@ -34,13 +36,17 @@ O administrador é responsável por gerenciar todas as informações do sistema,
 \label{fig:administrador1}
 \end{figure}
 
--- ESCREVER MAIS
+O campo imagem é repassado para a rede social como \textit{source}, já o campo texto da publicação é repassado como (\textit{messagem}). Essa troca de nomes é feito pois a API requisita exatamente esses parâmetros.
+
+Todos os campos tem preenchimento obrigatório, entretanto, somente o campo imagem e o campo texto da publicação são enviados ao Facebook. Os outros campos não são enviados a rede social, ficam armazenados apenas no banco de dados.
+
+Caso durante o envio alguma das transações não sejam efetivadas, será retornado a mensagem de erro, assim como a mensagem de sucesso, caso não ocorra nenhum erro.
 
 \section{Modulo Cliente}
 Figura \ref{fig:cliente1}
--- FALAR SOBRE
 
- ------------- MUDAR IMAGEM
+-- FALAR SOBRE O MODULO
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{figuras/cliente1}
@@ -52,21 +58,29 @@ Figura \ref{fig:cliente1}
 \section{Modulo Mobile}
 Figura \ref{fig:mobile1}
 
- ------------- MUDAR IMAGEM
+\maxwell{FALAR SOBRE O MODULO}
+ 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.6]{figuras/administrador1}
+\includegraphics[scale=0.6]{figuras/mobile1}
 \caption{Página de inserção no módulo administrador.}
 \label{fig:mobile1}
 \end{figure}
 
 
 \section{Arquitetura}
------- COLOCAR DIAGRAMA DE CLASSES
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figuras/casosDeUso}
+\caption{Casos de uso da ações dos módulos administrador e cliente}
+\label{fig:casosDeUso}
+\end{figure}
 
------- COLOCAR CASOS DE USO
+\maxwell{COLOCAR DIAGRAMA DE CLASSES}
 
------- COLOCAR DIAGRAMA DE SEQUENCIA
+\maxwell{COLOCAR DIAGRAMA DE SEQUENCIA}
+
+\maxwell{COLOCAR MODELO ENTIDADE RELACIONAMENTO}
  
 
 \section{Possível solução para Implementação - Rapberry}
