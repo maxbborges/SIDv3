@@ -1,19 +1,152 @@
 \chapter[GraphApi]{GraphApi}
+\maxwell{VISAO GERAL}
 
-\section{Visão Geral}
 Para integração entre o Facebook e outros aplicativos externos é necessário o uso de uma API, a disponibilizada pela rede social em questão é a Graph. Ela é usada para que aplicativos externos possam realizar as requisições e envio de dados para a rede social, possibilitando consulta e gerência dos dados presentes nela. 
 
-Um sistema de permissões é utilizando na Graph API para controle de acesso, controle de publicação e de edição de informações. Assim, para que alguma modificação na publicação por parte do modulo administrador possa ser efetivada, é necessário possuir as permissões adequadas. As permissões funcionam de forma a descrever como devem ser feitas as requisições para o completo uso do aplicativo, de acordo com a necessidade. Elas foram configuradas durante o desenvolvimento do SID e serão solicitadas durante o processo de login do usuário que tentar acessar.
+\maxwell{
+INTRODUÇAO - HTTP e Requisições}
+
+Usada para extrair e inserir dados da plataforma do Facebook por meio de requisições HTTP é possível realizar as mais diversas tarefas, entre elas estão a de publicar novas histórias, gerenciar anúncios e carregar fotos \cite{facebook2018b}.
+
+\maxwell{TOKEN}
+
+Para cada requisição ou envio de dados para a rede social é necessário o uso de um \textit{token} de acesso, ele funciona de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph. Os \textit{token} de acesso são cadeia de caracteres, usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
+
+A Graph segue os padrões de conformidade do protocolo OAuth 2.0, que é um protocolo que provê um fluxo de autorização especifica para aplicações web e telefones móveis \cite{oauth2018}, por exemplo. 
+
+Os \textit{tokens} são separados em quatro tipos, sendo \textit{token} de acesso do usuário, usado para alterações de uma conta de usuário especifica, os  \textit{token} de aplicativo, usado para que as requisições sejam feitas em nome do aplicativo, o \textit{token} de pagina, usado para realizar modificações em páginas e o \textit{token} de cliente, usado em aplicativos moveis e aplicações de computador.
+
+\maxwell{ligação entre Token e Autenticação}
+
+Cada linguagem possui a sua forma específica de obter o \textit{token} por meio do uso da SDK específica de cada uma. Além da chamada usando o SDK, para se gerar um \textit{token} é necessário um usuário autenticado, para essa e outras funcionalidades a rede social disponibiliza diversas ferramentas.
+
+\maxwell {formas de realizar a autenticação}
+
+Entre as ferramentas disponibilizadas pela rede social está a de login com Facebook, com ela é possível um usuário se autenticar a aplicação usando o cadastro do Facebook. Além de oferece um sistema de autenticação multiplataforma e controle de acesso, ela provê a analise de permissões, definindo o que o usuário poderá usar. \cite{facebook2018c}
+
+A ferramenta de login com o Facebook disponibilizada pela rede social funciona de forma a autenticar o usuário do aplicativo usando uma conta vinculada a rede social. Oferecendo a possibilidade de recuperar dados comuns de quem está acessando a aplicação.
+
+Para o funcionamento da ferramenta é necessário o envio de alguns parâmetros de identificação do aplicativo, tais como, o app\underline{{ }}id, app\underline{{ }}secret, default\underline{{ }}graph\underline{{ }}version e fileUpload.
+
+\begin{itemize}
+\item O app\underline{{ }}id e o app\underline{{ }}secret é o id único de cada aplicativo vinculado a rede social, esse id é criado pelo Facebook no momento da criação do que será o seu aplicativo, o app\underline{{ }}id é publico, enquanto o app\underline{{ }}secret é secreto.
+
+\item O parâmetro defalt\underline{{ }}graph\underline{{ }}version irá identificar qual versão da Graph o seu programa irá usar.
+
+\item fileUpload é o parâmetro necessário para informar se será enviado arquivo de imagem ou não.
+\end{itemize}
+
+No exemplo abaixo, usando código PHP, os parâmetros necessários para validação são passados em um array na variável newFacebook, essa variável é enviada para o SDK para então ser possível a conexão entre o SDK e o Facebook. Após a conexão com o SDK é possível a realização de requisições, essas requisição podem ser de \textit{GET}, \textit{POST}, \textit{DELETE} ou \textit{UPDATE} e são feitas a partir das chamadas da SDK, que no exemplo é a variável fb.
+
+\begin{lstlisting}
+	$newFacebook = array(...);
+	$fb = new \Facebook\Facebook ( $newFacebook );
+\end{lstlisting}
+
+Para realização de \textit{login} é necessário o uso de uma classe específica do SDK, a classe getRedirectLoginHelper() que possui o método getLoginUrl(). Nesse método é necessário passar o endereço de retorno após o \textit{login} juntamente com as permissões necessárias. Como é mostrado no exemplo abaixo escrito na linguagem PHP. 
+
+\begin{lstlisting}
+	$helper = $fb->getRedirectLoginHelper ();
+	$permissions = [
+		'email',
+		'publish_actions',
+		'manage_pages',
+		'publish_pages'
+	];
+
+	echo $ip = $_SERVER['HTTP_HOST'];
+	$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.'/auth/callback', $permissions );
+\end{lstlisting}
+
+\maxwell{PERMISSÕES}
+
+Um sistema de permissões é utilizando na Graph API para controle de acesso, controle de publicação e de edição de informações. Assim, para que alguma modificação na publicação por parte do modulo administrador possa ser efetivada, é necessário possuir as permissões adequadas. As permissões funcionam de forma a descrever como devem ser feitas as requisições para o completo uso do aplicativo, de acordo com a necessidade.
 
 As permissões descrevem quais as possíveis ações podem ser feitas em cooperação com a Graph API, elas determinam quais tipos de dados pode-se gerenciar e quais as possíveis respostas o sistema pode retornar.
 
-A estrutura da Graph, segue a de um grafo, onde possui nós, arestas e atributos (campos). Nós podem representar diversos elementos, eles são objetos individuais, onde cada nova página, usuário, comentário ou foto criada no Facebook é considerado um nó \cite{facebook2018b}. Partindo de um nó é possível se obter as arestas (bordas), exemplos de arestas são as fotos de uma página ou comentários de uma foto. A página do SID é um nó, usando o ID único dela é possível criar novas publicações que serão vinculadas a esse nó, essas novas publicaçãos serão formados do ID da página acrescidos de um ID único da foto, esse ID único da foto é considerado um outro novo nó. Usando ele é possível recuperar comentários e \textit{likes} \cite{facebook2018b}.
+O Facebook oferece diversas permissões, podendo ser de leitura ou de escrita, cada uma poderá ser usada para se obter um determinado acesso a um determinado dado. As permissões podem ser usadas para que a Graph retorne ou envie dados específicos de usuário, tais como as permissões de email, \textit{user\underline{{ }}birthday}, \textit{user\underline{{ }}friends}, usadas para recuperar email, data de aniversário e amigos, respectivamente de um determinado usuário.
 
-O Facebook oferece diversos produtos para incorporar ao aplicativo externo, entre eles está o de login do Facebook. Esse produto oferece ao desenvolvedor a possibilidade de oferece ao usuário do aplicativo uma ferramenta de login usando as credenciais do Facebook.
+Não somente os usuários, as permissões também abrangem as páginas do Facebook, por exemplo, pode-se usar a \textit{manage\underline{{ }}pages}, a \textit{publish\underline{{ }}pages}, entre outras, usadas para gerenciar e criar novos conteúdos para as páginas, respectivamente.
+
+\maxwell{LIGACAO ENTRE PERMISSOES E ESTRUTURA}
+
+As requisições também podem ser feitas diretas do navegador ou usando aplicações, entretanto, para o seu funcionamento, elas devem seguir um padrão para obtenção de uma resposta correta do servidor. Esse padrão de estrutura deve seguir os conceitos de um grafo.
+
+\maxwell{Estrutura das chamadas}
+
+Para\cite{soares2014}, informalmente um grafo pode ser explicado como um conjunto de pontos que formam vértices e arestas, onde cada ponto é chamado de vértice e o par deles é chamado de arestas. A estrutura da Graph, segue esse conceito de um grafo, possuindo nós, bordas e campos, onde os nós são os vértices, bordas são as arestas e os campos são os elementos que os vértices ou as bordas possuem.
+
+Os nós representam os vértices, eles podem ser os mais diversos elementos, sendo objetos individuais, onde cada página, usuário, comentário ou foto criada no Facebook é considerado um nó \cite{facebook2018b}. Cada nó possui uma identificação única chamada ID, para consulta-lo é necessário a identificação e o \textit{token} de acesso. Por exemplo, para recuperar alguns dados da página oficial do SID é necessário a linha de código abaixo escrita em PHP e o retorno será um JSON contendo o nome e o ID da página.
+
+\begin{lstlisting}
+  $response = $fb->get(  // Requisicao GET
+    '/415358248866659', // ID
+    '{access-token}' // Token de acesso
+  );
+\end{lstlisting}
+
+As arestas são as ligações entre os pontos, representado como bordas no Faceboook, ela é a ligação entre os nós, são as conexões entre uma coleção de objetos a um objeto único. As bordas representam o conjunto de fotos em uma página ou o conjunto de comentários em uma foto. Pode ser usado \textit{feed}, textit{photos}, entre outros. Por exemplo, para consultar as publicações na \textit{timeline} presentes na pagina oficial do SID é necessário a seguinte linha de código escrita em PHP e o retorno será um JSON contendo a data de criação, a mensagem e o ID da borda que é o ID da página acrescido do ID único da publicação.
+
+\begin{lstlisting}
+  $response = $fb->get( // Requisicao GET
+    '/415358248866659/feed', //ID + "/borda"
+    '{access-token}' // Token de acesso
+  );
+  
+  //retorno
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+Já os campos, são usados para representar os dados de um dado objeto que serão incluídos na resposta. Os dados podem ser data de aniversário de um usuário ou nome de uma página. Como campo, podem ser usados diversos atributos, tais como: \textit{comments},\textit{likes},\textit{link}, entre outros. No exemplo abaixo, usando código PHP, o retorno será um JSON com o ID da publicação acrescido de dados como data da criação, mensagem e ID dos comentários publicados em cada um das publicação.
+
+\begin{lstlisting}
+  // Requisicao GET
+  $response = $fb->get(
+  	//ID + "/borda" + "?fields='campo'"
+    '/415358248866659/feed?fields=comments',
+    // Token de acesso
+    '{access-token}' 
+  );
+  
+  //retorno
+  $graphNode = $response->getGraphNode(); 
+\end{lstlisting}
+
+É possível também obter os mesmos dados de uma publicação especifica, para isso é necessário obter o id único dela, no exemplo abaixo o retorno será um JSON contendo os dados dos comentários de uma publicação especifica.
+
+\begin{lstlisting}
+// Requisicao GET
+  $response = $fb->get(
+  	//ID + "?fields='campo'"
+    '/415358248866659_511846152551201?fields=comments',
+	// Token de acesso    
+    '{access-token}'
+  );
+  
+  //retorno
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+Nos exemplos, a página do SID é um nó, usando o ID único dela é possível criar novas publicações que serão gerados um novo nó, cada publicaçãos é formada do ID da página acrescidos de um ID único da foto. Usando esse nó da publicação é possível recuperar comentários e \textit{likes}, por exemplo. \cite{facebook2018b}.
+
+Além de requisições com o uso do GET, é possível realizar requisições usando POST e DELETE. O GET é usado para buscar informações, o POST é usado para enviar informações e o DELETE é usado para deletar itens.
+
+Para envio de informações é necessário o uso do POST, ele pode ser usado para realizar uma nova publicação, envio de um comentário, entre outras. Usando a linguagem PHP, segue abaixo um exemplo de criação de um nova publicação.
+\begin{lstlisting}
+ESCREVER CODIGO POST
+\end{lstlisting}
+
+\begin{lstlisting}
+ESCREVER CODIGO DELETE
+\end{lstlisting}
+
+\section{Visão Geral}
+
+\maxwell{O Facebook oferece diversos produtos para incorporar ao aplicativo externo, entre eles está o de login do Facebook. Esse produto oferece ao desenvolvedor a possibilidade de oferece ao usuário do aplicativo uma ferramenta de login usando as credenciais do Facebook.
 
 A autenticação (\textit{login}) no módulo administrador é feita usando a ferramente de login oferecida pela rode social, então para acesso é necessário um usuário cadastrado no Facebook e cadastrado no no banco de dados do SID. O uso de um usuário vinculado a rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos. 
 
-Para autenticação e efetivação de todas as requisições feitas pelo aplicativo para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando um \textit{token} de acesso, que é obtido após a efetivação de login do usuário com o Facebook. O \textit{token} é uma cadeia de caracteres que identifica um usuário, aplicativo ou página, identificando a sessão. Em cada nova requisição a rede social, o \textit{token} será usado, se autorizado, pela aplicação para permitir o envio de requisições HTTP usando seus identificadores únicos, recebendo a respectiva resposta.
+Para autenticação e efetivação de todas as requisições feitas pelo aplicativo para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando um \textit{token} de acesso, que é obtido após a efetivação de login do usuário com o Facebook. O \textit{token} é uma cadeia de caracteres que identifica um usuário, aplicativo ou página, identificando a sessão. Em cada nova requisição a rede social, o \textit{token} será usado, se autorizado, pela aplicação para permitir o envio de requisições HTTP usando seus identificadores únicos, recebendo a respectiva resposta.}
 
 \section{Elementos Usados}
 Para publicação no perfil pessoal, a Graph API requisita duas permissões, sendo a “email”, onde é requisitado o acesso ao endereço de email do usuário para que seja possível a autenticação do SID com o Facebook e a “publish\underline{{ }}actions”, onde fornece acesso a realização de publicações em nome da pessoa que está usando o aplicativo \cite{facebook2018a}.
@@ -29,7 +162,7 @@ Alguns dos elementos que são solicitados pela aplicação na criação de uma n
 ------------------ CONTINUA  P48-------------------
 
 \section{Integração}
-Para acesso a funções restritas do sistema é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de \textit{login} do Facebook em conjunto com a Graph. Para funcionamento é requisitado alguns parâmetros obrigatórios, são eles: app\underline{{ }}id, app\underline{{ }}secret, default\underline{{ }}graph\underline{{ }}version e fileUpload.
+Para acesso a funções restritas do sistema é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de \textit{login} do Facebook em conjunto com a Graph. \maxwell{Para funcionamento é requisitado alguns parâmetros obrigatórios, são eles: app\underline{{ }}id, app\underline{{ }}secret, default\underline{{ }}graph\underline{{ }}version e fileUpload.
 
 \begin{itemize}
 \item O app\underline{{ }}id e o app\underline{{ }}secret é o id único de cada aplicativo vinculado a rede social, esse id é criado pelo Facebook no momento da criação do que será o seu aplicativo, o app\underline{{ }}id é publico, enquanto o app\underline{{ }}secret é secreto.
@@ -37,7 +170,7 @@ Para acesso a funções restritas do sistema é necessário que um \textit{login
 \item O parâmetro defalt\underline{{ }}graph\underline{{ }}version irá identificar qual versão da Graph o seu programa irá usar.
 
 \item fileUpload é o parâmetro necessário para informar se será enviado arquivo de imagem ou não.
-\end{itemize}
+\end{itemize}}
 
 A rede social oferece um botão para ser colocado na página, esse botão faz com que o processo de login seja iniciado, então é feito a chamada do método ''getRedirectLoginHelper``, para ele é passado as informações de permissões que serão necessárias e o endereço de callback, que será o endereço de retorno caso o processo seja efetivado. O endereço de callback deve ser o mesmo informado no aplicativo criado na página da rede social.
 
