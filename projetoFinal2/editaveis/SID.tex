@@ -81,6 +81,44 @@ Figura \ref{fig:mobile1}
 \maxwell{COLOCAR DIAGRAMA DE SEQUENCIA}
 
 \maxwell{COLOCAR MODELO ENTIDADE RELACIONAMENTO}
+
+\section{Integração}
+Para acesso a funções restritas do sistema é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de \textit{login} do Facebook em conjunto com a Graph. \maxwell{Para funcionamento é requisitado alguns parâmetros obrigatórios, são eles: app\underline{{ }}id, app\underline{{ }}secret, default\underline{{ }}graph\underline{{ }}version e fileUpload.
+
+\begin{itemize}
+\item O app\underline{{ }}id e o app\underline{{ }}secret é o id único de cada aplicativo vinculado a rede social, esse id é criado pelo Facebook no momento da criação do que será o seu aplicativo, o app\underline{{ }}id é publico, enquanto o app\underline{{ }}secret é secreto.
+
+\item O parâmetro defalt\underline{{ }}graph\underline{{ }}version irá identificar qual versão da Graph o seu programa irá usar.
+
+\item fileUpload é o parâmetro necessário para informar se será enviado arquivo de imagem ou não.
+\end{itemize}}
+
+A rede social oferece um botão para ser colocado na página, esse botão faz com que o processo de login seja iniciado, então é feito a chamada do método ''getRedirectLoginHelper``, para ele é passado as informações de permissões que serão necessárias e o endereço de callback, que será o endereço de retorno caso o processo seja efetivado. O endereço de callback deve ser o mesmo informado no aplicativo criado na página da rede social.
+
+Após o login, as informações usadas são guardadas na sessão do usuário, para usos posteriores, além disso, todo o processo deve ser transparente ao usuário. 
+
+Qualquer divulgação inserida na pagina do SID no Facebook utiliza-se do nó “photo”, ou seja, a divulgação que o SID repassa à Graph API contém a mesma estrutura de uma imagem postada por um usuário convencional desta rede social. 
+
+A Figura \ref{fig:imgfacebook1} apresenta como ficará uma publicação no Facebook após o uso do SID para criação da mesma. Nela é apresentado quem fez a publicação, o texto e a imagem que foi informado durante a criação, com uso do SID.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{figuras/imgfacebook1}
+\caption{Divulgação enviada ao Facebook com auxilio do SID}
+\label{fig:imgfacebook1}
+\end{figure}
+
+O envio das informações para o Facebook é feita estritamente ao nó ''photo``, com o uso do método \textit{post} em conjunto com a Graph, a rede social recebe os parâmetros e faz a criação de um novo objeto, criando uma nova aresta vinculado a página, onde o retorno da requisição é o id desse novo objeto criado. Os parâmetros obrigatórios para criação do novo objeto são os mesmos do usados no login, com adição do: id\underline{{ }}pagina e do token. 
+
+\begin{itemize}
+\item O \textit{token} é um conjunto de caracteres que identifica para o Facebook as autorizações que a aplicativo possui.
+
+\item O id\underline{{ }}pagina é o identificador único da sua página ou perfil.
+\end{itemize}
+
+É possível também solicitar dados referentes a postagens efetivadas. Para isso é necessário a passagem de alguns parâmetros no método ''get`` e a Graph. Assim como no ''post``, o ''get`` usa todos os parâmetros com exceção do id\underline{{ }}pagina, onde será informado o id\underline{{ }}publicação em substituição do da página.
+
+Com essa requisição é possível recuperar diversas informações referentes a publicação, informações como \textit{url}, comentários, \textit{likes}, data, hora, foto de perfil e nome do usuário que realizou o comentário. O retorno da requisição, se feita com sucesso, retornará as informações solicitadas.
  
 
 \section{Possível solução para Implementação - Rapberry}
