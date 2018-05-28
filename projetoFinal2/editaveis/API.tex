@@ -77,9 +77,6 @@ Para realização de \textit{login} é necessário o uso de uma classe específi
 
 \maxwell {VERIFICAR CALLBACK}
 
-\section{SDK}
-\maxwell{FALAR SOBRE}
-
 \section{Permissões}
 Um sistema de permissões é utilizando na Graph API para controle de acesso, controle de publicação e de edição de informações. Assim, para que alguma modificação na publicação por parte do modulo administrador possa ser efetivada, é necessário possuir as permissões adequadas. As permissões funcionam de forma a descrever como devem ser feitas as requisições para o completo uso do aplicativo, de acordo com a necessidade.
 
@@ -193,24 +190,3 @@ ESCREVER CODIGO POST
 \begin{lstlisting}[caption={Requsição de diversos atributos},label={lst:requisicao10}]
 ESCREVER CODIGO DELETE
 \end{lstlisting}
-
-\section{Visão Geral}
-
-\maxwell{O Facebook oferece diversos produtos para incorporar ao aplicativo externo, entre eles está o de login do Facebook. Esse produto oferece ao desenvolvedor a possibilidade de oferece ao usuário do aplicativo uma ferramenta de login usando as credenciais do Facebook.
-
-A autenticação (\textit{login}) no módulo administrador é feita usando a ferramente de login oferecida pela rode social, então para acesso é necessário um usuário cadastrado no Facebook e cadastrado no no banco de dados do SID. O uso de um usuário vinculado a rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos. 
-
-Para autenticação e efetivação de todas as requisições feitas pelo aplicativo para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando um \textit{token} de acesso, que é obtido após a efetivação de login do usuário com o Facebook. O \textit{token} é uma cadeia de caracteres que identifica um usuário, aplicativo ou página, identificando a sessão. Em cada nova requisição a rede social, o \textit{token} será usado, se autorizado, pela aplicação para permitir o envio de requisições HTTP usando seus identificadores únicos, recebendo a respectiva resposta.}
-
-\section{Elementos Usados}
-Para publicação no perfil pessoal, a Graph API requisita duas permissões, sendo a “email”, onde é requisitado o acesso ao endereço de email do usuário para que seja possível a autenticação do SID com o Facebook e a “publish\underline{{ }}actions”, onde fornece acesso a realização de publicações em nome da pessoa que está usando o aplicativo \cite{facebook2018a}.
-
-Como o SID será usado em uma página e não em um perfil pessoal, duas novas autenticações se tornaram necessárias, sendo a “manage\underline{{ }}pages”, usada para recuperar as permissões de acesso a pagina e a “publish\underline{{ }}pages”, usada parar permitir que aplicativos publiquem na página \cite{facebook2018a}.
-
-Usando o identificador único da foto é possível recuperar informações das arestas, que são informações como a URL, comentários e curtidas. Esse recurso é utilizado para recuperar o endereço da publicação, os comentários e curtidas que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
-
-Na criação de uma nova publicação, usando o SID, são passados para a Graph API dois parâmetros para inserção, o primeiro deles é “message”, onde será passado o texto que será exibido na publicação e o outro é “source”, onde será passado a imagem para ser exibida juntamente com o texto. Para envio de imagem para a rede social, é necessário passar na imagem como parâmetro o método “fileToUpload”. 
-
-Alguns dos elementos que são solicitados pela aplicação na criação de uma nova publicação, são omitidos no envio para o Facebook, pois esses dados serão usados apenas para serem armazenados no banco. Os elementos omitidos são os campos data de inicio, a data de termino e a legenda. 
-
------------------- CONTINUA  P48-------------------
