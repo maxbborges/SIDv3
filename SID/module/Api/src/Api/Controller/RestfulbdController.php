@@ -41,6 +41,7 @@ class RestfulbdController extends AbstractRestfulController
 
           // Requisita os paramentros de conexão com o facebook e faz a conexão.
           $fb = new \Facebook\Facebook($newFacebook);
+
           $imagem = ($fb->get('/'.$linha['object_id'].'?fields=images', $resultado['tokenpagina']))->getDecodedBody();
 
           // Recupera todos os comentarios da publicação, usando o object_id de cada uma.

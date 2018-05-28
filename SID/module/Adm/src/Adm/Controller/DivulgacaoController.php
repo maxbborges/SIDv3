@@ -49,10 +49,13 @@ class DivulgacaoController extends AbstractActionController
 
               //BLOQUEIA EXTENSOES QUE A GRAPH API NAO ACEITA
               if (strstr('.jpg;.jpeg;.png;.gif', $extensao)) {
-                //Conecta com o banco e recupera todos os dados.
-                $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-                $query = $em->createQuery('SELECT c.id_pagina, c.destinoLocal, c.tokenPagina FROM Adm\Entity\Config c');
-                $configFacebook = $query->getResult();
+                //GERAR TOKEN DE ACESSO DA PÁGINA E O ID DELA USANDO TOKEN DE USUÁRIO.
+                $response = $fb->get(
+                  '/me/accounts',
+                  $sessao->fb_access_token
+                )->getDecodedBody();
+                $page_acess_token = $response['data'][0]['access_token'];
+                $id_pagina = $response['data'][0]['id'];
 
                 // Dados a serem inseridos no facebook.
                 $dados = [
@@ -61,16 +64,16 @@ class DivulgacaoController extends AbstractActionController
                 ];
 
                 // ENVIA PARA A PAGINA DO FACE
-                $response = $fb->post('/'.$configFacebook[0]['id_pagina'].'/photos/', $dados, $configFacebook[0]['tokenPagina']);
+                $response = $fb->post('/'.$id_pagina.'/photos/', $dados, $page_acess_token);
                 $facebookPost = $response->getGraphNode();
 
                 // Recupera o link e o object_id da publicação feita, usando o ID
-                $postagens = ($fb->get('/'.$facebookPost['id'].'/?fields=link', $configFacebook[0]['tokenPagina']))->getDecodedBody();
+                $postagens = ($fb->get('/'.$facebookPost['id'].'/?fields=link', $page_acess_token))->getDecodedBody();
                 $object_id = $postagens['id'];
                 $linkQr = $postagens['link'];
 
                 //Armazena a foto original localmente
-                $arquivo_destino = $configFacebook[0]['destinoLocal'].$object_id.".png";
+                $arquivo_destino = "./public/imagens/".$object_id.".png";
                 move_uploaded_file($arquivo_tmp, $arquivo_destino);
 
                 //Recupera a imagem que foi criada
@@ -92,16 +95,13 @@ class DivulgacaoController extends AbstractActionController
                 }
                 imagedestroy($imagem);
 
-                // Armazenda o ID de quem fez a publicação.
-                $fbId = $configFacebook[0]['id_pagina'];
-
                 // Define as datas de inicio e de termino da publicação no SID.
                 $dataInicio = $_POST ['ano_inicio'] . "-" . $_POST ['mes_inicio'] . "-" . $_POST ['dia_inicio'];
                 $dataTermino = $_POST ['ano'] . "-" . $_POST ['mes'] . "-" . $_POST ['dia'];
 
                 //ENVIA PARA O BANCO
                 $sql = "INSERT INTO divulgacao(legenda, fbid, linkqr, object_id, datatermino, datainicio)
-                VALUES('$legenda', '$fbId', '$linkQr', '$object_id', '$dataTermino', '$dataInicio');";
+                VALUES('$legenda', '$id_pagina', '$linkQr', '$object_id', '$dataTermino', '$dataInicio');";
 
                 $res = pg_exec($conn, $sql);
 
@@ -181,6 +181,7 @@ class DivulgacaoController extends AbstractActionController
 
     $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     $divulgacao = $em->find("Adm\Entity\Divulgacao", $divid);
+
     $fb->delete('/'.$divulgacao->getObject_id().'/',array(),$sessao->fb_access_token);
     $em->remove($divulgacao);
     $em->flush();

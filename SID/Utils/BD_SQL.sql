@@ -43,9 +43,14 @@ CREATE TABLE matriculado(
 );
 
 CREATE TABLE professor(
-	matricula varchar NOT NULL PRIMARY KEY
+	matricula varchar NOT NULL PRIMARY KEY,
 	nome varchar,
-	senha varchar,
+	senha varchar
+);
+
+CREATE TABLE designado(
+	matricula_professor varchar REFERENCES professor (matricula),
+	id_turma varchar REFERENCES turma(id)
 );
 
 CREATE TABLE menssagem(
@@ -61,9 +66,12 @@ insert into divulgacao values (0,null,'www.google.com.br','conheca o SID','fixa'
 insert into turma values ('turma2014');
 insert into aluno values ('aluno1','1',md5('123'));
 insert into matriculado values ('1','turma2014');
+insert into designado values ('1','turma2014');
 insert into professor values ('1','professor1',md5('123'));
 insert into menssagem (id_professor,id_turma,menssagem) values ('1','turma2014','mensagem do professor1');
-insert into adm (fbid,nome,email,senha) values (1371436046298678,'maxwell','maxbborges@gmail.com',md5('123'));
+insert into adm (fbid,nome,email,senha) values (1371436046298678,'maxwell','max15borges@gmail.com',md5('123'));
+insert into config values ('164198740813670', 'f435a5e76649e9d8673170639591b57d','v2.10', true, '415358248866659','EAACVVnZBeZA2YBAJt7IBgHj9B8AdnUnFufJpbNas1ELBl7vH4dNKG6QEG5scrNsc1kz6T4OU2VzI04hxnIrRfylCOzlCxwjHJYNMcGZBQCSjuMKC7ZCIV9XidmPn7igPRZCTu7TZBQp5ZAZAQTMU0IYFd6NS1gmQqx6F3wZCrX2AwvTo6jdYZBiBsud','./public/imagens/');
+insert into adm (fbid,nome,email,senha) values (1511647135610791,'flavia','flavinh_aa@hotmail.com',md5('123'));
 
 select * from aluno where senha = md5('123');
 
