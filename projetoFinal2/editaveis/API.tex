@@ -167,7 +167,7 @@ Já os campos, são usados para representar os dados de um objeto específico, d
   $graphNode = $response->getGraphNode(); 
 \end{lstlisting}
 
-É possível também obter também outros dados, como o \textit{link} de uma publicação especifica, para isso é necessário obter o id único dela, no exemplo \ref{requisicao8}, o retorno na variável \$graphNode será um JSON contendo os dados dos comentários, url e likes de uma publicação especifica.
+É possível também obter também outros dados, como o \textit{link} de uma publicação especifica, para isso é necessário obter o id único dela, no exemplo \ref{lst:requisicao8}, o retorno na variável \$graphNode será um JSON contendo os dados dos comentários, url e likes de uma publicação especifica.
 
 \begin{lstlisting}[caption={Requsição de diversos atributos},label={lst:requisicao8}]
   $response = $fb->get(
