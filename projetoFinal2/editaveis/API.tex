@@ -31,6 +31,16 @@ Para se obter o \textit{token} com duração infinita é necessário uma requisi
   $graphNode = $response->getGraphNode();
 \end{lstlisting}
 
+É possível também obter de uma página especifica, ao invés de todas as páginas que o usuário é administrador. Para isso é necessário seguir o exemplo \ref{lst:tokenunico} que terá como resposta o \textit{access token} e o ID da página.
+
+\begin{lstlisting}[caption={Obtendo Token de uma única página},label={lst:tokenunico}]
+  $response = $fb->get(
+    '/415358248866659',
+    '{access-token}'
+  );
+$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
 Cada linguagem possui a sua forma específica de obter o \textit{token} por meio do uso da SDK específica de cada uma. Além da chamada usando o SDK, para se gerar um \textit{token} é necessário um usuário autenticado.
 
 \section{Autenticação}
@@ -74,8 +84,6 @@ Para realização de \textit{login} é necessário o uso de uma classe específi
 	$ip = $_SERVER['HTTP_HOST'];
 	$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.'/auth/callback', $permissions );
 \end{lstlisting}
-
-\maxwell {VERIFICAR CALLBACK}
 
 \section{Permissões}
 Um sistema de permissões é utilizando na Graph API para controle de acesso, controle de publicação e de edição de informações. Assim, para que alguma modificação na publicação por parte do modulo administrador possa ser efetivada, é necessário possuir as permissões adequadas. As permissões funcionam de forma a descrever como devem ser feitas as requisições para o completo uso do aplicativo, de acordo com a necessidade.
