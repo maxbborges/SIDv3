@@ -10,9 +10,10 @@ use Adm\Controller\Configure;
 class AuthController extends AbstractActionController {
 	// É a redirecionado quando se digita IP:porta/auth ou alguma das paginas q é necessario login
 	public function indexAction() {
+		// Cria uma sessão para armazenar as informações.
 		$sessao = new Container ( 'Auth' );
-		// Recupera as informaçoes de configuração do facebook
-		// $newFacebook = (new Configure ())->newFacebook ();
+
+		// Recupera informações necessárias para conexão com a API.
 		$em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 		$query = $em->createQuery('SELECT c.app_id, c.app_secret, c.default_graph_version, c.fileupload FROM Adm\Entity\Config c');
 		$configFacebook = $query->getResult();
@@ -23,7 +24,11 @@ class AuthController extends AbstractActionController {
 			'default_graph_version' => $configFacebook[0]['default_graph_version'],
 			'fileUpload' => $configFacebook[0]['fileupload']
 		);
+
+		//Armazena os dados necessários para conexão com a graph na sessão.
 		$sessao->newFacebook = $newFacebook;
+
+		// Realiza a conexão com a API.
 		$fb = new \Facebook\Facebook ( $newFacebook );
 
 		$helper = $fb->getRedirectLoginHelper ();
@@ -95,23 +100,25 @@ class AuthController extends AbstractActionController {
 					'controller' => 'divulgacao',
 					'action' => 'listar'
 					) );
-				}
-				if($cont==(count($adminstradores)-1)){
-					$this->redirect ()->toRoute('auth',array(
-						'controller' => 'auth',
-						'action' => 'index'
-					));
-				}
+			}
+			
+			if($cont==(count($adminstradores)-1)){
+				$this->redirect ()->toRoute('auth',array(
+					'controller' => 'auth',
+					'action' => 'index'
+				));
 			}
 		}
-		public function sairAction() {
-			$sessao = new Container ( "Auth" );
+	}
 
-			$sessao->getManager ()->destroy ();
+	public function sairAction() {
+		$sessao = new Container ( "Auth" );
 
-			return $this->redirect ()->toRoute ( 'auth', array (
-				'controller' => 'auth',
-				'action' => 'index'
-				) );
-			}
+		$sessao->getManager ()->destroy ();
+
+		return $this->redirect ()->toRoute ( 'auth', array (
+			'controller' => 'auth',
+			'action' => 'index'
+			) );
 		}
+	}

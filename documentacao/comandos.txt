@@ -5,26 +5,15 @@ sudo apt-get install php7.0
 sudo apt-get install php7.0-pgsql
 apt-get install libapache2-mod-php7.0
 
-// PRIMEIRO PUSH
-Configurando as permissoes da pagina
-module/Adm/src/Adm/Controller/AuthController.php
+** HABILITAR REWITER Apache
+cd /etc/apache2/mods-enabled/
+ls
+sudo a2enmod rewrite
 
-Incluir as permissões
-'manage_pages'
-'publish_pages'
-
-//SEGUNDO PUSH
-Configurando a pagina que ira postar 
-module/Adm/src/Adm/Controller/DivulgacaoController.php
-
-Requisitos para publicar em pagina:
-'access_tolen' => ''
-ID da pagina
+// Curl
+sudo apt-get install php7.0-curl
 
 token infinito:
 https://stackoverflow.com/questions/17197970/facebook-permanent-page-access-token
 
-Alteraçao no tamanho do id da divulgaçao, de Integer para bigint
-
-retirado imagem bytea, thumb bytea do banco
-
+// NO ARQUIVO ./module/Adm/config/module.config.php ESTÁ GRAVANDO A ROTA INICIAL
