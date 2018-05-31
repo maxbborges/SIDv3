@@ -14,16 +14,6 @@ campos."
 Por favor, não utilize os nós como pontos. Isso pode criar confusão. Tanto é que a sua referência dá isso como uma definição completamente informal. Posteriormente ela fala de uma maneira mais formal e mais adequada.
 Utilize a nomenclatura de vértice mesmo. Um grafo é um conjunto de vértices e um relacionamento entre eles. Entre cada par de vértice relacionado, temos uma aresta. A sua própria referência fala isso mais pra frente.
 
-"A obtenção dos elementos são feitas através de requisições e podem ser feitas dire-
-tas do navegador através da biblioteca cURL, mas também podem ser feitas com usando
-outras aplicações que usem bibliotecas HTTP, entretanto, para o seu funcionamento, elas
-devem seguir os padrões para a obtenção de uma resposta correta do servidor, os padrões
-são que as requisições devem ser feitas a conteúdos existentes na rede social e usando os
-conceitos de nós, vértices e campos para que se obter os elementos desejados, além do uso
-de um token de acesso que permite acesso a elementos de acordo com as permissões que
-foram solicitadas e aceitas."
-
-cURL não é uma biblioteca, é um programa.
 
 "Todas as requisições de dados ao Facebook devem ser feitas a uma URL de hospedagem, nessa URL está hospedado todos os dados que podem ser requisitados são: <graph-video.facebook.com>, usada para requisições de vídeos e <graph.facebook.com>, usadas para todos os outros tipos de requisições.""
 
