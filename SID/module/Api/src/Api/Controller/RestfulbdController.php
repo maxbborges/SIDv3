@@ -20,7 +20,7 @@ class RestfulbdController extends AbstractRestfulController
     $sql = "select * from divulgacao order by divid";
     $res = pg_exec($conn, $sql);
 
-    $sql1 = "select tokenpagina,app_id,app_secret,default_graph_version,destinolocal from config";
+    $sql1 = "select app_id,app_secret,default_graph_version from config";
     $result = pg_exec($conn, $sql1);
     $resultado = pg_fetch_array($result,$row = NULL, $result_type = PGSQL_ASSOC);
 
@@ -30,37 +30,43 @@ class RestfulbdController extends AbstractRestfulController
       'default_graph_version' => $resultado['default_graph_version'], // Versão da Graph API
     );
 
+    //PAGINA IFB:
+    $tokenInfinito = "EAACVVnZBeZA2YBALvdqjul8aeSy749mvnMZAgVAmzKIgLsZBTvK1PSahZBWfysQ1jQed2kqtx0MsRaOnKD0LHBCfS7OTWZBsYMKTwZCuD7cwYOQbZC7mHZB1cjUKxEcVuvxHqMPAbhEbzHZAvRIwNcHMUa5D0yOsz2EkkI3njLT1qFWgZDZD";
+
+    //PAGINA SID-IFB:
+    // $tokenInfinito = "EAACVVnZBeZA2YBAOrWGBgh0TZA237MY0QgQbJm4NzjhMISHP01gZCvaqkZBiK53vSRQPiaBMWeK9Xp7ZCeHcy10Gl5JAimJYOuMbxvMDTVcOCtHP6p45vY2rqtOj69DSNcXZCU4rfsuvSxDcyIZBVl4ZCIZBcqCNvnmtQapVLX36BkIAZDZD" 
+
     // Faz a leitura de cada linha recuperada do banco
     while($linha = pg_fetch_array($res,$row = NULL, $result_type = PGSQL_ASSOC)){
-      // Verifica a data de termino e de inicio de cada linha recuperada do banco.
-      // Caso a linha esteja fora do prazo, ela é ignorada.
+      // Verifica a data de cada publicação!
       if(date('Y-m-d')<$linha['datatermino']&&date('Y-m-d')>$linha['datainicio']){
-        // Verifica se a o DIVID não é zero.
-        // A posicao 0 é destinada a publicação fixa, não possuindo Comentarios.
+        // Verifica cada publicação. A posicao 0 é destinada a publicação fixa, não possuindo Comentarios.
         if ($linha['divid']!=0){
 
-          // Requisita os paramentros de conexão com o facebook e faz a conexão.
+          // Realiza a conexão com a API do Facebook.
           $fb = new \Facebook\Facebook($newFacebook);
 
-          $imagem = ($fb->get('/'.$linha['object_id'].'?fields=images', $resultado['tokenpagina']))->getDecodedBody();
+          // Recupera a imagem da publicação!
+          // $imagem = ($fb->get('/'.$linha['object_id'].'?fields=images', $tokenInfinito))->getDecodedBody();
 
-          // Recupera todos os comentarios da publicação, usando o object_id de cada uma.
-          $comentarios = ($fb->get('/'.$linha['object_id'].'/comments', $resultado['tokenpagina']))->getDecodedBody();
+          // Recupera todos os comentarios da publicação, usando o object_id de cada divulgação.
+          $comentarios = ($fb->get('/'.$linha['object_id'].'/comments', $tokenInfinito))->getDecodedBody();
 
           // Percorre todos os comentarios recuperados.
           for($i=0; $i<count($comentarios['data']); $i++){
-
             // Recupera todas os likes da publicação
-            $likes = ($fb->get('/'.$comentarios['data'][$i]['id'].'/likes', $resultado['tokenpagina']))->getDecodedBody();
+            $likes = ($fb->get('/'.$comentarios['data'][$i]['id'].'/likes', $tokenInfinito))->getDecodedBody();
 
             // Percorre todos os likes feitos na publicação
             for($cont=0;$cont<count($likes['data']);$cont++){
+              $buscaAdms = "select fbid from adm";
+              $administradores = pg_exec($conn, $buscaAdms);
 
-              $sqlx = "select fbid from adm";
-              $result = pg_exec($conn, $sqlx);
-              while($linhaAdm=pg_fetch_array($result)){
+              // Percorre todos os administradores.
+              while($linhaAdm=pg_fetch_array($administradores)){
+                //Verifica se possui curtida do administrador.
                 if($likes['data'][$cont]['id']==$linhaAdm[0]){
-                  $urlFoto = ($fb->get("/".$comentarios['data'][$i]['from']['id']."/?fields=picture.type(large)", $resultado['tokenpagina']))->getDecodedBody();
+                  $urlFoto = ($fb->get("/".$comentarios['data'][$i]['from']['id']."/?fields=picture.type(large)", $tokenInfinito))->getDecodedBody();
                   $url['urlFoto'] = $urlFoto['picture']['data']['url'];
                   $arrayComentarios[] = array_merge($comentarios['data'][$i], $url);
                   break;
@@ -83,7 +89,7 @@ class RestfulbdController extends AbstractRestfulController
         $json[] = array(
           'bd' => $infobd, // Informaçoes do Banco
           'comentarios' => $arrayComentarios, // Informaçoes do Face
-          'imagem' => base64_encode(file_get_contents($resultado['destinolocal'].$linha['object_id'].".png")),
+          'imagem' => base64_encode(file_get_contents("./public/imagens/".$linha['object_id'].".png")),
         );
 
         $arrayComentarios=null;

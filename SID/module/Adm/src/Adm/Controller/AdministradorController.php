@@ -11,8 +11,6 @@ class AdministradorController extends AbstractActionController {
 	}
 	
 	public function editarAction() {
-		
-		// rota http://localhost:8080/administrador/editar
 		if($this->getRequest()->isPost()){
 			
 			$em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
