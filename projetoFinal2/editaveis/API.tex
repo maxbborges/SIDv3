@@ -3,10 +3,280 @@ Para integração entre o Facebook e outros aplicativos externos é necessário 
 
 Usada para extrair e inserir dados da plataforma do Facebook por meio de requisições HTTP é possível realizar as mais diversas tarefas, entre elas estão a de publicar novas histórias, gerenciar anúncios e carregar fotos \cite{facebook2018b}.
 
+\section{Visão Geral}
+A Graph segue um padrão de estrutura que se assemelha a um grafo. Para\cite{soares2014}, informalmente um grafo pode ser explicado como um conjunto de pontos que formam vértices e arestas, onde cada ponto é chamado de vértice e o par deles é chamado de arestas. A estrutura da Graph, segue esse mesmo conceito, possuindo nós, arestas e campos. 
+
+Os nós são os vértices onde cada elemento é considerado um ponto, esses pontos na rede social podem ser os mais diversos elementos, sendo objetos individuais, onde cada página, usuário, comentário, foto, entre outras que são criadas no Facebook, são considerados um nó distinto \cite{facebook2018b} e possuem um identificador. As arestas são as ligações entre os nós, são as conexões entre uma coleção de objetos a um objeto único, elas podem representar diversos conjuntos de elementos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. Os campos são os atributos mais específicos de um nó ou aresta, tais como, o link de uma publicação, as informações de quem realizou o comentário, o tamanho de uma imagem, entre outros.
+
+A obtenção dos elementos são feitas através de requisições e podem ser feitas diretas do navegador através da biblioteca cURL, mas também podem ser feitas com usando outras aplicações que usem bibliotecas HTTP, entretanto, para o seu funcionamento, elas devem seguir os padrões para a obtenção de uma resposta correta do servidor, os padrões são que as requisições devem ser feitas a conteúdos existentes na rede social e usando os conceitos de nós, vértices e campos para que se obter os elementos desejados, além do uso de um \textit{token} de acesso que permite acesso a elementos de acordo com as permissões que foram solicitadas e aceitas.
+
+Todas as requisições de dados ao Facebook devem ser feitas a uma URL de hospedagem, nessa URL está hospedado todos os dados que podem ser requisitados. As URLs são: \url{graph-video.facebook.com}, usada para requisições de vídeos e \url{graph.facebook.com}, usadas para todos os outros tipos de requisições.
+
+As respostas a todas as requisições feitas a rede social são em formato e estrutura JSON, podendo possuir os três tipos básicos de conteúdo: numérico, booleano e String, podendo ser associativo ou não. O JSON é um modelo para armazenamento e transmissão de informações no formato texto e com capacidade de transmitir um grande volume de dados.
+
+
+\section{Requisições}
+\subsection{Nó}
+Os nós representam os vértices de um grafo, eles podem ser os mais diversos elementos, sendo objetos individuais, onde todo elemento é único e possui um identificador próprio (ID). Nos exemplos \ref{lst:usuario} a \ref{lst:album} são demostrados algumas possibilidades de uso de um nó.
+
+O próprio usuário que está usando a API também é considerado um nó. No exemplo \ref{lst:me}, é requisitado informações do próprio utilizador.
+
+\begin{lstlisting}[caption={Requisitar informações de um usuário específico},label={lst:usuario}]
+  $response = $fb->get(
+    '/1371436046298678/',
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar informações do próprio usuário},label={lst:me}]
+  $response = $fb->get(
+    '/me',
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar informações de uma página},label={lst:pagina}]
+  $response = $fb->get(
+    '/415358248866659/',
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar informações de uma postagem específica},label={lst:postagem}]
+  $response = $fb->get(
+    '/511846152551201/',
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar informações de um comentário específico},label={lst:comentario}]
+  $response = $fb->get(
+    '/511846152551201_515868852148931/',
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar uma evento específico},label={lst:evento}]
+	$response = $fb->get(
+    	'/383399765490475',
+    	'{access-token}'
+	);
+	$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar uma álbum específico},label={lst:album}]
+	$response = $fb->get(
+		'/420148828387601',
+		'{access-token}'
+	);
+	$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+Nos exemplos \ref{lst:usuario} a \ref{lst:album}, a variável que irá receber o retorno será a \$graphNode, contendo um JSON relacional onde o conteúdo dele será distinto, dependendo do conteúdo solicitado em cada requisição. Os exemplos de retorno podem ser vistos nos exemplos \ref{lst:usuario} a \ref{lst:retornoEvento}.
+
+\begin{lstlisting}[caption={Resposta do servidor as requisições \ref{lst:usuario}, \ref{lst:me} e \ref{lst:pagina}},label={lst:retornoUsuario}]
+{
+  "name": "Maxwell Borges",
+  "id": "1371436046298678"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Resposta do servidor a uma requisição \ref{lst:postagem}},label={lst:retornoPostagem}]
+{
+  "created_time": "2018-05-21T20:15:54+0000",
+  "name": "Bem vindo! Esse e o SID, integracao, facilidade e interatividade em um unico sistema.",
+  "id": "511846152551201"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Resposta do servidor a uma requisição \ref{lst:comentario}},label={lst:retornoComentario}]
+{
+  "created_time": "2018-05-30T14:00:17+0000",
+  "from": {
+    "name": "Maxwell Borges",
+    "id": "1371436046298678"
+  },
+  "message": "Ola",
+  "id": "511846152551201_515868852148931"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Resposta do servidor a uma requisição \ref{lst:evento}},label={lst:retornoEvento}]
+{
+  "description": "Sera um evento bem legal",
+  "end_time": "2018-06-02T19:00:00-0300",
+  "name": "Aula",
+  "place": {
+    "name": "por ai"
+  },
+  "start_time": "2018-05-30T16:00:00-0300",
+  "event_times": [
+    {
+      "id": "383399778823807",
+      "start_time": "2018-05-30T16:00:00-0300",
+      "end_time": "2018-05-30T19:00:00-0300"
+    }
+  ],
+  "id": "383399765490475"
+}
+\end{lstlisting}
+
+É possível chegar a cada um desses pontos usando apenas o ID do nó desejado, um \textit{token} de acesso e permissões especificas de cada um dos nós que será explicado adiante.
+
+\subsection{Aresta}
+As arestas são as ligações entre os pontos, ela é a ligação entre os nós, são as conexões entre uma coleção de objetos a um objeto único. O conteúdo de uma Página, de uma postagem, de um comentário, entre outras.
+
+Nos exemplos \ref{lst:feedUsuario} a \ref{lst:curtidasComentario}, são dados alguns exemplos de uso das arestas e exemplos de respostas para cada uma delas.
+
+\begin{lstlisting}[caption={Requisitando todas as publicações de um usuário},label={lst:feedUsuario}]
+  $response = $fb->get( 
+    '/1371436046298678/feed', 
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitando todas as publicações de uma página},label={lst:feedPagina}]
+  $response = $fb->get( 
+    '/415358248866659/feed', 
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar todos os álbuns de uma página},label={lst:albumPagina}]
+  $response = $fb->get( 
+    '/415358248866659/albums', 
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar as fotos de perfil publicadas na página},label={lst:fotoPagina}]
+  $response = $fb->get( 
+    '/415358248866659/photos', 
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar os vídeos publicados na página},label={lst:videosPagina}]
+  $response = $fb->get( 
+    '/415358248866659/videos', 
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar os eventos agendados pela página},label={lst:eventosPagina}]
+  $response = $fb->get( 
+    '/415358248866659/events', 
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar todos os comentários de uma postagem em uma página},label={lst:comentariosPostagem}]
+  $response = $fb->get( 
+    '511846152551201/comments', 
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisitar todas as curtidas de um comentário},label={lst:curtidasComentario}]
+  $response = $fb->get( 
+    '/511846152551201_515868852148931/likes', 
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+
+Alguns exemplos de repostas para os exemplos \ref{lst:feedUsuario} a \ref{lst:curtidasComentario} são expostos abaixo, em todas será um JSON armazenado na variável \$graphNode que varia de acordo com a requisição.
+
+\begin{lstlisting}[caption={Resposta da requisição \ref{lst:feedUsuario} e \ref{lst:feedPagina}},label={lst:respostas1}]
+{
+  "data": [
+    {
+      "created_time": "2018-05-30T18:03:41+0000",
+      "message": "Sera um evento bem legal",
+      "story": "IFB added an event.",
+      "id": "415358248866659_383399765490475"
+    },
+  ],
+}
+\end{lstlisting} 
+
+
+
+
+
+
+
+
+Como todas a publicações são consideradas nós, é possível buscar as arestas de cada uma delas. 
+
+
+
+
+
+
+
+, no exemplo \ref{lst:requisicao6} está sendo requisitado todos os comentários de uma publicação.
+
+\begin{lstlisting}[caption={Requisitando todos os comentários de uma publicação},label={lst:requisicao6}]
+  $response = $fb->get(
+    '/492866217782528/comments',
+    '{access-token}'
+  );
+$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\subsection{Campo}
+Já os campos, são usados para representar os dados de um objeto específico, dados que serão incluídos na resposta. Os dados podem ser data de aniversário de um usuário ou nome de uma página. Os atributos de campo, podem ser os mais diversos, tais como: \textit{comments},\textit{likes},\textit{link}, entre outros. No exemplo \ref{lst:requisicao7},é feito a requisição dos comentários presentes nas publicações feitas na \textit{timeline}, o retorno será um JSON com o ID da publicação acrescido de dados como data da criação, mensagem e ID dos comentários publicados em cada um das publicação.
+
+\begin{lstlisting}[caption={Requisitar os comentários de todas as publicações da página},label={lst:requisicao7}]
+  $response = $fb->get(
+    '/415358248866659/feed?fields=comments',
+    '{access-token}' 
+  );
+  $graphNode = $response->getGraphNode(); 
+\end{lstlisting}
+
+É possível também obter também outros dados, como o \textit{link} de uma publicação especifica, para isso é necessário obter o id único dela, no exemplo \ref{lst:requisicao8}, o retorno na variável \$graphNode será um JSON contendo os dados dos comentários, url e likes de uma publicação especifica.
+
+\begin{lstlisting}[caption={Requsição de diversos atributos},label={lst:requisicao8}]
+  $response = $fb->get(
+   '/415358248866659_511846152551201?fields=comments,likes,link', 
+   '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+Nos exemplos, a página do SID é um nó, usando o ID único dela é possível criar novas publicações que serão gerados um novo nó, cada publicaçãos é formada do ID da página acrescidos de um ID único da foto. Usando esse nó da publicação é possível recuperar comentários e \textit{likes}, por exemplo. \cite{facebook2018b}.
+
+\subsection{Tipos de Requisição}
+Além de requisições com o uso do GET, é possível realizar requisições usando POST e DELETE. O GET é usado para recuperar informações, o POST é usado para enviar dados e o DELETE é usado para deletar os dados.
+
+Para envio de dados é necessário o uso do POST, ele pode ser usado para realizar uma nova publicação, envio de um comentário, entre outras.
+\begin{lstlisting}[caption={Requsição de diversos atributos},label={lst:requisicao9}]
+ESCREVER CODIGO POST
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requsição de diversos atributos},label={lst:requisicao10}]
+ESCREVER CODIGO DELETE
+\end{lstlisting}
+
 \section{Token de acesso}
 Seguindo os padrões de conformidade do protocolo OAuth 2.0, protocolo que provê um fluxo de autorização especifica para aplicações web, telefones móveis, entre outras \cite{oauth2018}. 
 
-Para grande parte das requisições feitas a rede social é necessário o uso de um \textit{token} de acesso, ele funciona de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph. Os \textit{token} de acesso são cadeia de caracteres usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
+Para grande parte das requisições feitas a rede social é necessário o uso de um \textit{token} de acesso, ele funciona de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph de acordo com as permissões solicitadas. Os \textit{token} de acesso são cadeia de caracteres usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
 
 Os \textit{tokens} são separados em quatro tipos, sendo \textit{token} de acesso do usuário, usado para alterações de uma conta de usuário especifica, os  \textit{token} de aplicativo, usado para que as requisições sejam feitas em nome do aplicativo, o \textit{token} de pagina, usado para realizar modificações em páginas e o \textit{token} de cliente, usado em aplicativos moveis e aplicações de computador.
 
@@ -29,6 +299,16 @@ Para se obter o \textit{token} com duração infinita é necessário uma requisi
     '{access-token}'
   );
   $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+É possível também obter de uma página especifica, ao invés de todas as páginas que o usuário é administrador. Para isso é necessário seguir o exemplo \ref{lst:tokenunico} que terá como resposta o \textit{access token} e o ID da página.
+
+\begin{lstlisting}[caption={Obtendo Token de uma única página},label={lst:tokenunico}]
+  $response = $fb->get(
+    '/415358248866659',
+    '{access-token}'
+  );
+$graphNode = $response->getGraphNode();
 \end{lstlisting}
 
 Cada linguagem possui a sua forma específica de obter o \textit{token} por meio do uso da SDK específica de cada uma. Além da chamada usando o SDK, para se gerar um \textit{token} é necessário um usuário autenticado.
@@ -75,11 +355,6 @@ Para realização de \textit{login} é necessário o uso de uma classe específi
 	$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.'/auth/callback', $permissions );
 \end{lstlisting}
 
-\maxwell {VERIFICAR CALLBACK}
-
-\section{SDK}
-\maxwell{FALAR SOBRE}
-
 \section{Permissões}
 Um sistema de permissões é utilizando na Graph API para controle de acesso, controle de publicação e de edição de informações. Assim, para que alguma modificação na publicação por parte do modulo administrador possa ser efetivada, é necessário possuir as permissões adequadas. As permissões funcionam de forma a descrever como devem ser feitas as requisições para o completo uso do aplicativo, de acordo com a necessidade.
 
@@ -91,126 +366,3 @@ Não somente os usuários, as permissões também abrangem as páginas do Facebo
 
 As requisições também podem ser feitas diretas do navegador ou usando aplicações, entretanto, para o seu funcionamento, elas devem seguir um padrão para obtenção de uma resposta correta do servidor. Esse padrão de estrutura deve seguir os conceitos de um grafo.
 
-\section{Requisições}
-
-Para\cite{soares2014}, informalmente um grafo pode ser explicado como um conjunto de pontos que formam vértices e arestas, onde cada ponto é chamado de vértice e o par deles é chamado de arestas. A estrutura da Graph, segue esse conceito de um grafo, possuindo nós, bordas e campos, onde os nós são os vértices, bordas são as arestas e os campos são os elementos que os vértices ou as bordas possuem.
-
-\subsection{Nó}
-Os nós representam os vértices, eles podem ser os mais diversos elementos, sendo objetos individuais, onde cada página, usuário, comentário ou foto criada no Facebook é considerado um nó \cite{facebook2018b}. Cada nó possui uma identificação única chamada ID, para consulta-lo é necessário a identificação e o \textit{token} de acesso. A requisição do exemplo \ref{lst:requisicao1} é feito para recuperar alguns dados da página oficial do SID, o retorno na variável \$graphNode será um JSON contendo o nome e o ID da página.
-
-\begin{lstlisting}[caption={Requisitando dados básicos de uma página},label={lst:requisicao1}]
-  $response = $fb->get(
-    '/415358248866659',
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-No exemplo \ref{lst:requisicao2}, a requisição é feita usando o parametro /me, que também representa um nó e irá retornar na variável \$graphNode um JSON com os dados básicos do usuário que está acessando, dados como nome e ID.
-
-\begin{lstlisting}[caption={Requisitando dados básicos de um usuário},label={lst:requisicao2}]
-  $response = $fb->get(
-    '/me',
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-Já no exemplo \ref{lst:requisicao3}, a requisição é feita usando o ID único de uma publicação em uma página. O retorno na variável \$graphNode será dados referentes a essa publicação, tais como data de criação, nome e o ID.
-
-\begin{lstlisting}[caption={Requisitando dados básicos de uma publicação},label={lst:requisicao3}]
-  $response = $fb->get(
-    '/415358248866659_511846152551201',
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-\subsection{Borda}
-As arestas são as ligações entre os pontos, representado como bordas no Faceboook, ela é a ligação entre os nós, são as conexões entre uma coleção de objetos a um objeto único. As bordas representam o conjunto de fotos em uma página ou o conjunto de comentários em uma foto. Pode ser usado \textit{feed}, \textit{photos}, entre outros.
-
-Para consultar todas as publicações da \textit{timeline} presentes na pagina oficial do SID é necessário seguir o exemplo \ref{lst:requisicao4} e o retorno será um JSON contendo a data de criação, a mensagem e o ID da borda que é o ID da página acrescido do ID único da publicação.
-
-\begin{lstlisting}[caption={Requisitando todas as publicações de uma página},label={lst:requisicao4}]
-  $response = $fb->get( 
-    '/415358248866659/feed', 
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-Mas podemos também, por exemplo, buscar todos os álbuns presentes em uma pagina, como mostra o exemplo \ref{lst:requisicao5}.
-
-\begin{lstlisting}[caption={Requisitando todas álbuns de uma página},label={lst:requisicao5}]
-  $response = $fb->get( 
-    '/415358248866659/photos', 
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-Como todas a publicações são consideradas nós, é possível buscar as arestas de cada uma delas, no exemplo \ref{lst:requisicao6} está sendo requisitado todos os comentários de uma publicação.
-
-\begin{lstlisting}[caption={Requisitando todos os comentários de uma publicação},label={lst:requisicao6}]
-  $response = $fb->get(
-    '/492866217782528/comments',
-    '{access-token}'
-  );
-$graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-\subsection{Campo}
-Já os campos, são usados para representar os dados de um objeto específico, dados que serão incluídos na resposta. Os dados podem ser data de aniversário de um usuário ou nome de uma página. Os atributos de campo, podem ser os mais diversos, tais como: \textit{comments},\textit{likes},\textit{link}, entre outros. No exemplo \ref{lst:requisicao7},é feito a requisição dos comentários presentes nas publicações feitas na \textit{timeline}, o retorno será um JSON com o ID da publicação acrescido de dados como data da criação, mensagem e ID dos comentários publicados em cada um das publicação.
-
-\begin{lstlisting}[caption={Requisitar os comentários de todas as publicações da página},label={lst:requisicao7}]
-  $response = $fb->get(
-    '/415358248866659/feed?fields=comments',
-    '{access-token}' 
-  );
-  $graphNode = $response->getGraphNode(); 
-\end{lstlisting}
-
-É possível também obter também outros dados, como o \textit{link} de uma publicação especifica, para isso é necessário obter o id único dela, no exemplo \ref{requisicao8}, o retorno na variável \$graphNode será um JSON contendo os dados dos comentários, url e likes de uma publicação especifica.
-
-\begin{lstlisting}[caption={Requsição de diversos atributos},label={lst:requisicao8}]
-  $response = $fb->get(
-   '/415358248866659_511846152551201?fields=comments,likes,link', 
-   '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-Nos exemplos, a página do SID é um nó, usando o ID único dela é possível criar novas publicações que serão gerados um novo nó, cada publicaçãos é formada do ID da página acrescidos de um ID único da foto. Usando esse nó da publicação é possível recuperar comentários e \textit{likes}, por exemplo. \cite{facebook2018b}.
-
-\subsection{Tipos de Requisição}
-Além de requisições com o uso do GET, é possível realizar requisições usando POST e DELETE. O GET é usado para recuperar informações, o POST é usado para enviar dados e o DELETE é usado para deletar os dados.
-
-Para envio de dados é necessário o uso do POST, ele pode ser usado para realizar uma nova publicação, envio de um comentário, entre outras.
-\begin{lstlisting}[caption={Requsição de diversos atributos},label={lst:requisicao9}]
-ESCREVER CODIGO POST
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Requsição de diversos atributos},label={lst:requisicao10}]
-ESCREVER CODIGO DELETE
-\end{lstlisting}
-
-\section{Visão Geral}
-
-\maxwell{O Facebook oferece diversos produtos para incorporar ao aplicativo externo, entre eles está o de login do Facebook. Esse produto oferece ao desenvolvedor a possibilidade de oferece ao usuário do aplicativo uma ferramenta de login usando as credenciais do Facebook.
-
-A autenticação (\textit{login}) no módulo administrador é feita usando a ferramente de login oferecida pela rode social, então para acesso é necessário um usuário cadastrado no Facebook e cadastrado no no banco de dados do SID. O uso de um usuário vinculado a rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos. 
-
-Para autenticação e efetivação de todas as requisições feitas pelo aplicativo para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando um \textit{token} de acesso, que é obtido após a efetivação de login do usuário com o Facebook. O \textit{token} é uma cadeia de caracteres que identifica um usuário, aplicativo ou página, identificando a sessão. Em cada nova requisição a rede social, o \textit{token} será usado, se autorizado, pela aplicação para permitir o envio de requisições HTTP usando seus identificadores únicos, recebendo a respectiva resposta.}
-
-\section{Elementos Usados}
-Para publicação no perfil pessoal, a Graph API requisita duas permissões, sendo a “email”, onde é requisitado o acesso ao endereço de email do usuário para que seja possível a autenticação do SID com o Facebook e a “publish\underline{{ }}actions”, onde fornece acesso a realização de publicações em nome da pessoa que está usando o aplicativo \cite{facebook2018a}.
-
-Como o SID será usado em uma página e não em um perfil pessoal, duas novas autenticações se tornaram necessárias, sendo a “manage\underline{{ }}pages”, usada para recuperar as permissões de acesso a pagina e a “publish\underline{{ }}pages”, usada parar permitir que aplicativos publiquem na página \cite{facebook2018a}.
-
-Usando o identificador único da foto é possível recuperar informações das arestas, que são informações como a URL, comentários e curtidas. Esse recurso é utilizado para recuperar o endereço da publicação, os comentários e curtidas que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
-
-Na criação de uma nova publicação, usando o SID, são passados para a Graph API dois parâmetros para inserção, o primeiro deles é “message”, onde será passado o texto que será exibido na publicação e o outro é “source”, onde será passado a imagem para ser exibida juntamente com o texto. Para envio de imagem para a rede social, é necessário passar na imagem como parâmetro o método “fileToUpload”. 
-
-Alguns dos elementos que são solicitados pela aplicação na criação de uma nova publicação, são omitidos no envio para o Facebook, pois esses dados serão usados apenas para serem armazenados no banco. Os elementos omitidos são os campos data de inicio, a data de termino e a legenda. 
-
------------------- CONTINUA  P48-------------------
