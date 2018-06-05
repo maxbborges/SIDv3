@@ -30,17 +30,16 @@ class AuthController extends AbstractActionController {
 
 		// Realiza a conexão com a API.
 		$fb = new \Facebook\Facebook ( $newFacebook );
-
 		$helper = $fb->getRedirectLoginHelper ();
 		$permissions = [
 			'email',
-			'publish_actions',
 			'manage_pages',
 			'publish_pages'
 		];
 
 		echo $ip = $_SERVER['HTTP_HOST'];
-		$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.'/auth/callback', $permissions );
+		$loginUrl = $helper->getReRequestUrl('http://'.$ip.'/auth/callback',$permissions);
+		// $loginUrl = $helper->getLoginUrl ( 'http://'.$ip.'/auth/callback', $permissions );
 
 		$result = new ViewModel(array (
 			'logar' => $loginUrl
