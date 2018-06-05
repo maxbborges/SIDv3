@@ -1,3 +1,67 @@
+# Comentários 05/06/2018
+## Capítulo 3 - Referencial Teórico
+
+### 3.8 - JSON
+
+Coloque um exemplo de um arquivo JSON aqui para exemplificar o que está sendo feito. Fale também de sua utilidade, é um dos padrões mais utilizados para troca de informações na internet.
+
+
+## Capítulo 4 - Graph API
+
+### 4.1 Visão Geral
+
+A definição informal de grafo continua com problemas. Ao falar de pontos, o leitor imagina um plano cartesiano. Utilize a definição padrão de grafos.
+
+- "Os nós são os vértices onde cada elemento é considerado um vértice,"
+Corrija
+
+- "O relacionamento entre os vértices formam as arestas, que são as ligações entre os nós, são as conexões entre uma coleção de objetos a um objeto único, onde podem representar diversos conjuntos de
+elementos, tais como as fotos de uma página ou o conjunto de comentários em uma foto."
+
+A sua frase está confusa. Você diz que dois vértices se relacionam através de uma aresta de depois estende isso para um relacionamento n-para-um. Reescreva de outra forma, diga que um nó pode estar relacionado com vários outros através das arestas que interligam eles.
+
+- "Os campos são os atributos mais específicos do nós ou arestas, tais como, o link de uma publicação, as informações de quem realizou o comentário, o tamanho de uma imagem, entre outros."
+
+Nova ideia = novo parágrafo.
+
+- "A obtenção dos elementos são feitas através de requisições e podem ser feitas
+diretamente do navegador ou usando outras aplicações que usem bibliotecas HTTP. En-
+tretanto, para o seu funcionamento, elas devem seguir os padrões para a obtenção de uma
+resposta correta do servidor, os padrões são que as requisições devem ser feitas a conteú-
+dos existentes na rede social e usando os conceitos de nós, vértices e campos para que se
+possa obter os elementos desejados, além do uso de um token de acesso que permite o
+acesso a elementos de acordo com as permissões que foram solicitadas e aceitas."
+
+
+Esse parágrafo contém muita informação. Você está falando como conversar com a API e ao mesmo tempo introduzindo a noção de token e permissões. Separe o parágrafo. Um para cada ideia.
+Aproveite e utilize o conceito de JSON aqui. O servidor responde com um JSON, correto? Entendeu o motivo de colocar isso no referencial teórico?
+
+
+- "A API trabalha de forma a auxiliar o desenvolvedor a realizar requisições, ofere-
+cendo diversas classes e métodos, para as mais diversas funcionalidades. Entre as diversas
+classes que podem ser instanciados estão a GraphEdge() e GraphNode(), cada uma delas
+possuem diversos métodos inclusos, entre eles estão o asArray, o asJson e o getField. 
+A classe GraphEdge() é usado para retornar conteúdos referentes a aresta, en-
+quanto a classe GraphNode() é usada para retornar conteúdo referentes aos nós. Já os
+métodos asArray, asJson e getField são usados para representar respectivamente um re-
+torno em formato de ARRAY, em formato JSON ou um campo específico em formato
+ARRAY. Portanto, as respostas a todas as requisições feitas a rede social serão em formato
+e estrutura JSON ou Array."
+
+Muito detalhe, essa é a seção de visão geral.
+
+Termine esta seção colocando a tabela que está no início da Seção 4.2 aqui. A ideia desta tabela é introduzir os principais nós com os seus relacionamentos, como você fez.
+Talvez seja interessante você tirar a parte mais técnica da tabela da visão geral como o: /{ID}/me, e em vez de /albums, /photos, /feed, /friends, coloque os objetos da vida real: álbum de fotos, fotos, *feed* de notícias, amigos. Toda essa parte mais técnica você vai abordar ao falar de cada nó individualmente, ou seja, ela vai estar presente, mas no lugar correto.
+
+Antes de falar de qualquer nó, como você está utilizando o conceito de *token* em todos eles, penso que seria interessante criar uma seção "Tokens e Permissões" para introduzir estes conceitos. Assim o leitor já vai estar familiarizado com tudo.
+
+Após esta seção de Tokens, você terá uma seção para falar dos nós. Crie uma subseção para cada nó da sua tabelinha e dê exemplos, como os que você fez.
+Procure também, comentar os campos mais comuns de cada nó. A documentação traz para cada nó, uma tabela com todos os campos dele. Você pode utilizar isso no seu documento e pegar os campos mais importantes.
+
+Para cada nó você comente das arestas mais importantes também e como requisitar essas informações, como você fez em alguns exemplos.
+
+
+
 # Comentários 31/05/2018
 
 ## Capítulo 4 - Graph API
