@@ -79,7 +79,7 @@ $fb->get('/oauth/access_token
 }
 \end{lstlisting}
 
-Os \textit{tokens} de página dependem de uma permissão específica e ser administrador da página, a permissão será a \textit{manege\underline{{ }}pages} que será explicada no capítulo \ref{sec:permissoes}. Para se obter o \textit{token} é necessário realizar uma requisição solicitando todas páginas que o usuário é administrador e o \textit{token} de usuário, como mostra o exemplo \ref{lst:tokenPagina} e que terá como retorno o exemplo \ref{lst:retornoPagina} contendo todas as páginas e as informações referentes a cada uma delas, como o \textit{token}, a categoria, o nome, o id e as permissões que o usuário tem. 
+Os \textit{tokens} de página dependem de uma permissão específica além da necessidade de ser administrador da página, a permissão será a \textit{manege\underline{{ }}pages} que será explicada no capítulo \ref{sec:permissoes}. Para se obter o \textit{token} é necessário realizar uma requisição de todas as páginas que o usuário é administrador, além do \textit{token} de usuário, como mostra o exemplo \ref{lst:tokenPagina}. Terá como retorno o exemplo \ref{lst:retornoPagina} contendo todas as páginas e as informações referentes a cada uma delas, como o \textit{token}, a categoria, o nome, o id e as permissões que o usuário tem. 
 
 \begin{lstlisting}[caption={Obtendo Token de acesso a página},label={lst:tokenPagina}]
   $response = $fb->get(
@@ -89,7 +89,7 @@ Os \textit{tokens} de página dependem de uma permissão específica e ser admin
   $graphNode = $response->getGraphNode();
 \end{lstlisting}
 
-É possível também obter de uma página especifica, ao invés de todas as páginas que o usuário é administrador. Para isso é necessário seguir o exemplo \ref{lst:tokenunico} que terá como resposta o \textit{access token} e o ID da página.
+É possível também obter de uma página especifica, ao invés de todas as páginas que o usuário é administrador. Para isso é necessário seguir o exemplo \ref{lst:tokenunico} que terá como resposta o \textit{access token} e o ID da página, onde o retorno será o JSON do exemplo \ref{lst:retornoPagina}.
 
 \begin{lstlisting}[caption={Obtendo Token de uma única página},label={lst:tokenunico}]
   $response = $fb->get(
