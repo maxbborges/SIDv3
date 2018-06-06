@@ -4,38 +4,180 @@ Para integração entre o Facebook e outros aplicativos externos é necessário 
 Usada para extrair e inserir dados da plataforma do Facebook por meio de requisições HTTP é possível realizar as mais diversas tarefas, entre elas estão a de publicar novas histórias, gerenciar anúncios e carregar fotos \cite{facebook2018b}.
 
 \section{Visão Geral}
-A Graph segue um padrão de estrutura que se assemelha a um grafo. Para\cite{soares2014}, informalmente um grafo pode ser explicado como um conjunto de pontos que formam vértices e arestas, onde cada ponto é chamado de vértice e cada par relacionado é chamado de arestas. A estrutura da Graph, segue esse mesmo conceito, possuindo nós, arestas e campos. 
+A Graph segue um padrão de estrutura que se assemelha a um grafo. Para\cite{soares2014}, um grafo pode ser explicado como um conjunto finito de vértices e cada par de arestas relacionadas é chamado de arestas. A estrutura da Graph, segue esse mesmo conceito, possuindo nós, arestas e campos. 
 
-Os nós são os vértices onde cada elemento é considerado um vértice, esses vértices na rede social podem ser os mais diversos elementos, sendo objetos individuais, onde cada página, usuário, comentário, foto, entre outras que são criadas no Facebook, são considerados um nó distinto \cite{facebook2018b} e possuem um identificador. O relacionamento entre os vértices formam as arestas, que são as ligações entre os nós, são as conexões entre uma coleção de objetos a um objeto único, onde podem representar diversos conjuntos de elementos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. Os campos são os atributos mais específicos do nós ou arestas, tais como, o link de uma publicação, as informações de quem realizou o comentário, o tamanho de uma imagem, entre outros.
+Os nós representam elementos únicos, cada um deles são considerados um vértice. Na rede social, eles podem ser os mais diversos elementos, sendo objetos individuais, onde cada página, usuário, comentário, foto, entre outras que são criadas no Facebook, são considerados um nó distinto \cite{facebook2018b} e possuem um identificador. 
 
-A obtenção dos elementos são feitas através de requisições e podem ser feitas diretamente do navegador ou usando outras aplicações que usem bibliotecas HTTP. Entretanto, para o seu funcionamento, elas devem seguir os padrões para a obtenção de uma resposta correta do servidor, os padrões são que as requisições devem ser feitas a conteúdos existentes na rede social e usando os conceitos de nós, vértices e campos para que se possa obter os elementos desejados, além do uso de um \textit{token} de acesso que permite o acesso a elementos de acordo com as permissões que foram solicitadas e aceitas.
+O relacionamento entre dois ou mais vértices são chamadas de arestas e representam a ligação entre os nós, são conexões entre um objetos único e uma coleção de objetos que representar diversos conjuntos de elementos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. 
+
+Os campos são os atributos mais específicos do nós ou arestas, tais como, o link de uma publicação, as informações de quem realizou o comentário, o tamanho de uma imagem, entre outros.
+
+A obtenção dos elementos são feitas através de requisições e podem ser feitas diretamente do navegador ou usando outras aplicações que usem bibliotecas HTTP. Entretanto, para o seu funcionamento, elas devem seguir os padrões para a correta requisição e obtenção da resposta do servidor. 
+
+As requisições devem ser feitas, a conteúdos existentes na rede social e usando os conceitos de nós, vértices e campos juntamente com as requisições ajax (GET,POST ou DELETE) e um \textit{token} de acesso para que se possa obter os elementos desejados, onde a resposta será um JSON contendo os dados solicitados.
 
 Todas as requisições de dados ao Facebook devem ser feitas a uma URL que serão redirecionas para um servidor que estarão hospedados todos os dados que podem ser requisitados: \url{graph-video.facebook.com}, usada para requisições de vídeos e \url{graph.facebook.com}, usadas para todos os outros tipos de requisições.
 
-A API trabalha de forma a auxiliar o desenvolvedor a realizar requisições, oferecendo diversas classes e métodos, para as mais diversas funcionalidades. Entre as diversas classes que podem ser instanciados estão a GraphEdge() e GraphNode(), cada uma delas possuem diversos métodos inclusos, entre eles estão o asArray, o asJson e o getField.
+A API trabalha de forma a auxiliar o desenvolvedor a realizar requisições, oferecendo diversas classes e métodos, para as mais diversas funcionalidades. Essas classes podem ser usadas para recuperar um vértice ou uma aresta, por exemplo.
 
-A classe GraphEdge() é usado para retornar conteúdos referentes a aresta, enquanto a classe GraphNode() é usada para retornar conteúdo referentes aos nós. Já os métodos asArray, asJson e getField são usados para representar respectivamente um retorno em formato de ARRAY, em formato JSON ou um campo específico em formato ARRAY. Portanto, as respostas a todas as requisições feitas a rede social serão em formato e estrutura JSON ou Array.
+Nesse capítulo, serão demostrados exemplos de requisições e de retorno, esses exemplos foram escritos em código PHP, que atualmente está entre as linguagens suportadas pela SDK. A variável \$graphNode será a responsável por receber maioria das respostas das requisições. Enquanto a variável \$fb será a instancia criada do SDK para chamada das classes e métodos presentes nele. 
 
-\section{Requisições}
-\maxwell {EXPLICAR A TABELA}
+\maxwell{EXPLICAR A TABELA}
 
 \begin{table}[H]
 \centering
-\caption{Tabela de interação entre nós e arestas}
+\caption{My caption}
 \label{my-label}
 \begin{tabular}{|c|c|c|}
 \hline
-\begin{tabular}[c]{@{}c@{}}Nome\\ Nó\end{tabular}                               & Descrição                              & \begin{tabular}[c]{@{}c@{}}Exemplos de \\ Aretas\end{tabular}                \\ \hline
-\begin{tabular}[c]{@{}c@{}}Usuário\\ \\ /\{ID\}\\ /me\end{tabular}              & Representa o perfil de um usuário.     & \begin{tabular}[c]{@{}c@{}}/albums\\ /photos\\ /feed\\ /friends\end{tabular} \\ \hline
-\begin{tabular}[c]{@{}c@{}}Página\\ \\ /\{ID\}\end{tabular}                     & Representa uma página.                 & \begin{tabular}[c]{@{}c@{}}/albums\\ /videos\\ /feed\\ /events\end{tabular}  \\ \hline
-\begin{tabular}[c]{@{}c@{}}Postagem\\ /\{ID\}\\ /\{ID\}/feed\end{tabular}       & As postagens em um perfil ou página.   & \begin{tabular}[c]{@{}c@{}}/comments\\ /likes\\ /reactions\end{tabular}      \\ \hline
-\begin{tabular}[c]{@{}c@{}}Comentário\\ /\{ID\}\\ /\{ID\}/comments\end{tabular} & Comentários feitos em uma postagem.    & \begin{tabular}[c]{@{}c@{}}/comments\\ /likes\\ /reactions\end{tabular}      \\ \hline
-\begin{tabular}[c]{@{}c@{}}Álbum\\ /\{ID\}\\ /\{ID\}/albums\end{tabular}        & Álbuns criados em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}/photos\\ /picture\\ /likes\end{tabular}          \\ \hline
-\begin{tabular}[c]{@{}c@{}}Foto\\ /\{ID\}\\ /\{ID\}/photos\end{tabular}         & Fotos postadas em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}/comments\\ /likes\\ /reactions\end{tabular}      \\ \hline
-\begin{tabular}[c]{@{}c@{}}Evento\\ /\{ID\}\\ /\{ID\}/events\end{tabular}       & Eventos criados pelo perfil ou página. & \begin{tabular}[c]{@{}c@{}}/admins\\ /comments\\ /photos\end{tabular}        \\ \hline
+Nó         & Descrição                              & \begin{tabular}[c]{@{}c@{}}Exemplos de \\ Aretas\end{tabular}                                                  \\ \hline
+Usuário    & Representa o perfil de um usuário.     & \begin{tabular}[c]{@{}c@{}}+ Álbuns de fotos\\ + Fotos específicas\\ + Linha do tempo\\ + Amigos\end{tabular}  \\ \hline
+Página     & Representa uma página.                 & \begin{tabular}[c]{@{}c@{}}+ Álbuns de fotos\\ + Vídeos publicados\\ + Linha do tempo\\ + Eventos\end{tabular} \\ \hline
+Postagem   & As postagens em um perfil ou página.   & \begin{tabular}[c]{@{}c@{}}+ Comentários\\ + Curtidas\\ + Reactions\end{tabular}                               \\ \hline
+Comentário & Comentários feitos em uma postagem.    & \begin{tabular}[c]{@{}c@{}}+ Comentários\\ + Curtidas\\ + Reactions\end{tabular}                               \\ \hline
+Álbum      & Álbuns criados em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}+ Fotos específicas\\ + Capa do álbum\\ + Curtidas\end{tabular}                     \\ \hline
+Foto       & Fotos postadas em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}+ Comentários\\ + Curtidas\\ + Reactions\end{tabular}                               \\ \hline
+Evento     & Eventos criados pelo perfil ou página. & \begin{tabular}[c]{@{}c@{}}+ Administradores\\ + Comentários\\ + Fotos específicas\end{tabular}                \\ \hline
+Video      & Videos criados pelo perfil ou página.  & \begin{tabular}[c]{@{}c@{}}+ Comentários\\ + Curtidas\\ + Reactions\end{tabular}                               \\ \hline
 \end{tabular}
 \end{table}
 
+\maxwell{Entre as diversas classes que podem ser instanciados estão a GraphEdge() e GraphNode(), cada uma delas possuem diversos métodos inclusos, entre eles estão o asArray, o asJson e o getField.
+
+A classe GraphEdge() é usado para retornar conteúdos referentes a aresta, enquanto a classe GraphNode() é usada para retornar conteúdo referentes aos nós. Já os métodos asArray, asJson e getField são usados para representar respectivamente um retorno em formato de ARRAY, em formato JSON ou um campo específico em formato ARRAY. Portanto, as respostas a todas as requisições feitas a rede social serão em formato e estrutura JSON ou Array.}
+
+\section{Token de acesso}
+\label{sec:tokenDeAcesso}
+Seguindo os padrões de conformidade do protocolo OAuth 2.0, que provê um fluxo de autorização especifica para aplicações web, telefones móveis, entre outras \cite{oauth2018}. 
+
+Os \textit{token} de acesso são cadeia de caracteres usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
+
+Para todas as requisições feitas a rede social é necessário dele, funcionando de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph de acordo com as permissões solicitadas.
+
+Os \textit{tokens} são separados em quatro tipos, sendo \textit{token} de acesso do usuário, usado para alterações de uma conta de usuário especifica, os  \textit{token} de aplicativo, usado para que as requisições sejam feitas em nome do aplicativo, o \textit{token} de página, usado para realizar modificações em páginas e o \textit{token} de cliente, usado em aplicativos moveis e aplicações de computador.
+
+Os \textit{tokens} de usuário são requisitados através da Graph que por sua vez verifica e provê as devidas permissões que foram solicitadas. Isso é feito através da classe ``getRedirectLoginHelper()'' que possui o método ``getAccessToken()'' como no exemplo \ref{lst:tokenUsuario}, onde a variável \$accessToken conterá um JSON com string com a cadeia de caracteres. 
+
+\begin{lstlisting}[caption={Obtendo Token de acesso a página},label={lst:tokenUsuario}]
+	$helper = $fb->getRedirectLoginHelper ();
+	$accessToken = $helper->getAccessToken ('Pagina de retorno');
+\end{lstlisting}
+
+Os \textit{tokens} de aplicativos possuem limitações, restringindo o acesso a conteúdos públicos, não exibindo alguns dados de usuários como as curtidas. A obtenção dele pode ser feito conforme o exemplo \ref{lst:tokenAplicativo}, devendo ser passado o ID único e o ID secreto do aplicativo como parâmetros, onde o retorno será o JSON do exemplo \ref{lst:retornoAplicativo}, contendo o \textit{token} e o tipo.
+
+\begin{lstlisting}[caption={Obtendo \textit{token} de acesso de aplicativos},label={lst:tokenAplicativo}]
+$fb->get('/oauth/access_token
+    ?client_id={app-id}
+    &client_secret={app-secret}
+    &grant_type=client_credentials');
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Retorno \textit{token} de acesso de aplicativo \ref{lst:tokenAplicativo}},label={lst:retornoAplicativo}]
+{
+  "access_token": "164198740813670|alnTbVsYalta9hG36RI2eKh0FcY",
+  "token_type": "bearer"
+}
+\end{lstlisting}
+
+Os \textit{tokens} de página dependem de uma permissão específica e ser administrador da página, a permissão será a \textit{manege\underline{{ }}pages} que será explicada no capítulo \ref{sec:permissoes}. Para se obter o \textit{token} é necessário realizar uma requisição solicitando todas páginas que o usuário é administrador e o \textit{token} de usuário, como mostra o exemplo \ref{lst:tokenPagina} e que terá como retorno o exemplo \ref{lst:retornoPagina} contendo todas as páginas e as informações referentes a cada uma delas, como o \textit{token}, a categoria, o nome, o id e as permissões que o usuário tem. 
+
+\begin{lstlisting}[caption={Obtendo Token de acesso a página},label={lst:tokenPagina}]
+  $response = $fb->get(
+    '/me/accounts',
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+É possível também obter de uma página especifica, ao invés de todas as páginas que o usuário é administrador. Para isso é necessário seguir o exemplo \ref{lst:tokenunico} que terá como resposta o \textit{access token} e o ID da página.
+
+\begin{lstlisting}[caption={Obtendo Token de uma única página},label={lst:tokenunico}]
+  $response = $fb->get(
+    '/415358248866659',
+    '{access-token}'
+  );
+$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Retorno \textit{token de acesso de página \ref{lst:tokenPagina}}},label={lst:retornoPagina}]
+{
+  "data": [
+    {
+      "access_token": "token",
+      "category": "Education",
+      "category_list": [
+        {
+          "id": "2250",
+          "name": "Education"
+        }
+      ],
+      "name": "IFB",
+      "id": "415358248866659",
+      "perms": [
+        "ADMINISTER",
+        "EDIT_PROFILE",
+        "CREATE_CONTENT",
+        "MODERATE_CONTENT",
+        "CREATE_ADS",
+        "BASIC_ADMIN"
+      ]
+    }
+  ]
+}
+\end{lstlisting}
+
+Para se obter o \textit{token} com duração infinita é necessário uma requisição com passagem dos parâmetros ID único, ID secreto, e o uso do \textit{token} de usuário de curta duração, obtido na requisição \ref{lst:tokenPagina}, a requisição é feita do modo do exemplo \ref{lst:tokeninfinito}. Obtendo como retorno um JSON contendo o \textit{token} de acesso vitalício.
+
+\begin{lstlisting}[caption={Obtendo Token Infinito},label={lst:tokeninfinito}]
+  $response = $fb->get(
+    '/oauth/access_token?grant_type=fb_exchange_token&client_id={ID Unico}&client_secret={ID secreto}&fb_exchange_token={Token} ',
+    '{access-token}'
+  );
+  $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+Cada linguagem possui a sua forma específica de obter o \textit{token} por meio do uso da SDK específica de cada uma. Além da chamada usando o SDK, para se gerar um \textit{token}, exceto o de aplicativo, é necessário um usuário autenticado.
+
+\section{Autenticação}
+O Facebook disponibiliza diversas ferramentas, entre elas está a de login com Facebook, com ela é possível um usuário se autenticar a aplicação usando o cadastro do Facebook. Além de oferece um sistema de autenticação multiplataforma e controle de acesso, ela provê a analise de permissões, definindo o que o usuário poderá usar. \cite{facebook2018c}
+
+A ferramenta de login com o Facebook disponibilizada pela rede social funciona de forma a autenticar o usuário do aplicativo usando uma conta vinculada a rede social. Oferecendo também a possibilidade de recuperar dados comuns de quem está acessando a aplicação.
+
+Para o funcionamento da ferramenta é necessário o envio de alguns parâmetros de identificação do aplicativo, tais como, o app\underline{{ }}id, app\underline{{ }}secret, default\underline{{ }}graph\underline{{ }}version, fileUpload, entre outros.
+
+\begin{itemize}
+\item O app\underline{{ }}id e o app\underline{{ }}secret são obrigatórios, os dois são IDs únicos para cada aplicativo vinculado a rede social, esses IDs são gerados pelo Facebook no momento da criação do aplicativo, entretanto, o app\underline{{ }}id é publico, enquanto o app\underline{{ }}secret é secreto.
+
+\item O parâmetro defalt\underline{{ }}graph\underline{{ }}version, não é obrigatório. Ele irá identificar qual versão da Graph o seu programa irá usar. Caso não seja passado como parâmetro, o Facebook irá usar a ultima versão da API lançada.
+
+\item O fileUpload não é obrigatório. Ele é o parâmetro necessário para informar se será enviado arquivo de imagem ou não.
+\end{itemize}
+
+No exemplo \ref{lst:appesdk}, os parâmetros necessários para validação são passados em um array e armazenados na variável \$newFacebook, os parâmetros passados na variável é enviada para o SDK para então ser possível a conexão entre o SDK e o Facebook. Após a conexão com o SDK é possível a realização de requisições, essas requisição podem ser de \textit{GET}, \textit{POST} e \textit{DELETE} e serão feitas a partir das chamadas da SDK.
+
+\begin{lstlisting}[caption={Conexão entre aplicativo e SDK},label={lst:appesdk}]
+	$newFacebook = array(
+		'app_id' => {ID},
+		'app_secret' => {ID},
+		'default_graph_version' => v2.10,
+		'fileUpload' => true;
+		)
+	$fb = new \Facebook\Facebook ( $newFacebook );
+\end{lstlisting}
+
+Para realização de \textit{login} é necessário o uso de uma classe específica do SDK, a classe getRedirectLoginHelper() que possui diversos métodos, entre eles o método \maxwell{getLoginUrl()--> METODO ALTERADO!}. Nesse método é necessário passar o endereço de retorno após o \textit{login} juntamente com as permissões necessárias. O \textit{login} é possível usando o exemplo \ref{lst:solicitacaologin}
+
+\begin{lstlisting}[caption={Solicitação de Login},label={lst:solicitacaologin}]
+	$helper = $fb->getRedirectLoginHelper ();
+	$permissions = [
+		'email',
+		'manage_pages',
+		'publish_pages'
+	];
+	$loginUrl = $helper->getLoginUrl ( 'Pagina de retorno', $permissions );
+\end{lstlisting}
+
+\section{Requisições}
 \subsection{Nó}
 Os nós representam os vértices de um grafo, eles podem ser os mais diversos elementos, sendo objetos individuais, onde todo elemento é único e possui um identificador próprio (ID). Nos exemplos \ref{lst:me} a \ref{lst:album} são demostrados algumas possibilidades de uso de um nó.
 
@@ -324,89 +466,6 @@ ESCREVER CODIGO DELETE
 
 \begin{lstlisting}[caption={Retorno das requisições \ref{lst:requisicao9} e \ref{lst:requisicao10}},label={lst:requisicao11}]
 ESCREVER CODIGO DELETE
-\end{lstlisting}
-
-\section{Token de acesso}
-\label{sec:tokenDeAcesso}
-Seguindo os padrões de conformidade do protocolo OAuth 2.0, que provê um fluxo de autorização especifica para aplicações web, telefones móveis, entre outras \cite{oauth2018}. 
-
-Para grande parte das requisições feitas a rede social é necessário o uso de um \textit{token} de acesso, ele funciona de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph de acordo com as permissões solicitadas. Os \textit{token} de acesso são cadeia de caracteres usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
-
-Os \textit{tokens} são separados em quatro tipos, sendo \textit{token} de acesso do usuário, usado para alterações de uma conta de usuário especifica, os  \textit{token} de aplicativo, usado para que as requisições sejam feitas em nome do aplicativo, o \textit{token} de pagina, usado para realizar modificações em páginas e o \textit{token} de cliente, usado em aplicativos moveis e aplicações de computador.
-
-No exemplo \ref{lst:tokenpagina} o conteúdo da variável \$graphNode será um JSON contendo as informações das páginas em que o usuário é administrador, informações como o \textit{token} de acesso de curta duração, id, nome e permissões. 
-
-\begin{lstlisting}[caption={Obtendo Token de acesso a página},label={lst:tokenpagina}]
-  $response = $fb->get(
-    '/me/accounts',
-    '{access-token}'
-  );
-  
-  $graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-Para se obter o \textit{token} com duração infinita é necessário uma requisição com passagem dos parâmetros ID único, ID secreto, e o uso do \textit{token} de curta duração obtido no \ref{lst:tokenpagina}, como mostra o exemplo \ref{lst:tokeninfinito}. Obtendo como retorno na variável \$graphNode um JSON com o \textit{token} de acesso vitalício.
-
-\begin{lstlisting}[caption={Obtendo Token Infinito},label={lst:tokeninfinito}]
-  $response = $fb->get(
-    '/oauth/access_token?grant_type=fb_exchange_token&client_id={ID Unico}&client_secret={ID secreto}&fb_exchange_token={Token} ',
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-É possível também obter de uma página especifica, ao invés de todas as páginas que o usuário é administrador. Para isso é necessário seguir o exemplo \ref{lst:tokenunico} que terá como resposta o \textit{access token} e o ID da página.
-
-\begin{lstlisting}[caption={Obtendo Token de uma única página},label={lst:tokenunico}]
-  $response = $fb->get(
-    '/415358248866659',
-    '{access-token}'
-  );
-$graphNode = $response->getGraphNode();
-\end{lstlisting}
-
-Cada linguagem possui a sua forma específica de obter o \textit{token} por meio do uso da SDK específica de cada uma. Além da chamada usando o SDK, para se gerar um \textit{token} é necessário um usuário autenticado.
-
-\section{Autenticação}
-O Facebook disponibiliza diversas ferramentas, entre elas está a de login com Facebook, com ela é possível um usuário se autenticar a aplicação usando o cadastro do Facebook. Além de oferece um sistema de autenticação multiplataforma e controle de acesso, ela provê a analise de permissões, definindo o que o usuário poderá usar. \cite{facebook2018c}
-
-A ferramenta de login com o Facebook disponibilizada pela rede social funciona de forma a autenticar o usuário do aplicativo usando uma conta vinculada a rede social. Oferecendo também a possibilidade de recuperar dados comuns de quem está acessando a aplicação.
-
-Para o funcionamento da ferramenta é necessário o envio de alguns parâmetros de identificação do aplicativo, tais como, o app\underline{{ }}id, app\underline{{ }}secret, default\underline{{ }}graph\underline{{ }}version, fileUpload, entre outros.
-
-\begin{itemize}
-\item O app\underline{{ }}id e o app\underline{{ }}secret são obrigatórios, os dois são IDs únicos para cada aplicativo vinculado a rede social, esses IDs são gerados pelo Facebook no momento da criação do aplicativo, entretanto, o app\underline{{ }}id é publico, enquanto o app\underline{{ }}secret é secreto.
-
-\item O parâmetro defalt\underline{{ }}graph\underline{{ }}version, não é obrigatório. Ele irá identificar qual versão da Graph o seu programa irá usar. Caso não seja passado como parâmetro, o Facebook irá usar a ultima versão da API lançada.
-
-\item O fileUpload não é obrigatório. Ele é o parâmetro necessário para informar se será enviado arquivo de imagem ou não.
-\end{itemize}
-
-No exemplo \ref{lst:appesdk}, usando código PHP, os parâmetros necessários para validação são passados em um array na variável \$newFacebook, essa variável é enviada para o SDK para então ser possível a conexão entre o SDK e o Facebook. Após a conexão com o SDK é possível a realização de requisições, essas requisição podem ser de \textit{GET}, \textit{POST} e \textit{DELETE} e são feitas a partir das chamadas da SDK, que no exemplo é a variável \$fb.
-
-\begin{lstlisting}[caption={Conexão entre aplicativo e SDK},label={lst:appesdk}]
-	$newFacebook = array(
-		'app_id' => {ID},
-		'app_secret' => {ID},
-		'default_graph_version' => v2.10,
-		'fileUpload' => true;
-		)
-	$fb = new \Facebook\Facebook ( $newFacebook );
-\end{lstlisting}
-
-Para realização de \textit{login} é necessário o uso de uma classe específica do SDK, a classe getRedirectLoginHelper() que possui o método getLoginUrl(). Nesse método é necessário passar o endereço de retorno após o \textit{login} juntamente com as permissões necessárias. O \textit{login} é possível usando o exemplo \ref{lst:solicitacaologin}
-
-\begin{lstlisting}[caption={Solicitação de Login},label={lst:solicitacaologin}]
-	$helper = $fb->getRedirectLoginHelper ();
-	$permissions = [
-		'email',
-		'publish_actions',
-		'manage_pages',
-		'publish_pages'
-	];
-
-	$ip = $_SERVER['HTTP_HOST'];
-	$loginUrl = $helper->getLoginUrl ( 'http://'.$ip.'/auth/callback', $permissions );
 \end{lstlisting}
 
 \section{Permissões}
