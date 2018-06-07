@@ -1,0 +1,52 @@
+--> Programa usado para criação dos diagramas: StarUML V2.8.1
+--> Versão do PHP: 7.0
+--> Versão do Postgres: 9.5
+
+--> Sequencia de instalações necessárias:
+sudo apt-get install apache2
+sudo apt-get install postgresql-9.5
+sudo apt-get install pgadmin3 (NÃO É OBRIGATÓRIO)
+sudo apt-get install php7.0
+sudo apt-get install composer
+
+--> INSTALAR DEPENDENCIAS, NA PASTA DO SID
+php composer.phar install
+
+--> MODULOS PHP: DOM, QRCODE, Apache, Postgres
+sudo apt-get install php-xml
+sudo apt-get install php7.0-gd
+sudo apt-get install libapache2-mod-php7.0
+sudo apt-get install php7.0-pgsql
+sudo apt-get install php7.0-fpm
+sudo apt-get install php7.0-curl
+
+--> ERRO PHP EXTENSION DOM
+sudo apt-get install php-xml
+
+--> Criar o Banco:
+sudo -u postgres psql
+alter user postgres with encrypted password '1234';
+create database sidiiff2;
+\c sidiiff2
+--------> Use a tabela do arquivo BD_SQL na pasta SID/Utils
+
+--> Colocar permissoes 775 para ./SID e 777 para ./SID/public/imagens
+
+--> REPOSITÓRIOS PARA PHP
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+
+--> RODAR APACHE
+/etc/init.d/apache2 start
+
+--> RODAR NA PASTA DO SID
+php -S 127.0.0.1:8080 -t public/ public/index.php
+
+
+--> HABILITAR REWITER Apache
+cd /etc/apache2/mods-enabled/
+ls
+sudo a2enmod rewrite
+
+--> NO ARQUIVO ./module/Adm/config/module.config.php ESTÁ GRAVANDO A ROTA INICIAL
