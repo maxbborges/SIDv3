@@ -15,7 +15,7 @@
 				<br>
 				<h4>Legenda</h4>
 				<input value="<?php echo $this->editar->getLegenda();?>"
-					class="form-control" placeholder="Legenda" name="legenda">
+					class="form-control" placeholder="Legenda" name="legenda" maxlength="80">
 				<h4>Data de inicio da divulgação</h4>
 			<?php
 			$partes_inicio = explode ( "-", $this->editar->getDatainicio() . "" );
