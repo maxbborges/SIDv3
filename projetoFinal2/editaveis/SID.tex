@@ -40,11 +40,15 @@ A Figura \ref{fig:administrador1}, consiste em representar como os elementos sup
 
 \maxwell{COLOCAR DIAGRAMA DE SEQUENCIA}
 
-\maxwell{FALAR SOBRE OS CAMPOS E SUAS LIMITAÇÕES}
+Todos os campos são de preenchimento obrigatório. O campo 5 é repassado para a API como parâmetro \textit{source}, já o campo 2 é repassado como parâmetro \textit{messagem}, os outros campos são enviados somente para o banco de dados.
 
-O campo imagem é repassado para a API como parâmetro \textit{source}, já o campo texto da publicação é repassado como \textit{messagem}. Todos os campos são de preenchimento obrigatório, entretanto, somente os campos imagem e texto da publicação são enviados ao Facebook. Os outros campos não são enviados a rede social, ficam armazenados apenas no banco de dados.
+Se durante o envio alguma das transações não forem efetivadas, será retornado a mensagem de erro na tela, assim como retornará a mensagem de sucesso, caso não ocorra nenhum erro.
 
-Se durante o envio alguma das transações não forem efetivadas, será retornado a mensagem de erro, assim como retornará a mensagem de sucesso, caso não ocorra nenhum erro.
+O texto do campo 1 poderá conter letras ou números, entretanto possui a limitação máxima de 80 caracteres, isso é necessário para facilitar a leitura do usuário ao texto que será inserido, pois ele será armazenado no banco de dados e recuperado no módulo cliente para exibição.
+
+Os outros campos não possuem limitação de caracteres, entretanto os campos 3, 4 e 5 possuem restrição de tipo de entrada, onde os campos 3 e 4 obrigatoriamente será um número inteiro e o campo 5, será um arquivo de imagem do tipo JPEG, JPG, GIF ou PNG.
+
+Os campos 3 e 4 são botões do tipo dropdown, sendo necessário selecionar um dos valores que aparecem em cada um dos campos. Os possíveis valores para o campo ``dia'' vão de 1 a 31, os valores do campo ``mês'' vão de 1 a 12, enquanto os valores do campo ``ano'' irão do ano atual a dois anos seguintes.
 
 \section{Modulo Cliente}
 O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. A estrutura e organização do que será apresentado, está disposto na figura \ref{fig:cliente1}.
@@ -78,9 +82,9 @@ A 'bd', contém uma \textit{array} de duas posições, contendo 2 \textit{string
 EXEMPLO DE RESPOSTA
 \end{lstlisting}
 
-O conteúdo recuperado da variável 'bd', será apresentado nos itens 2 e 3, respectivamente. Já o conteúdo recuperado da variável 'comentarios' será apresentado no item. Enquanto os da variável 'imagem', será descodificado e apresentado em forma de imagem no item 1.
+O conteúdo recuperado da variável 'bd', será apresentado nos itens 2 e 3, respectivamente. Já o conteúdo recuperado da variável 'comentarios' será apresentado no item 5. Enquanto os da variável 'imagem', será descriptografado e apresentado em forma de imagem no item 1.
 
-\maxwell{FALAR MAIS SOBRE AS PARTES (qrcode, legenda, comentários)}
+O campo 5 irá apresentar 5 elementos recuperados na variável 'comentarios'. Esses elementos serão: a imagem de perfil, o nome, o comentário, a data e a hora da publicação do comentário pelo usuário. Antes da apresentação das informações de comentários, é escolhido um número randômico que representará a posição do array do comentário que será apresentado.
 
 \section{Modulo Mobile}
 O \textit{mobile} apresentará na tela inicial os mesmos dados que são apresentados no módulo cliente, com a inclusão da funcionalidade de troca de mensagens entre professores e alunos que possuam um login e senha cadastrados.
@@ -88,11 +92,6 @@ O \textit{mobile} apresentará na tela inicial os mesmos dados que são apresent
 O módulo terá três telas distintas que será a tela inicial, a tela do aluno e a tela do professor. Cada uma terá uma funcionalidade específica, onde a tela de professor e aluno serão restritas a usuários logados e a tela inicial será pública.
 
 A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o nome do SID e o botão de login na parte superior e as publicações válidas, que foram requisitadas do servidor, no restante da tela.
-
-A tela do aluno será apresentada como na figura \ref{fig:mobile2}, após o login, será apresentado ao aluno todas as mensagens que o aluno possui em ordem cronológica da mais nova para a mais antiga. Os campos apresentados são o de professor, turma e mensagem separando cada item por blocos.
-
-Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, após o login, será apresentado ao professor a matricula dele, a lista de turmas que ele leciona e uma caixa de texto que conterá a mensagem a ser enviada. 
- 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{figuras/mobile1}
@@ -100,17 +99,21 @@ Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, a
 \label{fig:mobile1}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.6]{figuras/mobile1}
-\caption{Página de inserção no módulo administrador.}
-\label{fig:mobile2}
-\end{figure}
+A tela do aluno será apresentada como na figura \ref{fig:mobile2}, após o login, será apresentado ao aluno todas as mensagens que o aluno possui em ordem cronológica da mais nova para a mais antiga. Os campos apresentados são o de professor, turma e mensagem separando cada item por blocos.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.6]{figuras/mobile1}
-\caption{Página de inserção no módulo administrador.}
+\includegraphics[scale=0.4]{figuras/mobile1}
+\caption{Página do Aluno.}
+\label{fig:mobile2}
+\end{figure}
+
+Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, após o login, será apresentado ao professor a matricula dele, a lista de turmas que ele leciona e uma caixa de texto que conterá a mensagem a ser enviada. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{figuras/mobile1}
+\caption{Página do professor.}
 \label{fig:mobile3}
 \end{figure}
 
@@ -171,7 +174,7 @@ Para publicação no perfil pessoal, a Graph API requisita duas permissões, sen
 
 É possível também solicitar dados referentes a postagens efetivadas. Para isso é necessário a passagem de alguns parâmetros no método ''get`` e a Graph. Assim como no ''post``, o ''get`` usa todos os parâmetros com exceção do id\underline{{ }}pagina, onde será informado o id\underline{{ }}publicação em substituição do da página.}
 
-\section{Possível solução para Implementação - Rapberry}
+\section{Possível solução para Implantação - Rapberry}
 Desde a sua invenção em 1971, microprocessadores vem sendo usados no desenvolvimento dos mais variados tipos de eletrônicos ou outros equipamentos, substituindo até mesmo sistemas mecânicos. Algo que vai além de um simples software, os microprocessadores devem ser capazes controlar as ações de um dispositivo. \cite{rosenstark2007}
 
 Para \cite{aristotelous2016}, o objetivo essencial de todos os tipos de empresa é a rentabilidade, podendo ela ser alcançada usando uma solução de baixo custo, boas tecnologias e com um preço atrativo. Teste do \cite{aristotelous2016} apresenta a possibilidade de se ter um servidor completamente funcional com sistema operacional Linux por um equipamento de 35\$, possibilitando a criação de um servidor, por exemplo de um repositório na nuvem com um baixo custo, flexibilidade e eficiência energética. 

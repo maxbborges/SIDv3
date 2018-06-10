@@ -1,2 +1,59 @@
 \chapter[Resultados]{Resultados}
-Após todos os testes, nenhum das opções de software citados atendia aos objetivos desejados, que é a integração completa e em tempo real com as redes sociais, a gratuidade e o sistema de gestão acadêmica do IFB (SGA). Apesar de alguns deles possuírem a integração, ela não estava completa e nenhuma das opções gratuitas oferecia todas as funcionalidades desejadas, as que suportavam a integração era de forma bem limitada, sendo necessário uma assinatura do software.
+\maxwell{COLOCAR MAIS TEXTO ANTES}
+
+O módulo cliente do SID pode ser implementado em diversos dispositivos, bastando o mesmo possuir um navegador de paginas \textit{WEB} e conexão constante a internet para que seja realizado as consultas HTTP. Essa facilidade é possível graças a implementação em modelo cliente-servidor.
+
+A implementação nesse modelo foi pensada para que o módulo consumisse poucos recursos, permitindo o uso de dispositivos que dispõem de uma grande eficiência energética, como: \textit{Raspberry} PI, \textit{BoxTVs} ou até mesmo em sistemas integrados as próprias \textit{smartTvs}.
+
+Na busca de soluções que seguem a ideia de criação de publicação para apresentação em dispositivos externos com uso de dispositivos pequenos e com grande eficiência energética, foram encontradas diversas ferramentas com essa finalidade, as que apresentaram melhores funcionalidades foram a OOZO, a MangoSings, o SID versão 2, a Screenly e a XIBO.
+
+Comparando cada uma das ferramentas encontradas com o novo SID é possível notar diversas funcionalidades que não estão presentes, mas que o SID as oferecem. 
+
+O OOZO, apresentado na sessão \ref{sec:oozo}, é um sistema pago que possui  uma versão gratuita com acesso limitado. Ele oferece suporte a multiplataformas, controle WEB, integração a redes sociais, acesso via a publicação via QRCode e arquitetura cliente-servidor.
+
+A ferramenta MangoSings, apresentado na sessão \ref{sec:mango}, é um sistema pago que possui uma versão gratuita com acesso limitado. A ferramenta possui acesso multiplataformas, inclusive móvel, diversos temas para apresentação e integração com as redes sociais para recuperação de postagens, entretanto somente para usuários que fazem assinatura do plano.
+
+O SID versão 2, apresentado na sessão \ref{sec:sid}, é um sistema gratuito, que possui acesso somente \textit{WEB}, Aceso a publicação via QRCode e acesso limitado ao Facebook, sendo possível apenas realizar publicação da página de perfil do usuário.
+
+\maxwell{falar sobre o Screenly e o XIBO} 
+
+Diversos pontos que são considerados como essenciais no novo SID, as ferramentas apresentadas não oferecem ou oferecem de forma limitada em sua versão gratuita e paga. 
+
+Entre esses pontos, está a de visualização das publicações por meio de um dispositivo móvel, onde com exceção do MangoSings, nenhum dos sistemas outros oferecem, necessitando de um dispositivo que possua um navegador WEB para acesso.
+
+Outro ponto é o de integração com as redes sociais, nenhum das solução realizam uma integração tão completa quanto ao do SID, realizando publicações detalhadas, recuperando comentários, curtidas e fotos de perfil, além do filtro de comentários. 
+
+A Tabela 1 faz um comparativo entre os sistemas citados acima, comparando algumas das funcionalidades consideradas importantes para sistemas que trabalham com a implantação de sinalização digital e \textit{maketing} digital, na qual seus elementos comparativos são descritos a seguir:
+\begin{enumerate}[label=\Roman*)]
+	\item Comprometimento com o propósito: o sistema em questão possibilita a veiculação de informações através de mecanismos de sinalização digital?
+	\item Criação simples de divulgações: o operador possui facilidade de incluir novas divulgações com aspecto atrativo?
+	\item Portabilidade: é possível visualizar a divulgação em diferentes dispositivos?
+	\item Integração com redes sociais: o sistema integra-se nativamente de alguma forma com redes sociais, mesmo que de forma limitada?
+	\item O conteúdo pode ser gerenciado em um dispositivo diferente ao que é criado, fortalecendo a descentralização e manutenção?
+	\item A versão gratuita explora toda a capacidade do programa?
+	\item Usa um sistema/dispositivo de fácil obtenção (Aplicativo próprio ou de uso comum)?
+\end{enumerate}
+
+
+
+\begin{table}[h!]
+	\caption{Comparativo}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		Quesito/Sistema & OOZO & MangoSigns & SID v2 & Screenly & XIBO \\ \hline
+		I 				& SIM  & SIM		& SIM & SIM 	 & SIM	\\ \hline
+		II 				& SIM  & SIM 		& SIM & SIM 	 & SIM	\\ \hline
+		III				& NÃO  & SIM 		& NÃO & NÃO 	 & NÃO	\\ \hline
+		IV 				& SIM  & NÃO 		& SIM & NÃO 	 & NÃO	\\ \hline
+		V 				& SIM  & SIM 		& SIM & SIM 	 & SIM	\\ \hline
+		VI 				& NÃO  & NÃO 		& SIM & NÃO 	 & SIM	\\ \hline
+		VII 			& SIM  & SIM 		& SIM & SIM 	 & SIM	\\ \hline
+	\end{tabular}
+\end{table}
+  
+
+
+
+
+\maxwell{Após todos os testes, nenhum das opções de software citados atendia aos objetivos desejados, que é a integração completa e em tempo real com as redes sociais, a gratuidade e o sistema de gestão acadêmica do IFB (SGA). Apesar de alguns deles possuírem a integração, ela não estava completa e nenhuma das opções gratuitas oferecia todas as funcionalidades desejadas, as que suportavam a integração era de forma bem limitada, sendo necessário uma assinatura do software.}
