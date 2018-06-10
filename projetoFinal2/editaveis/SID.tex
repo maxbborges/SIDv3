@@ -1,12 +1,12 @@
 \chapter[SID]{SID}
 --------------------- FALAR SOBRE O SID
 
-\section{Visão Geral}
+\section{Visão Geral} 
 O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que possua integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao Campus. Atendendo ao objetivo principal, onde é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
 
 Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em três módulos, o primeiro deles é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente, nesse segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O terceiro módulo é o \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos. 
 
-A divisão de módulos foi feita para que seja possível atender a arquitetura cliente-servidor, ela mostrou-se necessário para minimizar o processamento nos outros dois módulos, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo do outros módulos somente exibir as informações recebidas e realizar pequenos processamentos.
+A divisão de módulos foi feita para que seja possível atender a arquitetura cliente-servidor, ela mostrou-se necessário para minimizar o processamento nos outros dois módulos, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos outros módulos exibir as informações recebidas e realizar pequenos processamentos.
 
 O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do projeto, a linguagem JavaScript para realização das requisições de trocas de informações entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas do sistema para os três módulos. Usa-se também o Banco de dados PostGreSQL, para armazenamento das informações localmente e que os dados sejam persistentes.
 
@@ -24,8 +24,8 @@ Os elementos presentes no módulo e suas funcionalidades são descritas abaixo:
 \begin{enumerate}
    \item Legenda: É um campo de texto destinado a informação a ser repassada de forma sucinta e clara ao usuário final por intermédio cliente ou mobile. 
    \item Texto: É todo o texto que será enviado ao Facebook, contendo informações como descrição da publicação, data e horário da realização e um possível \textit{link} para acesso a mais informações. 
-   \item Data de Início: É a data inicial em que o publicação começará a ser exibida no cliente e no mobile.
-   \item Data de Término: É a data final em que o publicação deixará de ser exibida no cliente e no mobile.
+   \item Data de Início: É a data inicial em que a publicação começará a ser exibida no cliente e no mobile.
+   \item Data de Término: É a data final em que a publicação deixará de ser exibida no cliente e no mobile.
    \item Imagem: Será a imagem enviada para o Facebook, para o cliente e para o mobile. Essa imagem pode ser um \textit{banner} de apresentação de um evento, por exemplo.
  \end{enumerate}
 
@@ -40,21 +40,25 @@ A Figura \ref{fig:administrador1}, consiste em representar como os elementos sup
 
 \maxwell{COLOCAR DIAGRAMA DE SEQUENCIA}
 
-\maxwell{FALAR SOBRE OS CAMPOS E SUAS LIMITAÇÕES}
+Todos os campos são de preenchimento obrigatório. O campo 5 é repassado para a API como parâmetro \textit{source}, já o campo 2 é repassado como parâmetro \textit{messagem}, os outros campos são enviados somente para o banco de dados.
 
-O campo imagem é repassado para a API como parâmetro \textit{source}, já o campo texto da publicação é repassado como \textit{messagem}. Todos os campos são de preenchimento obrigatório, entretanto, somente os campos imagem e texto da publicação são enviados ao Facebook. Os outros campos não são enviados a rede social, ficam armazenados apenas no banco de dados.
+Se durante o envio alguma das transações não forem efetivadas, será retornado a mensagem de erro na tela, assim como retornará a mensagem de sucesso, caso não ocorra nenhum erro.
 
-Se durante o envio alguma das transações não forem efetivadas, será retornado a mensagem de erro, assim como retornará a mensagem de sucesso, caso não ocorra nenhum erro.
+O texto do campo 1 poderá conter letras ou números, entretanto possui a limitação máxima de 80 caracteres, isso é necessário para facilitar a leitura do usuário ao texto que será inserido, pois ele será armazenado no banco de dados e recuperado no módulo cliente para exibição.
+
+Os outros campos não possuem limitação de caracteres, entretanto os campos 3, 4 e 5 possuem restrição de tipo de entrada, onde os campos 3 e 4 obrigatoriamente será um número inteiro e o campo 5, será um arquivo de imagem do tipo JPEG, JPG, GIF ou PNG.
+
+Os campos 3 e 4 são botões do tipo dropdown, sendo necessário selecionar um dos valores que aparecem em cada um dos campos. Os possíveis valores para o campo ``dia'' vão de 1 a 31, os valores do campo ``mês'' vão de 1 a 12, enquanto os valores do campo ``ano'' irão do ano atual a dois anos seguintes.
 
 \section{Modulo Cliente}
-O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. A estrutura e organização do que será apresentado, está disposto na  figura \ref{fig:cliente1}.
+O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. A estrutura e organização do que será apresentado, está disposto na figura \ref{fig:cliente1}.
 
-Os elementos que compõe a página que será apresentada, são dividos em cinco itens, que estão descritos abaixo.
+Os elementos que compõe a página que será apresentada, são divididos em cinco itens, que estão descritos abaixo.
 
 \begin{enumerate}
    \item Imagem: O conteúdo, poderá ser apresentado como uma imagem estática ou como GIF (imagem com animação), não oferecendo suporte a vídeos, até o momento, mas que poderá ser implementado em versões futuras. 
    \item Legenda: A legenda é apresentada em movimento linear da direita para a esquerda, possibilitando a leitura de forma dinâmica de toda a frase.
-   \item QR Code: Imagem, que por meio de uma aplicativo celular, possibilita a leitura que contem o \textit{link} de acesso a publicação publicada na rede social Facebook.
+   \item QR Code: Imagem, que por meio de um aplicativo celular, possibilita a leitura que contém o \textit{link} de acesso a publicação publicada na rede social Facebook.
    \item Horário: Relógio que apresentará a data e hora atual.  
    \item Comentários: Espaço que será apresentado comentários publicados e devidamente moderados.
  \end{enumerate}
@@ -66,21 +70,28 @@ Os elementos que compõe a página que será apresentada, são dividos em cinco 
 \label{fig:cliente1}
 \end{figure}
 
-Usando Javascript com suporte a biblioteca JQuery, o módulo cliente efetua uma requisição ao servidor que receberá como resposta um JSON, contendo o número de posições equivalentes ao número de publicações válidas. Cada posição desse JSON terá três variáveis, são elas: 'bd','comentarios' e 'imagem'. 
+Usando Javascript requisições ao servidor e receberá como resposta um JSON, contendo o número de posições equivalentes ao número de publicações válidas. Cada posição desse JSON terá três variáveis, são elas: 'bd','comentarios' e 'imagem'. 
+
+\begin{lstlisting}[caption={Solicitação de dados ao servidor},label={lst:solicitacaoServidor}]
+EXEMPLO DE SOLICITACAO
+\end{lstlisting}
 
 A 'bd', contém uma \textit{array} de duas posições, contendo 2 \textit{string}, sendo elas o legenda e link, esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A 'comentarios' é um array de \textit{string} que pode possuir zero ou mais itens, cada item representa um comentário na publicação, onde cada item possui a data da criação, quem fez, a mensagem, a foto e o id do comentário. Já a 'imagem' é uma \textit{string} de é um arquivo codificado em base64, que será descodificado pelo módulo.
 
-O conteúdo recuperado da variável 'bd', será apresentado nos itens 2 e 3, respectivamente. Já o conteúdo recuperado da variável 'comentarios' será apresentado no item. Enquanto os da variável 'imagem', será descodificado e apresentado em forma de imagem no item 1.
+\begin{lstlisting}[caption={Resposta do servidor \ref{lst:solicitacaoServidor}},label={lst:RespostaServidor}]
+EXEMPLO DE RESPOSTA
+\end{lstlisting}
 
+O conteúdo recuperado da variável 'bd', será apresentado nos itens 2 e 3, respectivamente. Já o conteúdo recuperado da variável 'comentarios' será apresentado no item 5. Enquanto os da variável 'imagem', será descriptografado e apresentado em forma de imagem no item 1.
 
-\maxwell{FALAR MAIS SOBRE AS PARTES (qrcode, legenda, comentários)}
+O campo 5 irá apresentar 5 elementos recuperados na variável 'comentarios'. Esses elementos serão: a imagem de perfil, o nome, o comentário, a data e a hora da publicação do comentário pelo usuário. Antes da apresentação das informações de comentários, é escolhido um número randômico que representará a posição do array do comentário que será apresentado.
 
 \section{Modulo Mobile}
-O \textit{mobile} é responsável por apresenta as divulgações e disponibilizar a possibilidade de troca de mensagens entre professores e alunos que possuam um login e senha. 
-Figura \ref{fig:mobile1}
+O \textit{mobile} apresentará na tela inicial os mesmos dados que são apresentados no módulo cliente, com a inclusão da funcionalidade de troca de mensagens entre professores e alunos que possuam um login e senha cadastrados.
 
-\maxwell{FALAR SOBRE O MODULO}
- 
+O módulo terá três telas distintas que será a tela inicial, a tela do aluno e a tela do professor. Cada uma terá uma funcionalidade específica, onde a tela de professor e aluno serão restritas a usuários logados e a tela inicial será pública.
+
+A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o nome do SID e o botão de login na parte superior e as publicações válidas, que foram requisitadas do servidor, no restante da tela.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{figuras/mobile1}
@@ -88,7 +99,25 @@ Figura \ref{fig:mobile1}
 \label{fig:mobile1}
 \end{figure}
 
-\maxwell{FALAR SOBRE OS BOTOES}
+A tela do aluno será apresentada como na figura \ref{fig:mobile2}, após o login, será apresentado ao aluno todas as mensagens que o aluno possui em ordem cronológica da mais nova para a mais antiga. Os campos apresentados são o de professor, turma e mensagem separando cada item por blocos.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{figuras/mobile1}
+\caption{Página do Aluno.}
+\label{fig:mobile2}
+\end{figure}
+
+Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, após o login, será apresentado ao professor a matricula dele, a lista de turmas que ele leciona e uma caixa de texto que conterá a mensagem a ser enviada. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{figuras/mobile1}
+\caption{Página do professor.}
+\label{fig:mobile3}
+\end{figure}
+
+\maxwell{FALAR SOBRE OS BOTOES E SUAS LIMITAÇÕES}
 
 \section{Arquitetura}
 \begin{figure}[H]
@@ -105,61 +134,49 @@ Figura \ref{fig:mobile1}
 \maxwell{COLOCAR MODELO ENTIDADE RELACIONAMENTO}
 
 \section{Integração}
-Para acesso a funções restritas do sistema é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de \textit{login} do Facebook, ela oferece um botão para ser colocado na página, esse botão tem a finalidade de iniciar o processo de login, após ser clicado é feito a chamada do método ''getRedirectLoginHelper``, onde é passado as informações de permissões que serão necessárias e o endereço de callback, que será a página de retorno caso o processo seja efetivado. O endereço de callback deve ser o mesmo informado no aplicativo criado na página da rede social.
+\subsection{\textit{login}, \textit{token} de acesso e permissões}
+Para autenticação e efetivação de todas as requisições feitas pelo módulo administrador para o Facebook é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de \textit{login} do Facebook que é disponibilizada pela rede social.
 
-Após o login, as informações usadas são guardadas na sessão do usuário, para usos posteriores, além disso, todo o processo de armazenamento de informações, envios ao Facebook e retornos de solicitações não devem ser visíveis ao usuário. 
+A ferramenta de \textit{login} do Facebook que é disponibilizada pela rede social, oferece um botão que pode ser colocado na página, esse botão tem a finalidade de iniciar o processo de login. Após ser clicado é efetuado o processo de login conforme segue padrão estabelecido solicitando as credenciais cadastradas na rede social, com isso é feito a requisição com as permissões necessárias conforme exemplo \ref{lst:solicitacaologin}.
 
-Qualquer divulgação inserida na pagina do SID no Facebook utiliza-se do nó “photo”, ou seja, a divulgação que o SID repassa à Graph API contém a mesma estrutura de uma imagem postada por um usuário convencional desta rede social.
+No processo de \textit{login} são solicitados algumas permissões, como as permissões “email”, “manage\underline{{ }}pages” e “publish\underline{{ }}pages”, sendo obrigatório o acete para acesso ao sistema. Usadas respectivamente para que seja possível a identificação do usuário do SID, para recuperar as permissões de acesso a página e a última para permitir que aplicativos publiquem na página \cite{facebook2018a}.
+
+O uso de um usuário vinculado a rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos.  Além disso, para efetivação de todas as requisições feitas pelo módulo administrador para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando o \textit{token} de acesso de usuário, que é obtido no processo de login, conforme exemplo \ref{lst:tokenUsuario}.
+
+Entretanto, o uso de um usuário cadastrado na rede social não é o único requisito par acesso ao sistema. Para o acesso é necessário também um usuário administrador, cadastrado no banco de dados do SID. Essa ação é necessária para que somente usuários autorizados possam realizar alteração na página usando o sistema.
+
+Após o login, algumas informações usadas são guardadas na sessão do usuário, para usos posteriores. Entretanto, todo o processo de armazenamento de informações, envios ao Facebook e retornos de solicitações não devem ser visíveis ao usuário. 
+
+\subsection{Publicar}
+Todas as publicações realizadas no Facebook usando o SID são feitas ao nó ``/photo'', onde a cada nova publicação será gerado um ID para ela e terá a mesma estrutura de uma imagem postada por um usuário convencional desta rede social.
+
+Na criação de uma nova publicação, usando o SID, são passados para a Graph API dois parâmetros para inserção através do método POST, conforme exemplo \ref{lst:requisicao9}, o primeiro deles é “message”, onde será passado o texto que será exibido na publicação e o outro é “source”, onde será passado a imagem para ser exibida juntamente com o texto. Para envio de imagem para a rede social, é necessário passar na imagem como parâmetro o método “fileToUpload” conforme exemplo \ref{lst:appesdk}. 
+
+Alguns dos elementos que são solicitados pela aplicação na criação de uma nova publicação, são omitidos no envio para o Facebook, pois esses dados serão usados apenas para serem armazenados no banco para uso do módulo cliente. Os elementos omitidos são os campos data de início, a data de termino e a legenda. 
 
 A Figura \ref{fig:imgfacebook1} apresenta como ficará uma publicação no Facebook após o uso do SID para criação da mesma. Nela é apresentado informações como quem realizou a publicação, o texto e a imagem que foram informados durante a criação da divulgação pelo SID.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1]{figuras/imgfacebook1}
-\caption{Divulgação enviada ao Facebook com auxilio do SID}
+\caption{Divulgação enviada ao Facebook com auxílio do SID}
 \label{fig:imgfacebook1}
 \end{figure}
 
-Com o uso do método \textit{post} em conjunto com a Graph, a rede social recebe os parâmetros e faz a criação de um novo objeto, criando uma nova aresta que terá como vértice a publicação e a página. O retorno da requisição é o id desse novo vértice criado. 
+
+\subsection{Requisitar}
+Usando o identificador único da foto é possível recuperar informações das arestas, que podem ser a URL, os comentários e as curtidas conforme o exemplo \ref{lst:requisicao8}. Esse recurso é utilizado para recuperar os mais diversos elementos que as permissões concedidas autorizam, entre os elementos recuperados estão o endereço da publicação, os comentários, curtidas e a imagem de perfil que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
 
 
+\maxwell{
+Para publicação no perfil pessoal, a Graph API requisita duas permissões, sendo a “email”, onde é requisitado o acesso ao endereço de email do usuário para que seja possível a identificação do usuário do SID e a “publish\underline{{ }}actions”, onde fornece acesso a realização de publicações em nome da pessoa que está usando o aplicativo \cite{facebook2018a}.
 
-
-
-\maxwell{Para criação de um novo vértice são obrigatórios algumas permissões, os mesmos do usados no login, com adição do: id\underline{{ }}pagina e do \textit{token}. 
-
-\begin{itemize}
-\item O \textit{token} é um conjunto de caracteres que identifica para o Facebook as autorizações que a aplicativo possui.
-
-\item O id\underline{{ }}pagina é o identificador único da sua página ou perfil.
-\end{itemize}
 
 É possível também solicitar dados referentes a postagens efetivadas. Para isso é necessário a passagem de alguns parâmetros no método ''get`` e a Graph. Assim como no ''post``, o ''get`` usa todos os parâmetros com exceção do id\underline{{ }}pagina, onde será informado o id\underline{{ }}publicação em substituição do da página.}
 
-\section{Possível solução para Implementação - Rapberry}
+\section{Possível solução para Implantação - Rapberry}
 Desde a sua invenção em 1971, microprocessadores vem sendo usados no desenvolvimento dos mais variados tipos de eletrônicos ou outros equipamentos, substituindo até mesmo sistemas mecânicos. Algo que vai além de um simples software, os microprocessadores devem ser capazes controlar as ações de um dispositivo. \cite{rosenstark2007}
 
 Para \cite{aristotelous2016}, o objetivo essencial de todos os tipos de empresa é a rentabilidade, podendo ela ser alcançada usando uma solução de baixo custo, boas tecnologias e com um preço atrativo. Teste do \cite{aristotelous2016} apresenta a possibilidade de se ter um servidor completamente funcional com sistema operacional Linux por um equipamento de 35\$, possibilitando a criação de um servidor, por exemplo de um repositório na nuvem com um baixo custo, flexibilidade e eficiência energética. 
 
 Grandes servidores oferecem um melhor desempenho, entretanto, o baixo uso, a pouca eficiência energética ou até mesmo o pouco espaço podem limitar o uso desse tipo de equipamento. Nesse sentido, para \cite{cusick2014}, placas de circuito oferecem vantagens como o uso de pouco espaço, desempenho significante com baixo custo e consumo, além do suporte a diversas soluções de software oferecendo múltiplas opções de interface com uma variante do Linux. 
-
-\section{Visão Geral}
-
-\maxwell{O Facebook oferece diversos produtos para incorporar ao aplicativo externo, entre eles está o de login do Facebook. Esse produto oferece ao desenvolvedor a possibilidade de oferece ao usuário do aplicativo uma ferramenta de login usando as credenciais do Facebook.
-
-A autenticação (\textit{login}) no módulo administrador é feita usando a ferramente de login oferecida pela rode social, então para acesso é necessário um usuário cadastrado no Facebook e cadastrado no no banco de dados do SID. O uso de um usuário vinculado a rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos. 
-
-Para autenticação e efetivação de todas as requisições feitas pelo aplicativo para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando um \textit{token} de acesso, que é obtido após a efetivação de login do usuário com o Facebook. O \textit{token} é uma cadeia de caracteres que identifica um usuário, aplicativo ou página, identificando a sessão. Em cada nova requisição a rede social, o \textit{token} será usado, se autorizado, pela aplicação para permitir o envio de requisições HTTP usando seus identificadores únicos, recebendo a respectiva resposta.}
-
-\section{Elementos Usados}
-Para publicação no perfil pessoal, a Graph API requisita duas permissões, sendo a “email”, onde é requisitado o acesso ao endereço de email do usuário para que seja possível a autenticação do SID com o Facebook e a “publish\underline{{ }}actions”, onde fornece acesso a realização de publicações em nome da pessoa que está usando o aplicativo \cite{facebook2018a}.
-
-Como o SID será usado em uma página e não em um perfil pessoal, duas novas autenticações se tornaram necessárias, sendo a “manage\underline{{ }}pages”, usada para recuperar as permissões de acesso a pagina e a “publish\underline{{ }}pages”, usada parar permitir que aplicativos publiquem na página \cite{facebook2018a}.
-
-Usando o identificador único da foto é possível recuperar informações das arestas, que são informações como a URL, comentários e curtidas. Esse recurso é utilizado para recuperar o endereço da publicação, os comentários e curtidas que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
-
-Na criação de uma nova publicação, usando o SID, são passados para a Graph API dois parâmetros para inserção, o primeiro deles é “message”, onde será passado o texto que será exibido na publicação e o outro é “source”, onde será passado a imagem para ser exibida juntamente com o texto. Para envio de imagem para a rede social, é necessário passar na imagem como parâmetro o método “fileToUpload”. 
-
-Alguns dos elementos que são solicitados pela aplicação na criação de uma nova publicação, são omitidos no envio para o Facebook, pois esses dados serão usados apenas para serem armazenados no banco. Os elementos omitidos são os campos data de inicio, a data de termino e a legenda. 
-
------------------- CONTINUA  P48-------------------
