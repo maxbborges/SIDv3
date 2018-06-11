@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Comentários 10/06/2018
 
 Pré textual: escrever resumo e abstract.
@@ -211,6 +212,8 @@ Penso que isso aqui deveria vir bem antes, uma vez que vários outros conceitos 
 
 
 
+=======
+>>>>>>> e70556efe6f62aabcd45f5cf6f764c9c8ef45353
 # Comentários 05/06/2018
 ## Capítulo 3 - Referencial Teórico
 
