@@ -17,21 +17,24 @@ A proposta da introdução é definir o problema que nós estamos estudando e qu
 
 > Com o passar dos anos, a mídia foi obtendo novas formas, as divulgações de forma estática e mais tradicionais (revistas e jornais) foram deixando de serem os meios mais eficientes de se expor um conteúdo ou propaganda, foi necessário então que novas formas de expor conteúdos fossem pensadas e desenvolvidas.
 
+----------- OK
 Ao falar de mídia e meios estáticos, você não disse quais os meios que sucederam eles. Cite a Internet aqui e utilize uma referência para maior embasamento. Ou seja, queremos dizer que hoje em dia a dinâmica do fluxo de informações mudou. Tanto é que depois você fala de Marketing Digital. Lembre-se que os parágrafos devem estar *linkados*.
 
-
+----------- OK
 Alguns parágrafos aparecem soltos e sem referências, como este abaixo:
 
 > A uso das redes para disseminação de uma informação ou conteúdo vem se tornando uma das ferramentas mais atraentes para divulgações. Não apenas por ser um dos
 meios mais acessados atualmente, mas também por conta da maior facilidade de interações
 dos espectadores, usuários e empresas.
 
+----------- OK
 Utilize referências para embasar o que você está dizendo.
 
 > Entre os usuários de dispositivos móveis estão estudantes, professores e visitantes
 do Instituto Federal de Educação, Ciência e Tecnologia de Brasília - Campus Taguatinga
 (IFB - Campus Taguatinga).
 
+----------- OK
 Retire esse parágrafo. Não é necessário fazer esta constatação fora de contexto.
 
 
@@ -42,6 +45,7 @@ bem divulgadas, muitas vezes os estudantes e visitantes nem ficam sabendo das no
 que lá são publicadas. Além disso, os professores contam com poucas formas fáceis e
 intuitivas para repassar informações a seus alunos.
 
+----------- OK
 Não está claro o que são publicações independentes. Fala que cada veículo de divulgação de informações é operado individualmente, onerando o trabalho do servidor.
 
 
@@ -54,11 +58,13 @@ e curtidas nas publicações, além de atalho para acessar a notícia completa t
 computador, quando pelos smartphones e com o uso dos smartphones será possível o
 professor encaminhar mensagens para a turma em que ele leciona.
 
+----------- OK
 Reescreva este parágrafo. 
 Você deve criticar dois pontos (pode utilizar parte do parágrafo anterior):
 - Falta de Integração entre os veículos institucionais, isto é, eles atuam independentemente.
 - Falta de interatividade entre os veículos institucionais.
 
+----------- OK
 Após a crítica, escreva um novo parágrafo e fale sobre o Sistema Integrado de Divulgação de Informações do IFB (SID) e de maneira breve, cite como ele resolve o problema, sem entrar muito em detalhes.
 Basicamente você deve falar que ele integra a parte de sinalização digital em painéis espalhados pelo campus com a parte interativa provida pelas redes sociais e por que esta interatividade melhora a assimilação de informação dos transeuntes.
 Além disso, diga ele simula o consumo da API do Sistema de Gestão Acadêmico Institucional, abrindo uma porta para uma implementação futura.
@@ -70,18 +76,22 @@ Coloque referências nos teus parágrafos.
 > Pensando nisso, vê-se a necessidade de um sistema onde é possível expor notícias
 referentes a instituição com facilidade contando também com a interatividade do espectador dessa notícia, seja ele por meio de curtidas ou por comentários na publicação, tudo em tempo real. Partindo da necessidade de melhor exposição das notícias e de uma forma de contato fácil e rápida com a comunidade acadêmica, de um sistema mais interativo, com suporte a gestão academia e com uma forma simplificada de contato entre professor e aluno."
 
+----------- OK
 Não entre em detalhes de implementação, esqueça o "curtidas".
 
+----------- OK
 Além disso, *"Partindo da necessidade de melhor exposição das notícias e de uma forma de contato fácil e rápida com a comunidade acadêmica, de um sistema mais interativo, com suporte a gestão academia e com uma forma simplificada de contato entre professor e aluno."* ficou estranho, parece que está pedindo uma informação a mais. Reescreva esse período. Não é partindo disso, há uma necessidade disso.
 
 > Então surge a ideia do SID, onde é possível a melhor interatividade do espectador com as publicações acadêmicas, envio de mensagens para turmas específicas, além do administrador ter uma maior facilidade de criar e editar publicação vinculadas a redes sociais, integrando vários serviços em um único. 
 
+----------- OK
 Não é necessário este parágrafo na motivação, isso faz parte da proposta.
 
 
 
 ### 1.2 Proposta
 
+----------- OK
 A proposta está falha.
 Ela não fala do sistema e de como ele pode resolver os problemas elencados na Motivação e Introdução. Aqui você deve pegar o gancho das últimas seções e mostrar como estamos atacando o problema.
 
@@ -95,6 +105,7 @@ Aqui devem entrar os conceitos de:
 
 ### 1.3 Justificativa
 
+----------- OK
 Acho que é uma boa juntar essa seção com a seção da proposta.
 Você não precisa colocar aqui os parágrafos que fazem a motivação e falam sobre o problema, isso já foi feito.
 
@@ -123,8 +134,10 @@ Esta seção pode ser melhorada.
 
 > Partindo da pesquisa descritiva, será descrito os procedimentos e passos que foram seguidos e usados para obtenção do resultado desejado.
 
+----------- OK
 Retire este parágrafo.
 
+----------- OK
 A parte da revisão bibliográfica está ok, mas é importante, sempre que você falar que vai utilizar o SID como base, se referir a qual versão do SID você está falando.
 
 No entanto, nesta seção deverá estar presente
