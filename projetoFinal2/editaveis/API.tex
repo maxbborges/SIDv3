@@ -44,15 +44,13 @@ Video      & Videos criados pelo perfil ou página.  & \begin{tabular}[c]{@{}c@{
 
 \section{Token de acesso}
 \label{sec:tokenDeAcesso}
-Seguindo os padrões de conformidade do protocolo OAuth 2.0, que provê um fluxo de autorização específica para aplicações web, telefones móveis, entre outras \cite{oauth2018}. 
+Seguindo os padrões de conformidade do protocolo OAuth 2.0, que provê um fluxo de autorização específica para aplicações web, telefones móveis, entre outras \cite{oauth2018}. Os \textit{token} de acesso são cadeia de caracteres usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
 
-Os \textit{token} de acesso são cadeia de caracteres usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
-
-Para todas as requisições feitas a rede social é necessário dele, funcionando de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph de acordo com as permissões solicitadas.
+Para todas as requisições feitas para a rede social é necessário o uso dele, funcionando de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph de acordo com as permissões solicitadas.
 
 Os \textit{tokens} são separados em quatro tipos, sendo \textit{token} de acesso do usuário, usado para alterações de uma conta de usuário específica, os  \textit{token} de aplicativo, usado para que as requisições sejam feitas em nome do aplicativo, o \textit{token} de página, usado para realizar modificações em páginas e o \textit{token} de cliente, usado em aplicativos moveis e aplicações de computador.
 
-Os \textit{tokens} de usuário são requisitados através da Graph que por sua vez verifica e provê as devidas permissões que foram solicitadas. Isso é feito através da classe ``getRedirectLoginHelper()'' que possui o método ``getAccessToken()'' como no exemplo \ref{lst:tokenUsuario}, onde a variável \$accessToken conterá um JSON com string com a cadeia de caracteres. 
+Os \textit{tokens} de usuário são requisitados através da Graph que por sua vez verifica e provê as devidas permissões que foram solicitadas. A requisição desse \textit{token} é feita através do método ``getRedirectLoginHelper()'' que oferece diversos outros métodos que podem ser instanciados, inclusive o método ``getAccessToken()'', usado para solicitar o \textit{token}. No exemplo \ref{lst:tokenUsuario} é realizado uma requisição para solicitação do \textit{token}, onde a variável \$accessToken conterá um JSON com string com a cadeia de caracteres. 
 
 \begin{lstlisting}[caption={Obtendo Token de acesso a página},label={lst:tokenUsuario}]
 	$helper = $fb->getRedirectLoginHelper ();
@@ -70,12 +68,12 @@ $fb->get('/oauth/access_token
 
 \begin{lstlisting}[caption={Retorno \textit{token} de acesso de aplicativo \ref{lst:tokenAplicativo}},label={lst:retornoAplicativo}]
 {
-  "access_token": "164198740813670|alnTbVsYalta9hG36RI2eKh0FcY",
+  "access_token": {token},
   "token_type": "bearer"
 }
 \end{lstlisting}
 
-Os \textit{tokens} de página dependem de uma permissão específica além da necessidade de ser administrador da página, a permissão será a \textit{manege\underline{{ }}pages} que será explicada no capítulo \ref{sec:permissoes}. Para se obter o \textit{token} é necessário realizar uma requisição de todas as páginas que o usuário é administrador, além do \textit{token} de usuário, como mostra o exemplo \ref{lst:tokenPagina}. Terá como retorno o exemplo \ref{lst:retornoPagina} contendo todas as páginas e as informações referentes a cada uma delas, como o \textit{token}, a categoria, o nome, o id e as permissões que o usuário tem. 
+Os \textit{tokens} de página dependem de uma permissão específica chamada \textit{manege\underline{{ }}pages}, além da necessidade do usuário ser administrador da página. Para se obter o \textit{token} é necessário realizar uma requisição de todas as páginas que o usuário é administrador, além do \textit{token} de usuário, como mostra o exemplo \ref{lst:tokenPagina}. Terá como retorno o exemplo \ref{lst:retornoPagina} contendo todas as páginas e as informações referentes a cada uma delas, como o \textit{token}, a categoria, o nome, o id e as permissões que o usuário tem. 
 
 \begin{lstlisting}[caption={Obtendo Token de acesso a página},label={lst:tokenPagina}]
   $response = $fb->get(
@@ -149,7 +147,7 @@ Para o funcionamento da ferramenta é necessário o envio de alguns parâmetros 
 \item O fileUpload não é obrigatório. Ele é o parâmetro necessário para informar se será enviado arquivo de imagem ou não.
 \end{itemize}
 
-No exemplo \ref{lst:appesdk}, os parâmetros necessários para validação são passados em um array e armazenados na variável \$newFacebook, os parâmetros passados na variável é enviada para o SDK para então ser possível a conexão entre o SDK e o Facebook. Após a conexão com o SDK é possível a realização de requisições, elas podem ser do tipo \textit{GET}, \textit{POST} ou \textit{DELETE} e serão feitas a partir das chamadas da SDK.
+No exemplo \ref{lst:appesdk}, os parâmetros necessários para validação são passados em um array e armazenados na variável \$newFacebook, os parâmetros passados na variável é enviada para o SDK para então ser possível a conexão entre o SDK e o Facebook. Após a conexão com o SDK é possível a realização de requisições, elas podem ser do tipo \textit{GET}, \textit{POST} ou \textit{DELETE} e serão feitas a partir de chamadas da SDK.
 
 \begin{lstlisting}[caption={Conexão entre aplicativo e SDK},label={lst:appesdk}]
 	$newFacebook = array(
@@ -161,7 +159,7 @@ No exemplo \ref{lst:appesdk}, os parâmetros necessários para validação são 
 	$fb = new \Facebook\Facebook ( $newFacebook );
 \end{lstlisting}
 
-Para realização de \textit{login} é necessário o uso de uma classe específica do SDK, a classe getRedirectLoginHelper() que possui diversos métodos, entre eles o método ``getReRequestUrl()''. Nesse método é necessário passar o endereço de retorno após o \textit{login} juntamente com as permissões necessárias. O \textit{login} é possível usando o exemplo \ref{lst:solicitacaologin}
+Para realização de \textit{login} é necessário também o uso do método getRedirectLoginHelper(), que possui também o método ``getReRequestUrl()'', usado para solicitar do usuário as permissões que o aplicativo requisita. Nesse método é necessário passar o endereço que será retornado após o \textit{login} e as permissões necessárias. O \textit{login} é possível usando o exemplo \ref{lst:solicitacaologin}, onde a variável \$permissions conterá as permissões que serão solicitadas.
 
 \begin{lstlisting}[caption={Solicitação de Login},label={lst:solicitacaologin}]
 	$helper = $fb->getRedirectLoginHelper ();
@@ -177,30 +175,71 @@ Para realização de \textit{login} é necessário o uso de uma classe específi
 \label{sec:permissoes}
 Um sistema de permissões é utilizando na Graph API para controle de acesso, controle de publicação e de edição de informações. Assim, para que alguma modificação na publicação ou solicitação de dados por parte do modulo administrador possa ser efetivada, é necessário possuir as permissões adequadas. As permissões funcionam de forma a autorizar o acesso a um determinado conteúdo, podendo solicitar um novo tipo de permissão de acordo com a necessidade.
 
-As permissões descrevem quais as possíveis ações podem ser feitas em cooperação com a Graph API, elas determinam quais tipos de dados pode-se gerenciar e quais as possíveis respostas o sistema pode retornar. A forma de solicitar permissões está descrita no exemplo \ref{lst:solicitacaologin}, onde a variável \$permissions possui diversas permissões que serão solicitadas no momento que o usuário fizer o login.
+As permissões descrevem quais as possíveis ações podem ser feitas em cooperação com a Graph API, elas determinam quais tipos de dados pode-se gerenciar e quais as possíveis respostas a API pode retornar. A forma de solicitar permissões está descrita no exemplo \ref{lst:solicitacaologin}, onde a variável \$permissions possui diversas permissões que serão solicitadas no momento que o usuário for realizar o login.
 
-O Facebook oferece diversas permissões, elas podem ser de leitura ou de escrita, cada uma poderá ser usada para se obter um determinado acesso a um determinado dado. As permissões podem ser usadas solicitadas para que a Graph retorne ou envie dados específicos quando solicitado, tais como as permissões de email, \textit{user\underline{{ }}birthday}, \textit{user\underline{{ }}friends}, usadas para recuperar email, data de aniversário e amigos, respectivamente de um determinado usuário.
+O Facebook oferece diversas permissões, elas podem ser de leitura ou de escrita, cada uma poderá ser usada para se obter um determinado acesso a um determinado dado. As permissões podem ser usadas para que a Graph acessar dados específicos quando solicitado, tais como as permissões de email, \textit{user\underline{{ }}birthday}, \textit{user\underline{{ }}friends}, usadas para recuperar email, data de aniversário e amigos, respectivamente de um determinado usuário.
 
 Não somente os usuários, as permissões também abrangem as páginas do Facebook, por exemplo, pode-se usar a \textit{manage\underline{{ }}pages}, a \textit{publish\underline{{ }}pages}, entre outras, usadas para gerenciar e criar novos conteúdos para as páginas, respectivamente.
 
 \section{Requisições}
-\subsection{Tipos de Requisição}
-Além de requisições com o uso do GET, é possível realizar requisições usando POST e DELETE. O GET é usado para recuperar informações, o POST é usado para enviar dados e o DELETE é usado para deletar os dados.
+As requisições seguem um padrão, onde em todas elas serão necessárias a passagem do tipo, do ID e do \textit{token} de acesso. Entretanto, é possível obter dados mais específicos, para isso é inserido novos parâmetros como as arestas ou os campos. Os exemplos  \ref{lst:requisicoes1} a  (\ref{lst:requisicoes4}) mostram os padrões de solicitação com o uso de ID (\ref{lst:requisicoes1}), ID+aresta (\ref{lst:requisicoes2}), ID+campo (\ref{lst:requisicoes3}) e ID+aresta+campo (\ref{lst:requisicoes4}).
 
-Para envio de dados é necessário o uso do POST, ele pode ser usado para realizar uma nova publicação, envio de um comentário, entre outras.
-\begin{lstlisting}[caption={Requsição POST},label={lst:requisicao9}]
-ESCREVER CODIGO POST
+\begin{lstlisting}[caption={Requisição com o uso do ID},label={lst:requisicoes1}]
+	$fb->get(
+    	'{ID}',
+    	'{access-token}'
+  	);
 \end{lstlisting}
+
+\begin{lstlisting}[caption={Requisição com o uso do ID+aresta},label={lst:requisicoes2}]
+	$fb->get(
+    	'{ID}/{aresta}',
+    	'{access-token}'
+  	);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisição com o uso do ID+campo},label={lst:requisicoes3}]
+	$fb->get(
+		'{ID}?field={campo}',
+   		'{access-token}'
+	);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Requisição com o uso do ID+aresta+campo},label={lst:requisicoes4}]
+	$fb->get(
+		'{ID}/{aresta}?fields={campo}',
+    	'{access-token}'
+	);
+\end{lstlisting}
+
+\subsection{Tipos de Requisição}
+Além de requisições com o uso do GET apresentadas anteriormente, é possível realizar requisições usando POST e DELETE. O GET é usado para recuperar informações, o POST é usado para envio ou edição de dados e o DELETE é usado para exclusão de dados.
+
+Para envio ou edição de dados é necessário o uso do POST, ele pode ser usado para realizar uma nova publicação, envio de um comentário, entre outras. No exemplo \ref{lst:requisicao9} é realizado uma nova publicação na linha to tempo de um perfil ou página, com a passagem do parâmetro 'message', contendo o texto que será apresentado. O retorno será um JSON contendo somente o ID da publicação criada.
+
+\begin{lstlisting}[caption={Requsição POST},label={lst:requisicao9}]
+	$response = $fb->post(
+   		'{ID}/feed',
+    	array (
+      		'message' => {mensagem}
+    	),
+    	'{access-token}'
+  	);
+	$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+Para deletar uma publicação ou comentário é necessário o uso do DELETE, com a passagem dos parâmetros ID e \textit{token} de acesso, como no exemplo \ref{lst:requisicao10}, onde o retorno será um JSON, contendo uma variável 'success' do tipo boleano, contendo verdadeiro ou falso.
 
 \begin{lstlisting}[caption={Requsição DELETE},label={lst:requisicao10}]
-ESCREVER CODIGO DELETE
+	$response = $fb->delete(
+    	{ID},
+   		array (),
+    	'{access-token}'
+  	);
+	$graphNode = $response->getGraphNode();
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Retorno das requisições \ref{lst:requisicao9} e \ref{lst:requisicao10}},label={lst:requisicao11}]
-ESCREVER CODIGO DELETE
-\end{lstlisting}
-
-Esses métodos são usados para criar, solicitar ou deletar informações de um nó ou arestas, apenas usando a estrutura correta.
+Esses métodos podem ser usados para criar, editar, solicitar ou deletar informações de um nó ou arestas.
 
 \subsection{Nó}
 Os nós representam os vértices de um grafo, eles podem ser os mais diversos elementos, sendo objetos individuais, onde todo elemento é único e possui um identificador próprio (ID). Nos exemplos \ref{lst:me} a \ref{lst:album} são demostradas algumas possibilidades de uso de um nó.
@@ -401,10 +440,24 @@ Sendo mais específico na busca de uma aresta, é possível também obter a list
   $graphNode = $response->getGraphNode();
 \end{lstlisting}
 
-Assim como nas requisições de nós, as requisições de arestas também retornam em formato estruturado. Com a diferença de que é uma coleção de objetos, podendo conter nenhuma ou diversas posições, cada posição dessa fica armazenada na variável \textit{``data''}.
+Assim como nas requisições de nós, as requisições de arestas também retornam em formato estruturado. Com a diferença de que é uma coleção de objetos, podendo conter nenhuma ou diversas posições, cada item desse fica armazenada em uma posição na variável \textit{``data''}.
 
 \begin{lstlisting}[caption={Resposta da requisição \ref{lst:feedUsuario} (Feed)},label={lst:respostaFeed}]
-COLOCAR EXEMPLO
+{
+  "data": [
+    {
+      "created_time": "2018-05-30T18:03:41+0000",
+      "message": "Sera um evento bem legal",
+      "story": "IFB added an event.",
+      "id": "415358248866659_383399765490475"
+    },
+    {
+      "created_time": "2018-05-21T20:15:54+0000",
+      "message": "Bem vindo! Esse e o SID, integracao, facilidade e interatividade em um unico sistema.",
+      "id": "415358248866659_511846152551201"
+    }
+  ]
+}
 \end{lstlisting} 
 
 \begin{lstlisting}[caption={Resposta das requisições \ref{lst:albunsPagina}, \ref{lst:fotosPagina} e \ref{lst:videosPagina}  (Álbuns, Fotos e Videos)},label={lst:respostaAlbuns}]
@@ -438,11 +491,43 @@ COLOCAR EXEMPLO
 \end{lstlisting} 
 
 \begin{lstlisting}[caption={Resposta da requisição \ref{lst:comentariosPostagem} (Comentários)},label={lst:respostaComentarios}]
-COLOCAR EXEMPLO
+{
+  "data": [
+    {
+      "created_time": "2018-04-09T17:27:04+0000",
+      "from": {
+        "name": "Maxwell Borges",
+        "id": "1371436046298678"
+      },
+      "message": "Esse e um comentario",
+      "id": "487816184954198_492696814466135"
+    },
+    {
+      "created_time": "2018-04-13T12:03:17+0000",
+      "from": {
+        "name": "Maxwell Borges",
+        "id": "1371436046298678"
+      },
+      "message": "Comentario 2",
+      "id": "487816184954198_494448427624307"
+    }
+  ]
+}
 \end{lstlisting} 
 
 \begin{lstlisting}[caption={Resposta da requisição \ref{lst:curtidasComentario} (Likes)},label={lst:respostaCurtidas}]
-COLOCAR EXEMPLO
+{
+  "data": [
+    {
+      "id": "1305648676232580",
+      "name": "Fernando Nascimento"
+    },
+    {
+      "id": "1371436046298678",
+      "name": "Maxwell Borges"
+    }
+  ]
+}
 \end{lstlisting} 
 
 \subsection{Campo}
@@ -474,6 +559,19 @@ Nos exemplos, a página do SID é um nó, usando o ID único dela é possível c
 
 O retorno das requisições com campo segue o mesmo padrão que para requisições de nós ou de arestas, com o diferencial do campo solicitado.
 
-\begin{lstlisting}[caption={Retorno das requisições \ref{lst:requisicao7} e \ref{lst:requisicao8} (Campos)}, label={lst:retornoRequisicao8}]
-COLOCAR RETORNO
+\begin{lstlisting}[caption={Retorno da requisição \ref{lst:requisicao8} (Campos)}, label={lst:retornoRequisicao8}]
+{
+  "comments": {
+    "data": [
+      {LISTA COM COMENTARIOS}
+    ],
+  },
+  "likes": {
+    "data": [
+     {LISTA COM CURTIDAS}
+    ],
+  },
+  "link": "LINK DA PUBLICACAO",
+  "id": "ID DA PUBLICACAO"
+}
 \end{lstlisting}
