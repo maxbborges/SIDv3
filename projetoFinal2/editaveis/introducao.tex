@@ -50,38 +50,32 @@ Portanto, a ideia do SID, é prover a melhor interatividade do espectador com as
 Na versão para dispositivos móveis, além da apresentação das notícias, os professores e os alunos terão acesso a uma nova funcionalidade, o docente poderá enviar informações e avisos distintos para cada aluno ou turma, enquanto os alunos poderão acessar a cada mensagem enviada pelo professor para a turma em que ele está cadastrado, através de um login usando uma matricula e senha fictícia cadastrado no bancos de dados que simula plataformas acadêmicas já existentes, não sendo possível ainda o uso de dados reais por restrições de acesso as essas plataformas.
 
 \section{Objetivos}
-\subsection{Objetivos Gerais}
-Com objetivo de uma melhor e fácil disseminação das informações e propagandas pertinentes ao IFB - Câmpus Taguatinga, o sistema deverá ser capaz de proporcionar objetividade e simplicidade nas informações a serem repassadas. Além de painéis instalados pelo Câmpus, ele deve ter a integração com as mídias sociais como o Facebook, unificando os atuais sistemas de comunicação do IFB.
+Com objetivo de melhorar e facilitar a disseminação das informações e propagandas pertinentes ao IFB - Câmpus Taguatinga, será feito um estudo das tecnologias de sinalização e marketing digital para que seja possível levantar  os principais requisitos de software para implementação do sistema.
 
-Além das otimizações necessárias no sistema, é feito uma filtragem de comentários antes da exibição no sistema, esse filtro de comentários servirá para que não sejam apresentados comentários abusivos e que se tenha comentários mais propícios a reações positivas por partes dos telespectadores.
+Um sistema capaz de proporcionar objetividade e simplicidade nas informações a serem repassadas, oferecendo a opção de interação aos usuários do sistema, isso será possível com o estudo da API da rede social Facebook.
 
-Com a versão mobile do sistema, o aluno poderá não só ter acesso as informações que serão publicadas de forma geral para o Câmpus, mas também aos conteúdos específicos através de uma matricula fictícia do aluno ou professor que simula o sistema usado pelo IFB, no caso o SGA. 
+Para isso, será feito a definição e a implementação do Sistema de Integração de Divulgações de Informação do IFB para acesso WEB ou de dispositivos de baixo consumo energético.
 
-O aplicativo \textit{mobile} contará com três telas, a primeira é para exibição das publicações, a segunda tela servirá para que o professor possa encaminhar mensagens para uma turma em que ele leciona ou para um aluno especifico, a terceira tela é a do aluno, onde ele poderá verificar todas as mensagens que a turma em que ele está matriculado possui.
+Realizar também a implementação de um aplicativo \textit{mobile} com funcionalidades adicionais, além das funcionalidades do sistema. Fazendo o consumo de um API fictícia do Sistema de Gestão Academia (SGA) para futura integração a plataforma existente.
 
 \subsection{Objetivos Específicos}
-\maxwell{ARRUMAR OS OBJETIVOS - comentários 105 a 111}
-
 	 \begin{itemize}
-	\item Implementar um sistema para um âmbito mais acadêmico, para melhorar a disseminação de informações dentro do Câmpus.
+	\item Estudo e utilização de frameworks necessários para implementação do sistema, como ZEND, Doctrine, Cordova e Framework7.
 	 	
-	\item Melhorias do sistema usado como base, o SID \cite{sobrinho2017}.
+	\item Disponibilização de uma API REST para interoperabilidade do SID com outros sistemas.
 	
-	\item Aprimorar o uso da ferramenta Graph API para uma melhor integração do sistema com o Facebook, recuperando mensagens, curtidas entre outras informações que venham a ser necessárias.
-	
-	\item Integrar o sistema com outras mídias sociais.
-	
-	\item Implementação de uma versão mobile do sistema, para possíveis consultas ou exibição do conteúdo, tornando a exibição das informações multiplataforma, exibindo-a em painéis, TVs, páginas de Internet ou celulares.
-	
-	\item  Implementar um sistema em que os docentes possam trocar mensagens com alunos das turmas em que ele leciona.
+	\item Sugestão de uma proposta de implantação viável no Câmpus Taguatinga utilizando computadores Raspberry Pi.
 	\end{itemize}
+	
 \section{Metodologia}
 A revisão de bibliografia é usada como meio de direcionamento do trabalho, usando comparações entre ferramentas desenvolvidas com o proposito principais de sinalização e \textit{marketing} digital, partindo de tais soluções com o objetivo de avaliar os pontos negativos tendo como base as necessidades do Câmpus e então juntar ao processo de desenvolvimento os elementos que forem selecionados como principais e que são responsáveis por efetivar a disseminação da informação ao sistema de forma descentralizada e com o auxílio de ferramentas utilizadas no contexto WEB.
+
+O estudo da Graph API se deu de modo a realizar a leitura da documentação, realizando testes práticos das funcionalidade e das possíveis implementações, usando como auxílio a ferramenta Graph API Explorer oferecida pela rede social para testes de cada uma das solicitações.
 	 
-Usando o SID versão 2 como sistema base, uma estrutura cliente-servidor e conexão a \textit{Internet} , será implementado no sistema as interações com as redes sociais. As informações serão apresentadas em multiplataforma que podem ser televisores, painéis, páginas web ou celulares, essas informações podem ser alteradas acessando ao servidor com o sistema instalado e conectado a Internet. Após serem criadas ou modificadas, as publicadas poderão ser transmitidas e acessadas pelos clientes em distintas plataformas ao mesmo tempo.
+Usando o SID versão 2 como sistema base, será implementado no sistema as interações com as redes sociais. As informações serão apresentadas em multiplataforma que podem ser televisores, painéis, páginas web ou celulares, essas informações podem ser alteradas acessando ao servidor com o sistema instalado e conectado a Internet. Após serem criadas ou modificadas, as publicadas poderão ser transmitidas e acessadas pelos clientes em distintas plataformas ao mesmo tempo.
 
-A metodologia presente neste trabalho está direcionada aos aspectos específicos do desenvolvimento de ferramentas computacionais com o intuito de melhoria no processo de comunicação e veiculação de informações através de várias plataformas, sejam elas \textit{mobile}, WEB ou painéis. Para a versão \textit{mobile} do sistema, será usado um \textit{framework} de desenvolvimento específica para a plataforma. 
+A metodologia presente neste trabalho está direcionada aos aspectos específicos do desenvolvimento de ferramentas computacionais com o intuito de melhoria no processo de comunicação e veiculação de informações através de várias plataformas, sejam elas \textit{mobile}, WEB ou painéis. Para a versão \textit{mobile} do sistema, será usado um \textit{framework} de desenvolvimento específica para a plataforma.
 
-\maxwell{FALAR SOBRE METODOLOGIAS - comentários 131 a 134}
+Todo o sistema, incluindo o \textit{mobile}, seguirá o padrão de desenvolvimento ágil, com metodologia SCRUM, sendo definido sprints semanais, comumente marcada as quartas feiras, para definição das funcionalidades a serem desenvolvidas ou melhoradas. 
 
 \section{Organização}
