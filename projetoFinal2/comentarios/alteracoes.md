@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Alterações 11/06/2018
 
 > ## Falta: escrever resumo e abstract!!
