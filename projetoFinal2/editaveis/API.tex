@@ -1,26 +1,26 @@
-\chapter[GraphApi]{GraphApi}
+\chapter[Graph Api]{Graph Api}
 Para integração entre o Facebook e outros aplicativos externos é necessário o uso de uma API, a disponibilizada pela rede social em questão é a Graph. Ela é usada para que aplicativos externos possam realizar as requisições e envio de dados para a rede social, possibilitando consulta e gerência dos dados presentes nela. 
 
 Usada para extrair e inserir dados da plataforma do Facebook por meio de requisições HTTP é possível realizar as mais diversas tarefas, entre elas estão a de publicar novas histórias, gerenciar anúncios e carregar fotos \cite{facebook2018b}.
 
 \section{Visão Geral}
-A Graph segue um padrão de estrutura que se assemelha a um grafo. Para\cite{soares2014}, um grafo pode ser explicado como um conjunto finito de vértices e cada par de arestas relacionadas é chamado de arestas. A estrutura da Graph, segue esse mesmo conceito, possuindo nós, arestas e campos. 
+A Graph segue um padrão de estrutura que se assemelha a um grafo. Para\cite{soares2014}, um grafo pode ser explicado como um conjunto finito de vértices e cada par de vértices relacionados é chamado de arestas. A estrutura da Graph, segue esse mesmo conceito, possuindo nós, arestas e campos. 
 
-Os nós representam elementos únicos, cada um deles são considerados um vértice. Na rede social, eles podem ser os mais diversos elementos, sendo objetos individuais, onde cada página, usuário, comentário, foto, entre outras que são criadas no Facebook, são considerados um nó distinto \cite{facebook2018b} e possuem um identificador. 
+Os nós representam elementos únicos, cada um deles são considerados um vértice. Na rede social, eles podem ser os mais diversos elementos, como: páginas, usuários, comentários, fotos, entre outras. Cada um desses elementos são considerados um nó distinto \cite{facebook2018b} e possuem um identificador único (ID). 
 
-O relacionamento entre dois ou mais vértices são chamadas de arestas e representam a ligação entre os nós, são conexões entre um objeto único e uma coleção de objetos que representar diversos conjuntos de elementos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. 
+O relacionamento entre dois ou mais vértices são chamadas de arestas e representam a ligação entre os nós, são conexões entre um objeto único e uma coleção de objetos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. 
 
-Os campos são os atributos mais específicos do nós ou arestas, tais como, o link de uma publicação, as informações de quem realizou o comentário, o tamanho de uma imagem, entre outros.
+Os campos são os atributos mais específicos dos nós, tais como, o link de uma publicação, as informações de quem realizou o comentário, o tamanho de uma imagem, entre outros.
 
-A obtenção dos elementos é feita através de requisições e podem ser feitas diretamente do navegador ou usando outras aplicações que usem bibliotecas HTTP. Entretanto, para o seu funcionamento, elas devem seguir os padrões para a correta requisição e obtenção da resposta do servidor. 
+A obtenção dos elementos é feita através de requisições e podem ser feitas diretamente do navegador ou usando outras aplicações que usem bibliotecas HTTP. Entretanto, para o seu funcionamento, elas devem seguir a sintaxe correta para requisição e obtenção da resposta do servidor. 
 
-As requisições devem ser feitas, a conteúdos existentes na rede social e usando os conceitos de nós, vértices e campos juntamente com as requisições ajax (GET,POST ou DELETE) e um \textit{token} de acesso para que se possa obter os elementos desejados, onde a resposta será um JSON contendo os dados solicitados.
+As requisições devem ser feitas, a conteúdos existentes na rede social e usando os conceitos de nós, vértices e campos juntamente com as requisições HTTP (GET,POST ou DELETE) e um \textit{token} de acesso para que se possa obter os elementos desejados, onde a resposta será um JSON contendo os dados solicitados.
 
 Todas as requisições de dados ao Facebook devem ser feitas a uma URL que serão redirecionas para um servidor que estarão hospedados todos os dados que podem ser requisitados: \url{graph-video.facebook.com}, usada para requisições de vídeos e \url{graph.facebook.com}, usadas para todos os outros tipos de requisições.
 
 A API trabalha de forma a auxiliar o desenvolvedor a realizar requisições, oferecendo diversas classes e métodos, para as mais diversas funcionalidades. Essas classes podem ser usadas para recuperar um vértice ou uma aresta, por exemplo.
 
-Nesse capítulo, serão demostrados exemplos de requisições e de retorno, esses exemplos foram escritos em código PHP, que atualmente está entre as linguagens suportadas pela SDK. A variável \$graphNode será a responsável por receber maioria das respostas das requisições. Enquanto a variável \$fb será a instancia criada do SDK para chamada das classes e métodos presentes nele. 
+Nesse capítulo, serão demostrados exemplos de requisições e de retorno, esses exemplos foram escritos em código PHP, que atualmente está entre as linguagens suportadas pela SDK do Facebook. A variável \$graphNode será a responsável por receber maioria das respostas das requisições. Enquanto o objeto \$fb será a instancia criada do SDK para chamada das classes e métodos presentes nele. 
 
 A tabela \ref{tlb:nosEarestas} apresenta alguns exemplos de nós, a descrição deles e algumas arestas que cada pode alcançar.
 
@@ -30,7 +30,7 @@ A tabela \ref{tlb:nosEarestas} apresenta alguns exemplos de nós, a descrição 
 \label{tlb:nosEarestas}
 \begin{tabular}{|c|c|c|}
 \hline
-Nó         & Descrição                              & \begin{tabular}[c]{@{}c@{}}Exemplos de \\ Aretas\end{tabular}                                             \\ \hline
+Nó         & Descrição                              & \begin{tabular}[c]{@{}c@{}}Exemplos de \\ Arestas\end{tabular}                                             \\ \hline
 Usuário    & Representa o perfil de um usuário.     & \begin{tabular}[c]{@{}c@{}}Álbuns de fotos,\\ Fotos específicas,\\ Linha do tempo,\\ Amigos\end{tabular}  \\ \hline
 Página     & Representa uma página.                 & \begin{tabular}[c]{@{}c@{}}Álbuns de fotos,\\ Vídeos publicados,\\ Linha do tempo,\\ Eventos\end{tabular} \\ \hline
 Postagem   & As postagens em um perfil ou página.   & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline

@@ -5,9 +5,11 @@ Todas elas seguem a ideia de uma arquitetura cliente-servidor, onde o servidor �
 
 \section{OOZO}
 \label{sec:oozo}
-Atualmente, uma solução encontrada na literatura que faz integração entre \textit{marketing} digital e o conceito de sinalização digital é o software \cite{oozo2017}, onde o módulo cliente é multiplataformas e pode ser exibido em sistemas que possuem \textit{browsers}. Suas publicações podem ser exibidas \textit{online} ou \textit{offline}.
+Atualmente, uma solução encontrada na literatura que faz integração entre \textit{marketing} digital e o conceito de sinalização digital é o software \cite{oozo2017}, onde o módulo cliente é multiplataformas e pode ser executado em qualquer sistema que possua \textit{browsers} de página \textit{WEB}, podendo ser instalado em PCs, Macs, Linux, Laptops, Desktop ou Raspberry Pi para acesso local.
 
-Na página de login do aplicativo é possível criar uma nova conta, usar uma conta do Facebook ou Google. Na sua versão profissional, a mais completa, é possível sincronizar as redes sociais Twitter, Instagram e Facebook, sendo necessário efetuar login em cada uma delas. Em sua versão gratuita, alguns recursos não estão disponíveis como o filtro de \textit{hashtag} e a opção de publicar imagens e vídeos, além de exibir nas telas públicas, propagandas de outras empresas juntamente com as suas publicações. 
+O modulo administrador usado para criação, edição e gerenciamento é localizada na página oficial do aplicativo, necessitando de login para acesso. Para acesso é possível criar uma nova conta, usar uma conta do Facebook ou Google. 
+
+Em sua versão profissional, a mais completa, é possível sincronizar as redes sociais Twitter, Instagram e Facebook, sendo necessário efetuar login em cada rede social separadamente. Já em sua versão gratuita, alguns recursos não estão disponíveis como o filtro de \textit{hashtag} e a opção de publicar imagens e vídeos, além de exibir nas telas públicas, propagandas de outras empresas juntamente com as suas publicações. 
 
 Após a sincronização, o sistema recupera automaticamente \textit{hashtag} do Twitter que foram definidas pelo administrador e postagens do Facebook, Instagram e Twitter, sendo possível limitar o número de itens recuperados. Entretanto, é possível apenas deletar a publicação do sistema, não sendo possível realizar modificações nas postagens recuperadas, não oferece suporte a enviar uma nova publicação para as redes sociais e não é possível recuperar comentários ou curtidas das publicações.
 
@@ -15,15 +17,15 @@ Todo o conteúdo publicado na ferramenta fica armazenado em servidores propriet�
 
 Na página inicial do modulo administrador é possível gerenciar suas publicações que já foram postadas. Selecionando uma delas, é possível ter o acesso direto a publicação ou exclui-la da ferramenta. Entretanto, ao excluir do sistema, a publicação não é excluída da rede social, além disso, na versão gratuita parte do tempo de exibição das informações é de outras propagandas que não foram criadas pelo usuário. 
 
-No modulo cliente, o OOZO não exibe comentários feitos na publicação, ele somente a captura e a envia para exibição. Durante a exibição do conteúdo publicado o acesso a notícia completa pelo usuário, é feito com o uso de um \textit{QRCode}, que recupera automaticamente a url postagem, exibido na tela do cliente.
+No modulo cliente, o OOZO não exibe os comentários feitos na publicação da rede social, a ferramenta somente captura a foto e o texto publicado e os envia para exibição. Na exibição do conteúdo publicado o acesso a notícia completa pelo usuário, é feito com o uso de um \textit{QRCode}, que recupera automaticamente a url da postagem exibida na tela do cliente.
 
 \section{MangoSigns}
 \label{sec:mango}
-Outra solução encontrada é o \cite{mango2017}, o módulo cliente é multiplataformas, estando disponível somente para Android, Windows ou extensão do navegador chrome. Entretanto, no módulo cliente não possui um \textit{QR code} para que o telespectador possa acessar a notícia completa.
+Outra solução encontrada é o \cite{mango2017}, o módulo cliente é multiplataformas que pode ser instalado localmente no navegador chrome, sistema operacional windows ou dispositivos móveis com sistema android.
 
-A versão paga possui integração com as principais redes sociais como Twitter, Instagram e facebook, informações do tempo, entre outras funcionalidades. A versão gratuita não possui nenhuma integração as redes sociais, oferecendo somente informações básicas como data, upload de imagens e estilos de fonte, além de possuir limite de 3 imagens.
+A versão paga possui integração com as principais redes sociais como Twitter, Instagram e facebook, informações do tempo, entre outras funcionalidades. A versão gratuita não possui nenhuma integração as redes sociais, oferecendo somente informações básicas como data, upload de imagens e estilos de fonte, além de possuir limite de 3 imagens. Além de no módulo cliente não possuir um \textit{QR code} para que o telespectador possa acessar a notícia completa.
 
-Na página de login do aplicativo é possível criar uma nova conta, usar uma conta do Facebook ou uma conta do Google. A interface é amigável, e o módulo administrador, para criação de uma nova publicação é acessível somente de uma página WEB. Entretanto, é necessário um dispositivo Android, navegador WEB chrome ou um próprio chamado Mango Sing Box conectado a uma TV ou monitor para exibição do conteúdo criado.
+A página de administração do aplicativo é a página oficial do aplicando, nela é possível criar uma nova conta, usar uma conta do Facebook ou uma conta do Google. A interface é amigável, e o módulo administrador é usado para criação, edição e gerenciamento de publicações. Entretanto, é necessário um dispositivo Android, navegador WEB chrome ou um dispositivo próprio chamado Mango Sing Box conectado a uma TV ou monitor para exibição do conteúdo criado.
 
 As publicações criadas são imagens fixas com blocos adicionados manualmente que sobrepões a imagem. Elas passam em forma de slide de acordo com o tempo configurado, sendo possível determinar tempo de transição e até quando a publicação será exibida, além da localização (exclusivo da versão paga). 
 
@@ -31,18 +33,20 @@ A integração com as redes sociais é somente para recuperação automática de
 
 \section{SID Formosa}
 \label{sec:sid}
-O SID versão 2 (Sistema Inteligente de Divulgação de Informações do IFG-Formosa), é outra solução, dispondo de dois módulos, sendo o modulo administrador e cliente, onde o primeiro é acessível somente por meio de uma página WEB. Enquanto o cliente pode ser acessível por páginas WEB ou implementado em dispositivos como um Raspberry.
+O SID versão 2 (Sistema Inteligente de Divulgação de Informações do IFG-Formosa), é outra solução, dispondo de dois módulos, sendo o modulo administrador, usada para criação, editação e gerenciamento das publicações e o módulo cliente, usada para exibição das notícias criadas no módulo administrador, os dois são somente acessíveis por sistemas que possuam \textit{browsers}, não oferecendo aplicativo \textit{mobile} para acesso.
 
 O acesso ao modulo administrador é possível usando a conta do Facebook que esteja cadastrada no banco de dados. Apesar de possuir integração com as redes sociais, é limitando a cria novas publicações no perfil do usuário do sistema, não sendo possível recuperar nenhuma informação de publicação, comentário ou curtida.
 
-Usando o \textit{Raspberry Pi} como cliente, o SID apresenta as informações que lhe são configuradas, recuperando informações previamente armazenadas no banco de dados. As publicações apresentadas na tela possui um \textit{QR Code} usado pelo usuário caso tenha interesse em acessar a notícia completa. \cite{sobrinho2017}
+O SID, no módulo cliente, apresenta as informações que lhe são configuradas, recuperando informações previamente armazenadas no banco de dados. As publicações apresentam na tela somente a imagem, um \textit{QR Code} usado pelo usuário caso tenha interesse em acessar a notícia completa e a legenda que foi configurada. \cite{sobrinho2017}
 
-Entre os problemas encontrados estão: o link que será apresentado no QRCode deve ser configurado manualmente na criação da publicação, o sistema não faz o consumo de uma REST API para requisição de dados, ficando dependente do uso do módulo cliente, além de não oferecer nenhum tipo de aplicação \textit{mobile}.
+Entre os problemas encontrados estão: o link que será apresentado no QRCode deve ser configurado manualmente na criação da publicação, não oferece suporte a configurar data de início da apresentação das publicações, falta de uma documentação detalhada, integração bastante limitada, além de não oferecer nenhum tipo de aplicação \textit{mobile}.
 
 \section{Screenly}
-O \cite{screenly2017} usa o \textit{Raspberry Pi} e um programa próprio que deve ser instalado no equipamento para seu funcionamento. Na página de login, de acesso WEB, só é possível criar uma nova conta ou logar com uma existe, não havendo integração com Facebook ou Google para login automático. Um dos meios de exibição das publicações é por meio de um Raspberry Pi com o uso de um software proprietário da Screenly instalado e uma televisão conectada a ele. 
+O \cite{screenly2017} usa o \textit{Raspberry Pi} no módulo cliente, necessitando de um programa próprio que deve ser instalado no equipamento para seu funcionamento. Na página de login, de acesso WEB, só é possível criar uma nova conta ou logar com uma existe, não sendo oferecido nenhum outro meio de automatização de login. 
 
-Em nenhuma das versões o Screenly possui integração com as redes sociais. Em sua versão gratuita, ele é limitado a criar no máximo duas publicações para ficarem sendo exibidas sequencialmente, essas publicações podem ser imagens, links ou vídeos. Além do \textit{Raspberry Pi} é possível o uso de telas públicas para exibição, podendo ser de 1 em sua versão gratuita até 130 em sua versão mais cara.
+A exibição das das publicações é feita por meio de um Raspberry Pi com o uso de um software proprietário da Screenly instalado e uma televisão conectada a ele. Todas as versões possuem limitação do número de equipamentos que podem exibir o conteúdo.
+
+Em nenhuma das versões o Screenly possui integração com as redes sociais. Em sua versão gratuita, ele é limitado a criar no máximo duas publicações para ficarem sendo exibidas sequencialmente, essas publicações podem ser imagens, links ou vídeos.
 
 \section{Xibo}
 Outra solução encontrada na literatura corresponde ao \textit{software} Xibo, que se trata de um sistema baseado em arquitetura cliente-servidor completo e flexível de sinalização digital que permite diversas customizações, na qual cada divulgação tem opção de estruturação das suas informações. Também suporta diferentes tipos de mídias como vídeos, imagens, texto, relógios, dados tabulares, etc. 
@@ -55,13 +59,14 @@ A Tabela 1 faz um comparativo entre os sistemas citados acima, comparando alguma
 	\item Comprometimento com o propósito: o sistema em questão possibilita a veiculação de informações através de mecanismos de sinalização digital?
 	\item Criação simples de divulgações: o operador possui facilidade de incluir novas divulgações com aspecto atrativo?
 	\item Portabilidade \textit{mobile}: o módulo cliente está disponível para a plataforma \textit{mobile} em forma de aplicativo?
-	\item Integração com redes sociais: o sistema integra-se nativamente de alguma forma com redes sociais, mesmo que de forma limitada?
+	\item Integração com redes sociais: o sistema realiza integração completa com as redes sociais, oferecendo recuperação e envio de dados.
 	\item A versão gratuita explora toda a capacidade do programa?
 	\item É possível criar uma nova publicação e envia-la para as redes sociais?
 \end{enumerate}
 
 \begin{table}[h!]
 	\caption{Comparativo}
+	\label {tlb:comparativo1}
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|}
 		\hline
@@ -69,8 +74,10 @@ A Tabela 1 faz um comparativo entre os sistemas citados acima, comparando alguma
 		I 				& SIM  & SIM		& SIM & SIM 	 & SIM	\\ \hline
 		II 				& SIM  & SIM 		& SIM & SIM 	 & SIM	\\ \hline
 		III				& NÃO  & SIM 		& NÃO & NÃO 	 & NÃO	\\ \hline
-		IV 				& SIM  & NÃO 		& SIM & NÃO 	 & NÃO	\\ \hline
+		IV 				& NÃO  & NÃO 		& NÃO & NÃO 	 & NÃO	\\ \hline
 		V 				& NÃO  & NÃO 		& SIM & NÃO 	 & SIM	\\ \hline
 		VI 				& NÃO  & NÃO 		& SIM & NÃO 	 & NÃO	\\ \hline
 	\end{tabular}
 \end{table}
+
+Com o comparativo é possível notas que nenhum dos sistemas descritos atendem as funcionalidades requeridas. Por isso, o sistema SIDv3 tem o objetivo de atender todas as funcionalidades descritas como necessárias na tabela de comparativo \ref{tlb:comparativo1}. Oferecendo um aplicativo \textit{mobile} para exibição das publicações, melhor interação acadêmica entre professores e alunos, além de uma integração completa com as redes sociais, sendo possível envio e recuperação de dados das páginas/comunidades do Facebook.
