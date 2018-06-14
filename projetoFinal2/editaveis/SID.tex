@@ -3,7 +3,7 @@
 --------------------- FALAR SOBRE O SID
 
 \section{Visão Geral} 
-O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que possua integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao Campus. Atendendo ao objetivo principal, onde é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
+O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao Campus. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
 
 Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em três módulos, o primeiro deles é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente, nesse segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O terceiro módulo é o \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos. 
 
@@ -16,11 +16,27 @@ Baseado em desenvolvimento ágil, com metodologia SCRUM, foram definidos sprints
 No desenvolvimento, foram usados alguns \textit{framework}, O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. Foi usado também o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do modulo mobile.  
 
 \section{Modulo Administrador}
-Com o uso da estrutura cliente-servidor, esse modulo é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, ou seja, fazer todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
+Com o uso da estrutura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
 
-O sistema de autenticação escolhido foi a login com o Facebook, ferramenta que a própria rede social disponibiliza. Optou-se por ele não somente pela segurança, por ser baseado em sistemas criptográficos, mas também porque algumas funcionalidades do sistema dependem de dados que são recuperados após o processo de autenticação.
+O acesso ao módulo é restrito, sendo necessário autenticação e para isso foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza. Optou-se por ele pela segurança, por ser baseado em sistemas criptográficos e também por fornecer alguns dados que são recuperados para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na imagem \ref{fig:sequencialogin}
 
-Os elementos presentes no módulo e suas funcionalidades são descritas abaixo: 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{figuras/sequencialogin}
+\caption{Página de inserção no módulo administrador.}
+\label{fig:sequencialogin}
+\end{figure}
+
+Após a efetivação da autenticação, o usuário poderá ter acesso a todas as funcionalidades disponíveis no sistema, divididas entre as telas de ``inserir'' e ``Home''. A tela de inserir, é usada para criação de uma nova publicação, enquanto a tela Home oferece a opção de listar, detalhar, deletar e editar.
+
+A figura \ref{fig:administrador1}, representa a visão do operador da tela de inserir. Os elementos presentes nela são listados abaixo, juntamente com suas funcionalidades: 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{figuras/administrador1}
+\caption{Página de inserção no módulo administrador.}
+\label{fig:administrador1}
+\end{figure}
 
 \begin{enumerate}
    \item Legenda: É um campo de texto destinado a informação a ser repassada de forma sucinta e clara ao usuário final por intermédio cliente ou mobile. 
@@ -29,15 +45,6 @@ Os elementos presentes no módulo e suas funcionalidades são descritas abaixo:
    \item Data de Término: É a data final em que a publicação deixará de ser exibida no cliente e no mobile.
    \item Imagem: Será a imagem enviada para o Facebook, para o cliente e para o mobile. Essa imagem pode ser um \textit{banner} de apresentação de um evento, por exemplo.
  \end{enumerate}
-
-A Figura \ref{fig:administrador1}, consiste em representar como os elementos supracitados são inseridos a partir da visão do operador do sistema no módulo administrador. O diagrama de sequência para esta funcionalidade encontra-se na imagem \ref{fig:diagrama1}
- 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.5]{figuras/administrador1}
-\caption{Página de inserção no módulo administrador.}
-\label{fig:administrador1}
-\end{figure}
 
 \maxwell{COLOCAR DIAGRAMA DE SEQUENCIA}
 
