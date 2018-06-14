@@ -1,3 +1,217 @@
+# Comentários 13/06/2018
+
+Observar os comentários 12/06/2018
+
+## Capítulo 4 - Graph API
+
+Neste capítulo fiquei com uma série de dúvidas pela falta de familiaridade com a API, mas peço que você verifique se as minhas dúvidas e questionamentos tem procedência.
+
+Particularmente eu achei o capítulo um pouco confuso. Acho que algumas partes podem ser esclarescidas.
+
+Observe que o título da seção já está errado GraphAPi-> Graph API.
+
+### 4.1 Visão Geral
+
+> A Graph segue um padrão de estrutura que se assemelha a um grafo. Para(MELO et al., 2014), um grafo pode ser explicado como um conjunto finito de vértices e cada par de arestas relacionadas é chamado de arestas. A estrutura da Graph, segue esse mesmo conceito, possuindo nós, arestas e campos.
+
+"Cada par de arestas relacionadas é chamado de arestas". Isto está certo? Não seriam par de vértices? ->  Cada aresta relaciona um par de vértices.
+
+> Os nós representam elementos únicos, cada um deles são considerados um vértice. Na rede social, eles podem ser os mais diversos elementos, sendo objetos individuais, onde cada página, usuário, comentário, foto, entre outras que são criadas no Facebook, são considerados um nó distinto (FACEBOOK, 2018b) e possuem um identificador.
+
+`Os nós representam elementos únicos, cada um deles são considerados um vértice. Na rede social, eles podem ser os mais diversos elementos, como: páginas, usuários, comentários, fotos, entre outras. Cada elemento destes possui um identificador único.`
+
+> O relacionamento entre dois ou mais vértices são chamadas de arestas e representam a ligação entre os nós, são conexões entre um objeto único e uma coleção de objetos que representar diversos conjuntos de elementos, tais como as fotos de uma página ou o conjunto de comentários em uma foto.
+
+Dúvida: é possível ter uma conexão de um objeto com um outro objeto ou a relação é sempre 1:N? Se for possível altere para "são conexões entre um objeto e outro objeto ou entre um objeto e uma coleção de objetos.
+
+Não é necessário falar que a coleção de objetos pode representar diversos conjuntos de elementos. Você está sendo redundante. Coleção de objetos já diz que são vários elementos.
+
+> Os campos são os atributos mais específicos do nós ou arestas, tais como, o link de uma publicação, as informações de quem realizou o comentário, o tamanho de uma imagem, entre outros.
+
+Os campos não são parte apenas do nó? Eu penso que as arestas são uma forma de chegar ao nó apenas. Creio que eu estou certo, veja o que a documentação da API me fala:
+
+**"Fields
+Fields are node properties. When you query a node it will return a set of fields by default, as the examples above show. However, you can specify which fields you want returned by using the fields parameter and listing each field. This will override the defaults and return only the fields you specify, and the ID of the object, which is always returned."**
+
+
+
+> A obtenção dos elementos é feita através de requisições e podem ser feitas diretamente do navegador ou usando outras aplicações que usem bibliotecas HTTP. Entretanto, para o seu funcionamento, elas devem seguir os padrões para a correta requisição e obtenção da resposta do servidor.
+
+Troque padrão por sintaxe. É um termo mais "computeiro" quando tratamos sobre expressões bem formadas.
+
+> As requisições devem ser feitas, a conteúdos existentes na rede social e usando os conceitos de nós, vértices e campos juntamente com as requisições ajax (GET,POST ou DELETE) e um token de acesso para que se possa obter os elementos desejados, onde a resposta será um JSON contendo os dados solicitados.
+
+Troque AJAX. Quando fala de AJAX está fixando em Javascript, e pelo visto a SDK está disponível para diferentes linguagens. Substitua por requisições HTTP. AJAX =  Asynchronous Javascript and XML.
+
+> Nesse capítulo, serão demostrados exemplos de requisições e de retorno, esses exemplos foram escritos em código PHP, que atualmente está entre as linguagens suportadas pela SDK. A variável $graphNode será a responsável por receber maioria das respostas das requisições. Enquanto a variável $fb será a instancia criada do SDK para chamada das classes e métodos presentes nele.
+
+"suportadas pela SDK". SDK de quem, está pedindo um complemento.
+
+> Nesse capítulo, serão demostrados exemplos de requisições e de retorno, esses exemplos foram escritos em código PHP, que atualmente está entre as linguagens suportadas
+pela SDK. A variável $graphNode será a responsável por receber maioria das respostas das requisições. Enquanto a variável $fb será a instancia criada do SDK para chamada das classes e métodos presentes nele.
+
+Variáveis ou objetos?
+
+Tabela 2: "exemplo de aretas" -> "exemplo de arestas".
+
+Fora esses pequenos detalhes, a visão geral me parece bem escrita.
+
+### 4.2 Token de acesso
+
+
+> Seguindo os padrões de conformidade do protocolo OAuth 2.0, que provê um fluxo de autorização específica para aplicações web, telefones móveis, entre outras (OAUTH,
+2018). Os token de acesso são cadeia de caracteres usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
+
+> Para todas as requisições feitas para a rede social é necessário o uso dele, funcionando de maneira a autenticar o usuário sem a necessidade que um novo login seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais
+os dados serão possíveis acessar usando a Graph de acordo com as permissões solicitadas.
+
+Dúvida: aqui é autorização ou autenticação? Você fala de autorização pelo protocolo OAuth e depois fala de autenticação, são conceitos distintos. Sugiro verificar exatamente o que está sendo feito aqui.
+
+"os token de acesso" -> "os tokens de acesso".
+Ou então mude para "O token de acesso é uma cadeia de ..."
+
+> Os tokens de usuário são requisitados através da Graph que por sua vez verifica e provê as devidas permissões que foram solicitadas. A requisição desse token é feita através do método “getRedirectLoginHelper()” que oferece diversos outros métodos que podem ser instanciados, inclusive o método “getAccessToken()”, usado para solicitar o token.
+No exemplo 4.1 é realizado uma requisição para solicitação do token, onde a variável $accessToken conterá um JSON com string com a cadeia de caracteres.
+
+O método getRedirectLoginHelper() retorna um objeto. Este novo objeto é capaz de invocar outros métodos, como o getAccessToken().
+Utilize as nomenclaturas corretas de Orientação a objeto. Você não instancia um método, você invoca ou chama ele. Instanciar geralmente é utilizado quando estamos falando de objetos, que são instâncias de classes.
+
+
+
+
+
+> Código 4.1
+
+O que significa esse 'Página de retorno' ?
+
+
+> Os tokens de página dependem de uma permissão específica chamada manege pages
+
+"manage pages"
+
+> Os tokens de página dependem de uma permissão específica chamada manege pages, além da necessidade do usuário ser administrador da página. Para se obter o token é necessário realizar uma requisição de todas as páginas que o usuário é administrador, além do token de usuário, como mostra o exemplo 4.4. Terá como retorno o exemplo 4.6 contendo todas as páginas e as informações referentes a cada uma delas, como o token, a categoria, o nome, o id e as permissões que o usuário tem.
+
+Acho que está faltando um exemplo aqui. Tanto o código 4.4 quanto o 4.5 estão referenciando a mesma resposta. Creio que ficou faltando a resposta contendo todas as páginas vinculadas a um usuário, uma vez que a resposta 4.6 representa uma única página.
+
+`"como o token, a categoria, o nome..." -> "como o token de página, a categoria..."`
+
+`"e as permissões que o usuário tem" -> "e as permissões que o usuário tem sobre a página"`
+
+> Para se obter o token com duração infinita é necessário uma requisição com passagem dos parâmetros ID único, ID secreto, e o uso do token de usuário de curta duração, obtido na requisição 4.4, a requisição é feita do modo do exemplo 4.7. Obtendo como retorno um JSON contendo o token de acesso vitalício.
+
+Para que serve um token infinito? Ela é de páginas ou de aplicativos? 
+
+
+Essa seção eu achei meio confusa. Acho melhor separar em subseções, cada qual com um tipo de token diferente. Tem horas que eu acho que está falando do token do usuário mas na verdade é do aplicativo.
+
+### 4.3 Autenticação
+
+Muitos e muitos erros de português.
+
+> O Facebook disponibiliza diversas ferramentas, entre elas está a de login com Facebook, com ela é possível um usuário se autenticar a aplicação usando o cadastro do Facebook. Além de oferece um sistema de autenticação multiplataforma e controle de acesso, ela provê a análise de permissões, definindo o que o usuário poderá usar.
+Código 4.9 o que significa 'Página de retorno'?
+
+`O Facebook disponibiliza diversas ferramentas, dentre elas está a que viabiliza o *login* com o Facebook. Com ela é possível um usuário autenticar a aplicação através de sua conta. Além de oferecer um sistema de autenticação multiplataforma e controle de acesso, esta ferramenta provê a análise de permissões, definindo as operações que o (usuário ou aplicativo?) podem usar.`
+
+> A ferramenta de login com o Facebook disponibilizada pela rede social funciona
+de forma a autenticar o usuário do aplicativo usando uma conta vinculada a rede social.
+Oferecendo também a possibilidade de recuperar dados comuns de quem está acessando
+a aplicação.
+
+Esse parágrafo não fala a mesma coisa do último?
+
+> Para o funcionamento da ferramenta é necessário o envio de alguns parâmetros de identificação do aplicativo, tais como, o app id, app secret, default graph version, fileUpload, entre outros.
+
+Para utilizar esta ferramenta é necessário o envio de alguns parâmetros...
+
+> No exemplo 4.8, os parâmetros necessários para validação são passados em um array e armazenados na variável $newFacebook, os parâmetros passados na variável é enviada para o SDK para então ser possível a conexão entre o SDK e o Facebook. Após a conexão com o SDK é possível a realização de requisições, elas podem ser do tipo GET, POST ou DELETE e serão feitas a partir de chamadas da SDK.
+
+$newFacebook: Variável ou objeto?
+
+Veja bem, a SDK é o kit de desenvolvimento. Você não conecta nada a ela, você utiliza ela para construir o software. Penso que aqui você quis dizer que através da instanciação de um objeto facebook a partir dos dados autenticados, você obtém um objeto *handler* $fb.
+
+> Para realização de login é necessário também o uso do método getRedirectLoginHelper(), que possui também o método “getReRequestUrl()”, usado para solicitar do usuário as permissões que o aplicativo requisita. Nesse método é necessário passar o endereço que será retornado após o login e as permissões necessárias. O login é possível usando o exemplo 4.9, onde a variável $permissions conterá as permissões que serão solicitadas.
+
+Mais uma vez confusão dos conceitos de OO. O método getRedirectLoginHelper() retorna um objeto. Este objeto pode invocar o método "getRequestUrl()" (você escreveu errado no parágrafo).
+
+Código 4.9: o que significa 'Página de retorno?'
+
+
+### 4.4 Permissões
+
+> Um sistema de permissões é utilizando na Graph API para controle de acesso, controle de publicação e de edição de informações. Assim, para que alguma modificação na publicação ou solicitação de dados por parte do modulo administrador possa ser efetivada, é necessário possuir as permissões adequadas. As permissões funcionam de forma a autorizar o acesso a um determinado conteúdo, podendo solicitar um novo tipo de permissão de acordo com a necessidade.
+
+"é utilizando" -> é utilizado.
+
+As permissões autorizam acesso ou qualquer manipulação de conteúdos? Pois acesso da uma ideia de somente leitura.
+
+> As permissões descrevem quais as possíveis ações podem ser feitas em cooperação com a Graph API, elas determinam quais tipos de dados pode-se gerenciar e quais as possíveis respostas a API pode retornar. A forma de solicitar permissões está descrita no exemplo 4.9, onde a variável $permissions possui diversas permissões que serão solicitadas no momento que o usuário for realizar o login.
+
+Dúvida: você está solicitando novas permissões ou apenas recuperando as permissões designadas ao usuário/aplicativo? Quem diz que a sua solicitação não pode ser atendida?
+
+
+
+
+## 4.5 Requisições
+
+O que cada requisição desse tipo recupera? 
+Um nó(1), um nó alcançado por uma aresta a partir de outro nó (2), um campo de um nó (3), um campo de um nó atingido a partir de uma aresta de outro nó (4)? Deixe isso claro aqui que as próximas seções ficam mais legíveis.
+
+### 4.5.1
+
+Penso que aqui, você pode dizer que os métodos utilizados na GRAPH API estão em conformidade com uma arquitetura REST, de modo que GET é utilizado para recuperação de informações, POST para inserção de novas informações de DELETE para remoção de informações. Assim você cria um link com o referencial teórico.
+
+
+
+> Esses métodos podem ser usados para criar, editar, solicitar ou deletar informações de um nó ou arestas.
+
+
+Penso que tudo é operado sobre nós nessa API, as arestas são apenas meios de chegar ao nó.
+
+
+
+
+### 4.5.2 Nós
+
+Coloque cada resposta aparelhada com cada requisição, assim o leitor consegue verificar rapidamente o que é feito em cada requisição.
+
+> Para requisições feitas usando somente o nó, geralmente necessita-se somente que dois parâmetros sejam repassados, que é o ID e o token. Esses parâmetros devem ser repassados para a Graph, através da variável $fb, com ela é possível instanciar as diferentes classes e métodos disponibilizadas pela API. Além disso, a variável $response será a responsável por receber o retorno desses requisições e a variável $graphNode será responsável por receber o conteúdo estruturado de acordo com a classe requisitada, que podem ser “getGraphNode()” ou “getGraphEdge()”.
+
+$fb é uma variável ou um objeto??
+
+getGraphNode() e getGraphEdge() são classes ou métodos?
+É muito importante ter os conceitos certos aqui.
+
+> Os dados que são retornados, variam de acordo com os parâmetros que são colocados na requisição. Entre os principais retornos estão os parâmetros name, ID, created time, entre diversos outros parâmetros. Nos exemplos 4.23 a 4.26, as respostas obtidas do servidor são respostas em que as requisições continham apenas o nó como parâmetro.
+
+Estes dados são os campos. Deixe isso claro.
+
+### 4.5.3 Arestas 
+
+Mais uma vez, acho que fica mais fácil de ler se todas as requisições forem aparelhadas com as respostas.
+
+
+
+
+> As arestas são as ligações entre os vértices, elas representam a conexões entre uma coleção de objetos a um objeto único. Na rede social, os vértices podem ser o conteúdo de uma Página, de uma postagem, de um comentário, entre outras.
+
+O contrário não? Entre um objeto único e uma coleção de objetos. Além disso, você já disse que os nós representam objetos como postagens, fotos, etc... não precisa repetir.
+
+> Como todas a objetos, seja ele curtida, postagem, comentário, entre outros são consideradas nós, é possível buscar as arestas de cada uma delas.
+
+Fale que a partir das arestas é possível alcançar outros nós e recuperar as suas propriedades. Por exemplo, a partir de um comentário, é possível alcançar o nó que representa as curtidas deste comentário através de uma aresta. Reescreva esse parágrafo com este sentido.
+
+>Sendo mais específico na busca de uma aresta, é possível também obter a lista com dados de todos os comentários de uma postagem (4.32) ou todos as curtidas de um comentário) (4.33). Isso é possível com o uso do ID, com o incremento dos parâmetros “/comments” ou “/likes”, respectivamente.
+
+Repare que o que você está fazendo aqui é utilizando uma aresta, recuperando o nó. Deixe isso claro. Você não busca a aresta, você busca o nó navegando pela aresta, como um grafo mesmo.
+
+
+### 4.5.4 Campos
+
+Código 4.39 recupera todos os comentários da página ou de uma publicação?
+
+
+
 # Comentários 12/06/2018
 
 Falta alterar o título e escrever o resumo e abstract, conforme os comentários 10/06/2018.
@@ -37,7 +251,6 @@ Este parágrafo de crítica, pode inclusive fazer parte do primeiro parágrafo c
 ## 1.2 Proposta
 
 > Com uso da estrutura cliente-servidor e tendo o sistema SID em sua versão 2 implementado por (SOBRINHO, 2017) como base, é proposto a elaboração da terceira versão. Com o uso dos conceito de sinalização digital e marketing digital, a proposta é fazer com que o sistema apresente conteúdos referentes ao IFB e essas informações tenham integração com o Facebook, apresentando postagens e comentários devidamente moderados em tempo real nas telas espalhadas por locais de maior movimento do Câmpus Taguatinga do Instituto Federal de Brasília ou nos dispositivos móveis de cada pessoa.
-
 
 
 "Estrutura cliente-servidor" -> "Arquitetura cliente-servidor"
@@ -144,8 +357,7 @@ Não vejo a falta de uma API REST como um problema muito grande, ele só não se
 
 ### 2.4 Screenly
 
-> O (SCREENLY, 2017) usa o Raspberry Pi e um programa próprio que deve ser
-instalado no equipamento para seu funcionamento. Na página de login, de acesso WEB, só é possível criar uma nova conta ou logar com uma existe, não havendo integração com Facebook ou Google para login automático. Um dos meios de exibição das publicações é por meio de um Raspberry Pi com o uso de um software proprietário da Screenly instalado e uma televisão conectada a ele.
+> O (SCREENLY, 2017) usa o Raspberry Pi e um programa próprio que deve ser instalado no equipamento para seu funcionamento. Na página de login, de acesso WEB, só é possível criar uma nova conta ou logar com uma existe, não havendo integração com Facebook ou Google para login automático. Um dos meios de exibição das publicações é por meio de um Raspberry Pi com o uso de um software proprietário da Screenly instalado e uma televisão conectada a ele.
 
 Repare que você, no final do parágrafo, está falando a mesma coisa do início.
 
@@ -172,7 +384,7 @@ Problemas de formatação \LaTeX, corrija.
 
 > Em resumo, o cliente é um processo que interage com o usuário através de uma interface gráfica ou não, enquanto o servidor fornece um determinado serviço que fica disponível para todo Cliente que o necessita.
 
-Se ele interage ou não, basta dizer que ele interage e consume os serviços prestados pelo servidor..
+Se ele interage ou não, basta dizer que ele interage e consume os serviços prestados pelo servidor.
 
 
 ### 3.6 API
