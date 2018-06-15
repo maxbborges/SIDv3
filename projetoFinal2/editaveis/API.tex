@@ -386,7 +386,7 @@ Nos exemplos \ref{lst:feedUsuario} a \ref{lst:curtidasComentario}, são apresent
 
 Para se obter as arestas, assim como para se obtêm os vértices, é necessário o uso de no mínimo um ID e de um \textit{token} de acesso, com incremento de um novo parâmetro junto ao ID. Esse novo parâmetro é o elemento mais específico que se deseja obter partindo de um nó. Nos exemplos, ele está representado na linha 2, após o ID.
 
-Para se obter as publicações de um usuário ou página, é necessário seguir o exemplo \ref{lst:feedUsuario}, nessa requisição o retorno será estruturado da forma que segue no exemplo \ref{lst:respostaFeed}.
+Para se obter as publicações de um usuário ou página, é necessário seguir o exemplo \ref{lst:feedUsuario}, nessa requisição o retorno será uma lista estruturada da forma que segue no exemplo \ref{lst:respostaFeed}.
 
 \begin{lstlisting}[caption={Requisitando todas as publicações de um usuário},label={lst:feedUsuario}]
   $response = $fb->get( 
@@ -394,6 +394,24 @@ Para se obter as publicações de um usuário ou página, é necessário seguir 
     '{access-token}'
   );
   $graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Resposta da requisição \ref{lst:feedUsuario} (Feed)},label={lst:respostaFeed}]
+{
+  "data": [
+    {
+      "created_time": "2018-05-30T18:03:41+0000",
+      "message": "Sera um evento bem legal",
+      "story": "IFB added an event.",
+      "id": "415358248866659_383399765490475"
+    },
+    {
+      "created_time": "2018-05-21T20:15:54+0000",
+      "message": "Bem vindo! Esse e o SID, integracao, facilidade e interatividade em um unico sistema.",
+      "id": "415358248866659_511846152551201"
+    }
+  ]
+}
 \end{lstlisting}
 
 Com as arestas é possível obter também a lista de álbuns (\ref{lst:albunsPagina}), vídeos (\ref{lst:videosPagina}), eventos (\ref{lst:eventosPagina}) e fotos de perfil (\ref{lst:fotosPagina}) que foram criados pelo usuário ou página. Para isso, é necessário o uso de um parâmetro específico para cada um, sendo o ID com o incremento de respectivamente ``/albums'',``/videos'', ``/events'' ou ``/photos''.
@@ -448,25 +466,7 @@ Sendo mais específico na busca de uma nó, é possível também obter a lista c
   $graphNode = $response->getGraphNode();
 \end{lstlisting}
 
-Assim como nas requisições de nós, as requisições de arestas também retornam em formato estruturado. Com a diferença de que é uma coleção de objetos, podendo conter nenhuma ou diversas posições, cada item desse fica armazenada em uma posição na variável \textit{``data''}.
-
-\begin{lstlisting}[caption={Resposta da requisição \ref{lst:feedUsuario} (Feed)},label={lst:respostaFeed}]
-{
-  "data": [
-    {
-      "created_time": "2018-05-30T18:03:41+0000",
-      "message": "Sera um evento bem legal",
-      "story": "IFB added an event.",
-      "id": "415358248866659_383399765490475"
-    },
-    {
-      "created_time": "2018-05-21T20:15:54+0000",
-      "message": "Bem vindo! Esse e o SID, integracao, facilidade e interatividade em um unico sistema.",
-      "id": "415358248866659_511846152551201"
-    }
-  ]
-}
-\end{lstlisting} 
+Assim como nas requisições de nós, as requisições de arestas também retornam em formato estruturado. Com a diferença de que é uma coleção de objetos, podendo conter nenhuma ou diversas posições, cada item desse fica armazenada em uma posição na variável \textit{``data''}. 
 
 \begin{lstlisting}[caption={Resposta das requisições \ref{lst:albunsPagina}, \ref{lst:fotosPagina} e \ref{lst:videosPagina}  (Álbuns, Fotos e Videos)},label={lst:respostaAlbuns}]
 {
