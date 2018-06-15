@@ -100,17 +100,67 @@
 > Uma é variavel a outra objeto, feito alteração.
 
 ## 4.2 Token de acesso
->
+> Na época da separação por sessão acabei misturando as coisas. Quem usa o padrão oauth é o login com o facebook, portanto, estava em local errado. o trecho foi colocado na sessão de autenticação, linha 853.
+
+> Realmente isso que você disse está correto, tenho sérios problemas com essas nomeclaturas,  acabo misturando elas. Feito a troca para o correto. Linhas: 757 e 758
+
+> Literalmente o que está escrito, a página que o facebook irá apresentar para o usuário caso o login seja efetuado com sucesso. Explicado na linha 765.
+
+> permissão corrigida.
+
+> Realmente, acabei citando a mesma tabela. Inserido nova tabela 4.7.
+
+> Correções e separação por sessões.
+
+## 4.3 Autenticação
+> explicado a página de retorno anteriormente.
+
+> reescrito todo o parágrafo. linhas 863 a 870
+
+> Alterado conforme solicitado.
+
+> O $newFacebook é uma variável, pois eu que a criei como um "vetor" contendo as informações necessárias. Na versão anterior do SID, esses dados eram recuperados de um arquivo.
+
+> coloquei SDK onde era pra ser API.
+
+> corrigido a questao de invocar o objeto.
+
+> As permissões elas somente são solitiadas caso o usuário não tenha aceitado ainda. Uma vez aceita, ela só será pedida novamente caso o usuário faça a negação delas.
+
+## 4.4 Permissões
+> correção da palavra.
+
+> inserido a parte de manipulação de dados. linha: 914
+
+> explicado o que acontece caso o usuário não tenha as permissões. Linhas: 933 a 936.
+
+## 4.5 Requisições
+>  Feito as explicações necessárias. Linhas: 941 a 944
+
+## 4.5.1
+> Modificado o texto, inserindo o parágrafo indicado. 
+
+> Como explicado anteriormente, retirado a palavra arestas. 
+
+## 4.5.2 Nós
+> Colocado as requisições e as respostas para cada um.
+
+> Alterado de variavel para objeto
+
+> Trocado de classe para método
+
+> explicado que dados são campos
+
+## 4.5.3 Arestas 
+> Na realidade, as arestas representam apenas o contrário, eu escrevi errado. é uma relação 1:N
+
+> Retirado parágrafo e reescrito a explicação solicitaeda. Linhas: 1146 a 1149 
+
+> Modificado de aresta para nó.
 
 
-
-
-
-
-
-
-
-
+## 4.5.4 Campos
+> recupera todos os comentários da cada publicação presente no feed.
 
 
 
