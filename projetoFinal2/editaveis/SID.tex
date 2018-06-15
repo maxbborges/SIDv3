@@ -1,6 +1,6 @@
 \chapter[SID]{SID}
 \label{cap:sid}
---------------------- FALAR SOBRE O SID
+\maxwell {Escrever sobre o SID}
 
 \section{Visão Geral} 
 O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao Campus. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
@@ -16,14 +16,14 @@ Baseado em desenvolvimento ágil, com metodologia SCRUM, foram definidos sprints
 No desenvolvimento, foram usados alguns \textit{framework}, O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. Foi usado também o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do modulo mobile.  
 
 \section{Modulo Administrador}
-Com o uso da estrutura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
+Com o uso da arquitetura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
 
-O acesso ao módulo é restrito, sendo necessário autenticação e para isso foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza. Optou-se por ele pela segurança, por ser baseado em sistemas criptográficos e também por fornecer alguns dados que são recuperados para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na imagem \ref{fig:sequencialogin}
+O acesso ao módulo é restrito, sendo necessário autenticação e para isso foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza explicada na sessão \ref{sec:autenticacao}. Optou-se por ele pela segurança sendo baseada em sistemas criptográficos e também por facilitar o fornecimento de alguns dados que são recuperados e necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na figura \ref{fig:sequencialogin}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{figuras/sequencialogin}
-\caption{Página de inserção no módulo administrador.}
+\caption{Sequencia para efetivação de \textit{login}}
 \label{fig:sequencialogin}
 \end{figure}
 
@@ -34,7 +34,7 @@ A figura \ref{fig:administrador1}, representa a visão do operador da tela de in
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{figuras/administrador1}
-\caption{Página de inserção no módulo administrador.}
+\caption{Página de inserção do módulo administrador.}
 \label{fig:administrador1}
 \end{figure}
 
@@ -46,8 +46,6 @@ A figura \ref{fig:administrador1}, representa a visão do operador da tela de in
    \item Imagem: Será a imagem enviada para o Facebook, para o cliente e para o mobile. Essa imagem pode ser um \textit{banner} de apresentação de um evento, por exemplo.
  \end{enumerate}
 
-\maxwell{COLOCAR DIAGRAMA DE SEQUENCIA}
-
 Todos os campos são de preenchimento obrigatório. O campo 5 é repassado para a API como parâmetro \textit{source}, já o campo 2 é repassado como parâmetro \textit{messagem}, os outros campos são enviados somente para o banco de dados.
 
 Se durante o envio alguma das transações não forem efetivadas, será retornado a mensagem de erro na tela, assim como retornará a mensagem de sucesso, caso não ocorra nenhum erro.
@@ -57,6 +55,15 @@ O texto do campo 1 poderá conter letras ou números, entretanto possui a limita
 Os outros campos não possuem limitação de caracteres, entretanto os campos 3, 4 e 5 possuem restrição de tipo de entrada, onde os campos 3 e 4 obrigatoriamente será um número inteiro e o campo 5, será um arquivo de imagem do tipo JPEG, JPG, GIF ou PNG.
 
 Os campos 3 e 4 são botões do tipo dropdown, sendo necessário selecionar um dos valores que aparecem em cada um dos campos. Os possíveis valores para o campo ``dia'' vão de 1 a 31, os valores do campo ``mês'' vão de 1 a 12, enquanto os valores do campo ``ano'' irão do ano atual a dois anos seguintes.
+
+A página "Home" é a que lista todas as publicações criadas, a visão do usuário será igual a apresentada na figura \ref{fig:administrador2}. As funcionalidade de cada elemento da página é descrito logo abaixo. Essa é a página inicial do sistema, nela é possível ter acesso a página de inserir, listar, detalhar e ao botão excluir.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{figuras/administrador1}
+\caption{Página de listagem  do módulo administrador.}
+\label{fig:administrador2}
+\end{figure}
 
 \section{Modulo Cliente}
 O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. A estrutura e organização do que será apresentado, está disposto na figura \ref{fig:cliente1}.
@@ -78,7 +85,7 @@ Os elementos que compõe a página que será apresentada, são divididos em cinc
 \label{fig:cliente1}
 \end{figure}
 
-Usando Javascript requisições ao servidor e receberá como resposta um JSON, contendo o número de posições equivalentes ao número de publicações válidas. Cada posição desse JSON terá três variáveis, são elas: 'bd','comentarios' e 'imagem'. 
+Consumindo uma API REST através de requisições do tipo GET, o módulo cliente receberá como resposta um JSON, contendo o número de posições equivalentes ao número de publicações válidas. Cada posição desse JSON terá três variáveis, são elas: 'bd','comentarios' e 'imagem'. 
 
 \begin{lstlisting}[caption={Solicitação de dados ao servidor},label={lst:solicitacaoServidor}]
 EXEMPLO DE SOLICITACAO
@@ -125,9 +132,12 @@ Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, a
 \label{fig:mobile3}
 \end{figure}
 
-\maxwell{FALAR SOBRE OS BOTOES E SUAS LIMITAÇÕES}
+\maxwell{FALAR SOBRE OS CAMPOS DA TELA DO PROFESSOR E SUAS LIMITAÇÕES}
 
 \section{Arquitetura}
+Se utilizando dos conceito de UML abordados na sessão \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe e seus casos de uso.
+
+O diagrama de casos de uso da figura \ref{fig:casosDeUso},  tem a finalidade de demostrar os principais processos que são executados pelo módulo administrador e cliente. 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{figuras/casosDeUso}
@@ -135,11 +145,38 @@ Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, a
 \label{fig:casosDeUso}
 \end{figure}
 
-\maxwell{COLOCAR DIAGRAMA DE CLASSES}
+Os diagramas de classe possuem a finalidade de demostrar a estrutura estática do sistema, apresentando cada classe e suas relações. As classes presentes em cada um dos módulos são apresentadas abaixo.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{figuras/diagramaclasseAPI}
+\caption{Diagrama de classe do módulo API}
+\label{fig:casosDeUso}
+\end{figure}
 
-\maxwell{COLOCAR DIAGRAMA DE SEQUENCIA}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figuras/diagramaclasseADM}
+\caption{Diagrama de classe do módulo administrador}
+\label{fig:casosDeUso}
+\end{figure}
 
-\maxwell{COLOCAR MODELO ENTIDADE RELACIONAMENTO}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figuras/diagramaclasseCLIENTE}
+\caption{Diagrama de classe do módulo cliente}
+\label{fig:casosDeUso}
+\end{figure}
+
+\maxwell{explicar o que é a entidade e relacionamento}
+
+\maxwell {Dividir a imagem em simulação SGA e SID}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{figuras/entidaderelacionamento}
+\caption{Modelo entidade e relacionamento}
+\label{fig:casosDeUso}
+\end{figure}
 
 \section{Integração}
 \subsection{\textit{login}, \textit{token} de acesso e permissões}
@@ -173,14 +210,7 @@ A Figura \ref{fig:imgfacebook1} apresenta como ficará uma publicação no Faceb
 
 
 \subsection{Requisitar}
-Usando o identificador único da foto é possível recuperar informações das arestas, que podem ser a URL, os comentários e as curtidas conforme o exemplo \ref{lst:requisicao8}. Esse recurso é utilizado para recuperar os mais diversos elementos que as permissões concedidas autorizam, entre os elementos recuperados estão o endereço da publicação, os comentários, curtidas e a imagem de perfil que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
-
-
-\maxwell{
-Para publicação no perfil pessoal, a Graph API requisita duas permissões, sendo a “email”, onde é requisitado o acesso ao endereço de email do usuário para que seja possível a identificação do usuário do SID e a “publish\underline{{ }}actions”, onde fornece acesso a realização de publicações em nome da pessoa que está usando o aplicativo \cite{facebook2018a}.
-
-
-É possível também solicitar dados referentes a postagens efetivadas. Para isso é necessário a passagem de alguns parâmetros no método ''get`` e a Graph. Assim como no ''post``, o ''get`` usa todos os parâmetros com exceção do id\underline{{ }}pagina, onde será informado o id\underline{{ }}publicação em substituição do da página.}
+Usando o ID da foto é possível recuperar informações das arestas, que podem ser a URL, os comentários e as curtidas conforme o exemplo \ref{lst:requisicao8}. Esse recurso é utilizado para recuperar os mais diversos elementos que as permissões concedidas autorizam, entre os elementos recuperados estão o endereço da publicação, os comentários, curtidas e a imagem de perfil que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
 
 \section{Possível solução para Implantação - Rapberry}
 Desde a sua invenção em 1971, microprocessadores vem sendo usados no desenvolvimento dos mais variados tipos de eletrônicos ou outros equipamentos, substituindo até mesmo sistemas mecânicos. Algo que vai além de um simples software, os microprocessadores devem ser capazes controlar as ações de um dispositivo. \cite{rosenstark2007}
