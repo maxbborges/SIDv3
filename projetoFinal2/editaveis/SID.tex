@@ -124,29 +124,90 @@ Além disso, as requisições para esse módulo devem seguir uma sintaxe de acor
 A resposta para a solicitação \ref{lst:bd} é uma estrutura de dados do tipo JSON contendo o conteúdo apresentado no exemplo \ref{lst:retornobd}. O uso de cada um dos itens será explicado na Seção \ref{sec:cliente}.
 
 \begin{lstlisting}[caption={Retorno da requisição \ref{lst:bd}},label={lst:retornobd}]
-	COLOCAR RETORNO
+{
+	0:[
+		"bd": [
+			"linkqr": {LINK DA DIVULGACAO}
+			"legenda": {LEGENDA QUE SERA EXIBIDA}		
+		],
+		"comentarios": null,
+		"imagem": []
+	1:[
+		"bd": [
+			"linkqr": {LINK DA DIVULGACAO}
+			"legenda": {LEGENDA QUE SERA EXIBIDA}
+		],
+		"comentarios": [
+			0: [
+				"created_time": {DATA DA CIRACAO},
+				"from": [
+					"nome": {NOME DO USUARIO},
+					"id": {ID DO USUARIO}
+				],
+				"message": {MENSAGEM APRESENTADA},
+				"id": {ID DA PUBLICACAO},
+				"urlFoto": {URL DA FOTO DE PERFIL DO USUARIO}
+			],
+			1: [
+				"created_time": {DATA DA CIRACAO},
+				"from": [
+					"nome": {NOME DO USUARIO},
+					"id": {ID DO USUARIO}
+				],
+				"message": {MENSAGEM APRESENTADA},
+				"id": {ID DA PUBLICACAO},
+				"urlFoto": {URL DA FOTO DE PERFIL DO USUARIO}
+			]
+		],
+		"imagem": {IMAGEM DE EXIBICAO, CODIFICADA}
+	]
+}
 \end{lstlisting}
+
+A 'bd', contém uma \textit{array} de duas posições, contendo 2 \textit{string}, sendo elas o legenda e link, esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A 'comentarios' é um array de \textit{string} que pode possuir zero ou mais itens, cada item representa um comentário na publicação, onde cada item possui a data da criação, quem fez, a mensagem, a foto e o id do comentário. Já a 'imagem' é uma \textit{string} de é um arquivo codificado em base64, que será descodificado pelo módulo.
 
 Este módulo tem a função de em conjunto com banco de dados, realizar a simulação de um sistema de gestão acadêmico, sendo possível consultar alguns dados através de requisições. Os dados que podem ser recuperados, variam de acordo com a sintaxe utilizada.
 
 É possível requisitar diversos dados distintos ou todos eles juntos. 
-No exemplo \ref{lst:todos} é feito a requisição de todos os dados armazenados, que retornará um JSON de diversas posições, onde cada posição representa um ??.
+No exemplo \ref{lst:todos} é feito a requisição de todos os dados armazenados, que retornará um JSON de diversas posições, onde cada posição representa um mensagem enviada por um professor.
 \begin{lstlisting}[caption={Requisitar todos os dados},label={lst:todos}]
 	http://{IP DO SERVIDOR}/mobile
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Retorno da requisição \ref{lst:todos}},label={lst:retornotodos}]
-	Exemplo de retorno
+	0:[
+		"id_mensagem": {NUMERO DA MENSAGEM NO SERVIDOR},
+		"matricula_professor": {MATRICULA DO PROFESSOR},
+		"nome_professor": {NOME DO PROFESSOR QUE ENVIOU},
+		"id_turma": {IDENTIFICACAO DA TURMA},
+		"mensagem": {MENSAGEM ENCAMINHADA PELO PROFESSOR}
+	],
+	1:[		
+		"id_mensagem": {NUMERO DA MENSAGEM NO SERVIDOR},
+		"matricula_professor": {MATRICULA DO PROFESSOR},
+		"nome_professor": {NOME DO PROFESSOR QUE ENVIOU},
+		"id_turma": {IDENTIFICACAO DA TURMA},
+		"mensagem": {MENSAGEM ENCAMINHADA PELO PROFESSOR}
+	]
 \end{lstlisting}
 
-A inclusão de um novo parâmetro na requisição \ref{lst:todos} torna a busca mais específica. Por exemplo, pode ser usado "/professores", "/alunos", "/turmas" ou "/mensagens", isso retornará um JSON contendo somente a lista com os dados solicitados. No exemplo \ref{lst:professores}, o retorno será uma lista com os dados de todos os professores cadastrados como mostra o exemplo \ref{lst:retornoprofessores}.
+A inclusão de um novo parâmetro na requisição \ref{lst:todos} torna a busca mais específica. Por exemplo, pode ser usado "/professores/", "/alunos/", "/turmas/" ou "/mensagens/", isso retornará um JSON contendo uma lista somente com os dados solicitados. No exemplo \ref{lst:professores}, o retorno será uma lista com os dados de todos os professores cadastrados como mostra o exemplo \ref{lst:retornoprofessores}.
 
 \begin{lstlisting}[caption={Requisitar lista de dados especifica},label={lst:professores}]
 	http://{IP DO SERVIDOR}/mobile/professores/
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Retorno da requisição \ref{lst:bd}},label={lst:retornoprofessores}]
-	RETORNO
+	0:[
+		"matricula": {MATRICULA DO PROFESSOR},
+		"nome": {NOME DO PROFESSOR QUE ENVIOU},
+		"senha": {SENHA CRIPTOGRAFADA}
+	],
+	1:[		
+		"matricula": {MATRICULA DO PROFESSOR},
+		"nome": {NOME DO PROFESSOR QUE ENVIOU},
+		"senha": {SENHA CRIPTOGRAFADA}
+	]
 \end{lstlisting}
 
 O diagrama de classe que representa esse módulo é descrito na figura \ref{fig:diagramaclasseAPI}. Cada uma das classes é usada para uma determinada requisição.
@@ -192,17 +253,7 @@ Os elementos que compõe a página que será apresentada, são divididos em cinc
 \label{fig:cliente1}
 \end{figure}
 
-Consumindo uma API REST através de requisições do tipo GET, o módulo cliente receberá como resposta um JSON, contendo o número de posições equivalentes ao número de publicações válidas. Cada posição desse JSON terá três variáveis, são elas: 'bd','comentarios' e 'imagem'. 
-
-\begin{lstlisting}[caption={Solicitação de dados ao servidor},label={lst:solicitacaoServidor}]
-EXEMPLO DE SOLICITACAO
-\end{lstlisting}
-
-A 'bd', contém uma \textit{array} de duas posições, contendo 2 \textit{string}, sendo elas o legenda e link, esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A 'comentarios' é um array de \textit{string} que pode possuir zero ou mais itens, cada item representa um comentário na publicação, onde cada item possui a data da criação, quem fez, a mensagem, a foto e o id do comentário. Já a 'imagem' é uma \textit{string} de é um arquivo codificado em base64, que será descodificado pelo módulo.
-
-\begin{lstlisting}[caption={Resposta do servidor \ref{lst:solicitacaoServidor}},label={lst:RespostaServidor}]
-EXEMPLO DE RESPOSTA
-\end{lstlisting}
+Consumindo uma API REST com requisições do tipo GET a URL do exemplo \ref{lst:bd}, o módulo cliente receberá como resposta um JSON, contendo o número de posições equivalentes ao número de publicações válidas. Cada posição desse JSON terá três variáveis, são elas: 'bd','comentarios' e 'imagem', como apresentado no exemplo \ref{lst:retornobd}. 
 
 O conteúdo recuperado da variável 'bd', será apresentado nos itens 2 e 3, respectivamente. Já o conteúdo recuperado da variável 'comentarios' será apresentado no item 5. Enquanto os da variável 'imagem', será descriptografado e apresentado em forma de imagem no item 1.
 
@@ -228,7 +279,11 @@ Os casos de uso do aplicativo é demostrado na figura \ref{fig:casosdeusomobile}
 \label{fig:entidaderelacionamentomobile}
 \end{figure}
 
-O aplicativo contará com três telas distintas que será a tela inicial, a tela do aluno e a tela do professor.
+O aplicativo contará com três telas distintas que será a tela inicial, a tela do aluno e a tela do professor. Em cada tela, o sistema faz requisição de um serviço diferente para o módulo API. Na tela inicial é feito a requisição GET ao exemplo \ref{lst:bd}, na tela do aluno é feito a requisição GET ao exemplo \ref{lst:todos} e na tela do professor é feito um POST ao exemplo \ref{lst:incluirmensagem},
+
+\begin{lstlisting}[caption={Incluir novas mensagens},label={lst:incluirmensagem}]
+	http://{IP DO SERVIDOR}/menssagens/
+\end{lstlisting}
 
 A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o nome do SID e o botão de login na parte superior e as informações das publicações válidas, que foram requisitadas do módulo API, no restante da tela.
 \begin{figure}[H]
@@ -237,6 +292,8 @@ A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o no
 \caption{Página de inserção no módulo administrador.}
 \label{fig:mobile1}
 \end{figure}
+
+
 
 O botão de login é necessário para que alunos e professores efetuem a autenticação e possam acessar as páginas restritas destinadas a cada um.
 
