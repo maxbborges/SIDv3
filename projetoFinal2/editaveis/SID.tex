@@ -209,7 +209,9 @@ O conteúdo recuperado da variável 'bd', será apresentado nos itens 2 e 3, res
 O campo 5 irá apresentar 5 elementos recuperados na variável 'comentarios'. Esses elementos serão: a imagem de perfil, o nome, o comentário, a data e a hora da publicação do comentário pelo usuário. Antes da apresentação das informações de comentários, é escolhido um número randômico que representará a posição do array do comentário que será apresentado.
 
 \section{Aplicativo Mobile}
-O \textit{mobile} apresentará na tela inicial os mesmos dados que são apresentados no módulo cliente, com a inclusão da funcionalidade de troca de mensagens entre professores e alunos que possuam um login e senha cadastrados.
+Desenvolvido com auxílio dos \textit{Frameworks} Cordova, Framework7 e Dom. O aplicativo \textit{mobile} é responsável por apresentar de forma pública as divulgações assim como o módulo cliente, com algumas funcionalidades a mais que são restritas.
+
+As funcionalidades adicionais do aplicativo, é disponibilizar uma melhor forma de comunicação entre professores e alunos, necessitando apenas a autenticação. Para autenticação é necessário que o aluno ou o professor tenha uma matricula e senha cadastradas no banco.
 
 Os casos de uso do aplicativo é demostrado na figura \ref{fig:casosdeusomobile}, enquanto o modelo entidade e relacionamento é apresentado na figura \ref{fig:entidaderelacionamentomobile}.
 \begin{figure}[H]
@@ -226,21 +228,23 @@ Os casos de uso do aplicativo é demostrado na figura \ref{fig:casosdeusomobile}
 \label{fig:entidaderelacionamentomobile}
 \end{figure}
 
-O aplicativo terá três telas distintas que será a tela inicial, a tela do aluno e a tela do professor. Cada uma terá uma funcionalidade específica, onde a tela de professor e aluno serão restritas a usuários logados e a tela inicial será pública.
+O aplicativo contará com três telas distintas que será a tela inicial, a tela do aluno e a tela do professor.
 
-A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o nome do SID e o botão de login na parte superior e as publicações válidas, que foram requisitadas do servidor, no restante da tela.
+A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o nome do SID e o botão de login na parte superior e as informações das publicações válidas, que foram requisitadas do módulo API, no restante da tela.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.45]{figuras/mobile1}
+\includegraphics[scale=0.5]{figuras/mobile1}
 \caption{Página de inserção no módulo administrador.}
 \label{fig:mobile1}
 \end{figure}
+
+O botão de login é necessário para que alunos e professores efetuem a autenticação e possam acessar as páginas restritas destinadas a cada um.
 
 A tela do aluno será apresentada como na figura \ref{fig:mobile2}, após o login, será apresentado ao aluno todas as mensagens que o aluno possui em ordem cronológica da mais nova para a mais antiga. Os campos apresentados são o de professor, turma e mensagem separando cada item por blocos.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{figuras/mobile3}
+\includegraphics[scale=0.6]{figuras/mobile3}
 \caption{Página do Aluno.}
 \label{fig:mobile2}
 \end{figure}
@@ -253,6 +257,8 @@ Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, a
 \caption{Página do professor.}
 \label{fig:mobile3}
 \end{figure}
+
+Todos os campos são de preenchimento obrigatório e caso algum erro ocorra no processo de envio, o sistema apresentará um notificação para o professor com o erro ocorrido.
 
 \section{Integração}
 \subsection{\textit{login}, \textit{token} de acesso e permissões}

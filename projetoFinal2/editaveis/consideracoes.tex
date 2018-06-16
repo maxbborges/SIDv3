@@ -3,11 +3,13 @@ Com objetivo de aprimorar os meios de comunicação do IFB - Campus Taguatinga, 
 
 Divido em dois módulos, sendo o administrador e o cliente. O primeiro é responsável por desempenhar todo o processamento de recuperação, armazenamento e estruturação dos dados, enquanto o segundo que inclui o aplicativo mobile, tem a função de exibição desses dados de forma acessível para o usuário.  
 
-Em suma, o SID obtém benefícios consideráveis em ralação às outras soluções que são utilizadas atualmente, além de a divisão entre módulos possibilitar a exibição das divulgações em diversos dispositivos distintos, incluindo o aplicativo \textit{mobile} que foi desenvolvido.
+Em suma, o SID apresenta benefícios consideravelmente melhores em ralação às outras soluções que são utilizadas atualmente, além de a divisão entre módulos possibilitar a exibição das divulgações em diversos dispositivos distintos, incluindo o aplicativo \textit{mobile} que foi desenvolvido.
 
 \section{Trabalhos Futuros}
 Apesar de atingido todos os objetivos, a implementação de uma REST API abre diversas possibilidades de ampliação do sistema. Sendo possível a inserção de novos módulos e funcionalidades.
 
-A melhoria e finalização do aplicativo mobile é uma das propostas para melhoria, onde pode ser feita uma melhor integração com o SGA, ao invés do uso de perfis fictícios.
+A melhoria e finalização do aplicativo \textit{mobile} é uma das propostas para melhoria, onde pode ser feita uma melhor integração com o SGA após a liberação dos dados, ao invés do uso de perfis fictícios.
 
-Além disso, é 
+Além disso, é necessário uma nova forma de moderação dos comentários, pois existe as limitações descritas para os \textit{tokens} de aplicativo.
+
+Alguns dados que são recuperados pelo módulo API, são repassados para o cliente em forma de URL, sendo necessário a busca \textit{online} desse dado pelo cliente, o que pode acabar gerar um atraso da entrega da informação. Implementar uma nova forma de recuperação desses dados poderia diminuir o atraso. 

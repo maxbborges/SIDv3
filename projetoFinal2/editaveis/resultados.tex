@@ -5,7 +5,7 @@ A mudança da ideia do SID, mostra que ele passou por diversas reformulações d
 
 O presente trabalho apresenta a terceira versão do SID, com melhorias significantes como as apresentadas no capítulo \ref{cap:sid}, estando pronto para implantação de modo a servir de aparato ao campus no processo de veiculação de informações.
 
-O módulo administrador como desejado, ficou responsável por todo o processamento e gerenciamento das informações no banco de dados. A partir dele é possível inserir, listar, deletar e editar as informações que servirão para que módulo API forneça os dados conforme a estrutura de uma arquitetura REST permitindo que os outros módulos façam requisições a essa arquitetura.
+No módulo administrador, foi possível alcançar todos os objetivos desejados, ficando responsável por todo o processamento e gerenciamento das informações no banco de dados. A partir dele é possível inserir, listar, deletar e editar as informações que servirão para que módulo API forneça os dados conforme a estrutura de uma arquitetura REST permitindo que os outros módulos façam requisições a essa arquitetura.
 
 Além disso, foi implementado uma verificação de segurança no processo de login que não existia no SIDv2, onde qualquer usuário cadastrado poderia acessar a aplicação. Entretanto, algumas funcionalidades oferecidas pelo módulo só estão disponíveis se forem concedidas algumas permissões específicas. Portanto, o login no módulo só é realizado caso todas as permissões solicitadas sejam aceitas.
 
@@ -13,7 +13,7 @@ O módulo API foi implementado com duas funcionalidades distintas. A primeira é
 
 O módulo cliente do SID ficou estruturado e pronto para ser implantado e executado em diversos dispositivos, bastando o mesmo possuir um navegador de paginas \textit{WEB} e conexão constante a internet para que sejam realizadas as consultas HTTP. Essa facilidade é possível graças a implementação em arquitetura cliente-servidor, esse arquitetura foi proposta para que o módulo consumisse poucos recursos, permitindo o uso de dispositivos que dispõem de uma grande eficiência energética, como: \textit{Raspberry} PI, \textit{BoxTVs} ou até mesmo em sistemas integrados as próprias \textit{smartTvs}.
 
-No protótipo do aplicativo mobile, foi implementado a funcionalidade de consumo da REST API para exibição das divulgações e um sistema de comunicação interna entre professores e alunos, onde é necessário um login criado de maneira fictícia para simulação de um sistema acadêmico.
+No protótipo do aplicativo mobile, foi implementado a funcionalidade de consumo da REST API para exibição das divulgações e um sistema de comunicação interna entre professores e alunos, onde é necessário um login criado de maneira fictícia para simulação de um sistema acadêmico. O sistema encontra-se relativamente pronto, necessitando apenas da liberação dos dados do SGA para autenticação do sistema e a troca de algumas consultas feitas ao módulo API.
 
 Na busca de soluções que seguem a ideia de criação de publicação para apresentação em dispositivos externos com uso de dispositivos pequenos e com grande eficiência energética, foram encontradas diversas ferramentas com essa finalidade, todas elas usando o conceito de arquitetura cliente-servidor, as que apresentaram melhores funcionalidades foram a OOZO, a MangoSings, o SID versão 2, a Screenly e a XIBO.
 
@@ -65,4 +65,12 @@ A tabela \ref{tlb:comparacaoresultados} tem o intuito de fazer um comparativo en
 
 Portanto, a tabela mostra que o SIDv3 atende a todas os requisitos desejados para o sistema.
 
-\maxwell{FALAR SOBRE AS DIFICULDADES}
+Durante o desenvolvimento do sistema, foram enfrentados diversos problemas, entre eles estão a falta da documentação detalhada da versão anterior, problemas com a aprovação de permissões solicitadas para o Facebook, a limitação do \textit{token} de aplicativo e o não disponibilização da API do SGA.
+
+A falta de uma documentação detalhada do SIDv2 acabou influenciando no entendimento de como as classes, métodos e o banco de dados se interagiam um com os outros. Sendo necessário um maior tempo de pesquisa e entendimento do sistema, além de ter sido necessário a criação de uma documentação totalmente nova, não sendo possível o aproveitamento de nenhuma anterior.
+
+Com exceção da permissão ``email'' e ``\textit{public\underline{{ }}profile}'', todas as outras permissões necessitam passar pelo processo de análise do Facebook, sendo necessário o envio de um vídeo demostrando o uso da permissão. O processo de análise não foi concluído até a finalização deste documento, entretanto, o uso das permissões estão concedidas por tempo limitado.
+
+Os \textit{tokens} de aplicativo apresentam a limitação de não autorizar que sejam recuperados dados considerados privados pela rede social, como as curtidas de um comentário, que são usadas para moderação dos comentários que serão exibidos. Para contornar o problema, foi necessário o uso de um \textit{token} de usuário para realizar as requisições de solicitação de dados.
+
+Uma dos objetivos do aplicativo \textit{mobile}, é o uso de informações de alunos e professores presentes no SGA para efetivação da autenticação do usuário. Entretanto, o IFB não disponibilizou em tempo hábil a base de dados para que fosse possível a sua implementação. O problema foi contornado com o uso de uma base de dados fictícia, para posterior migração. 
