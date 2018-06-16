@@ -1,5 +1,135 @@
-# Comentários 13/06/2018
+# Comentários 16/06/2018
 
+## Capítulo 5
+Colocar a descrição do capítulo antes da visão geral.
+
+### 5.1 Visão Geral
+
+> O SID está estruturado em duas vertentes, o WEB e o mobile, ele foi desenvolvido
+com o objetivo de oferecer uma aplicação de divulgação que realiza integração com as
+redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para
+os usuários comuns, além de melhorar a efetividade do processo de disseminação das
+informações referentes ao Campus. Atendendo ao objetivo principal, que é divulgação de
+informações através de uma plataforma WEB e mobile.
+
+- Qual campus?
+
+> O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do
+projeto, a linguagem JavaScript para realização das requisições de trocas de informações
+entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas que serão
+apresentadas no sistema. Usa-se também o Banco de dados PostGreSQL, para armazena-
+mento das informações localmente e que os dados sejam persistentes.
+
+Creio que o PostgreSQL não está escrito corretamente.
+
+> Se utilizando dos conceito de UML abordados na Seção 3.7, é feito a representação
+dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe e seus
+casos de uso.
+
+- Diagramas de sequência também.
+## 5 Integração
+
+Aqui senti a falta de códigos e as figuras associadas a publicação e a requisição.
+
+É importante mostrar aqui como o seu sistema de fato está usando a graph API. Esta seção está fazendo o link entre os capítulos 4 e 5.
+
+### 5.5.2
+
+Coloque um exemplo de código para a publicação no Facebook e o resultado do Facebook e da página cliente.
+
+
+### 5.5.3 Requisição
+
+Colocar o código da API em que se recupera a foto e os comentários que possuem a curtida apenas do Administrador, para dizer que aquele comentário foi selecionado.
+
+Mostre uma foto com o resultado (incluindo o comentário selecionado) na página cliente.
+
+Nesta seção você deve explicar como é feita a seleção dos comentários.
+
+## 6 Resultados
+
+> A ideia anterior do SID seria um sistema inteligente de divulgação, entretanto, no
+presente trabalho a ideia foi alterada para um sistema integrado de divulgação. Isso se
+deu pelo fato de o sistema não possuir nenhum tipo de inteligência própria e sim realizar
+a integração entre redes sociais e usuário.
+
+Deixe claro que é so SIDv2, desenvolvido em (citar a referência).
+
+> A mudança da ideia do SID, mostra que ele passou por diversas reformulações de
+suas concepções iniciais. Em sua versão anterior, ele possuía integração bastante limitada,
+nenhum tipo de aplicativo mobile para melhor interação acadêmica e pouca interatividade
+do sistema com o usuário e vice-versa. Então, no presente trabalho foi implementado toda
+a integração com o Facebook, melhorado a interação com o usuário, além da criação de
+um protótipo mobile.
+
+Escreva: "O SID passou por diversas reformulações de suas concepções iniciais."
+
+> No módulo administrador, foi possível alcançar todos os objetivos desejados, fi-
+cando responsável por todo o processamento e gerenciamento das informações no banco
+de dados. A partir dele é possível inserir, listar, deletar e editar as informações que ser-
+virão para que módulo API forneça os dados conforme a estrutura de uma arquitetura
+REST permitindo que os outros módulos façam requisições a essa arquitetura.
+
+Permitindo que outras aplicações futuramente venham a consumir esta API.
+
+> O módulo API foi implementado com duas funcionalidades distintas. A primeira
+é obter os dados do armazenados no banco e realizar as chamadas a Graph para obter os
+dados dos comentários das publicações que serão exibidas e organizar esses dados para
+que sejam enviados. A outra, é realizar a comunicação entre o aplicativo e o banco de
+dados, para armazenar as mensagens que são trocadas entre professores e alunos.
+
+O submódulo API, parte do módulo administrador, foi implementado ...
+
+"A outra, é realizar..." retire isso, pois na verdade está separado da API do SID, apesar de você ter implementado como uma coisa só. O consumo será feito a uma API externa ao SID quando estiver integrada ao SGA.
+
+
+> No protótipo do aplicativo mobile, foi implementado a funcionalidade de consumo
+da REST API para exibição das divulgações e um sistema de comunicação interna entre
+professores e alunos, onde é necessário um login criado de maneira fictícia para simulação
+de um sistema acadêmico. O sistema encontra-se relativamente pronto, necessitando ape-
+nas da liberação dos dados do SGA para autenticação do sistema e a troca de algumas
+consultas feitas ao módulo API.
+
+foi implementado a funcionalidade de consumo de uma REST API fictícia, simulando o Sistema de Gestão Acadêmica do IFB, para exibição ...
+
+O sistema encontra-se relativamente pronto, necessitando ape-
+nas da liberação dos dados do SGA para autenticação do sistema e a adaptação das consultas feitas a esta API.
+
+> Na busca de soluções que seguem a ideia de criação de publicação para apresentação em dispositivos externos com uso de dispositivos pequenos e com grande eficiência
+energética, foram encontradas diversas ferramentas com essa finalidade, todas elas usando
+o conceito de arquitetura cliente-servidor, as que apresentaram melhores funcionalidades
+foram a OOZO, a MangoSings, o SID versão 2, a Screenly e a XIBO.
+
+Tire essa parte que menciona dispositivos pequenos e com grande eficiência energética. Mais uma vez, não estamos presos ao Raspberry Pi.
+
+> O processo de análise não foi concluído até a
+finalização deste documento, entretanto, o uso das permissões estão concedidas por tempo
+limitado.
+
+Troque entretanto por portanto.
+
+
+## Capítulo 7 - Considerações Finais
+
+> A melhoria e finalização do aplicativo mobile é uma das propostas para melhoria,
+onde pode ser feita uma melhor integração com o SGA após a liberação dos dados, ao
+invés do uso de perfis fictícios.
+
+Após a liberaçao da interface para acesso ao SGA.
+
+> Alguns dados que são recuperados pelo módulo API, são repassados para o cli-
+ente em forma de URL, sendo necessário a busca online desse dado pelo cliente, o que
+pode acabar gerar um atraso da entrega da informação. Implementar uma nova forma de
+recuperação desses dados poderia diminuir o atraso.
+
+Como a utilização de uma cache.
+
+
+
+Crie uma seção para as dificuldades encontradas.
+
+# Comentários 13/06/2018
+ 
 Observar os comentários 12/06/2018
 
 ## Capítulo 4 - Graph API
