@@ -20,7 +20,7 @@ Se utilizando dos conceito de UML abordados na Seção \ref{sec:uml}, é  feito 
 \section{Modulo Administrador}
 Com o uso da arquitetura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
 
-O modelo de casos de uso que representa o módulo é apresentado na figura \ref{fig:casosDeUsoADM}. Ele tem a finalidade de demostrar os principais processos que são executados pelo módulo administrador e cliente. 
+O modelo de casos de uso que representa o módulo é apresentado na figura \ref{fig:casosDeUsoADM}. Ele tem a finalidade de demostrar os principais processos que o administrador pode executar no módulo.
 
 \begin{figure}[H]
 \centering
@@ -29,7 +29,7 @@ O modelo de casos de uso que representa o módulo é apresentado na figura \ref{
 \label{fig:casosDeUsoADM}
 \end{figure}
 
-O acesso ao módulo é restrito, sendo necessário autenticação e para isso foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza explicada na Seção \ref{sec:autenticacao}. Optou-se por ele pela segurança sendo baseada em sistemas criptográficos e também por facilitar o fornecimento de alguns dados que são recuperados e necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na figura \ref{fig:sequencialogin}.
+O acesso ao módulo é restrito, sendo necessário autenticação e para esse fim foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza explicada na Seção \ref{sec:autenticacao}. Optou-se pelo uso dela, pois provê maior segurança, sendo baseada em sistemas criptográficos e também por facilitar o processo de recuperação de alguns dados básicos que são necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na figura \ref{fig:sequencialogin}.
 
 \begin{figure}[H]
 \centering
@@ -38,13 +38,11 @@ O acesso ao módulo é restrito, sendo necessário autenticação e para isso fo
 \label{fig:sequencialogin}
 \end{figure}
 
-Após a efetivação da autenticação, o usuário poderá ter acesso a todas as funcionalidades disponíveis no sistema, divididas entre as telas de ``inserir'' e ``Home''. A tela de inserir, é usada para criação de uma nova publicação, enquanto a tela Home oferece a opção de listar, detalhar, deletar e editar.
-
 A estruturação do banco de dados é composta por três tabelas, sendo mapeadas com as entidades ``config'', ``divulgacao'' e ``adm''. A função da tabela divulgação é armazenar todos os objetos relacionados as divulgações que serão exibidas no cliente e no aplicativo. A tabela adm é usada para armazenar as informações referentes aos administradores do sistema. A tabela config é destinada a armazenar informações únicas para efetivação da comunicação entre aplicativo e Graph API.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{figuras/entidaderelacionamento}
+\includegraphics[scale=1]{figuras/entidaderelacionamento}
 \caption{Modelo entidade e relacionamento}
 \label{fig:casosDeUso}
 \end{figure}
@@ -63,6 +61,8 @@ A figura \ref{fig:diagramaclasseADM}, mostra a representação e o relacionament
 \caption{Diagrama de sequência para inserção}
 \label{fig:sequenciainserir}
 \end{figure}
+
+Após a efetivação da autenticação, o usuário poderá ter acesso a todas as funcionalidades disponíveis no sistema, divididas entre as telas de ``inserir'' e ``Home''. A tela de inserir, é usada para criação de uma nova publicação, enquanto a tela Home oferece a opção de listar, detalhar, deletar e editar essa publicações que foram criadas.
 
 A figura \ref{fig:administrador1}, representa a visão do operador da tela de inserir, onde cada elemento da página é enumerado.
 
@@ -103,11 +103,45 @@ A página "Home" é responsável por listar todas as publicações criadas, a vi
 \end{figure}
 
 \subsection{Módulo API}
-\maxwell {EXPLICAR AS REQUISIÇOES}
+Fazendo parte do módulo administrador, esse módulo possui a finalidade de recuperar os dados das publicações realizadas pelo administrador no Facebook, estrutura-los de forma que atenda a arquitetura REST e realizar o controle de alguns dados. Isso é necessário para que o módulo cliente e o aplicativo possam realizar requisições de solicitação ou envio de dados.
 
-Fazendo parte do módulo administrador, esse módulo possui a finalidade de prover a estrutura da arquitetura REST. Isso é necessário para que o módulo cliente e o aplicativo possam realizar requisições de solicitação ou envio de dados.
+O controle de dados realizado pelo módulo API é necessário para que conteúdos como comentários inadequados não sejam exibidos. Para esse controle é efetuado uma varredura de todos os usuários que curtiram cada comentários da publicação, caso seja encontrado a curtida de um dos administrador cadastrados no banco de dados o comentário é aprovado para ser exibido.
 
-O diagrama de classe que representa esse módulo é descrito na figura \ref{fig:diagramaclasseAPI}.
+Além disso, as requisições para esse módulo devem seguir uma sintaxe de acordo com os dados desejados. Como mostra o exemplo \ref{lst:bd}, onde é requisitado as informações das publicações presentes no banco.
+
+\begin{lstlisting}[caption={Requisitando dados para divulgação},label={lst:bd}]
+	http://{IP DO SERVIDOR}:{PORTA}/bd
+\end{lstlisting}
+
+A resposta para a solicitação \ref{lst:bd} é uma estrutura de dados do tipo JSON contendo o conteúdo apresentado no exemplo \ref{lst:retornobd}. O uso de cada um dos itens será explicado na Seção \ref{sec:cliente}.
+
+\begin{lstlisting}[caption={Retorno da requisição \ref{lst:bd}},label={lst:retornobd}]
+	COLOCAR RETORNO
+\end{lstlisting}
+
+Este módulo tem a função de em conjunto com banco de dados, realizar a simulação de um sistema de gestão acadêmico, sendo possível consultar alguns dados através de requisições. Os dados que podem ser recuperados, variam de acordo com a sintaxe utilizada.
+
+É possível requisitar diversos dados distintos ou todos eles juntos. 
+No exemplo \ref{lst:todos} é feito a requisição de todos os dados armazenados, que retornará um JSON de diversas posições, onde cada posição representa um ??.
+\begin{lstlisting}[caption={Requisitar todos os dados},label={lst:todos}]
+	http://{IP DO SERVIDOR}/mobile
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Retorno da requisição \ref{lst:todos}},label={lst:retornotodos}]
+	Exemplo de retorno
+\end{lstlisting}
+
+A inclusão de um novo parâmetro na requisição \ref{lst:todos} torna a busca mais específica. Por exemplo, pode ser usado "/professores", "/alunos", "/turmas" ou "/mensagens", isso retornará um JSON contendo somente a lista com os dados solicitados. No exemplo \ref{lst:professores}, o retorno será uma lista com os dados de todos os professores cadastrados como mostra o exemplo \ref{lst:retornoprofessores}.
+
+\begin{lstlisting}[caption={Requisitar lista de dados especifica},label={lst:professores}]
+	http://{IP DO SERVIDOR}/mobile/professores/
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Retorno da requisição \ref{lst:bd}},label={lst:retornoprofessores}]
+	RETORNO
+\end{lstlisting}
+
+O diagrama de classe que representa esse módulo é descrito na figura \ref{fig:diagramaclasseAPI}. Cada uma das classes é usada para uma determinada requisição.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{figuras/diagramaclasseAPI}
@@ -116,6 +150,7 @@ O diagrama de classe que representa esse módulo é descrito na figura \ref{fig:
 \end{figure}
 
 \section{Módulo Cliente}
+\label{sec:cliente}
 O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. O seu caso de uso é apresentado na figura \ref{fig:casosDeUsoCliente}. A estrutura e organização do que será apresentado, está disposto na figura \ref{fig:cliente1} e o seu diagrama de classe é apresentado na figura \ref{fig:diagramaclasseCLIENTE}.
 
 \begin{figure}[H]
