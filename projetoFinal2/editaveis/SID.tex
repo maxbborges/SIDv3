@@ -5,20 +5,31 @@
 \section{Visão Geral} 
 O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao Campus. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
 
-Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em três módulos, o primeiro deles é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente, nesse segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O terceiro módulo é o \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos. 
+Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em dois módulos e um aplicativo, o primeiro deles é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente, nesse segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O aplicativo é um sistema \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos através do consumo de uma API fictícia que simula uma sistema de gestão acadêmica. 
 
-A divisão de módulos foi feita para que seja possível atender a arquitetura cliente-servidor, ela mostrou-se necessário para minimizar o processamento nos outros dois módulos, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos outros módulos exibir as informações recebidas e realizar pequenos processamentos.
+A divisão de módulos foi feita para que seja possível atender a arquitetura cliente-servidor, ela mostrou-se necessário para minimizar o processamento dos módulo cliente e do aplicativo que também é considerado um módulo cliente, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos clientes exibirem as informações recebidas e realizar pequenos processamentos.
 
-O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do projeto, a linguagem JavaScript para realização das requisições de trocas de informações entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas do sistema para os três módulos. Usa-se também o Banco de dados PostGreSQL, para armazenamento das informações localmente e que os dados sejam persistentes.
+O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do projeto, a linguagem JavaScript para realização das requisições de trocas de informações entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas que serão apresentadas no sistema. Usa-se também o Banco de dados PostGreSQL, para armazenamento das informações localmente e que os dados sejam persistentes.
 
 Baseado em desenvolvimento ágil, com metodologia SCRUM, foram definidos sprints semanais, comumente marcada as quartas feiras, para definição das funcionalidades a serem desenvolvidas ou melhoradas. Essa metodologia se torna importante para que o progresso seja acompanhado em cada parte do seu desenvolvimento.
 
-No desenvolvimento, foram usados alguns \textit{framework}, O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. Foi usado também o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do modulo mobile.  
+No desenvolvimento, foram usados alguns \textit{framework}, O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. Foi usado também o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do aplicativo mobile. 
+
+Se utilizando dos conceito de UML abordados na Seção \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe e seus casos de uso.
 
 \section{Modulo Administrador}
 Com o uso da arquitetura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
 
-O acesso ao módulo é restrito, sendo necessário autenticação e para isso foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza explicada na sessão \ref{sec:autenticacao}. Optou-se por ele pela segurança sendo baseada em sistemas criptográficos e também por facilitar o fornecimento de alguns dados que são recuperados e necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na figura \ref{fig:sequencialogin}.
+O modelo de casos de uso que representa o módulo é apresentado na figura \ref{fig:casosDeUsoADM}. Ele tem a finalidade de demostrar os principais processos que são executados pelo módulo administrador e cliente. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figuras/casosDeUsoADM}
+\caption{Casos de uso da ações do módulo administrador}
+\label{fig:casosDeUsoADM}
+\end{figure}
+
+O acesso ao módulo é restrito, sendo necessário autenticação e para isso foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza explicada na Seção \ref{sec:autenticacao}. Optou-se por ele pela segurança sendo baseada em sistemas criptográficos e também por facilitar o fornecimento de alguns dados que são recuperados e necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na figura \ref{fig:sequencialogin}.
 
 \begin{figure}[H]
 \centering
@@ -29,7 +40,31 @@ O acesso ao módulo é restrito, sendo necessário autenticação e para isso fo
 
 Após a efetivação da autenticação, o usuário poderá ter acesso a todas as funcionalidades disponíveis no sistema, divididas entre as telas de ``inserir'' e ``Home''. A tela de inserir, é usada para criação de uma nova publicação, enquanto a tela Home oferece a opção de listar, detalhar, deletar e editar.
 
-A figura \ref{fig:administrador1}, representa a visão do operador da tela de inserir. Os elementos presentes nela são listados abaixo, juntamente com suas funcionalidades: 
+A estruturação do banco de dados é composta por três tabelas, sendo mapeadas com as entidades ``config'', ``divulgacao'' e ``adm''. A função da tabela divulgação é armazenar todos os objetos relacionados as divulgações que serão exibidas no cliente e no aplicativo. A tabela adm é usada para armazenar as informações referentes aos administradores do sistema. A tabela config é destinada a armazenar informações únicas para efetivação da comunicação entre aplicativo e Graph API.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{figuras/entidaderelacionamento}
+\caption{Modelo entidade e relacionamento}
+\label{fig:casosDeUso}
+\end{figure}
+
+A figura \ref{fig:diagramaclasseADM}, mostra a representação e o relacionamento entre as classes disponíveis no módulo. No diagrama de sequência \ref{fig:diagramaclasseADM} é exposto a sequência de uso de cada uma delas. 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{figuras/diagramaclasseADM}
+\caption{Diagrama de classe do módulo administrador}
+\label{fig:diagramaclasseADM}
+\end{figure}
+
+ \begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{figuras/sequenciainserir}
+\caption{Diagrama de sequência para inserção}
+\label{fig:sequenciainserir}
+\end{figure}
+
+A figura \ref{fig:administrador1}, representa a visão do operador da tela de inserir, onde cada elemento da página é enumerado.
 
 \begin{figure}[H]
 \centering
@@ -37,6 +72,8 @@ A figura \ref{fig:administrador1}, representa a visão do operador da tela de in
 \caption{Página de inserção do módulo administrador.}
 \label{fig:administrador1}
 \end{figure}
+
+Os elementos presentes na tela de inserir são listados abaixo, juntamente com suas funcionalidades: 
 
 \begin{enumerate}
    \item Legenda: É um campo de texto destinado a informação a ser repassada de forma sucinta e clara ao usuário final por intermédio cliente ou mobile. 
@@ -56,17 +93,44 @@ Os outros campos não possuem limitação de caracteres, entretanto os campos 3,
 
 Os campos 3 e 4 são botões do tipo dropdown, sendo necessário selecionar um dos valores que aparecem em cada um dos campos. Os possíveis valores para o campo ``dia'' vão de 1 a 31, os valores do campo ``mês'' vão de 1 a 12, enquanto os valores do campo ``ano'' irão do ano atual a dois anos seguintes.
 
-A página "Home" é a que lista todas as publicações criadas, a visão do usuário será igual a apresentada na figura \ref{fig:administrador2}. As funcionalidade de cada elemento da página é descrito logo abaixo. Essa é a página inicial do sistema, nela é possível ter acesso a página de inserir, listar, detalhar e ao botão excluir.
+A página "Home" é responsável por listar todas as publicações criadas, a visão do usuário será a mesma que representada na figura \ref{fig:administrador2}. As funcionalidade de cada elemento da página é descrito logo abaixo. Essa é a página inicial do sistema, nela é possível ter acesso a página de inserir, listar, detalhar e ao botão excluir.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{figuras/administrador1}
+\includegraphics[scale=0.3]{figuras/administrador1}
 \caption{Página de listagem  do módulo administrador.}
 \label{fig:administrador2}
 \end{figure}
 
-\section{Modulo Cliente}
-O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. A estrutura e organização do que será apresentado, está disposto na figura \ref{fig:cliente1}.
+\subsection{Módulo API}
+\maxwell {EXPLICAR AS REQUISIÇOES}
+
+Fazendo parte do módulo administrador, esse módulo possui a finalidade de prover a estrutura da arquitetura REST. Isso é necessário para que o módulo cliente e o aplicativo possam realizar requisições de solicitação ou envio de dados.
+
+O diagrama de classe que representa esse módulo é descrito na figura \ref{fig:diagramaclasseAPI}.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{figuras/diagramaclasseAPI}
+\caption{Diagrama de classe do módulo API}
+\label{fig:diagramaclasseAPI}
+\end{figure}
+
+\section{Módulo Cliente}
+O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. O seu caso de uso é apresentado na figura \ref{fig:casosDeUsoCliente}. A estrutura e organização do que será apresentado, está disposto na figura \ref{fig:cliente1} e o seu diagrama de classe é apresentado na figura \ref{fig:diagramaclasseCLIENTE}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figuras/casosDeUsoCliente}
+\caption{Casos de uso da ações do módulo cliente}
+\label{fig:casosDeUsoCliente}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{figuras/diagramaclasseCLIENTE}
+\caption{Diagrama de classe do módulo cliente}
+\label{fig:diagramaclasseCLIENTE}
+\end{figure}
 
 Os elementos que compõe a página que será apresentada, são divididos em cinco itens, que estão descritos abaixo.
 
@@ -101,15 +165,30 @@ O conteúdo recuperado da variável 'bd', será apresentado nos itens 2 e 3, res
 
 O campo 5 irá apresentar 5 elementos recuperados na variável 'comentarios'. Esses elementos serão: a imagem de perfil, o nome, o comentário, a data e a hora da publicação do comentário pelo usuário. Antes da apresentação das informações de comentários, é escolhido um número randômico que representará a posição do array do comentário que será apresentado.
 
-\section{Modulo Mobile}
+\section{Aplicativo Mobile}
 O \textit{mobile} apresentará na tela inicial os mesmos dados que são apresentados no módulo cliente, com a inclusão da funcionalidade de troca de mensagens entre professores e alunos que possuam um login e senha cadastrados.
 
-O módulo terá três telas distintas que será a tela inicial, a tela do aluno e a tela do professor. Cada uma terá uma funcionalidade específica, onde a tela de professor e aluno serão restritas a usuários logados e a tela inicial será pública.
+Os casos de uso do aplicativo é demostrado na figura \ref{fig:casosdeusomobile}, enquanto o modelo entidade e relacionamento é apresentado na figura \ref{fig:entidaderelacionamentomobile}.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{figuras/CasosDeUsoMobile}
+\caption{Modelo entidade e relacionamento}
+\label{fig:casosdeusomobile}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{figuras/entidaderelacionamentomobile}
+\caption{Modelo entidade e relacionamento}
+\label{fig:entidaderelacionamentomobile}
+\end{figure}
+
+O aplicativo terá três telas distintas que será a tela inicial, a tela do aluno e a tela do professor. Cada uma terá uma funcionalidade específica, onde a tela de professor e aluno serão restritas a usuários logados e a tela inicial será pública.
 
 A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o nome do SID e o botão de login na parte superior e as publicações válidas, que foram requisitadas do servidor, no restante da tela.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.6]{figuras/mobile1}
+\includegraphics[scale=0.45]{figuras/mobile1}
 \caption{Página de inserção no módulo administrador.}
 \label{fig:mobile1}
 \end{figure}
@@ -127,55 +206,9 @@ Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, a
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{figuras/mobile1}
+\includegraphics[scale=0.5]{figuras/mobile1}
 \caption{Página do professor.}
 \label{fig:mobile3}
-\end{figure}
-
-\maxwell{FALAR SOBRE OS CAMPOS DA TELA DO PROFESSOR E SUAS LIMITAÇÕES}
-
-\section{Arquitetura}
-Se utilizando dos conceito de UML abordados na sessão \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe e seus casos de uso.
-
-O diagrama de casos de uso da figura \ref{fig:casosDeUso},  tem a finalidade de demostrar os principais processos que são executados pelo módulo administrador e cliente. 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.6]{figuras/casosDeUso}
-\caption{Casos de uso da ações dos módulos administrador e cliente}
-\label{fig:casosDeUso}
-\end{figure}
-
-Os diagramas de classe possuem a finalidade de demostrar a estrutura estática do sistema, apresentando cada classe e suas relações. As classes presentes em cada um dos módulos são apresentadas abaixo.
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.5]{figuras/diagramaclasseAPI}
-\caption{Diagrama de classe do módulo API}
-\label{fig:casosDeUso}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.6]{figuras/diagramaclasseADM}
-\caption{Diagrama de classe do módulo administrador}
-\label{fig:casosDeUso}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.6]{figuras/diagramaclasseCLIENTE}
-\caption{Diagrama de classe do módulo cliente}
-\label{fig:casosDeUso}
-\end{figure}
-
-\maxwell{explicar o que é a entidade e relacionamento}
-
-\maxwell {Dividir a imagem em simulação SGA e SID}
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.5]{figuras/entidaderelacionamento}
-\caption{Modelo entidade e relacionamento}
-\label{fig:casosDeUso}
 \end{figure}
 
 \section{Integração}

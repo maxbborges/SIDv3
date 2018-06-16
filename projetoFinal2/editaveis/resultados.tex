@@ -1,17 +1,17 @@
 \chapter[Resultados]{Resultados}
 A ideia anterior do SID seria um sistema inteligente de divulgação, entretanto, no presente trabalho a ideia foi alterada para um sistema integrado de divulgação. Isso se deu pelo fato de o sistema não possuir nenhum tipo de inteligência própria e sim realizar a integração entre redes sociais e usuário.
 
-A mudança da ideia do SID, revela que ele passou por diversas reformulações de suas concepções iniciais. Em sua versão anterior, ele possuía integração limitada e pouca interatividade do sistema com o usuário e vice-versa. Então, no presente trabalho foi implementado toda a interação com o usuário, além da criação de um protótipo \textit{mobile}.
+A mudança da ideia do SID, mostra que ele passou por diversas reformulações de suas concepções iniciais. Em sua versão anterior, ele possuía integração bastante limitada, nenhum tipo de aplicativo mobile para melhor interação acadêmica e pouca interatividade do sistema com o usuário e vice-versa. Então, no presente trabalho foi implementado toda a integração com o Facebook, melhorado a interação com o usuário, além da criação de um protótipo \textit{mobile}.
 
-O presente trabalho apresenta a terceira versão do SID, com melhorias significantes apresentadas no capítulo \ref{cap:sid}, estando pronto para implantação de modo a servir de aparato ao campus no processo de veiculação de informações.
+O presente trabalho apresenta a terceira versão do SID, com melhorias significantes como as apresentadas no capítulo \ref{cap:sid}, estando pronto para implantação de modo a servir de aparato ao campus no processo de veiculação de informações.
 
-\maxwell{COLOCAR MAIS TEXTO}
+O módulo administrador como desejado, ficou responsável por todo o processamento e gerenciamento das informações no banco de dados. A partir dele é possível inserir, listar, deletar e editar as informações que servirão para que módulo API forneça os dados conforme a estrutura de uma arquitetura REST permitindo que os outros módulos façam requisições a essa arquitetura.
 
-\maxwell{FALAR SOBRE MODULO ADMINISTRADOR}
+O módulo API foi implementado com duas funcionalidades distintas. A primeira é obter os dados do armazenados no banco e realizar as chamadas a Graph para obter os dados dos comentários das publicações que serão exibidas e organizar esses dados para que sejam enviados. A outra, é realizar a comunicação entre o aplicativo e o banco de dados, para armazenar as mensagens que são trocadas entre professores e alunos.
 
-O módulo cliente do SID pode ser implementado em diversos dispositivos, bastando o mesmo possuir um navegador de paginas \textit{WEB} e conexão constante a internet para que seja realizado as consultas HTTP. Essa facilidade é possível graças a implementação em modelo cliente-servidor, esse modelo foi proposto para que o módulo consumisse poucos recursos, permitindo o uso de dispositivos que dispõem de uma grande eficiência energética, como: \textit{Raspberry} PI, \textit{BoxTVs} ou até mesmo em sistemas integrados as próprias \textit{smartTvs}.
+O módulo cliente do SID ficou estruturado e pronto para ser implantado e executado em diversos dispositivos, bastando o mesmo possuir um navegador de paginas \textit{WEB} e conexão constante a internet para que sejam realizadas as consultas HTTP. Essa facilidade é possível graças a implementação em arquitetura cliente-servidor, esse arquitetura foi proposta para que o módulo consumisse poucos recursos, permitindo o uso de dispositivos que dispõem de uma grande eficiência energética, como: \textit{Raspberry} PI, \textit{BoxTVs} ou até mesmo em sistemas integrados as próprias \textit{smartTvs}.
 
-\maxwell{FALAR SOBRE MODULO MOBILE}
+No protótipo do aplicativo mobile, foi implementado a funcionalidade de consumo da REST API para exibição das divulgações e um sistema de comunicação interna entre professores e alunos, onde é necessário um login criado de maneira fictícia para simulação de um sistema acadêmico.
 
 Na busca de soluções que seguem a ideia de criação de publicação para apresentação em dispositivos externos com uso de dispositivos pequenos e com grande eficiência energética, foram encontradas diversas ferramentas com essa finalidade, todas elas usando o conceito de arquitetura cliente-servidor, as que apresentaram melhores funcionalidades foram a OOZO, a MangoSings, o SID versão 2, a Screenly e a XIBO.
 
@@ -21,41 +21,46 @@ A MangoSings, apresentado na sessão \ref{sec:mango}, é um sistema pago que pos
 
 O SID versão 2, apresentado na sessão \ref{sec:sid}, é um sistema gratuito, que possui acesso somente \textit{WEB}, aceso a publicação via QRCode e integração as redes sociais. Nele é possível apenas realizar publicação da página de perfil do usuário, não sendo possível recuperar nenhum dado.
 
-\maxwell{falar sobre o Screenly e o XIBO} 
+O Screenly, além de usar um aplicativo proprietário, necessitando de um \textit{raspberry}, ele não possui aplicativo \textit{mobile} e nenhuma forma de integração com as redes sociais.
 
-Comparando cada uma das ferramentas encontradas com o novo SID é possível notar diversas funcionalidades que não estão presentes, são limitadas ou não são gratuitas, portanto diversos pontos que são considerados como essenciais no novo SID as ferramentas apresentadas não suportam.
+Já o Xibo, apesar de ser uma ferramenta gratuita, não possui aplicativo mobile e nenhuma integração com as redes sociais. 
 
-Entre esses pontos, está a visualização das publicações por meio de um dispositivo móvel, onde com exceção do MangoSings, nenhum dos sistemas outros oferecem um aplicativo para \textit{smartphones}, necessitando de um dispositivo que possua um navegador WEB para acesso.
+Comparando cada uma das ferramentas encontradas com o SIDv3 é possível notar diversas funcionalidades que não estão presentes, são limitadas ou não são gratuitas, portanto diversos pontos que são considerados como essenciais e foram implementados no SIDv3, as ferramentas apresentadas não suportam.
 
-Outro ponto é o de integração com as redes sociais, nenhum das solução analisadas realizam uma integração tão completa quanto ao do SID, sendo possível criar novas publicações, recuperar comentários, curtidas e fotos de perfil, além do filtro de comentários.
+Entre esses pontos, está a visualização das publicações por meio de um aplicativo móvel, onde com exceção do MangoSings, nenhum dos sistemas ofereciam um aplicativo para \textit{smartphones}, necessitando de um dispositivo que possuísse um navegador WEB para acesso.
 
-\maxwell{Falar mais sobre o SID}
+Outro ponto é o de integração com as redes sociais, nenhum das solução analisadas realizavam uma integração tão completa quanto ao do SIDv3, como a possibilidade de criação de novas publicações, recupeção de comentários, curtidas e fotos de perfil, além do filtro de comentários a serem exibidos. 
 
-A Tabela 3 tem o intuito de fazer um comparativo entre os sistemas apresentados, agora com inclusão do SID em sua terceira versão, comparando algumas das funcionalidades consideradas importantes para sistemas que trabalham com a implantação de sinalização digital e \textit{maketing} digital, na qual seus elementos comparativos são descritos a seguir:
-\begin{enumerate}[label=(\Roman*)]
+Além disso, nenhum deles possuía um aplicativo que realiza a integração com um sistema acadêmico, para integração entre professores e alunos.
+
+A tabela \ref{tlb:comparacaoresultados} tem o intuito de fazer um comparativo entre os sistemas apresentados, agora com inclusão do SID em sua terceira versão, comparando algumas das funcionalidades consideradas importantes para sistemas que trabalham com a implantação de sinalização digital e \textit{maketing} digital, na qual seus elementos comparativos são descritos a seguir:
+
+\begin{enumerate}[label=\Roman*)]
+\label{tlb:comparacaoresultados}
 	\item Comprometimento com o propósito: o sistema em questão possibilita a veiculação de informações através de mecanismos de sinalização digital?
 	\item Criação simples de divulgações: o operador possui facilidade de incluir novas divulgações com aspecto atrativo?
-	\item Portabilidade: é possível visualizar a divulgação em diferentes dispositivos?
-	\item Integração com redes sociais: o sistema integra-se nativamente de alguma forma com redes sociais, mesmo que de forma limitada?
-	\item O conteúdo pode ser gerenciado em um dispositivo diferente ao que é criado, fortalecendo a descentralização e manutenção?
+	\item Portabilidade \textit{mobile}: o módulo cliente está disponível para a plataforma \textit{mobile} em forma de aplicativo?
+	\item Integração com redes sociais: o sistema realiza integração completa com as redes sociais, oferecendo recuperação e envio de dados.
 	\item A versão gratuita explora toda a capacidade do programa?
-	\item Usa um sistema/dispositivo de fácil obtenção (Aplicativo próprio ou de uso comum)?
+	\item É possível criar uma nova publicação e envia-la para as redes sociais?
 \end{enumerate}
 
 \begin{table}[h!]
 	\caption{Comparativo}
+	\label {tlb:comparativo2}
 	\centering
-	\begin{tabular}{|c|c|c|c|c|c|c}
+	\begin{tabular}{|c|c|c|c|c|c|c|}
 		\hline
-		Quesito/Sistema & OOZO & MangoSigns & SID v2 & Screenly & XIBO & SID v3 \\ \hline
-		I 				& SIM  & SIM		& SIM & SIM 	 & SIM	& \\ \hline
-		II 				& SIM  & SIM 		& SIM & SIM 	 & SIM	 &\\ \hline
-		III				& NÃO  & SIM 		& NÃO & NÃO 	 & NÃO	&\\ \hline
-		IV 				& SIM  & NÃO 		& SIM & NÃO 	 & NÃO	&\\ \hline
-		V 				& SIM  & SIM 		& SIM & SIM 	 & SIM	&\\ \hline
-		VI 				& NÃO  & NÃO 		& SIM & NÃO 	 & SIM	&\\ \hline
-		VII 			& SIM  & SIM 		& SIM & SIM 	 & SIM	&\\ \hline
+		Quesito/Sistema & OOZO & MangoSigns & SID v2 & Screenly & XIBO & SIDv3 \\ \hline
+		I 				& SIM  & SIM		& SIM & SIM 	 & SIM	& SIM \\ \hline
+		II 				& SIM  & SIM 		& SIM & SIM 	 & SIM		& SIM \\ \hline
+		III				& NÃO  & SIM 		& NÃO & NÃO 	 & NÃO		& SIM \\ \hline
+		IV 				& NÃO  & NÃO 		& NÃO & NÃO 	 & NÃO		& SIM \\ \hline
+		V 				& NÃO  & NÃO 		& SIM & NÃO 	 & SIM		& SIM \\ \hline
+		VI 				& NÃO  & NÃO 		& SIM & NÃO 	 & NÃO		& SIM \\ \hline
 	\end{tabular}
 \end{table}
+
+Portanto, a tabela mostra que o SIDv3 atende a todas os requisitos desejados para o sistema.
 
 \maxwell{FALAR SOBRE AS DIFICULDADES}
