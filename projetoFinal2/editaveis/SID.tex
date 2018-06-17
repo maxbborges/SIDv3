@@ -1,26 +1,28 @@
 \chapter[SID]{SID}
 \label{cap:sid}
-\maxwell {Escrever sobre o SID}
+O Sistema Integrado de Divulgação de informações do IFB Campus Taguatinga - SID, tem como principal objetivo fornecer informações através de sinalização em sua forma digital, oferecendo de forma fácil o gerenciamento dessas informações que serão repassadas. 
+
+Nesta seção, será feito o detalhamento do SID, primeiramente apresentando os detalhes de forma superficial, macroscópica. Posteriormente é apresentado de maneira microscópica, apresentando cada detalhe de como e onde são realizadas as demandas de cada elemento presente no sistema. 
 
 \section{Visão Geral} 
-O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao IFB campus Taguatinga. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
+O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer um sistema de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao IFB campus Taguatinga. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
 
-Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em dois módulos e um aplicativo, o primeiro deles é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente, nesse segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O aplicativo é um sistema \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos através do consumo de uma API fictícia que simula uma sistema de gestão acadêmica. 
+Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em dois módulos e um aplicativo, o primeiro módulo é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente. Neste segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O aplicativo é um sistema \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos através do consumo de uma API fictícia que simula a interface a ser oferecida pelo Sistema de Gestão Acadêmica do IFB (SGA).
 
-A divisão de módulos foi feita para que seja possível atender a arquitetura cliente-servidor, ela mostrou-se necessário para minimizar o processamento dos módulo cliente e do aplicativo que também é considerado um módulo cliente, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos clientes exibirem as informações recebidas e realizar pequenos processamentos.
+A divisão de módulos foi feita para que seja possível atender a arquitetura cliente-servidor, ela mostrou-se necessária para minimizar o processamento do módulo cliente e do aplicativo que se utiliza do módulo cliente, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos clientes exibirem as informações recebidas e realizar pequenos processamentos.
 
 O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do projeto, a linguagem JavaScript para realização das requisições de trocas de informações entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas que serão apresentadas no sistema. Usa-se também o Banco de dados PostgreSQL, para armazenamento das informações localmente e que os dados sejam persistentes.
 
-Baseado em desenvolvimento ágil, com metodologia SCRUM, foram definidos sprints semanais, comumente marcada as quartas feiras, para definição das funcionalidades a serem desenvolvidas ou melhoradas. Essa metodologia se torna importante para que o progresso seja acompanhado em cada parte do seu desenvolvimento.
+Baseado em desenvolvimento ágil, com metodologia SCRUM, foram definidos sprints semanais, para definição das funcionalidades a serem desenvolvidas ou melhoradas. Esta metodologia se torna importante para que o progresso seja acompanhado em cada parte do seu desenvolvimento.
 
-No desenvolvimento, foram usados alguns \textit{framework}, O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. Foi usado também o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do aplicativo mobile. 
+No desenvolvimento, foram usados alguns \textit{frameworks}, O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. Foi usado também o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do aplicativo mobile. 
 
 Se utilizando dos conceito de UML abordados na Seção \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe, de sequência e seus casos de uso.
 
 \section{Modulo Administrador}
 Com o uso da arquitetura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
 
-O modelo de casos de uso que representa o módulo é apresentado na figura \ref{fig:casosDeUsoADM}. Ele tem a finalidade de demostrar os principais processos que o administrador pode executar no módulo.
+O modelo de casos de uso que representa o módulo é apresentado na Figura \ref{fig:casosDeUsoADM}. Ele tem a finalidade de demostrar os principais processos que o administrador pode executar no módulo.
 
 \begin{figure}[H]
 \centering
@@ -29,7 +31,7 @@ O modelo de casos de uso que representa o módulo é apresentado na figura \ref{
 \label{fig:casosDeUsoADM}
 \end{figure}
 
-O acesso ao módulo é restrito, sendo necessário autenticação e para esse fim foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza explicada na Seção \ref{sec:autenticacao}. Optou-se pelo uso dela, pois provê maior segurança, sendo baseada em sistemas criptográficos e também por facilitar o processo de recuperação de alguns dados básicos que são necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na figura \ref{fig:sequencialogin}.
+O acesso ao módulo é restrito, sendo necessário autenticação e para esse fim foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza explicada na Seção \ref{sec:autenticacao}. Optou-se pelo uso dela, pois provê maior segurança, sendo baseada em sistemas criptográficos e também por facilitar o processo de recuperação de alguns dados básicos que são necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na Figura \ref{fig:sequencialogin}.
 
 \begin{figure}[H]
 \centering
@@ -47,7 +49,7 @@ A estruturação do banco de dados é composta por três tabelas, sendo mapeadas
 \label{fig:casosDeUso}
 \end{figure}
 
-A figura \ref{fig:diagramaclasseADM}, mostra a representação e o relacionamento entre as classes disponíveis no módulo. No diagrama de sequência \ref{fig:diagramaclasseADM} é exposto a sequência de uso de cada uma delas. 
+A Figura \ref{fig:diagramaclasseADM}, mostra a representação e o relacionamento entre as classes disponíveis no módulo. No diagrama de sequência \ref{fig:sequenciainserir} é exposto a sequência de uso das classes ao inserir uma nova publicação no sistema. 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{figuras/diagramaclasseADM}
@@ -64,7 +66,7 @@ A figura \ref{fig:diagramaclasseADM}, mostra a representação e o relacionament
 
 Após a efetivação da autenticação, o usuário poderá ter acesso a todas as funcionalidades disponíveis no sistema, divididas entre as telas de ``inserir'' e ``Home''. A tela de inserir, é usada para criação de uma nova publicação, enquanto a tela Home oferece a opção de listar, detalhar, deletar e editar essa publicações que foram criadas.
 
-A figura \ref{fig:administrador1}, representa a visão do operador da tela de inserir, onde cada elemento da página é enumerado.
+A Figura \ref{fig:administrador1}, representa a visão do operador da tela de inserção, onde cada elemento da página está enumerado.
 
 \begin{figure}[H]
 \centering
@@ -93,7 +95,7 @@ Os outros campos não possuem limitação de caracteres, entretanto os campos 3,
 
 Os campos 3 e 4 são botões do tipo dropdown, sendo necessário selecionar um dos valores que aparecem em cada um dos campos. Os possíveis valores para o campo ``dia'' vão de 1 a 31, os valores do campo ``mês'' vão de 1 a 12, enquanto os valores do campo ``ano'' irão do ano atual a dois anos seguintes.
 
-A página "Home" é responsável por listar todas as publicações criadas, a visão do usuário será a mesma que representada na figura \ref{fig:administrador2}. As funcionalidade de cada elemento da página é descrito logo abaixo. Essa é a página inicial do sistema, nela é possível ter acesso a página de inserir, listar, detalhar e ao botão excluir.
+A página ``Home'' é responsável por listar todas as publicações criadas, a visão do usuário será a mesma que representada na Figura \ref{fig:administrador2}. As funcionalidades de cada elemento da página são descritas logo abaixo. Essa é a página inicial do sistema, nela é possível ter acesso a página de inserção, listagem, detalhamento e ao botão excluir.
 
 \begin{figure}[H]
 \centering
@@ -103,25 +105,25 @@ A página "Home" é responsável por listar todas as publicações criadas, a vi
 \end{figure}
 
 \begin{enumerate}
-   \item Home: 
-   \item Inserir: 
-   \item Detalhes: 
-   \item Editar: 
-   \item Excluir: 
+   \item Home: Botão para acesso a página inicial, onde são listadas todas as publicações criadas.
+   \item Inserir: Botão para acesso a página de inserção.
+   \item Detalhes: Ao clicar sobre a foto é possível obter dados específicos da publicação selecionada, tais como: Legenda, ID do autor, link de acesso a publicação, data de início, data de término, ID da publicação.
+   \item Editar: Ao clicar no botão editar, será apresentado uma nova página edição dos dados específicos da publicação selecionada.
+   \item Excluir: Exclui a publicação selecionada.
  \end{enumerate}
 
 \subsection{Módulo API}
-Fazendo parte do módulo administrador, esse módulo possui a finalidade de recuperar os dados das publicações realizadas pelo administrador no Facebook, estrutura-los de forma que atenda a arquitetura REST e realizar o controle de alguns dados. Isso é necessário para que o módulo cliente e o aplicativo possam realizar requisições de solicitação ou envio de dados.
+Fazendo parte do módulo administrador, esse módulo possui a finalidade de recuperar os dados das publicações realizadas pelo administrador no Facebook, estruturá-los de forma que atenda a arquitetura REST e realizar o controle de alguns dados. Isso é necessário para que o módulo cliente e o aplicativo possam realizar requisições de solicitação ou envio de dados.
 
 O controle de dados realizado pelo módulo API é necessário para que conteúdos como comentários inadequados não sejam exibidos. Para esse controle é efetuado uma varredura de todos os usuários que curtiram cada comentários da publicação, caso seja encontrado a curtida de um dos administrador cadastrados no banco de dados o comentário é aprovado para ser exibido.
 
-Além disso, as requisições para esse módulo devem seguir uma sintaxe de acordo com os dados desejados. Como mostra o exemplo \ref{lst:bd}, onde é requisitado as informações das publicações presentes no banco.
+Além disso, as requisições para esse módulo devem seguir uma sintaxe de acordo com os dados desejados. Como mostra a Listagem \ref{lst:bd}, onde é requisitado as informações das publicações presentes no banco.
 
 \begin{lstlisting}[caption={Requisitando dados para divulgação},label={lst:bd}]
 	http://{IP DO SERVIDOR}:{PORTA}/bd
 \end{lstlisting}
 
-A resposta para a solicitação \ref{lst:bd} é uma estrutura de dados do tipo JSON contendo o conteúdo apresentado no exemplo \ref{lst:retornobd}. O uso de cada um dos itens será explicado na Seção \ref{sec:cliente}.
+A resposta para a solicitação da Listagem \ref{lst:bd} é um arquivo do tipo JSON contendo o conteúdo apresentado no Listagem \ref{lst:retornobd}. O uso de cada um dos itens será explicado na Seção \ref{sec:cliente}.
 
 \begin{lstlisting}[caption={Retorno da requisição \ref{lst:bd}},label={lst:retornobd}]
 {
@@ -164,9 +166,9 @@ A resposta para a solicitação \ref{lst:bd} é uma estrutura de dados do tipo J
 }
 \end{lstlisting}
 
-A 'bd', contém uma \textit{array} de duas posições, contendo 2 \textit{string}, sendo elas o legenda e link, esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A 'comentarios' é um array de \textit{string} que pode possuir zero ou mais itens, cada item representa um comentário na publicação, onde cada item possui a data da criação, quem fez, a mensagem, a foto e o id do comentário. Já a 'imagem' é uma \textit{string} de é um arquivo codificado em base64, que será descodificado pelo módulo.
+A propriedade `bd', contém uma \textit{array} de duas posições, contendo 2 \textit{strings}, sendo elas legenda e link, esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A propriedade `comentarios' é um array de \textit{strings} que pode possuir zero ou mais itens. Cada item representa um comentário da publicação, cada qual contendo data de criação, autor, foto e identificador do comentário. Já a 'imagem' é uma \textit{string} que representa uma imagem codificada em base64. a ser decodificada pelo módulo cliente.
 
-Este módulo tem a função de em conjunto com banco de dados, realizar a simulação de um sistema de gestão acadêmico, sendo possível consultar alguns dados através de requisições. Os dados que podem ser recuperados, variam de acordo com a sintaxe utilizada.
+O módulo API tem a função de, em conjunto com o banco de dados, realizar a simulação de um sistema de gestão acadêmico, sendo possível consultar alguns dados através de requisições. Os dados que podem ser recuperados, variam de acordo com a sintaxe utilizada.
 
 É possível requisitar diversos dados distintos ou todos eles juntos. 
 No exemplo \ref{lst:todos} é feito a requisição de todos os dados armazenados, que retornará um JSON de diversas posições, onde cada posição representa um mensagem enviada por um professor.
@@ -191,7 +193,7 @@ No exemplo \ref{lst:todos} é feito a requisição de todos os dados armazenados
 	]
 \end{lstlisting}
 
-A inclusão de um novo parâmetro na requisição \ref{lst:todos} torna a busca mais específica. Por exemplo, pode ser usado "/professores/", "/alunos/", "/turmas/" ou "/mensagens/", isso retornará um JSON contendo uma lista somente com os dados solicitados. No exemplo \ref{lst:professores}, o retorno será uma lista com os dados de todos os professores cadastrados como mostra o exemplo \ref{lst:retornoprofessores}.
+A inclusão de um novo parâmetro na requisição da Listagem \ref{lst:todos} torna a busca mais específica. Por exemplo, pode ser usado "/professores/", "/alunos/", "/turmas/" ou "/mensagens/", isso retornará um JSON contendo uma lista somente com os dados solicitados. No exemplo \ref{lst:professores}, o retorno será uma lista com os dados de todos os professores cadastrados como mostra o exemplo \ref{lst:retornoprofessores}.
 
 \begin{lstlisting}[caption={Requisitar lista de dados especifica},label={lst:professores}]
 	http://{IP DO SERVIDOR}/mobile/professores/
@@ -210,7 +212,7 @@ A inclusão de um novo parâmetro na requisição \ref{lst:todos} torna a busca 
 	]
 \end{lstlisting}
 
-O diagrama de classe que representa esse módulo é descrito na figura \ref{fig:diagramaclasseAPI}. Cada uma das classes é usada para uma determinada requisição.
+O diagrama de classe que representa esse módulo é descrito na Figura \ref{fig:diagramaclasseAPI}. Cada uma das classes é usada para uma determinada requisição.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{figuras/diagramaclasseAPI}
@@ -220,7 +222,7 @@ O diagrama de classe que representa esse módulo é descrito na figura \ref{fig:
 
 \section{Módulo Cliente}
 \label{sec:cliente}
-O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. O seu caso de uso é apresentado na figura \ref{fig:casosDeUsoCliente}. A estrutura e organização do que será apresentado, está disposto na figura \ref{fig:cliente1} e o seu diagrama de classe é apresentado na figura \ref{fig:diagramaclasseCLIENTE}.
+O modulo cliente tem a função de apresentar as divulgações de maneira atrativa, intuitiva e dinâmica para o usuário. O seu caso de uso é apresentado na Figura \ref{fig:casosDeUsoCliente}. A estrutura e organização do que será apresentado, está disposto na Figura \ref{fig:cliente1} e o seu diagrama de classe é apresentado na Figura \ref{fig:diagramaclasseCLIENTE}.
 
 \begin{figure}[H]
 \centering
@@ -264,7 +266,7 @@ Desenvolvido com auxílio dos \textit{Frameworks} Cordova, Framework7 e Dom. O a
 
 As funcionalidades adicionais do aplicativo, é disponibilizar uma melhor forma de comunicação entre professores e alunos, necessitando apenas a autenticação. Para autenticação é necessário que o aluno ou o professor tenha uma matricula e senha cadastradas no banco.
 
-Os casos de uso do aplicativo é demostrado na figura \ref{fig:casosdeusomobile}, enquanto o modelo entidade e relacionamento é apresentado na figura \ref{fig:entidaderelacionamentomobile}.
+Os casos de uso do aplicativo são demostrado na Figura \ref{fig:casosdeusomobile}, enquanto o modelo entidade e relacionamento é apresentado na Figura \ref{fig:entidaderelacionamentomobile}.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{figuras/CasosDeUsoMobile}
@@ -285,7 +287,7 @@ O aplicativo contará com três telas distintas que será a tela inicial, a tela
 	http://{IP DO SERVIDOR}/menssagens/
 \end{lstlisting}
 
-A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o nome do SID e o botão de login na parte superior e as informações das publicações válidas, que foram requisitadas do módulo API, no restante da tela.
+A tela inicial será apresentada como na Figura \ref{fig:mobile1}, exibindo o nome do SID e o botão de login na parte superior e as informações das publicações válidas, que foram requisitadas do módulo API, no restante da tela.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{figuras/mobile1}
@@ -297,7 +299,7 @@ A tela inicial será apresentada como na figura \ref{fig:mobile1}, exibindo o no
 
 O botão de login é necessário para que alunos e professores efetuem a autenticação e possam acessar as páginas restritas destinadas a cada um.
 
-A tela do aluno será apresentada como na figura \ref{fig:mobile2}, após o login, será apresentado ao aluno todas as mensagens que o aluno possui em ordem cronológica da mais nova para a mais antiga. Os campos apresentados são o de professor, turma e mensagem separando cada item por blocos.
+A tela do aluno será apresentada como na Figura \ref{fig:mobile2}, após o login, será apresentado ao aluno todas as mensagens que o aluno possui em ordem cronológica da mais nova para a mais antiga. Os campos apresentados são o de professor, turma e mensagem separando cada item por blocos.
 
 \begin{figure}[H]
 \centering
@@ -306,7 +308,7 @@ A tela do aluno será apresentada como na figura \ref{fig:mobile2}, após o logi
 \label{fig:mobile2}
 \end{figure}
 
-Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, após o login, será apresentado ao professor a matricula dele, a lista de turmas que ele leciona e uma caixa de texto que o professor usará para digitar a mensagem.
+Já a tela do professor será apresentada conforme a Figura \ref{fig:mobile3}, após o login, será apresentado ao professor a matricula dele, a lista de turmas que ele leciona e uma caixa de texto que o professor usará para digitar a mensagem.
 
 \begin{figure}[H]
 \centering
@@ -318,14 +320,18 @@ Já a tela do professor será apresentada conforme a figura \ref{fig:mobile3}, a
 Todos os campos são de preenchimento obrigatório e caso algum erro ocorra no processo de envio, o sistema apresentará um notificação para o professor com o erro ocorrido.
 
 \section{Integração}
+A integração entre o sistema e o Facebook se dá com o uso da Graph API. Ferramenta disponibilizada pela rede social para que feita a integração de sistemas externos a rede social Facebook.
+
+Com o uso dela, pode-se recuperar os mais diversos dados de acordo com as permissões que são concedidas.
+
 \subsection{\textit{login}, \textit{token} de acesso e permissões}
 Para autenticação e efetivação de todas as requisições feitas pelo módulo administrador para o Facebook é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de ``\textit{login} do Facebook''  que é disponibilizada pela rede social.
 
-A ferramenta de ``\textit{login} do Facebook'' que é disponibilizada pela rede social, oferece um botão que pode ser colocado na página, esse botão tem a finalidade de iniciar o processo de login. Após ser clicado é efetuado o processo de login conforme segue padrão estabelecido, solicitando as credenciais cadastradas na rede social, com isso é feito a requisição com as permissões necessárias conforme exemplo \ref{lst:solicitacaologin}.
+A ferramenta de ``\textit{login} do Facebook'' que é disponibilizada pela rede social, oferece um botão que pode ser colocado na página, esse botão tem a finalidade de iniciar o processo de login. Após ser clicado é efetuado o processo de login conforme segue padrão estabelecido, solicitando as credenciais cadastradas na rede social, com isso é feito a requisição com as permissões necessárias conforme Listagem \ref{lst:solicitacaologin}.
 
-No processo de \textit{login} são solicitados as permissões necessárias para que o sistema funcione, essas permissões são a “email”, “manage\underline{{ }}pages” e “publish\underline{{ }}pages”, sendo obrigatório o acete para acesso ao sistema. Usadas respectivamente para que seja possível a identificação do usuário do SID, para recuperar as permissões de acesso a página e a última para permitir que aplicativos publiquem na página \cite{facebook2018a}.
+No processo de \textit{login} são solicitados as permissões necessárias para que o sistema funcione, essas permissões são a “email”, “manage\underline{{ }}pages” e “publish\underline{{ }}pages”, sendo obrigatório o aceite para acesso ao sistema. Usadas respectivamente para que seja possível a identificação do usuário do SID, para recuperar as permissões de acesso a página e a última para permitir que aplicativos publiquem na página \cite{facebook2018a}.
 
-Após a efetivação do login o sistema realiza a requisição do exemplo \ref{lst:permissoesaceitas} para verificar as permissões que o usuário concedeu, onde o retorno será um JSON contendo todas as permissões concedidas.
+Após a efetivação do login o sistema realiza a requisição da Listagem \ref{lst:permissoesaceitas} para verificar as permissões que o usuário concedeu, onde o retorno será um JSON contendo todas as permissões concedidas.
 
 \begin{lstlisting}[caption={Permissões concedidas},label={lst:permissoesaceitas}]
   	$response = $fb->get(
@@ -336,9 +342,9 @@ Após a efetivação do login o sistema realiza a requisição do exemplo \ref{l
 	$graphNode = $response->getGraphNode();
 \end{lstlisting}
 
-Então o sistema compara as permissões aceitas com as permissões necessárias e caso alguma não esteja permitida, o acesso é negado, retornando para a página de login e apresentado a mensagem de erro para o usuário.
+Então o sistema compara as permissões aceitas com as permissões necessárias e caso alguma não esteja presente, o acesso é negado, retornando para a página de login e apresentado a mensagem de erro para o usuário.
 
-O uso de um usuário vinculado a rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos.  Além disso, para efetivação de todas as requisições feitas pelo módulo administrador para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando o \textit{token} de acesso de usuário, que é obtido no processo de login, conforme exemplo \ref{lst:tokenUsuario}.
+O uso de um usuário vinculado à rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos.  Além disso, para efetivação de todas as requisições feitas pelo módulo administrador para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando o \textit{token} de acesso de usuário, que é obtido no processo de login, conforme exemplo \ref{lst:tokenUsuario}.
 
 Entretanto, para o acesso é necessário também que o um usuário esteja cadastrado no banco de dados do SID. Essa ação é necessária para que somente usuários autorizados possam realizar alteração na página usando o sistema.
 
@@ -351,7 +357,7 @@ Na criação de uma nova publicação, usando o SID, são passados para a Graph 
 
 Alguns dos elementos que são solicitados pela aplicação na criação de uma nova publicação, são omitidos no envio para o Facebook, pois esses dados serão usados apenas para serem armazenados no banco para uso do módulo cliente. Os elementos omitidos são os campos data de início, a data de termino e a legenda. 
 
-A Figura \ref{fig:imgfacebook1} apresenta como ficará uma publicação no Facebook após o uso do SID para criação da mesma, enquanto a figura \ref{fig:cliente1} apresenta como será exibido no módulo cliente. Nela é apresentado informações como quem realizou a publicação, o texto e a imagem que foram informados durante a criação da divulgação pelo SID.
+A Figura \ref{fig:imgfacebook1} apresenta como fica uma publicação no Facebook após o uso do SID para criação da mesma, enquanto a Figura \ref{fig:cliente1} apresenta como será exibido no módulo cliente. Nela é apresentado informações como quem realizou a publicação, o texto e a imagem que foram informados durante a criação da divulgação pelo SID.
 
 \begin{figure}[H]
 \centering
@@ -361,8 +367,8 @@ A Figura \ref{fig:imgfacebook1} apresenta como ficará uma publicação no Faceb
 \end{figure}
 
 
-\subsection{Requisitar}
-Usando o ID da foto é possível recuperar informações das arestas, que podem ser a URL, os comentários e as curtidas conforme o exemplo \ref{lst:requisicao8}. 
+\subsection{Requisição}
+Usando o ID da foto é possível recuperar informações das arestas, que podem ser a URL, os comentários e as curtidas conforme Listagem \ref{lst:requisicao8}. 
 
 Esse recurso é utilizado para recuperar os mais diversos elementos que as permissões concedidas autorizam, entre os elementos recuperados estão o endereço da publicação, os comentários, curtidas e a imagem de perfil que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
 
@@ -377,7 +383,7 @@ A URL da publicação que é criada, é armazenada no banco de dados no momento 
 	$graphNode = $response->getGraphNode();
 \end{lstlisting}
 
-A recuperação dos outros dados necessários é feito pelo módulo API, onde ele realiza requisições a Graph. As requisições feitas pelo módulo são para recuperação de comentários \ref{lst:comentariosPostagem}, de curtidas desses comentários \ref{lst:curtidasComentario} e foto de perfil do usuário que realizou o comentário \ref{lst:fotousuario}.
+A recuperação dos outros dados necessários é feito pelo módulo API, onde ele realiza requisições a Graph. As requisições feitas pelo módulo são para recuperação de comentários da Listagem \ref{lst:comentariosPostagem}, de curtidas desses comentários, conforme Listagem \ref{lst:curtidasComentario} e foto de perfil do usuário que realizou o comentário conforme Listagem \ref{lst:fotousuario}.
 
 \begin{lstlisting}[caption={Foto de usuário},label={lst:fotousuario}]
   	$response = $fb->get(
@@ -388,15 +394,17 @@ A recuperação dos outros dados necessários é feito pelo módulo API, onde el
 	$graphNode = $response->getGraphNode();
 \end{lstlisting}
 
-A recuperação dos comentários e da foto do perfil do usuário que publicou cada comentário é necessário para que essa informação seja exibida no módulo cliente, no elemento 5 conforme a figura \ref{fig:cliente1}.
+A recuperação dos comentários e da foto do perfil do usuário que publicou cada comentário é necessário para que essa informação seja exibida no módulo cliente, no elemento 5 conforme a Figura \ref{fig:cliente1}.
 
 A recuperação de curtidas é necessário para que possa ser feito a moderação dos comentários a serem exibidos. A moderação é feita de forma a verificar o ID de todos os usuários que curtiram cada comentário a fim de verificar se algum dos IDs encontrados é o ID do administrador que está cadastrado no banco.
 
-Os comentários que possuem a curtida do administrador é registrado para exibição no elemento 5 da figura \ref{fig:cliente1}.
+Os comentários que possuem a curtida do administrador é registrado para exibição no elemento 5 da Figura \ref{fig:cliente1}.
 
 \section{Possível solução para Implantação - Rapberry}
-Desde a sua invenção em 1971, microprocessadores vem sendo usados no desenvolvimento dos mais variados tipos de eletrônicos ou outros equipamentos, substituindo até mesmo sistemas mecânicos. Algo que vai além de um simples software, os microprocessadores devem ser capazes controlar as ações de um dispositivo. \cite{rosenstark2007}
+Para viabilizar uma implementação barata ao campus Taguatinga, computadores Raspberry Pi podem ser utilizados.
 
-Para \cite{aristotelous2016}, o objetivo essencial de todos os tipos de empresa é a rentabilidade, podendo ela ser alcançada usando uma solução de baixo custo, boas tecnologias e com um preço atrativo. Teste do \cite{aristotelous2016} apresenta a possibilidade de se ter um servidor completamente funcional com sistema operacional Linux por um equipamento de 35\$, possibilitando a criação de um servidor, por exemplo de um repositório na nuvem com um baixo custo, flexibilidade e eficiência energética. 
+Teste do \cite{aristotelous2016} apresenta a possibilidade de se ter um servidor completamente funcional com sistema operacional Linux por um equipamento de 35\$, possibilitando a criação de um servidor, por exemplo de um repositório na nuvem com um baixo custo, flexibilidade e eficiência energética. 
 
-Grandes servidores oferecem um melhor desempenho, entretanto, o baixo uso, a pouca eficiência energética ou até mesmo o pouco espaço podem limitar o uso desse tipo de equipamento. Nesse sentido, para \cite{cusick2014}, placas de circuito oferecem vantagens como o uso de pouco espaço, desempenho significante com baixo custo e consumo, além do suporte a diversas soluções de software oferecendo múltiplas opções de interface com uma variante do Linux. 
+Para \cite{cusick2014}, placas de circuito oferecem vantagens como: Uso de pouco espaço; Desempenho significante com baixo custo e consumo; Suporte a diversas soluções de software, oferecendo múltiplas opções de interface com uma variante do Linux. 
+
+Portanto, este tipo de dispositivo provê diversos benefícios que podem ser de grande importância na escolha de um sistema para implementação do módulo cliente do SID.

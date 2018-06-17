@@ -1,15 +1,19 @@
 \chapter[Resultados]{Resultados}
-A ideia anterior do SIDv2, desenvolvido por \cite{sobrinho2017}, seria um sistema inteligente de divulgação, entretanto, no presente trabalho a ideia foi alterada para um sistema integrado de divulgação. Isso se deu pelo fato de o sistema não possuir nenhum tipo de inteligência própria e sim realizar a integração entre redes sociais e usuário.
+A ideia anterior do SIDv2, desenvolvido por \cite{sobrinho2017}, era a de um sistema inteligente de divulgação, entretanto, no presente trabalho a ideia foi alterada para um sistema integrado de divulgação. Isso se deu pelo fato de o sistema não possuir nenhum tipo de inteligência própria e sim realizar a integração entre redes sociais e usuário.
 
 O SID passou por diversas reformulações de suas concepções iniciais. Em sua versão anterior, ele possuía integração bastante limitada, nenhum tipo de aplicativo mobile para melhor interação acadêmica e pouca interatividade do sistema com o usuário e vice-versa. Então, no presente trabalho foi implementado toda a integração com o Facebook, melhorado a interação com o usuário, além da criação de um protótipo \textit{mobile}.
 
-O presente trabalho apresenta a terceira versão do SID, com melhorias significantes como as apresentadas no capítulo \ref{cap:sid}, estando pronto para implantação de modo a servir de aparato ao campus no processo de veiculação de informações.
+O presente trabalho apresenta a terceira versão do SID, com melhorias significantes como as apresentadas no Capítulo \ref{cap:sid}, estando pronto para implantação de modo a servir de aparato ao campus no processo de veiculação de informações.
+
+Por falta de uma documentação anterior, foi necessário a criação de uma extensa documentação do software de modo a possibilitar futuras modificações e melhorias de maneira fácil.
 
 No módulo administrador, foi possível alcançar todos os objetivos desejados, ficando responsável por todo o processamento e gerenciamento das informações no banco de dados. A partir dele é possível inserir, listar, deletar e editar as informações que servirão para que módulo API forneça os dados conforme a estrutura de uma arquitetura REST, permitindo que outras aplicações futuramente venham a consumir esta API.
 
 Além disso, foi implementado uma verificação de segurança no processo de login que não existia no SIDv2, onde qualquer usuário cadastrado poderia acessar a aplicação. Entretanto, algumas funcionalidades oferecidas pelo módulo só estão disponíveis se forem concedidas algumas permissões específicas. Portanto, o login no módulo só é realizado caso todas as permissões solicitadas sejam aceitas.
 
-O submódulo API, parte do módulo administrador, foi implementado com duas funcionalidades distintas. A primeira é obter os dados do armazenados no banco e realizar as chamadas a Graph para obter os dados dos comentários das publicações que serão exibidas e organizar esses dados para que sejam enviados. A outra, é realizar a comunicação entre o aplicativo e o banco de dados, para armazenar as mensagens que são trocadas entre professores e alunos.
+O submódulo API, parte do módulo administrador, é estruturado de acordo com a arquitetura REST, com a capacidade de realizar um CRUD nas publicações e nas mensagens entre professor aluno.
+
+Este submódulo foi implementado com duas funcionalidades distintas. A primeira é obter os dados do armazenados no banco e realizar as chamadas a Graph para obter os dados dos comentários das publicações que serão exibidas e organizar esses dados para que sejam enviados. A segunda, é servir de aparato ao aplicativo, para que ele possa simular o consumo de uma API externa. 
 
 O módulo cliente do SID ficou estruturado e pronto para ser implantado e executado em diversos dispositivos, bastando o mesmo possuir um navegador de paginas \textit{WEB} e conexão constante a internet para que sejam realizadas as consultas HTTP. Essa facilidade é possível graças a implementação em arquitetura cliente-servidor, esse arquitetura foi proposta para que o módulo consumisse poucos recursos, permitindo o uso de dispositivos que dispõem de uma grande eficiência energética, como: \textit{Raspberry} PI, \textit{BoxTVs} ou até mesmo em sistemas integrados as próprias \textit{smartTvs}.
 
@@ -19,7 +23,7 @@ Na busca de soluções que seguem a ideia de criação de publicação para apre
 
 O OOZO, apresentado na sessão \ref{sec:oozo}, é um sistema pago, porém possui uma versão gratuita com acesso limitado aos recursos oferecidos. Ele oferece suporte a multiplataformas, controle WEB, integração a redes sociais e acesso a publicações via QRCode. Apresentando duas limitações, uma é no que tange a integração com as redes sociais, onde é possível apenas recuperar e deletar publicações, a outra limitação está no acesso as divulgações por dispositivo móvel, onde é necessário o uso de navegadores \textit{WEB}. 
 
-A MangoSings, apresentado na sessão \ref{sec:mango}, é um sistema pago que possui uma versão gratuita com acesso limitado. A ferramenta possui acesso multiplataformas, inclusive móvel, diversos temas para apresentação e integração com as redes sociais. Possuindo a limitação da integração está disponível apenas na versão paga, além de ser possível apenas recuperar as publicações.
+A MangoSigns, apresentado na sessão \ref{sec:mango}, é um sistema pago que possui uma versão gratuita com acesso limitado. A ferramenta possui acesso multiplataformas, inclusive móvel, diversos temas para apresentação e integração com as redes sociais. Possuindo a limitação da integração está disponível apenas na versão paga, além de ser possível apenas recuperar as publicações.
 
 O SID versão 2, apresentado na sessão \ref{sec:sid}, é um sistema gratuito, que possui acesso somente \textit{WEB}, aceso a publicação via QRCode e integração as redes sociais. Nele é possível apenas realizar publicação da página de perfil do usuário, não sendo possível recuperar nenhum dado.
 
@@ -65,6 +69,7 @@ A tabela \ref{tlb:comparacaoresultados} tem o intuito de fazer um comparativo en
 
 Portanto, a tabela mostra que o SIDv3 atende a todas os requisitos desejados para o sistema.
 
+\section{Dificuldades encontradas}
 Durante o desenvolvimento do sistema, foram enfrentados diversos problemas, entre eles estão a falta da documentação detalhada da versão anterior, problemas com a aprovação de permissões solicitadas para o Facebook, a limitação do \textit{token} de aplicativo e o não disponibilização da API do SGA.
 
 A falta de uma documentação detalhada do SIDv2 acabou influenciando no entendimento de como as classes, métodos e o banco de dados se interagiam um com os outros. Sendo necessário um maior tempo de pesquisa e entendimento do sistema, além de ter sido necessário a criação de uma documentação totalmente nova, não sendo possível o aproveitamento de nenhuma anterior.
