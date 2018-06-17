@@ -3,19 +3,19 @@
 \maxwell {Escrever sobre o SID}
 
 \section{Visão Geral} 
-O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao Campus. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
+O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer uma aplicação de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao IFB campus Taguatinga. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
 
 Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em dois módulos e um aplicativo, o primeiro deles é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente, nesse segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O aplicativo é um sistema \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos através do consumo de uma API fictícia que simula uma sistema de gestão acadêmica. 
 
 A divisão de módulos foi feita para que seja possível atender a arquitetura cliente-servidor, ela mostrou-se necessário para minimizar o processamento dos módulo cliente e do aplicativo que também é considerado um módulo cliente, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos clientes exibirem as informações recebidas e realizar pequenos processamentos.
 
-O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do projeto, a linguagem JavaScript para realização das requisições de trocas de informações entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas que serão apresentadas no sistema. Usa-se também o Banco de dados PostGreSQL, para armazenamento das informações localmente e que os dados sejam persistentes.
+O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do projeto, a linguagem JavaScript para realização das requisições de trocas de informações entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas que serão apresentadas no sistema. Usa-se também o Banco de dados PostgreSQL, para armazenamento das informações localmente e que os dados sejam persistentes.
 
 Baseado em desenvolvimento ágil, com metodologia SCRUM, foram definidos sprints semanais, comumente marcada as quartas feiras, para definição das funcionalidades a serem desenvolvidas ou melhoradas. Essa metodologia se torna importante para que o progresso seja acompanhado em cada parte do seu desenvolvimento.
 
 No desenvolvimento, foram usados alguns \textit{framework}, O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. Foi usado também o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do aplicativo mobile. 
 
-Se utilizando dos conceito de UML abordados na Seção \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe e seus casos de uso.
+Se utilizando dos conceito de UML abordados na Seção \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe, de sequência e seus casos de uso.
 
 \section{Modulo Administrador}
 Com o uso da arquitetura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
@@ -319,26 +319,39 @@ Todos os campos são de preenchimento obrigatório e caso algum erro ocorra no p
 
 \section{Integração}
 \subsection{\textit{login}, \textit{token} de acesso e permissões}
-Para autenticação e efetivação de todas as requisições feitas pelo módulo administrador para o Facebook é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de \textit{login} do Facebook que é disponibilizada pela rede social.
+Para autenticação e efetivação de todas as requisições feitas pelo módulo administrador para o Facebook é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de ``\textit{login} do Facebook''  que é disponibilizada pela rede social.
 
-A ferramenta de \textit{login} do Facebook que é disponibilizada pela rede social, oferece um botão que pode ser colocado na página, esse botão tem a finalidade de iniciar o processo de login. Após ser clicado é efetuado o processo de login conforme segue padrão estabelecido solicitando as credenciais cadastradas na rede social, com isso é feito a requisição com as permissões necessárias conforme exemplo \ref{lst:solicitacaologin}.
+A ferramenta de ``\textit{login} do Facebook'' que é disponibilizada pela rede social, oferece um botão que pode ser colocado na página, esse botão tem a finalidade de iniciar o processo de login. Após ser clicado é efetuado o processo de login conforme segue padrão estabelecido, solicitando as credenciais cadastradas na rede social, com isso é feito a requisição com as permissões necessárias conforme exemplo \ref{lst:solicitacaologin}.
 
-No processo de \textit{login} são solicitados algumas permissões, como as permissões “email”, “manage\underline{{ }}pages” e “publish\underline{{ }}pages”, sendo obrigatório o acete para acesso ao sistema. Usadas respectivamente para que seja possível a identificação do usuário do SID, para recuperar as permissões de acesso a página e a última para permitir que aplicativos publiquem na página \cite{facebook2018a}.
+No processo de \textit{login} são solicitados as permissões necessárias para que o sistema funcione, essas permissões são a “email”, “manage\underline{{ }}pages” e “publish\underline{{ }}pages”, sendo obrigatório o acete para acesso ao sistema. Usadas respectivamente para que seja possível a identificação do usuário do SID, para recuperar as permissões de acesso a página e a última para permitir que aplicativos publiquem na página \cite{facebook2018a}.
+
+Após a efetivação do login o sistema realiza a requisição do exemplo \ref{lst:permissoesaceitas} para verificar as permissões que o usuário concedeu, onde o retorno será um JSON contendo todas as permissões concedidas.
+
+\begin{lstlisting}[caption={Permissões concedidas},label={lst:permissoesaceitas}]
+  	$response = $fb->get(
+    	'/me/permissions',
+		'{access-token}'
+	);
+	
+	$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+Então o sistema compara as permissões aceitas com as permissões necessárias e caso alguma não esteja permitida, o acesso é negado, retornando para a página de login e apresentado a mensagem de erro para o usuário.
 
 O uso de um usuário vinculado a rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos.  Além disso, para efetivação de todas as requisições feitas pelo módulo administrador para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando o \textit{token} de acesso de usuário, que é obtido no processo de login, conforme exemplo \ref{lst:tokenUsuario}.
 
-Entretanto, o uso de um usuário cadastrado na rede social não é o único requisito par acesso ao sistema. Para o acesso é necessário também um usuário administrador, cadastrado no banco de dados do SID. Essa ação é necessária para que somente usuários autorizados possam realizar alteração na página usando o sistema.
+Entretanto, para o acesso é necessário também que o um usuário esteja cadastrado no banco de dados do SID. Essa ação é necessária para que somente usuários autorizados possam realizar alteração na página usando o sistema.
 
 Após o login, algumas informações usadas são guardadas na sessão do usuário, para usos posteriores. Entretanto, todo o processo de armazenamento de informações, envios ao Facebook e retornos de solicitações não devem ser visíveis ao usuário. 
 
 \subsection{Publicar}
-Todas as publicações realizadas no Facebook usando o SID são feitas ao nó ``/photo'', onde a cada nova publicação será gerado um ID para ela e terá a mesma estrutura de uma imagem postada por um usuário convencional desta rede social.
+Todas as publicações que são realizadas no Facebook usando o SID são feitas ao nó ``/photo'', onde a cada nova publicação será gerado um ID para ela e terá a mesma estrutura de uma imagem postada por um usuário convencional desta rede social.
 
 Na criação de uma nova publicação, usando o SID, são passados para a Graph API dois parâmetros para inserção através do método POST, conforme exemplo \ref{lst:requisicao9}, o primeiro deles é “message”, onde será passado o texto que será exibido na publicação e o outro é “source”, onde será passado a imagem para ser exibida juntamente com o texto. Para envio de imagem para a rede social, é necessário passar na imagem como parâmetro o método “fileToUpload” conforme exemplo \ref{lst:appesdk}. 
 
 Alguns dos elementos que são solicitados pela aplicação na criação de uma nova publicação, são omitidos no envio para o Facebook, pois esses dados serão usados apenas para serem armazenados no banco para uso do módulo cliente. Os elementos omitidos são os campos data de início, a data de termino e a legenda. 
 
-A Figura \ref{fig:imgfacebook1} apresenta como ficará uma publicação no Facebook após o uso do SID para criação da mesma. Nela é apresentado informações como quem realizou a publicação, o texto e a imagem que foram informados durante a criação da divulgação pelo SID.
+A Figura \ref{fig:imgfacebook1} apresenta como ficará uma publicação no Facebook após o uso do SID para criação da mesma, enquanto a figura \ref{fig:cliente1} apresenta como será exibido no módulo cliente. Nela é apresentado informações como quem realizou a publicação, o texto e a imagem que foram informados durante a criação da divulgação pelo SID.
 
 \begin{figure}[H]
 \centering
@@ -349,7 +362,37 @@ A Figura \ref{fig:imgfacebook1} apresenta como ficará uma publicação no Faceb
 
 
 \subsection{Requisitar}
-Usando o ID da foto é possível recuperar informações das arestas, que podem ser a URL, os comentários e as curtidas conforme o exemplo \ref{lst:requisicao8}. Esse recurso é utilizado para recuperar os mais diversos elementos que as permissões concedidas autorizam, entre os elementos recuperados estão o endereço da publicação, os comentários, curtidas e a imagem de perfil que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
+Usando o ID da foto é possível recuperar informações das arestas, que podem ser a URL, os comentários e as curtidas conforme o exemplo \ref{lst:requisicao8}. 
+
+Esse recurso é utilizado para recuperar os mais diversos elementos que as permissões concedidas autorizam, entre os elementos recuperados estão o endereço da publicação, os comentários, curtidas e a imagem de perfil que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
+
+A URL da publicação que é criada, é armazenada no banco de dados no momento da criação da mesma pelo modulo administrador. A requisição segue o exemplo \ref{lst:requisitarurl}.
+
+\begin{lstlisting}[caption={Foto de usuário},label={lst:requisitarurl}]
+  	$response = $fb->get(
+    	'/{ID PUBLICACAO}?fields=link',
+		'{access-token}'
+	);
+	
+	$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+A recuperação dos outros dados necessários é feito pelo módulo API, onde ele realiza requisições a Graph. As requisições feitas pelo módulo são para recuperação de comentários \ref{lst:comentariosPostagem}, de curtidas desses comentários \ref{lst:curtidasComentario} e foto de perfil do usuário que realizou o comentário \ref{lst:fotousuario}.
+
+\begin{lstlisting}[caption={Foto de usuário},label={lst:fotousuario}]
+  	$response = $fb->get(
+    	'/{ID USUARIO}?fields=picture',
+		'{access-token}'
+	);
+	
+	$graphNode = $response->getGraphNode();
+\end{lstlisting}
+
+A recuperação dos comentários e da foto do perfil do usuário que publicou cada comentário é necessário para que essa informação seja exibida no módulo cliente, no elemento 5 conforme a figura \ref{fig:cliente1}.
+
+A recuperação de curtidas é necessário para que possa ser feito a moderação dos comentários a serem exibidos. A moderação é feita de forma a verificar o ID de todos os usuários que curtiram cada comentário a fim de verificar se algum dos IDs encontrados é o ID do administrador que está cadastrado no banco.
+
+Os comentários que possuem a curtida do administrador é registrado para exibição no elemento 5 da figura \ref{fig:cliente1}.
 
 \section{Possível solução para Implantação - Rapberry}
 Desde a sua invenção em 1971, microprocessadores vem sendo usados no desenvolvimento dos mais variados tipos de eletrônicos ou outros equipamentos, substituindo até mesmo sistemas mecânicos. Algo que vai além de um simples software, os microprocessadores devem ser capazes controlar as ações de um dispositivo. \cite{rosenstark2007}
