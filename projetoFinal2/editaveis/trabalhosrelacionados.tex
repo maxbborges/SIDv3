@@ -1,4 +1,5 @@
 \chapter[Trabalhos Relacionados]{Trabalhos Relacionados}
+\label{relacionados}
 Este capítulo tem como propósito apresentar ao leitor algumas ferramentas que fazem uso dos conceitos de sinalização e \textit{marketing} digital, exibindo em telas externas, divulgações criadas pelo administrador no servidor. Para cada ferramenta, será apresentado suas funcionalidades e  uma crítica expondo suas limitações.
 
 Todas elas seguem a ideia de uma arquitetura cliente-servidor, onde o servidor é responsável por gerenciar os conteúdos que serão exibidos no cliente.
@@ -17,7 +18,7 @@ Todo o conteúdo publicado na ferramenta fica armazenado em servidores propriet�
 
 Na página inicial do módulo administrador se pode gerenciar suas publicações que já foram postadas. Selecionando uma delas, é possível ter o acesso direto a publicação ou excluí-la da ferramenta. Entretanto, ao excluir do sistema, a publicação não é excluída da rede social, além disso, na versão gratuita parte do tempo de exibição das informações é de outras propagandas que não foram criadas pelo usuário. 
 
-No módulo cliente, o OOZO não exibe os comentários feitos na publicação da rede social, a ferramenta somente captura a foto e o texto publicado e os envia para exibição. Na exibição do conteúdo publicado o acesso a notícia completa pelo usuário, é feito com o uso de um \textit{QRCode}, que recupera automaticamente a url da postagem exibida na tela do cliente.
+No módulo cliente, o OOZO não exibe os comentários feitos na publicação da rede social, a ferramenta somente captura a foto e o texto publicado e os envia para exibição. Na exibição do conteúdo publicado o acesso a notícia completa pelo usuário, é feito com o uso de um \textit{QR code}, que recupera automaticamente a url da postagem exibida na tela do cliente.
 
 \section{MangoSigns}
 \label{sec:mango}
@@ -42,9 +43,9 @@ O SID, no módulo cliente, apresenta as informações que lhe são configuradas,
 Entre os problemas encontrados estão: o link que será apresentado no QRCode deve ser configurado manualmente na criação da publicação, não oferece suporte para configurar data de início da apresentação das publicações, falta de uma documentação detalhada, integração bastante limitada, além de não oferecer nenhum tipo de aplicação \textit{mobile}.
 
 \section{Screenly}
-O \cite{screenly2017} usa o \textit{Raspberry Pi} no módulo cliente, necessitando de um programa próprio que deve ser instalado no equipamento para seu funcionamento. Na página de login, de acesso WEB, só dá para criar uma nova conta ou logar com uma existe, não sendo oferecido nenhum outro meio de automatização de login. 
+O \cite{screenly2017} usa o Raspberry Pi no módulo cliente, necessitando de um programa próprio que deve ser instalado no equipamento para seu funcionamento. Na página de login, de acesso \textit{WEB}, só dá para criar uma nova conta ou logar com uma existe, não sendo oferecido nenhum outro meio de automatização de \textit{login}. 
 
-A exibição das publicações é feita por meio de um Raspberry Pi com o uso de um software proprietário da Screenly instalado e uma televisão conectada a ele. Todas as versões possuem limitação do número de equipamentos que podem exibir o conteúdo.
+A exibição das publicações é feita por meio de um Raspberry Pi com o uso de um \textit{software} proprietário da Screenly instalado e uma televisão conectada a ele. Todas as versões possuem limitação do número de equipamentos que podem exibir o conteúdo.
 
 Em nenhuma das versões o Screenly possui integração com as redes sociais. Em sua versão gratuita, ele é limitado a criar no máximo duas publicações para serem exibidas de forma sequencial, essas publicações podem ser imagens, links ou vídeos.
 
