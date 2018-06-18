@@ -1,17 +1,17 @@
 \chapter[Graph Api]{Graph Api}
 \label{cap:api}
-Para integração entre o Facebook e outros aplicativos externos é necessário o uso de uma API. A disponibilizada pela rede social em questão é a Graph. Ela é usada para que aplicativos externos possam realizar as requisições e envio de dados para a rede social, possibilitando consulta e gerência dos dados presentes nela. 
+Para integração entre o Facebook e outros aplicativos externos é necessário o uso de uma API, sendo que a disponibilizada pela rede social em questão é a Graph. Ela é usada para que aplicativos externos possam realizar as requisições e envio de dados para a rede social, possibilitando consulta e gerência dos dados presentes nela. 
 
 Usada para extrair e inserir dados da plataforma do Facebook por meio de requisições HTTP é possível realizar as mais diversas tarefas, entre elas estão a de publicar novas histórias, gerenciar anúncios e carregar fotos \cite{facebook2018b}.
 
 \section{Visão Geral}
 A Graph segue um padrão de estrutura que se assemelha a um grafo. Para\cite{soares2014}, um grafo pode ser explicado como um conjunto finito de vértices de modo que cada par de vértices relacionado é chamado de aresta. A estrutura da Graph, segue esse mesmo conceito, possuindo nós, arestas e, adicionalmente, campos. 
 
-Os nós representam elementos únicos, cada um deles é considerado um vértice. Na rede social, eles podem ser os mais diversos elementos, como: páginas, usuários, comentários, fotos, entre outras. Cada um desses elementos são considerados um nó distinto \cite{facebook2018b} e possuem um identificador único (ID). 
+Os nós representam elementos únicos, cada um deles são considerados um vértice. Na rede social, eles podem ser os mais diversos elementos, como: páginas, usuários, comentários, fotos, entre outras. Cada um desses elementos são considerados um nó distinto \cite{facebook2018b} e possuem um identificador único (ID). 
 
-Relacionamentos entre dois ou mais vértices são chamadas de arestas e representam a ligação entre os nós. As arestas são conexões entre um objeto único e outro objeto ou  coleção de objetos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. 
+O relacionamentos entre dois ou mais vértices são chamadas de arestas e representam a ligação entre os nós. As arestas são conexões entre um objeto único e outro objeto ou  coleção de objetos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. 
 
-Os campos são os atributos mais específicos dos nós, tais como, o link de uma publicação, as informações de quem realizou o comentário, o tamanho de uma imagem, entre outros.
+Os campos são os atributos mais específicos dos nós, tais como: o link de uma publicação; As informações de quem realizou o comentário; o tamanho de uma imagem; entre outros.
 
 A obtenção dos elementos é feita através de requisições HTTP e podem ser feitas diretamente do navegador ou usando outras aplicações que usem bibliotecas HTTP. Entretanto, para o seu funcionamento, elas devem seguir a sintaxe correta para requisição e obtenção da resposta do servidor. 
 
@@ -43,9 +43,9 @@ Vídeo      & Vídeos criados pelo perfil ou página.  & \begin{tabular}[c]{@{}c
 
 \section{Token de acesso}
 \label{sec:tokenDeAcesso}
-O \textit{token} de acesso é uma cadeia de caracteres usadas para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
+O \textit{token} de acesso é uma cadeia de caracteres usada para realizar chamadas da Graph API. O tempo de duração deles podem ser curtos ou longos, variando de cerca de uma hora de duração a duração infinita.
 
-Para todas as requisições feitas para a rede social é necessário o uso de um \textit{token}, funcionando de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph de acordo com as permissões solicitadas.
+Para todas as requisições feitas para a rede social é necessário dele, funcionando de maneira a autenticar o usuário sem a necessidade que um novo \textit{login} seja feito a cada requisição, além de identificar o aplicativo, o usuário que executará a ação e quais os dados serão possíveis acessar usando a Graph de acordo com as permissões solicitadas.
 
 Os \textit{tokens} são separados em quatro tipos: \textit{token} de acesso do usuário, usado para alterações de uma conta de usuário específica; os  \textit{token} de aplicativo, usado para que as requisições sejam feitas em nome do aplicativo; o \textit{token} de página, usado para realizar modificações em páginas; \textit{token} de cliente, usado em aplicativos moveis e aplicações de computador.
 
