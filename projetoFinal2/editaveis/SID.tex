@@ -19,6 +19,8 @@ No desenvolvimento, foram usados alguns \textit{frameworks}, O primeiro deles, u
 
 Se utilizando dos conceito de UML abordados na Seção \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe, de sequência e seus casos de uso.
 
+Uma apresentação mais detalhada do funcionamento interno de cada tela disponível do SID é apresentada no apêndice \ref{apendice}.
+
 \section{Modulo Administrador}
 Com o uso da arquitetura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
 
@@ -26,7 +28,7 @@ O modelo de casos de uso que representa o módulo é apresentado na Figura \ref{
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.6]{figuras/casosDeUsoADM}
+\includegraphics[scale=0.4]{figuras/casosDeUsoADM}
 \caption{Casos de uso da ações do módulo administrador}
 \label{fig:casosDeUsoADM}
 \end{figure}
@@ -35,7 +37,7 @@ O acesso ao módulo é restrito, sendo necessário autenticação e para esse fi
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{figuras/sequencialogin}
+\includegraphics[scale=0.3]{figuras/sequencialogin}
 \caption{Sequencia para efetivação de \textit{login}}
 \label{fig:sequencialogin}
 \end{figure}
@@ -44,7 +46,7 @@ A estruturação do banco de dados é composta por três tabelas, sendo mapeadas
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=1]{figuras/entidaderelacionamento}
+\includegraphics[scale=1.2]{figuras/entidaderelacionamento}
 \caption{Modelo entidade e relacionamento}
 \label{fig:casosDeUso}
 \end{figure}
@@ -52,14 +54,14 @@ A estruturação do banco de dados é composta por três tabelas, sendo mapeadas
 A Figura \ref{fig:diagramaclasseADM}, mostra a representação e o relacionamento entre as classes disponíveis no módulo. No diagrama de sequência \ref{fig:sequenciainserir} é exposto a sequência de uso das classes ao inserir uma nova publicação no sistema. 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{figuras/diagramaclasseADM}
+\includegraphics[scale=0.7]{figuras/diagramaclasseADM}
 \caption{Diagrama de classe do módulo administrador}
 \label{fig:diagramaclasseADM}
 \end{figure}
 
  \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{figuras/sequenciainserir}
+\includegraphics[scale=0.4]{figuras/sequenciainserir}
 \caption{Diagrama de sequência para inserção}
 \label{fig:sequenciainserir}
 \end{figure}
@@ -70,7 +72,7 @@ A Figura \ref{fig:administrador1}, representa a visão do operador da tela de in
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{figuras/administrador1}
+\includegraphics[scale=0.4]{figuras/administrador1}
 \caption{Página de inserção do módulo administrador.}
 \label{fig:administrador1}
 \end{figure}
@@ -361,7 +363,7 @@ A Figura \ref{fig:imgfacebook1} apresenta como fica uma publicação no Facebook
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=1]{figuras/imgfacebook1}
+\includegraphics[scale=0.8]{figuras/imgfacebook1}
 \caption{Divulgação enviada ao Facebook com auxílio do SID}
 \label{fig:imgfacebook1}
 \end{figure}
@@ -400,7 +402,7 @@ A recuperação de curtidas é necessário para que possa ser feito a moderaçã
 
 Os comentários que possuem a curtida do administrador é registrado para exibição no elemento 5 da Figura \ref{fig:cliente1}.
 
-\section{Possível solução para Implantação - Rapberry}
+\section{Possível solução para Implantação - Raspberry}
 Para viabilizar uma implementação barata ao campus Taguatinga, computadores Raspberry Pi podem ser utilizados.
 
 Teste do \cite{aristotelous2016} apresenta a possibilidade de se ter um servidor completamente funcional com sistema operacional Linux por um equipamento de 35\$, possibilitando a criação de um servidor, por exemplo de um repositório na nuvem com um baixo custo, flexibilidade e eficiência energética. 
