@@ -7,15 +7,15 @@ Nesta seção, será feito o detalhamento do SID, primeiramente apresentando os 
 \section{Visão Geral} 
 O SID está estruturado em duas vertentes, o WEB e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer um sistema de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao IFB campus Taguatinga. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma WEB e \textit{mobile}.
 
-Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em dois módulos e um aplicativo, o primeiro módulo é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente. Neste segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O aplicativo é um sistema \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos através do consumo de uma API fictícia que simula a interface a ser oferecida pelo Sistema de Gestão Acadêmica do IFB (SGA).
+Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em dois módulos e um aplicativo. O primeiro módulo é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente. No segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O aplicativo é um sistema \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos através do consumo de uma API fictícia que simula a interface a ser oferecida pelo Sistema de Gestão Acadêmica do IFB (SGA).
 
-A divisão de módulos foi feita para que seja possível atender a arquitetura cliente-servidor, ela mostrou-se necessária para minimizar o processamento do módulo cliente e do aplicativo que se utiliza do módulo cliente, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos clientes exibirem as informações recebidas e realizar pequenos processamentos.
+A divisão de módulos foi feita para que se possa atender a arquitetura cliente-servidor, ela se mostrou necessária para minimizar o processamento do módulo cliente e do aplicativo que se utiliza do módulo cliente, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos clientes exibirem as informações recebidas e realizar pequenos processamentos.
 
-O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do projeto, a linguagem JavaScript para realização das requisições de trocas de informações entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas que serão apresentadas no sistema. Usa-se também o Banco de dados PostgreSQL, para armazenamento das informações localmente e que os dados sejam persistentes.
+O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do projeto, a linguagem JavaScript para realização das requisições de trocas de informações entre os módulos e as linguagens HTML e CSS para desenvolvimento das telas que serão apresentadas no sistema. Usa-se também o Banco de dados PostgreSQL para armazenamento e persistência das informações.
 
 Baseado em desenvolvimento ágil, com metodologia SCRUM, foram definidos sprints semanais, para definição das funcionalidades a serem desenvolvidas ou melhoradas. Esta metodologia se torna importante para que o progresso seja acompanhado em cada parte do seu desenvolvimento.
 
-No desenvolvimento, foram usados alguns \textit{frameworks}, O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. Foi usado também o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do aplicativo mobile. 
+No desenvolvimento, foram usados alguns \textit{frameworks}. O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. O terceiro foi o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do aplicativo mobile. 
 
 Se utilizando dos conceito de UML abordados na Seção \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe, de sequência e seus casos de uso.
 
@@ -33,7 +33,7 @@ O modelo de casos de uso que representa o módulo é apresentado na Figura \ref{
 \label{fig:casosDeUsoADM}
 \end{figure}
 
-O acesso ao módulo é restrito, sendo necessário autenticação e para esse fim foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza explicada na Seção \ref{sec:autenticacao}. Optou-se pelo uso dela, pois provê maior segurança, sendo baseada em sistemas criptográficos e também por facilitar o processo de recuperação de alguns dados básicos que são necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na Figura \ref{fig:sequencialogin}.
+O acesso ao módulo é restrito, sendo necessário autenticação e para esse fim foi escolhido a ferramenta "\textit{login} com o Facebook", ferramenta que a própria rede social disponibiliza como explicado na Seção \ref{sec:autenticacao}. Optou-se pelo uso dela, pois provê maior segurança, sendo baseada em sistemas criptográficos e também por facilitar o processo de recuperação de alguns dados básicos que são necessários para o processo de autenticação com o sistema. O diagrama de sequência que representa o processo de autenticação está representado na Figura \ref{fig:sequencialogin}.
 
 \begin{figure}[H]
 \centering
@@ -95,7 +95,7 @@ O texto do campo 1 poderá conter letras ou números, entretanto possui a limita
 
 Os outros campos não possuem limitação de caracteres, entretanto os campos 3, 4 e 5 possuem restrição de tipo de entrada, onde os campos 3 e 4 obrigatoriamente será um número inteiro e o campo 5, será um arquivo de imagem do tipo JPEG, JPG, GIF ou PNG.
 
-Os campos 3 e 4 são botões do tipo dropdown, sendo necessário selecionar um dos valores que aparecem em cada um dos campos. Os possíveis valores para o campo ``dia'' vão de 1 a 31, os valores do campo ``mês'' vão de 1 a 12, enquanto os valores do campo ``ano'' irão do ano atual a dois anos seguintes.
+Os campos 3 e 4 são botões do tipo dropdown, onde é preciso selecionar um dos valores que aparecem em cada um dos campos. Os possíveis valores para o campo ``dia'' vão de 1 a 31, os valores do campo ``mês'' vão de 1 a 12, enquanto os valores do campo ``ano'' irão do ano atual a dois anos seguintes.
 
 A página ``Home'' é responsável por listar todas as publicações criadas, a visão do usuário será a mesma que representada na Figura \ref{fig:administrador2}. As funcionalidades de cada elemento da página são descritas logo abaixo. Essa é a página inicial do sistema, nela é possível ter acesso a página de inserção, listagem, detalhamento e ao botão excluir.
 
@@ -115,9 +115,9 @@ A página ``Home'' é responsável por listar todas as publicações criadas, a 
  \end{enumerate}
 
 \subsection{Módulo API}
-Fazendo parte do módulo administrador, esse módulo possui a finalidade de recuperar os dados das publicações realizadas pelo administrador no Facebook, estruturá-los de forma que atenda a arquitetura REST e realizar o controle de alguns dados. Isso é necessário para que o módulo cliente e o aplicativo possam realizar requisições de solicitação ou envio de dados.
+O módulo API faz parte do módulo administrador, que possui a finalidade de recuperar os dados das publicações realizadas pelo administrador no Facebook, estruturá-los de forma que atenda a arquitetura REST e realizar o controle de alguns dados. Isso é crucial para que o módulo cliente e o aplicativo possam realizar requisições de solicitação ou envio de dados.
 
-O controle de dados realizado pelo módulo API é necessário para que conteúdos como comentários inadequados não sejam exibidos. Para esse controle é efetuado uma varredura de todos os usuários que curtiram cada comentários da publicação, caso seja encontrado a curtida de um dos administrador cadastrados no banco de dados o comentário é aprovado para ser exibido.
+O controle de dados realizado pelo módulo API é indispensável para que conteúdos como comentários inadequados não sejam exibidos. Para esse controle é efetuado uma varredura de todos os usuários que curtiram cada comentários da publicação, caso seja encontrado a curtida de um dos administradores cadastrados no banco de dados o comentário é aprovado para ser exibido.
 
 Além disso, as requisições para esse módulo devem seguir uma sintaxe de acordo com os dados desejados. Como mostra a Listagem \ref{lst:bd}, onde é requisitado as informações das publicações presentes no banco.
 
@@ -168,7 +168,7 @@ A resposta para a solicitação da Listagem \ref{lst:bd} é um arquivo do tipo J
 }
 \end{lstlisting}
 
-A propriedade `bd', contém uma \textit{array} de duas posições, contendo 2 \textit{strings}, sendo elas legenda e link, esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A propriedade `comentarios' é um array de \textit{strings} que pode possuir zero ou mais itens. Cada item representa um comentário da publicação, cada qual contendo data de criação, autor, foto e identificador do comentário. Já a 'imagem' é uma \textit{string} que representa uma imagem codificada em base64. a ser decodificada pelo módulo cliente.
+A propriedade `bd', contém uma \textit{array} de duas posições, contendo 2 \textit{strings}, sendo elas legenda e link, esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A propriedade `comentarios' é um array de \textit{strings} que pode possuir zero ou mais itens. Cada item representa um comentário da publicação, cada qual contendo data de criação, autor, foto de perfil e identificador do comentário. Já a 'imagem' é uma \textit{string} que representa uma imagem codificada em base64 a ser decodificada pelo módulo cliente.
 
 O módulo API tem a função de, em conjunto com o banco de dados, realizar a simulação de um sistema de gestão acadêmico, sendo possível consultar alguns dados através de requisições. Os dados que podem ser recuperados, variam de acordo com a sintaxe utilizada.
 
@@ -195,7 +195,7 @@ No exemplo \ref{lst:todos} é feito a requisição de todos os dados armazenados
 	]
 \end{lstlisting}
 
-A inclusão de um novo parâmetro na requisição da Listagem \ref{lst:todos} torna a busca mais específica. Por exemplo, pode ser usado "/professores/", "/alunos/", "/turmas/" ou "/mensagens/", isso retornará um JSON contendo uma lista somente com os dados solicitados. No exemplo \ref{lst:professores}, o retorno será uma lista com os dados de todos os professores cadastrados como mostra o exemplo \ref{lst:retornoprofessores}.
+A inclusão de um novo parâmetro na requisição da Listagem \ref{lst:todos} torna a busca mais específica. Por exemplo, pode ser usado "/professores/", "/alunos/", "/turmas/" ou "/mensagens/", isso retornará um JSON contendo uma lista somente com os dados solicitados. No exemplo \ref{lst:professores}, o retorno será uma lista com os dados de todos os professores cadastrados como mostra a Listagem \ref{lst:retornoprofessores}.
 
 \begin{lstlisting}[caption={Requisitar lista de dados especifica},label={lst:professores}]
 	http://{IP DO SERVIDOR}/mobile/professores/
@@ -240,10 +240,10 @@ O modulo cliente tem a função de apresentar as divulgações de maneira atrati
 \label{fig:diagramaclasseCLIENTE}
 \end{figure}
 
-Os elementos que compõe a página que será apresentada, são divididos em cinco itens, que estão descritos abaixo.
+Os elementos que compõe a página que será apresentada são divididos em cinco itens, que estão descritos abaixo.
 
 \begin{enumerate}
-   \item Imagem: O conteúdo, poderá ser apresentado como uma imagem estática ou como GIF (imagem com animação), não oferecendo suporte a vídeos, até o momento, mas que poderá ser implementado em versões futuras. 
+   \item Imagem: O conteúdo poderá ser apresentado como uma imagem estática ou como GIF (imagem com animação), não oferecendo suporte a vídeos, até o momento, mas que poderá ser implementado em versões futuras. 
    \item Legenda: A legenda é apresentada em movimento linear da direita para a esquerda, possibilitando a leitura de forma dinâmica de toda a frase.
    \item QR Code: Imagem, que por meio de um aplicativo celular, possibilita a leitura que contém o \textit{link} de acesso a publicação publicada na rede social Facebook.
    \item Horário: Relógio que apresentará a data e hora atual.  
@@ -257,16 +257,16 @@ Os elementos que compõe a página que será apresentada, são divididos em cinc
 \label{fig:cliente1}
 \end{figure}
 
-Consumindo uma API REST com requisições do tipo GET a URL do exemplo \ref{lst:bd}, o módulo cliente receberá como resposta um JSON, contendo o número de posições equivalentes ao número de publicações válidas. Cada posição desse JSON terá três variáveis, são elas: 'bd','comentarios' e 'imagem', como apresentado no exemplo \ref{lst:retornobd}. 
+Consumindo uma API REST com requisições do tipo GET feitas a URL da Listagem \ref{lst:bd}, o módulo cliente receberá como resposta um JSON, contendo o número de posições equivalentes ao número de publicações válidas. Cada posição desse JSON terá três variáveis, são elas: 'bd','comentarios' e 'imagem', como apresentado no exemplo \ref{lst:retornobd}. 
 
 O conteúdo recuperado da variável 'bd', será apresentado nos itens 2 e 3, respectivamente. Já o conteúdo recuperado da variável 'comentarios' será apresentado no item 5. Enquanto os da variável 'imagem', será descriptografado e apresentado em forma de imagem no item 1.
 
-O campo 5 irá apresentar 5 elementos recuperados na variável 'comentarios'. Esses elementos serão: a imagem de perfil, o nome, o comentário, a data e a hora da publicação do comentário pelo usuário. Antes da apresentação das informações de comentários, é escolhido um número randômico que representará a posição do array do comentário que será apresentado.
+O campo 5 irá apresentar 5 elementos recuperados na variável 'comentarios'. Esses elementos serão: a imagem de perfil, o nome, o comentário, a data e a hora da publicação do comentário feito pelo usuário. Antes da apresentação das informações de comentários, é escolhido um número randômico que representará a posição do array do comentário que será apresentado.
 
 \section{Aplicativo Mobile}
-Desenvolvido com auxílio dos \textit{Frameworks} Cordova, Framework7 e Dom. O aplicativo \textit{mobile} é responsável por apresentar de forma pública as divulgações assim como o módulo cliente, com algumas funcionalidades a mais que são restritas.
+Desenvolvido com auxílio dos \textit{Frameworks} Cordova, Framework7 e Dom. O aplicativo \textit{mobile} é responsável por apresentar de forma pública as divulgações, assim como o módulo cliente, com algumas funcionalidades a mais que são restritas.
 
-As funcionalidades adicionais do aplicativo, é disponibilizar uma melhor forma de comunicação entre professores e alunos, necessitando apenas a autenticação. Para autenticação é necessário que o aluno ou o professor tenha uma matricula e senha cadastradas no banco.
+As funcionalidades adicionais do aplicativo são as de disponibilizar uma melhor forma de comunicação entre professores e alunos, necessitando apenas de autenticação. Para autenticação é preciso que o aluno ou o professor tenha uma matrícula e senha cadastradas no banco.
 
 Os casos de uso do aplicativo são demostrado na Figura \ref{fig:casosdeusomobile}, enquanto o modelo entidade e relacionamento é apresentado na Figura \ref{fig:entidaderelacionamentomobile}.
 \begin{figure}[H]
@@ -283,7 +283,7 @@ Os casos de uso do aplicativo são demostrado na Figura \ref{fig:casosdeusomobil
 \label{fig:entidaderelacionamentomobile}
 \end{figure}
 
-O aplicativo contará com três telas distintas que será a tela inicial, a tela do aluno e a tela do professor. Em cada tela, o sistema faz requisição de um serviço diferente para o módulo API. Na tela inicial é feito a requisição GET ao exemplo \ref{lst:bd}, na tela do aluno é feito a requisição GET ao exemplo \ref{lst:todos} e na tela do professor é feito um POST ao exemplo \ref{lst:incluirmensagem},
+O aplicativo contará com três telas distintas que serão a tela inicial, a tela do aluno e a tela do professor. Em cada tela o sistema faz requisição de um serviço diferente para o módulo API. Na tela inicial é feito a requisição GET ao exemplo \ref{lst:bd}, na tela do aluno é feito a requisição GET ao exemplo \ref{lst:todos} e na tela do professor é feito um POST ao exemplo \ref{lst:incluirmensagem},
 
 \begin{lstlisting}[caption={Incluir novas mensagens},label={lst:incluirmensagem}]
 	http://{IP DO SERVIDOR}/menssagens/
@@ -297,11 +297,9 @@ A tela inicial será apresentada como na Figura \ref{fig:mobile1}, exibindo o no
 \label{fig:mobile1}
 \end{figure}
 
+O botão de login é indispensável para que alunos e professores efetuem a autenticação e possam acessar as páginas restritas destinadas a cada um.
 
-
-O botão de login é necessário para que alunos e professores efetuem a autenticação e possam acessar as páginas restritas destinadas a cada um.
-
-A tela do aluno será apresentada como na Figura \ref{fig:mobile2}, após o login, será apresentado ao aluno todas as mensagens que o aluno possui em ordem cronológica da mais nova para a mais antiga. Os campos apresentados são o de professor, turma e mensagem separando cada item por blocos.
+A tela do aluno será apresentada como na Figura \ref{fig:mobile2}, após o login, será apresentado ao aluno todas as mensagens que o aluno possui em ordem cronológica da mais nova para a mais antiga. Os campos apresentados são os de professor, turma e mensagem separando cada item por blocos.
 
 \begin{figure}[H]
 \centering
@@ -329,7 +327,7 @@ Com o uso dela, pode-se recuperar os mais diversos dados de acordo com as permis
 \subsection{\textit{login}, \textit{token} de acesso e permissões}
 Para autenticação e efetivação de todas as requisições feitas pelo módulo administrador para o Facebook é necessário que um \textit{login} seja feito. Para isso, é utilizado a ferramenta de ``\textit{login} do Facebook''  que é disponibilizada pela rede social.
 
-A ferramenta de ``\textit{login} do Facebook'' que é disponibilizada pela rede social, oferece um botão que pode ser colocado na página, esse botão tem a finalidade de iniciar o processo de login. Após ser clicado é efetuado o processo de login conforme segue padrão estabelecido, solicitando as credenciais cadastradas na rede social, com isso é feito a requisição com as permissões necessárias conforme Listagem \ref{lst:solicitacaologin}.
+A ferramenta de ``\textit{login} do Facebook'' que é disponibilizada pelo mesmo, oferece um botão que pode ser colocado na página que possui a finalidade de iniciar o processo de login. Após ser clicado é efetuado o processo de login conforme segue padrão estabelecido, solicitando as credenciais cadastradas na rede social, com isso é feito a requisição com as permissões necessárias conforme Listagem \ref{lst:solicitacaologin}.
 
 No processo de \textit{login} são solicitados as permissões necessárias para que o sistema funcione, essas permissões são a “email”, “manage\underline{{ }}pages” e “publish\underline{{ }}pages”, sendo obrigatório o aceite para acesso ao sistema. Usadas respectivamente para que seja possível a identificação do usuário do SID, para recuperar as permissões de acesso a página e a última para permitir que aplicativos publiquem na página \cite{facebook2018a}.
 
@@ -346,16 +344,16 @@ Após a efetivação do login o sistema realiza a requisição da Listagem \ref{
 
 Então o sistema compara as permissões aceitas com as permissões necessárias e caso alguma não esteja presente, o acesso é negado, retornando para a página de login e apresentado a mensagem de erro para o usuário.
 
-O uso de um usuário vinculado à rede social se torna necessário pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos.  Além disso, para efetivação de todas as requisições feitas pelo módulo administrador para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando o \textit{token} de acesso de usuário, que é obtido no processo de login, conforme exemplo \ref{lst:tokenUsuario}.
+A existência de um usuário vinculado a rede social é irrefutável, pois existe a necessidade da página apresentar qual o perfil está realizando a ação, além da necessidade de moderação dos comentários que serão exibidos.  Além disso, para efetivação de todas as requisições feitas pelo módulo administrador para o Facebook, seja ela para requisitar informações das publicações ou realizar uma nova publicação, é usando o \textit{token} de acesso de usuário, que é obtido no processo de login, conforme exemplo \ref{lst:tokenUsuario}.
 
-Entretanto, para o acesso é necessário também que o um usuário esteja cadastrado no banco de dados do SID. Essa ação é necessária para que somente usuários autorizados possam realizar alteração na página usando o sistema.
+Entretanto, para o acesso é indispensável também que o um usuário esteja cadastrado no banco de dados do SID. Essa ação é necessária para que somente usuários autorizados possam realizar alteração na página usando o sistema.
 
-Após o login, algumas informações usadas são guardadas na sessão do usuário, para usos posteriores. Entretanto, todo o processo de armazenamento de informações, envios ao Facebook e retornos de solicitações não devem ser visíveis ao usuário. 
+Após o login, algumas informações usadas são guardadas na sessão do usuário, para usos posteriores. Porém, todo o processo de armazenamento de informações, envios ao Facebook e retornos de solicitações não devem ser visíveis ao usuário. 
 
 \subsection{Publicar}
 Todas as publicações que são realizadas no Facebook usando o SID são feitas ao nó ``/photo'', onde a cada nova publicação será gerado um ID para ela e terá a mesma estrutura de uma imagem postada por um usuário convencional desta rede social.
 
-Na criação de uma nova publicação, usando o SID, são passados para a Graph API dois parâmetros para inserção através do método POST, conforme exemplo \ref{lst:requisicao9}, o primeiro deles é “message”, onde será passado o texto que será exibido na publicação e o outro é “source”, onde será passado a imagem para ser exibida juntamente com o texto. Para envio de imagem para a rede social, é necessário passar na imagem como parâmetro o método “fileToUpload” conforme exemplo \ref{lst:appesdk}. 
+Na criação de uma nova publicação, usando o SID, são passados para a Graph API dois parâmetros para inserção através do método POST, conforme exemplo \ref{lst:requisicao9}. O primeiro deles é “message”, onde será passado o texto que será exibido na publicação e o outro é “source”, onde será passado a imagem para ser exibida juntamente com o texto. Para envio de imagem para a rede social, é necessário passar na imagem como parâmetro o método “fileToUpload” conforme Listagem \ref{lst:appesdk}. 
 
 Alguns dos elementos que são solicitados pela aplicação na criação de uma nova publicação, são omitidos no envio para o Facebook, pois esses dados serão usados apenas para serem armazenados no banco para uso do módulo cliente. Os elementos omitidos são os campos data de início, a data de termino e a legenda. 
 
@@ -372,7 +370,7 @@ A Figura \ref{fig:imgfacebook1} apresenta como fica uma publicação no Facebook
 \subsection{Requisição}
 Usando o ID da foto é possível recuperar informações das arestas, que podem ser a URL, os comentários e as curtidas conforme Listagem \ref{lst:requisicao8}. 
 
-Esse recurso é utilizado para recuperar os mais diversos elementos que as permissões concedidas autorizam, entre os elementos recuperados estão o endereço da publicação, os comentários, curtidas e a imagem de perfil que serão apresentados respectivamente nos campos destinados ao QRCode e na coluna de comentários do módulo cliente.
+Esse recurso é utilizado para recuperar os mais diversos elementos que as permissões concedidas autorizam, entre os elementos recuperados estão o endereço da publicação, os comentários, curtidas e a imagem de perfil que serão apresentados respectivamente nos campos destinados ao QR Code e na coluna de comentários do módulo cliente.
 
 A URL da publicação que é criada, é armazenada no banco de dados no momento da criação da mesma pelo modulo administrador. A requisição segue o exemplo \ref{lst:requisitarurl}.
 
@@ -396,7 +394,7 @@ A recuperação dos outros dados necessários é feito pelo módulo API, onde el
 	$graphNode = $response->getGraphNode();
 \end{lstlisting}
 
-A recuperação dos comentários e da foto do perfil do usuário que publicou cada comentário é necessário para que essa informação seja exibida no módulo cliente, no elemento 5 conforme a Figura \ref{fig:cliente1}.
+A recuperação dos comentários e da foto do perfil do usuário que publicou cada comentário é crucial para que essa informação seja exibida no módulo cliente, no elemento 5 conforme a Figura \ref{fig:cliente1}.
 
 A recuperação de curtidas é necessário para que possa ser feito a moderação dos comentários a serem exibidos. A moderação é feita de forma a verificar o ID de todos os usuários que curtiram cada comentário a fim de verificar se algum dos IDs encontrados é o ID do administrador que está cadastrado no banco.
 

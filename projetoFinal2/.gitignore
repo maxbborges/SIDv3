@@ -10,3 +10,5 @@ tcc.lot
 tcc.pdf
 tcc.synctex.gz
 tcc.toc
+editaveis/*.log
+fixos/*.log
