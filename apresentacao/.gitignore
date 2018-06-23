@@ -1,0 +1,12 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+Aula.aux
+Aula.bbl
+Aula.blg
+Aula.out
+Aula.log
+Aula.nav
+Aula.snm
+Aula.pdf
+texput.log
+Aula.toc
+Aula.synctex.gz
