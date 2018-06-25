@@ -156,6 +156,6 @@ watermarkheightmult=10,% The watermark image is 4 times bigger
 
 \author{Prof. Daniel Saad Nogueira Nunes}
 \title{Título da Aula}
-\subtitle{Disciplina -- Curso}
+%\subtitle{Disciplina -- Curso}
 \institute{IFB -- Instituto Federal de Brasília\\ Câmpus Taguatinga}
 \date{}
