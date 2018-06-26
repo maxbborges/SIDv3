@@ -31,6 +31,17 @@
 \begin{document}
 \maketitle
 \section{Introdução}
+\begin{frame}{Organização}
+\begin{itemize}
+\item Introdução
+\item Trabalhos relacionados
+\item Graph API
+\item SID
+\item Resultados
+\item Trabalhos futuros
+\end{itemize}
+\end{frame}
+
 \subsection{Marketing}
 \begin{frame}{Marketing}
 \begin{center}
@@ -146,31 +157,18 @@ Sinalização digital pode ser usada como alternativa aos outdoors, que poluem v
 \end{itemize}	 
 \end{frame}
 
-\subsection{Motivação}
-\begin{frame}{Motivação}
-	\begin{itemize}
-		\item Inclusão de interatividade nas notícias;
-		\vspace{10px}		
-		\item Dinamização na criação e edição das publicações;
-		\vspace{10px}		
-		\item Facilitação do acesso completo a notícia;
-		\vspace{10px}
-		\item Melhoria na exposição das notícias;
-		\vspace{10px}
-		\item Melhoria na forma de contato entre a comunidade acadêmica;
-	\end{itemize}
-\end{frame}
-
 \subsection{Proposta}
 \begin{frame}{Propostas}
 	\begin{itemize}
 		\item Usar o SIDv2 como base para implementação da versão 3;
 		\vspace{10px}
-		\item Unir os conceitos de marketing digital e sinalização digital para apresentação de conteúdos referentes ao IFB;
+		\item Dinamizar a criação e edição das publicações;
+		\vspace{10px}
+		\item Unir os conceitos de marketing digital e sinalização digital, para melhoria na exposição e interação com a notícia;
 		\vspace{10px}
 		\item Integrar os atuais sistemas de divulgação;
 		\vspace{10px}
-		\item Aplicativo mobile que apresente as publicações e prover uma forma de interação entre professores e alunos.
+		\item Aplicativo mobile que apresente as publicações e oferece forma de interação entre professores e alunos com a simulação de algumas funcionalidades de um Sistema de Gestão Acadêmia.
 	\end{itemize}
 \end{frame}
 
@@ -258,7 +256,14 @@ Sinalização digital pode ser usada como alternativa aos outdoors, que poluem v
 \end{frame}
 
 \begin{frame}{Trabalhos relacionados}
-
+\begin{figure}[h]
+    	\includegraphics[height=3cm]{figuras/SID.png}
+    	\caption{Screenly}
+	\end{figure}
+	
+	\begin{center}
+O SIDv2 (SID FORMOSA), trabalho utilizado como base para melhorias no sistema. Além de possuir não possuir uma integração completa com o Facebook, o link para o QRCode deve ser colocado manualmente, não oferece possibilidade de colocar data de início e não possuir aplicação mobile.
+\end{center}
 \end{frame}
 
 \section{Graph API}
@@ -361,7 +366,9 @@ Sinalização digital pode ser usada como alternativa aos outdoors, que poluem v
 
 \section{SID}
 \begin{frame}
-SID
+\begin{center}
+Sistema Integrado de Divulgação (Versão 3)
+\end{center}
 \end{frame}
 \subsection{Modulos}
 \subsubsection{Administrador}
@@ -457,12 +464,32 @@ Proposta de aplicativo mobile que é responsável por:
 \end{frame}
 
 \section{Conclusão e trabalhos futuros}
-\begin{frame}
+\begin{frame}{Conclusão}
+\begin{center}
+O SID apresenta benefícios consideravelmente melhores em relação às outras soluções que são utilizadas atualmente, além da divisão entre módulos possibilitar a exibição das divulgações em diversos dispositivos distintos, incluindo o aplicativo mobile que foi desenvolvido.
+\end{center}
+\end{frame}
 
+\begin{frame}{Conclusão}
+\begin{itemize}
+\item Integração completa;
+\item Divulgação intuitiva;
+\item unificação de dois meios de comunicação distinto;
+\item Consumo de uma API Fictícia para posterior integração com SGA;
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Trabalhos Futuros}
+\begin{itemize}
+\item Finalização do aplicativo mobile;
+\item Melhoria na moderação de comentários;
+\item Atraso na recuperação de dados;
+\end{itemize}
 \end{frame}
 
 \section{bibliografia}
-\begin{frame}
+\begin{frame}[allowframebreaks]
 \bibliographystyle{apalike}
 \bibliography{bibliografia}
 \end{frame}
