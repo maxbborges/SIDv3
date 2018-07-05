@@ -1,0 +1,119 @@
+\chapter[Resultados]{Resultados}
+\label{resultados}
+A ideia anterior do SIDv2, desenvolvido por \cite{sobrinho2017}, era a de um sistema inteligente de divulgação, entretanto, no presente trabalho a ideia foi alterada para um sistema integrado de divulgação. Isso se deu pelo fato de o sistema não possuir nenhum tipo de inteligência própria e sim realizar a integração entre redes sociais e usuário.
+
+O SID passou por diversas reformulações de suas concepções iniciais. Em sua versão anterior, ele possuía integração bastante limitada, nenhum tipo de aplicativo mobile para melhor interação acadêmica e pouca interatividade do sistema com o usuário e vice-versa. Então, no presente trabalho foi implementado toda a integração com o Facebook, melhorado a interação com o usuário, além da criação de um protótipo \textit{mobile}.
+
+O presente trabalho apresenta a terceira versão do SID, com melhorias significantes como as apresentadas no Capítulo \ref{cap:sid}, estando pronto para implantação de modo a servir de aparato ao campus no processo de veiculação de informações.
+
+Por falta de uma documentação anterior, foi necessário a criação de uma extensa documentação do software de modo a possibilitar futuras modificações e melhorias de maneira fácil.
+
+No módulo administrador, foi possível alcançar todos os objetivos desejados, ficando responsável por todo o processamento e gerenciamento das informações no banco de dados. A partir dele é possível inserir, listar, deletar e editar as informações que servirão para que módulo API forneça os dados conforme a estrutura de uma arquitetura REST, permitindo que outras aplicações futuramente venham a consumir esta API.
+
+Além disso, foi implementado uma verificação de segurança no processo de login que não existia no SIDv2, onde qualquer usuário cadastrado poderia acessar a aplicação. Entretanto, algumas funcionalidades oferecidas pelo módulo só estão disponíveis se forem concedidas algumas permissões específicas. Portanto, o login no módulo só é realizado caso todas as permissões solicitadas sejam aceitas.
+
+O submódulo API, parte do módulo administrador, é estruturado de acordo com a arquitetura REST, com a capacidade de realizar um CRUD nas publicações e nas mensagens entre professor aluno.
+
+Este submódulo foi implementado com duas funcionalidades distintas. A primeira é obter os dados do armazenados no banco e realizar as chamadas a Graph para obter os dados dos comentários das publicações que serão exibidas e organizar esses dados para que sejam enviados. A segunda, é servir de aparato ao aplicativo, para que ele possa simular o consumo de uma API externa. 
+
+O módulo cliente do SID ficou estruturado e pronto para ser implantado e executado em diversos dispositivos, bastando o mesmo possuir um navegador de paginas \textit{WEB} e conexão constante a internet para que sejam realizadas as consultas HTTP. Essa facilidade é possível graças a implementação em arquitetura cliente-servidor, esse arquitetura foi proposta para que o módulo consumisse poucos recursos, permitindo o uso de dispositivos que dispõem de uma grande eficiência energética, como: \textit{Raspberry} PI, \textit{BoxTVs} ou até mesmo em sistemas integrados as próprias \textit{smartTvs}.
+
+No protótipo do aplicativo mobile, foi implementado a funcionalidade de consumo de uma REST API fictícia, simulando o Sistema de Gestão Acadêmica do IFB, para exibição das divulgações e um sistema de comunicação interna entre professores e alunos, onde é necessário um login criado de maneira fictícia para simulação de um sistema acadêmico. necessitando apenas da liberação dos dados do SGA para autenticação do sistema e a adaptação das consultas feitas a esta API.
+
+Na busca de soluções que seguem a ideia de criação de publicação para apresentação em dispositivos externos, foram encontradas diversas ferramentas com essa finalidade, todas elas usando o conceito de arquitetura cliente-servidor, as que apresentaram melhores funcionalidades foram a OOZO, a MangoSings, o SID versão 2, a Screenly e a XIBO.
+
+O OOZO, apresentado na sessão \ref{sec:oozo}, é um sistema pago, porém possui uma versão gratuita com acesso limitado aos recursos oferecidos. Ele oferece suporte a multiplataformas, controle WEB, integração a redes sociais e acesso a publicações via QRCode. Apresentando duas limitações, uma é no que tange a integração com as redes sociais, onde é possível apenas recuperar e deletar publicações, a outra limitação está no acesso as divulgações por dispositivo móvel, onde é necessário o uso de navegadores \textit{WEB}. 
+
+A MangoSigns, apresentado na sessão \ref{sec:mango}, é um sistema pago que possui uma versão gratuita com acesso limitado. A ferramenta possui acesso multiplataformas, inclusive móvel, diversos temas para apresentação e integração com as redes sociais. Possuindo a limitação da integração está disponível apenas na versão paga, além de ser possível apenas recuperar as publicações.
+
+O SID versão 2, apresentado na sessão \ref{sec:sid}, é um sistema gratuito, que possui acesso somente \textit{WEB}, aceso a publicação via QRCode e integração as redes sociais. Nele é possível apenas realizar publicação da página de perfil do usuário, não sendo possível recuperar nenhum dado.
+
+O Screenly, além de usar um aplicativo proprietário, necessitando de um \textit{raspberry}, ele não possui aplicativo \textit{mobile} e nenhuma forma de integração com as redes sociais.
+
+Já o Xibo, apesar de ser uma ferramenta gratuita, não possui aplicativo mobile e nenhuma integração com as redes sociais. 
+
+Comparando cada uma das ferramentas encontradas com o SIDv3 é possível notar diversas funcionalidades que não estão presentes, são limitadas ou não são gratuitas, portanto diversos pontos que são considerados como essenciais e foram implementados no SIDv3, as ferramentas apresentadas não suportam.
+
+Entre esses pontos, está a visualização das publicações por meio de um aplicativo móvel, onde com exceção do MangoSings, nenhum dos sistemas ofereciam um aplicativo para \textit{smartphones}, necessitando de um dispositivo que possuísse um navegador WEB para acesso.
+
+Outro ponto é o de integração com as redes sociais, nenhum das solução analisadas realizavam uma integração tão completa quanto ao do SIDv3, como a possibilidade de criação de novas publicações, recupeção de comentários, curtidas e fotos de perfil, além do filtro de comentários a serem exibidos. 
+
+Além disso, nenhum deles possuía um aplicativo que realiza a integração com um sistema acadêmico, para integração entre professores e alunos.
+
+A tabela \ref{tlb:comparacaoresultados} tem o intuito de fazer um comparativo entre os sistemas apresentados, agora com inclusão do SID em sua terceira versão, comparando algumas das funcionalidades consideradas importantes para sistemas que trabalham com a implantação de sinalização digital e \textit{maketing} digital, na qual seus elementos comparativos são descritos a seguir:
+
+\begin{enumerate}[label=\Roman*)]
+\label{tlb:comparacaoresultados}
+	\item Comprometimento com o propósito: o sistema em questão possibilita a veiculação de informações através de mecanismos de sinalização digital?
+	\item Criação simples de divulgações: o operador possui facilidade de incluir novas divulgações com aspecto atrativo?
+	\item Portabilidade \textit{mobile}: o módulo cliente está disponível para a plataforma \textit{mobile} em forma de aplicativo?
+	\item Integração com redes sociais: o sistema realiza integração completa com as redes sociais, oferecendo recuperação e envio de dados.
+	\item A versão gratuita explora toda a capacidade do programa?
+	\item É possível criar uma nova publicação e envia-la para as redes sociais?
+\end{enumerate}
+
+\begin{table}[H]
+	\caption{Comparativo}
+	\label {tlb:comparativo2}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Quesito/Sistema & OOZO & MangoSigns & SID v2 & Screenly & XIBO & SIDv3 \\ \hline
+		I 				& SIM  & SIM		& SIM & SIM 	 & SIM	& SIM \\ \hline
+		II 				& SIM  & SIM 		& SIM & SIM 	 & SIM		& SIM \\ \hline
+		III				& NÃO  & SIM 		& NÃO & NÃO 	 & NÃO		& SIM \\ \hline
+		IV 				& NÃO  & NÃO 		& NÃO & NÃO 	 & NÃO		& SIM \\ \hline
+		V 				& NÃO  & NÃO 		& SIM & NÃO 	 & SIM		& SIM \\ \hline
+		VI 				& NÃO  & NÃO 		& SIM & NÃO 	 & NÃO		& SIM \\ \hline
+	\end{tabular}
+\end{table}
+
+Portanto, a tabela mostra que o SIDv3 atende a todas os requisitos desejados para o sistema.
+
+\section{Melhorias em relação ao SIDv2}
+\subsection{Módulo Administrador}
+    \begin{itemize}
+        \item Múltiplos administradores: No SIDv2, as informações dos administradores eram armazenadas em um arquivo texto no código fonte do sistema, na v3 os dados são armazenados em um banco de dados, onde é possível registrar inúmeras contas, diferente do arquivo texto, onde era só se recuperava um único usuário.
+
+        \item Mensagens de erro ao logar: Na segunda versão, quando se entrava com um usuário ou senha que não estava registrado no arquivo texto, o sistema não retornava nenhuma informação de erro, apenas retornava para a tela de \textit{login}. Na nova versão, o sistema apresenta na tela de \textit{login} qual o problema foi encontrado pelo sistema para a não autenticação.
+
+        \item Restrição de acesso: Na v2, bastava o administrador possuir os seus dados cadastrados, que a autenticação no sistema era efetivada, na nova versão o sistema realiza a verificação das permissões que são necessárias para o funcionamento do sistema e se essas permissões foram concedidas pelo usuário.
+
+        \item Recuperação automática de endereços: No SIDv2, na página de inserção, o SID usava o campo de texto "Link para mais informações" e o \textit{combobox} "Prioridade", entretanto no SIDv3, os dois campos foram retirados, o campo "link para mais informações" foi retirado para que o endereço fosse obtido de forma automática pelo sistema, recuperando o endereço da publicação no Facebook e o campo "Prioridade" foi retirado pois não estava implementado em nenhuma versão.
+
+        \item Data de início: Na v2, na página de inserção, o administrador somente tinha a funcionalidade de definir a data em que a publicação deixaria de ser exibida no módulo cliente. Na v3, foi inserido a nova funcionalidade de se definir também a data em que a publicação começará a ser exibida.
+        
+        \item Acesso direto a publicação: Na tela de detalhes, na v2 do SID, era mostrado os campos de \textit{link} e prioridade. Esses campos foram substituídos para que fosse colocado o endereço para acesso direto a postagem no Facebook.
+        
+        \item Exclusão: Na segunda versão, o SID somente excluía os dados localmente do banco de dados e não era apresentado nenhuma mensagem para o usuário. Em sua terceira versão, foi implementado a funcionalidade de excluir não somente localmente, mas também a publicação do Facebook e para que a ação seja efetivada, é necessário o administrador confirmar em uma janela \textit{popup} que é apresentada. 
+    \end{itemize}
+\subsection{Módulo Cliente}
+    \begin{itemize}
+        \item Atualização automática: Em sua segunda versão, o módulo cliente realizava a requisição so servidor, que recuperava as informações do banco de dados e as enviava para serem exibidas no cliente, entretanto, essa requisição era realizada uma única vez, necessitando de uma atualização da página todas as vezes que um conteúdo fosse alterado. Na terceira versão, é realizado uma nova requisição de tempos em tempos de forma automática, de forma que quando uma nova publicação ou comentário é feito, o sistema automaticamente irá exibi-lo.
+        
+        \item Exibição de comentários: A v2 do SID, não apresentava nenhuma informação de comentário. Foi implementado todo o sistema de requisição, atualização e apresentação dessas informações.
+    \end{itemize}
+\subsection{Submódulo API e Aplicativo móvel}
+Em sua v2, o SID não possuía um submódulo API e nem um aplicativo móvel. Para a v3, foi realizado toda a criação da documentação e implementação do módulo e do sistema.
+
+\subsection{Banco de dados}
+    \begin{itemize}
+        \item Armazenamento das imagens publicadas: Na segunda versão, ao se criar uma nova publicação, eram armazenados todas as informações no banco de dados em formato texto. Na nova versão, as imagens que eram armazenadas em formato bytea, agora são armazenadas localmente no servidor. A necessidade dessa alteração se deu para que se possa diminuir a latência na busca de informações no banco de dados.
+            
+        \item Tabela divulgacao: Os atributos "prioridade" e "imagem" foram retiradas pois não seriam mais usadas, no lugar, foram criadas os atributos "datainicio" e "object\underline{{ }}id".
+            
+        \item Tabela config: A tabela foi criada para armazenar as informações necessárias para realizar requisições ao Facebook. Na versão 2, esses dados eram recuperados de um arquivo texto, não possibilitando a inclusão de novos aplicativos e vinculalos ao sistema.
+        
+        \item Tabelas para módulo mobile: Foram criadas as tabelas: professor, designado, turma, mensagem, aluno e matriculado. Esta ação foi necessária para que fosse possível realizar a criação de um sistema fictício que simula parte das funcionalidades do SGA.
+    \end{itemize}
+
+\section{Dificuldades encontradas}
+Durante o desenvolvimento do sistema, foram enfrentados diversos problemas, entre eles estão a falta da documentação detalhada da versão anterior, problemas com a aprovação de permissões solicitadas para o Facebook, a limitação do \textit{token} de aplicativo e o não disponibilização da API do SGA.
+
+A falta de uma documentação detalhada do SIDv2 acabou influenciando no entendimento de como as classes, métodos e o banco de dados se interagiam um com os outros. Sendo necessário um maior tempo de pesquisa e entendimento do sistema, além de ter sido necessário a criação de uma documentação totalmente nova, não sendo possível o aproveitamento de nenhuma anterior.
+
+Com exceção da permissão ``email'' e ``\textit{public\underline{{ }}profile}'', todas as outras permissões necessitam passar pelo processo de análise do Facebook, sendo necessário o envio de um vídeo demostrando o uso da permissão. O processo de análise não foi concluído até a finalização deste documento, portanto, o uso das permissões estão concedidas por tempo limitado.
+
+Os \textit{tokens} de aplicativo apresentam a limitação de não autorizar que sejam recuperados dados considerados privados pela rede social, como as curtidas de um comentário, que são usadas para moderação dos comentários que serão exibidos. Para contornar o problema, foi necessário o uso de um \textit{token} de usuário para realizar as requisições de solicitação de dados.
+
+Uma dos objetivos do aplicativo \textit{mobile}, é o uso de informações de alunos e professores presentes no SGA para efetivação da autenticação do usuário. Entretanto, o IFB não disponibilizou em tempo hábil a base de dados para que fosse possível a sua implementação. O problema foi contornado com o uso de uma base de dados fictícia, para posterior migração.

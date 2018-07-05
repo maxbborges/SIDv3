@@ -130,8 +130,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% LABELS
-\gdef\resumoname{Resumo} \gdef\abstrname{Abstract}
-\gdef\acronimoname{Lista de Acrônimos} \gdef\acronymname{List of Acronyms}
+\gdef\abstrname{Abstract}
+\gdef\acronimoname{Lista de Acrônimos} 
+\gdef\acronymname{List of Acronyms}
 \gdef\keywordsnamePT{Palavras-chave}
 \gdef\keywordsnameEN{Keywords}
 
@@ -176,7 +177,8 @@
   \renewcommand{\bibname}{\bibliographytocname}
   \renewcommand{\appendixtocname}{Apêndice}
   \renewcommand{\appendixpagename}{Apêndice}
-  \gdef\@lstlistingname{Lista deAlgoritmos}
+  \renewcommand{\lstlistingname}{Listagem}
+  \gdef\@lstlistingname{Lista de Algoritmos}
   \gdef\@listoftablesname{Lista de Tabelas}
   \gdef\@listoffiguresname{Lista de Figuras}
   \gdef\@pagename{página}
@@ -618,10 +620,10 @@ requirements for the degree of \@degree\ in \@majorfielden.
 	\hspace{0.5cm}
 		1. Sistema Integrado.
 		2. Aplicativo Mobile.
-		I. Prof. Me. Daniel Saad Nogueira Nunes.
+		I. \@adviser.
 		II. Instituto Federal de Educação, Ciência e Tecnologia de Brasília.
 		III. Campus Taguatinga.
-		IV. Definição, Estudo e Implementação de um Sistema de Divulgação de Informações Integrado do IFB
+		IV. \@title
 
 	\hspace{8.75cm} CDU 004\\
 
@@ -646,9 +648,9 @@ requirements for the degree of \@degree\ in \@majorfielden.
   \begin{center}
 
   -----------------------------------------------------------------------\\
-  Prof. Me. Daniel Saad Nogueira Nunes\\
+  \@adviser\\
   Departamento de Computação/IFB\\
-  Orientador
+  \@advisertitle~
 
   \vspace{\baselineskip}
   -----------------------------------------------------------------------\\
@@ -918,33 +920,55 @@ requirements for the degree of \@degree\ in \@majorfielden.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Code BLocks
 
-\lstnewenvironment{code}[1][language=Python,caption=Name,label=code:Name]
-  {
-  \lstset{
-    #1,
-    basicstyle=\ttfamily\small,
-    aboveskip={1.0\baselineskip},
-    belowskip={1.0\baselineskip},
-    columns=fixed,
-    extendedchars=true,
-    breaklines=true,
-    tabsize=4,
-    prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-    frame=lines,
-    showtabs=false,
-    showspaces=false,
-    showstringspaces=false,
-    keywordstyle=\color[rgb]{0.627,0.126,0.941},
-    commentstyle=\color[rgb]{0.133,0.545,0.133},
-    stringstyle=\color[rgb]{01,0,0},
-    numbers=left,
-    numberstyle=\small,
-    stepnumber=1,
-    numbersep=10pt,
-    escapeinside={\%*}{*)}
-    }
-  }
- {}
+\lstset{
+  language=PHP,
+  frame=single,
+  captionpos=b,
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{black}\bfseries,
+  %stringstyle=\color{green},
+  %commentstyle=\color{green},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true, 
+  showspaces=false, 
+  showstringspaces=false, 
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true, 
+%backgroundcolor=\color{yellow}, 
+  breakautoindent=true, 
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4
+}
+
+% \lstnewenvironment{code}[1][language=Python,caption=Name,label=code:Name]
+%   {
+%   \lstset{
+%     #1,
+%     basicstyle=\ttfamily\small,
+%     aboveskip={1.0\baselineskip},
+%     belowskip={1.0\baselineskip},
+%     columns=fixed,
+%     extendedchars=true,
+%     breaklines=true,
+%     tabsize=4,
+%     prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+%     frame=lines,
+%     showtabs=false,
+%     showspaces=false,
+%     showstringspaces=false,
+%     keywordstyle=\color[rgb]{0.627,0.126,0.941},
+%     commentstyle=\color[rgb]{0.133,0.545,0.133},
+%     stringstyle=\color[rgb]{01,0,0},
+%     numbers=left,
+%     numberstyle=\small,
+%     stepnumber=1,
+%     numbersep=10pt,
+%     escapeinside={\%*}{*)}
+%     }
+%   }
+%  {}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Reference macros

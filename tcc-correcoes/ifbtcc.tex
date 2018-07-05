@@ -75,15 +75,17 @@
 \usepackage{rotating}
 \usepackage{booktabs}
 \usepackage{pdfpages}
-\usepackage{caption}
+% \usepackage{caption}
 \usepackage{lipsum}
 \usepackage{sectsty}
+\usepackage{float}
+\usepackage{pdfpages}
 
 %% Set the language used in your code in the block above
 
-\captionsetup[table]{position=top,justification=centering,width=.85\textwidth,labelfont=bf,font=footnotesize}
-\captionsetup[lstlisting]{position=top,justification=centering,width=.85\textwidth,labelfont=bf,font=footnotesize}
-\captionsetup[figure]{position=bottom,justification=centering,width=.85\textwidth,labelfont=bf,font=footnotesize}
+% \captionsetup[table]{position=top,justification=centering,width=.85\textwidth,labelfont=bf,font=footnotesize}
+% \captionsetup[lstlisting]{position=top,justification=centering,width=.85\textwidth,labelfont=bf,font=footnotesize}
+% \captionsetup[figure]{position=bottom,justification=centering,width=.85\textwidth,labelfont=bf,font=footnotesize}
 
 %% Chapter and (Sub)Section fonts must be same size as text (12)
 \sectionfont{\fontsize{12}{15}\selectfont}
@@ -116,7 +118,7 @@
 \majorfieldpt{Ciência da Computação}
 \majorfielden{Computer Science}
 
-\title{Definição, Estudo e Implementação de um Sistema de Divulgação de Informações do IFB}
+\title{Melhoria do Sistema Integrado de Divulgação de Informações do IFB: melhor integração ao Facebook e Aplicativo Mobile}
 
 \date{2018}
 
@@ -143,14 +145,13 @@
 \banca
 
 \begin{dedicatory}
-    %\input{text/dedicatoria.tex}
+    \input{text/dedicatoria.tex}
 \end{dedicatory}
 
 \acknowledgements
 \input{text/agradecimentos}
 
-\resumo
-% Escreva seu resumo no arquivo resumo.tex
+\gdef\resumoname{Resumo} 
 {\parindent0pt
 	\input{text/resumo}
 }
@@ -181,9 +182,12 @@
 \mainmatter
 
 \include{text/introducao}
-%\include{text/background}
-%\include{text/desenv}
-%\include{text/conclusion}
+\include{text/trabalhosrelacionados}
+\include{text/referencialteorico}
+\include{text/API}
+\include{text/SID}
+\include{text/resultados}
+\include{text/consideracoes}
 
 % References
 
