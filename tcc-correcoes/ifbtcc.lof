@@ -1,0 +1,46 @@
+\select@language {portuguese}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Casos de uso da a\IeC {\c c}\IeC {\~o}es do m\IeC {\'o}dulo administrador}}{53}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Sequencia para efetiva\IeC {\c c}\IeC {\~a}o de \textit {login}}}{54}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Modelo entidade e relacionamento}}{55}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Diagrama de classe do m\IeC {\'o}dulo administrador}}{55}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Diagrama de sequ\IeC {\^e}ncia para inser\IeC {\c c}\IeC {\~a}o}}{56}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces P\IeC {\'a}gina de inser\IeC {\c c}\IeC {\~a}o do m\IeC {\'o}dulo administrador.}}{56}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces P\IeC {\'a}gina de listagem do m\IeC {\'o}dulo administrador.}}{58}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Diagrama de classe do m\IeC {\'o}dulo API}}{61}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Casos de uso da a\IeC {\c c}\IeC {\~o}es do m\IeC {\'o}dulo cliente}}{61}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Diagrama de classe do m\IeC {\'o}dulo cliente}}{62}{figure.5.10}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces P\IeC {\'a}gina do cliente}}{62}{figure.5.11}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Casos de uso aplicativo m\IeC {\'o}vel.}}{63}{figure.5.12}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Modelo entidade e relacionamento aplicativo m\IeC {\'o}vel.}}{64}{figure.5.13}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces P\IeC {\'a}gina de inser\IeC {\c c}\IeC {\~a}o no m\IeC {\'o}dulo administrador.}}{65}{figure.5.14}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces P\IeC {\'a}gina do Aluno.}}{65}{figure.5.15}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces P\IeC {\'a}gina do professor.}}{66}{figure.5.16}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Divulga\IeC {\c c}\IeC {\~a}o enviada ao Facebook com aux\IeC {\'\i }lio do SID}}{68}{figure.5.17}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Tela de login do Administrador}}{84}{figure.A.1}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Tela de inser\IeC {\c c}\IeC {\~a}o de novas publica\IeC {\c c}\IeC {\~o}es}}{85}{figure.A.2}
+\contentsline {figure}{\numberline {A.3}{\ignorespaces Tela de listagem das publica\IeC {\c c}\IeC {\~o}es}}{87}{figure.A.3}
+\contentsline {figure}{\numberline {A.4}{\ignorespaces Tela de edi\IeC {\c c}\IeC {\~a}o das publica\IeC {\c c}\IeC {\~o}es}}{87}{figure.A.4}
+\contentsline {figure}{\numberline {A.5}{\ignorespaces Tela de detalhamento das publica\IeC {\c c}\IeC {\~o}es}}{88}{figure.A.5}
+\contentsline {figure}{\numberline {A.6}{\ignorespaces Tela do cliente}}{89}{figure.A.6}
+\contentsline {figure}{\numberline {A.7}{\ignorespaces Diagrama de casos de uso do m\IeC {\'o}dulo administrador}}{90}{figure.A.7}
+\contentsline {figure}{\numberline {A.8}{\ignorespaces Diagrama de casos de uso do m\IeC {\'o}dulo cliente}}{90}{figure.A.8}
+\contentsline {figure}{\numberline {A.9}{\ignorespaces Diagrama de casos de uso do aplicativo m\IeC {\'o}vel}}{91}{figure.A.9}
+\contentsline {figure}{\numberline {A.10}{\ignorespaces Diagrama de classes do m\IeC {\'o}dulo administrador}}{92}{figure.A.10}
+\contentsline {figure}{\numberline {A.11}{\ignorespaces Diagrama de classes do subm\IeC {\'o}dulo API}}{92}{figure.A.11}
+\contentsline {figure}{\numberline {A.12}{\ignorespaces Diagrama de classes do m\IeC {\'o}dulo Cliente}}{93}{figure.A.12}
+\contentsline {figure}{\numberline {A.13}{\ignorespaces Diagrama entidade--relacionamento do aplicativo m\IeC {\'o}vel (API fict\IeC {\'\i }cia)}}{93}{figure.A.13}
+\contentsline {figure}{\numberline {A.14}{\ignorespaces Diagrama entidade--relacionamento do \textit {web}}}{94}{figure.A.14}
+\contentsline {figure}{\numberline {A.15}{\ignorespaces Diagrama de sequ\IeC {\^e}ncia para inserir}}{94}{figure.A.15}
+\contentsline {figure}{\numberline {A.16}{\ignorespaces Diagrama de sequ\IeC {\^e}ncia para login}}{95}{figure.A.16}
+\contentsline {figure}{\numberline {A.17}{\ignorespaces Diagrama de sequ\IeC {\^e}ncia para deletar}}{95}{figure.A.17}
+\contentsline {figure}{\numberline {A.18}{\ignorespaces Diagrama de sequ\IeC {\^e}ncia para detalhar}}{96}{figure.A.18}
+\contentsline {figure}{\numberline {A.19}{\ignorespaces Diagrama de sequ\IeC {\^e}ncia para editar}}{96}{figure.A.19}
+\contentsline {figure}{\numberline {A.20}{\ignorespaces Diagrama de sequ\IeC {\^e}ncia para listar}}{97}{figure.A.20}

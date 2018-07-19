@@ -5,9 +5,9 @@ O Sistema Integrado de Divulgação de informações do IFB \textit{Campus} Tagu
 Neste Capítulo, será feito o detalhamento do SID, primeiramente apresentando os detalhes de forma superficial, macroscópica. Posteriormente é apresentado de maneira microscópica, apresentando cada detalhe de como e onde são realizadas as demandas de cada elemento presente no sistema. 
 
 \section{Visão Geral} 
-O SID está estruturado em duas vertentes, o \textit{web} e o \textit{mobile}, ele foi desenvolvido com o objetivo de oferecer um sistema de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao IFB \textit{Campus} Taguatinga. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma \textit{web} e \textit{mobile}.
+O SID está estruturado em duas vertentes, o \textit{Web} e o móvel, ele foi desenvolvido com o objetivo de oferecer um sistema de divulgação que realiza integração com as redes sociais de forma ágil, intuitiva, dinâmica e amigável para os administradores e para os usuários comuns, além de melhorar a efetividade do processo de disseminação das informações referentes ao IFB \textit{Campus} Taguatinga. Atendendo ao objetivo principal, que é divulgação de informações através de uma plataforma \textit{Web} e móvel.
 
-Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em dois módulos e um aplicativo. O primeiro módulo é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente. No segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O aplicativo é um sistema \textit{mobile}, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos através do consumo de uma API fictícia que simula a interface a ser oferecida pelo Sistema de Gestão Acadêmica do IFB (SGA).
+Necessitando sempre do uso da rede para realizar atualizações, o SID está dividido em dois módulos e um aplicativo. O primeiro módulo é o administrador, onde é possível fazer o gerenciamento completo do conteúdo que será apresentado no segundo módulo chamado cliente. No segundo módulo será apresentado as informações que foram cadastradas no módulo administrador, onde então serão propagadas por monitores ou celulares. O aplicativo é um sistema móvel, onde o usuário poderá ter acesso a todas as divulgações assim como no módulo cliente, mas com o incremento de troca de mensagens entre professores e alunos através do consumo de uma API fictícia que simula a interface a ser oferecida pelo Sistema de Gestão Acadêmica do IFB (SGA).
 
 A divisão de módulos foi feita para que se possa atender a arquitetura cliente-servidor, ela se mostrou necessária para minimizar o processamento do módulo cliente e do aplicativo que se utiliza do módulo cliente, centralizando o processamento das informações em um sistema mais robusto, ficando a cargo dos clientes exibirem as informações recebidas e realizar pequenos processamentos.
 
@@ -15,14 +15,14 @@ O sistema WEB foi desenvolvido na linguagem PHP, usada para estruturação do pr
 
 Baseado em desenvolvimento ágil, com metodologia SCRUM, foram definidos sprints semanais, para definição das funcionalidades a serem desenvolvidas ou melhoradas. Esta metodologia se torna importante para que o progresso seja acompanhado em cada parte do seu desenvolvimento.
 
-No desenvolvimento, foram usados alguns \textit{frameworks}. O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. O terceiro foi o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do aplicativo mobile. 
+No desenvolvimento, foram usados alguns \textit{frameworks}. O primeiro deles, usado em conjunto com o PHP, foi o ZEND que tem a finalidade de estruturar o código em modelo, visão e controle. Outro \textit{framework} foi o Doctrine, usado para efetivação da comunicação entre o banco de dados e a orientação a objeto. O terceiro foi o Framework7 (F7), em conjunto com o Cordova, para que fosse possível o desenvolvimento do aplicativo móvel. 
 
 Se utilizando dos conceito de UML abordados na Seção \ref{sec:uml}, é  feito a representação dos elementos, demostrando cada artefato do SIDv3, como o diagrama de classe, de sequência e seus casos de uso.
 
 Uma apresentação mais detalhada do funcionamento interno de cada tela disponível do SID é apresentada no Apêndice \ref{apendice}.
 
 \section{Modulo Administrador}
-Com o uso da arquitetura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e \textit{mobile}.
+Com o uso da arquitetura cliente-servidor, esse módulo fica situado no servidor e é responsável por conceder ao usuário administrador a funcionalidade de gerenciar todas as informações do sistema podendo inserir, alterar, e retirar as divulgações, fazendo todo o gerenciamento das informações que são repassadas ao módulo cliente e móvel.
 
 O modelo de casos de uso que representa o módulo é apresentado na Figura \ref{fig:casosDeUsoADM}. Ele tem a finalidade de demostrar os principais processos que o administrador pode executar no módulo.
 
@@ -80,11 +80,11 @@ A Figura \ref{fig:administrador1}, representa a visão do operador da tela de in
 Os elementos presentes na tela de inserir são listados abaixo, juntamente com suas funcionalidades: 
 
 \begin{enumerate}
-   \item Legenda: É um campo de texto destinado a informação a ser repassada de forma sucinta e clara ao usuário final por intermédio cliente ou mobile. 
+   \item Legenda: É um campo de texto destinado a informação a ser repassada de forma sucinta e clara ao usuário final por intermédio cliente ou móvel. 
    \item Texto: É todo o texto que será enviado ao Facebook, contendo informações como descrição da publicação, data e horário da realização e um possível \textit{link} para acesso a mais informações. 
-   \item Data de Início: É a data inicial em que a publicação começará a ser exibida no cliente e no mobile.
-   \item Data de Término: É a data final em que a publicação deixará de ser exibida no cliente e no mobile.
-   \item Imagem: Será a imagem enviada para o Facebook, para o cliente e para o mobile. Essa imagem pode ser um \textit{banner} de apresentação de um evento, por exemplo.
+   \item Data de Início: É a data inicial em que a publicação começará a ser exibida no cliente e no móvel.
+   \item Data de Término: É a data final em que a publicação deixará de ser exibida no cliente e no móvel.
+   \item Imagem: Será a imagem enviada para o Facebook, para o cliente e para o móvel. Essa imagem pode ser um \textit{banner} de apresentação de um evento, por exemplo.
  \end{enumerate}
 
 Todos os campos são de preenchimento obrigatório. O campo 5 é repassado para a API como parâmetro \textit{source}, já o campo 2 é repassado como parâmetro \textit{messagem}, os outros campos são enviados somente para o banco de dados.
@@ -152,23 +152,13 @@ A resposta para a solicitação da Listagem \ref{lst:bd} é um arquivo do tipo J
 				"id": {ID DA PUBLICACAO},
 				"urlFoto": {URL DA FOTO DE PERFIL DO USUARIO}
 			],
-			1: [
-				"created_time": {DATA DA CIRACAO},
-				"from": [
-					"nome": {NOME DO USUARIO},
-					"id": {ID DO USUARIO}
-				],
-				"message": {MENSAGEM APRESENTADA},
-				"id": {ID DA PUBLICACAO},
-				"urlFoto": {URL DA FOTO DE PERFIL DO USUARIO}
-			]
 		],
 		"imagem": {IMAGEM DE EXIBICAO, CODIFICADA}
 	]
 }
 \end{lstlisting}
 
-A propriedade `bd', contém uma \textit{array} de duas posições, contendo 2 \textit{strings}, sendo elas legenda e link. Esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A propriedade `comentarios' é um array de \textit{strings} que pode possuir zero ou mais itens. Cada item representa um comentário da publicação, cada qual contendo data de criação, autor, foto de perfil e identificador do comentário. Já a 'imagem' é uma \textit{string} que representa uma imagem codificada em base64 a ser decodificada pelo módulo cliente.
+A propriedade ``bd'', contém uma \textit{array} de duas posições, contendo 2 \textit{strings}, sendo elas legenda e link. Esses dados foram armazenados pelo servidor no banco de dados, na criação da publicação. A propriedade ``comentarios'' é um array de \textit{strings} que pode possuir zero ou mais itens. Cada item representa um comentário da publicação, cada qual contendo data de criação, autor, foto de perfil e identificador do comentário. Já a ``imagem'' é uma \textit{string} que representa uma imagem codificada em base64 a ser decodificada pelo módulo cliente.
 
 O módulo API tem a função de, em conjunto com o banco de dados, realizar a simulação de um sistema de gestão acadêmico, sendo possível consultar alguns dados através de requisições. Os dados que podem ser recuperados, variam de acordo com a sintaxe utilizada.
 
@@ -263,8 +253,8 @@ O conteúdo recuperado da variável ``bd'', será apresentado nos itens 2 e 3, r
 
 O campo 5 irá apresentar 5 elementos recuperados na variável ``comentarios''. Esses elementos serão: a imagem de perfil, o nome, o comentário, a data e a hora da publicação do comentário feito pelo usuário. Antes da apresentação das informações de comentários, é escolhido um número randômico que representará a posição do array do comentário que será apresentado.
 
-\section{Aplicativo Mobile}
-Desenvolvido com auxílio dos \textit{Frameworks} Cordova, Framework7 e Dom. O aplicativo \textit{mobile} é responsável por apresentar de forma pública as divulgações, assim como o módulo cliente, com algumas funcionalidades a mais que são restritas.
+\section{Aplicativo móvel}
+Desenvolvido com auxílio dos \textit{Frameworks} Cordova, Framework7 e Dom. O aplicativo móvel é responsável por apresentar de forma pública as divulgações, assim como o módulo cliente, com algumas funcionalidades a mais que são restritas.
 
 As funcionalidades adicionais do aplicativo são as de disponibilizar uma melhor forma de comunicação entre professores e alunos, necessitando apenas de autenticação. Para autenticação é preciso que o aluno ou o professor tenha uma matrícula e senha cadastradas no banco.
 

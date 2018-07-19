@@ -7,11 +7,11 @@ A plataforma do Facebook realiza essas ações através de requisições HTTP, c
 \section{Visão Geral}
 A Graph segue um padrão de estrutura que se assemelha a um grafo. Para \cite{soares2014}, um grafo pode ser explicado como um conjunto finito de vértices de modo que cada par de vértices relacionado é chamado de aresta. A estrutura da Graph, segue esse mesmo conceito, possuindo nós, arestas e, adicionalmente, campos. 
 
-Os nós representam elementos únicos, cada um deles são considerados um vértice. Na rede social, eles podem ser os mais diversos elementos, como: páginas, usuários, comentários, fotos, entre outras. Cada um desses elementos são considerados um nó distinto \cite{facebook2018b} e possuem um identificador único (ID). 
+Os nós representam elementos únicos, cada um deles é considerados um vértice. Na rede social, eles podem ser os mais diversos elementos, como: páginas, usuários, comentários, fotos, entre outros. Cada um desses elementos são considerados um nó distinto \cite{facebook2018b} e possuem identificadores únicos (ID). 
 
-O relacionamentos entre dois ou mais vértices são chamadas de arestas e representam a ligação entre os nós. As arestas são conexões entre um objeto único e outro objeto ou  coleção de objetos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. 
+O relacionamentos entre dois vértices são chamadas de arestas e representam a ligação entre os nós. As arestas são conexões entre um objeto único e outro objeto ou  coleção de objetos, tais como as fotos de uma página ou o conjunto de comentários em uma foto. 
 
-Os campos são os atributos mais específicos dos nós, tais como: o link de uma publicação; As informações de quem realizou o comentário; o tamanho de uma imagem; entre outros.
+Os campos são os atributos mais específicos dos nós, tais como: o link de uma publicação; as informações de quem realizou o comentário; o tamanho de uma imagem; entre outros.
 
 A obtenção dos elementos é feita através de requisições HTTP e podem ser feitas diretamente do navegador ou usando outras aplicações que usem bibliotecas HTTP. Entretanto, para o seu funcionamento, elas devem seguir a sintaxe correta para requisição e obtenção da resposta do servidor. 
 
@@ -23,23 +23,44 @@ A API trabalha de forma a auxiliar o desenvolvedor a realizar requisições, ofe
 
 Nesse capítulo, serão demostrados exemplos de requisições e de retorno, esses exemplos foram escritos em código PHP, que atualmente está entre as linguagens suportadas pela SDK do Facebook. A variável \$graphNode será a responsável por receber maioria das respostas das requisições. Enquanto o objeto \$fb será a instancia criada através da SDK para chamada das classes e métodos presentes nele. A Tabela \ref{tlb:nosEarestas} apresenta alguns exemplos de nós, a descrição deles e alguns dos nós que cada um pode alcançar.
 
-\begin{table}[H]
-\centering
+% \begin{table}[H]
+% \centering
+% \caption{Exemplos de nós e arestas}
+% \label{tlb:nosEarestas}
+% \begin{tabular}{|c|c|c|}
+% \hline
+% Nó         & Descrição                              & \begin{tabular}[c]{@{}c@{}}Exemplos de \\ Arestas\end{tabular}                                             \\ \hline
+% Usuário    & Representa o perfil de um usuário.     & \begin{tabular}[c]{@{}c@{}}Álbuns de fotos,\\ Fotos específicas,\\ Linha do tempo,\\ Amigos\end{tabular}  \\ \hline
+% Página     & Representa uma página.                 & \begin{tabular}[c]{@{}c@{}}Álbuns de fotos,\\ Vídeos publicados,\\ Linha do tempo,\\ Eventos\end{tabular} \\ \hline
+% Postagem   & As postagens em um perfil ou página.   & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline
+% Comentário & Comentários feitos em uma postagem.    & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline
+% Álbum      & Álbuns criados em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}Fotos específicas,\\ Capa do álbum,\\ Curtidas\end{tabular}                    \\ \hline
+% Foto       & Fotos postadas em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline
+% Evento     & Eventos criados pelo perfil ou página. & \begin{tabular}[c]{@{}c@{}}Administradores,\\ Comentários,\\ Fotos específicas\end{tabular}               \\ \hline
+% Vídeo      & Vídeos criados pelo perfil ou página.  & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline
+% \end{tabular}
+% \end{table}
+
+\begin{longtable}[c]{|c|c|c|}
 \caption{Exemplos de nós e arestas}
-\label{tlb:nosEarestas}
-\begin{tabular}{|c|c|c|}
+\label{tlb:nosEarestas}\\
 \hline
-Nó         & Descrição                              & \begin{tabular}[c]{@{}c@{}}Exemplos de \\ Arestas\end{tabular}                                             \\ \hline
-Usuário    & Representa o perfil de um usuário.     & \begin{tabular}[c]{@{}c@{}}Álbuns de fotos,\\ Fotos específicas,\\ Linha do tempo,\\ Amigos\end{tabular}  \\ \hline
-Página     & Representa uma página.                 & \begin{tabular}[c]{@{}c@{}}Álbuns de fotos,\\ Vídeos publicados,\\ Linha do tempo,\\ Eventos\end{tabular} \\ \hline
-Postagem   & As postagens em um perfil ou página.   & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline
-Comentário & Comentários feitos em uma postagem.    & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline
-Álbum      & Álbuns criados em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}Fotos específicas,\\ Capa do álbum,\\ Curtidas\end{tabular}                    \\ \hline
-Foto       & Fotos postadas em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline
-Evento     & Eventos criados pelo perfil ou página. & \begin{tabular}[c]{@{}c@{}}Administradores,\\ Comentários,\\ Fotos específicas\end{tabular}               \\ \hline
-Vídeo      & Vídeos criados pelo perfil ou página.  & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular}                                \\ \hline
-\end{tabular}
-\end{table}
+Nó & Descrição & \begin{tabular}[c]{@{}c@{}}Exemplos de \\ Arestas\end{tabular} \\ \hline
+\endfirsthead
+%
+\multicolumn{3}{c}%
+{{Tabela: \thetable\ continuação da página anterior.}} \vspace{10px}
+\endhead
+%
+Usuário & Representa o perfil de um usuário. & \begin{tabular}[c]{@{}c@{}}Álbuns de fotos,\\ Fotos específicas,\\ Linha do tempo,\\ Amigos\end{tabular} \\ \hline
+Página & Representa uma página. & \begin{tabular}[c]{@{}c@{}}Álbuns de fotos,\\ Vídeos publicados,\\ Linha do tempo,\\ Eventos\end{tabular} \\ \hline
+Postagem & As postagens em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular} \\ \hline
+Comentário & Comentários feitos em uma postagem. & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular} \\ \hline
+Álbum & Álbuns criados em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}Fotos específicas,\\ Capa do álbum,\\ Curtidas\end{tabular} \\ \hline
+Foto & Fotos postadas em um perfil ou página. & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular} \\ \hline
+Evento & Eventos criados pelo perfil ou página. & \begin{tabular}[c]{@{}c@{}}Administradores,\\ Comentários,\\ Fotos específicas\end{tabular} \\ \hline
+Vídeo & Vídeos criados pelo perfil ou página. & \begin{tabular}[c]{@{}c@{}}Comentários,\\ Curtidas,\\ Reações\end{tabular} \\ \hline
+\end{longtable}
 
 \section{Token de acesso}
 \label{sec:tokenDeAcesso}
@@ -61,9 +82,7 @@ Os \textit{tokens} de usuário são requisitados através da Graph, que por sua 
 Os \textit{tokens} de aplicativos possuem limitações, restringindo o acesso a conteúdos públicos, não exibindo alguns dados de usuários como as curtidas. A obtenção dele pode ser feito conforme a Listagem \ref{lst:tokenAplicativo}, devendo ser passado o ID único e o ID secreto do aplicativo como parâmetros. O retorno deste tipo de requisição está representado na Listagem \ref{lst:retornoAplicativo}, contendo o \textit{token} e o tipo.
 
 \begin{lstlisting}[caption={Obtendo \textit{token} de acesso de aplicativos},label={lst:tokenAplicativo}]
-$fb->get('/oauth/access_token
-    ?client_id={app-id}
-    &client_secret={app-secret}&grant_type=client_credentials');
+    $fb->get('/oauth/access_token?client_id={app-id}&client_secret={app-secret}&grant_type=client_credentials');
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Retorno \textit{token} de acesso de aplicativo \ref{lst:tokenAplicativo}},label={lst:retornoAplicativo}]
@@ -77,11 +96,11 @@ $fb->get('/oauth/access_token
 Os \textit{tokens} de página dependem de uma permissão específica chamada \textit{manage\underline{{ }}pages}, além da necessidade do usuário ser administrador da página. Para se obter o \textit{token} é necessário realizar uma requisição de todas as páginas que o usuário é administrador, além do \textit{token} de usuário, como mostra a Listagem \ref{lst:tokenPagina}.
 
 \begin{lstlisting}[caption={Obtendo Token de acesso a página},label={lst:tokenPagina}]
-  $response = $fb->get(
-    '/me/accounts',
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
+    $response = $fb->get(
+        '/me/accounts',
+        '{access-token}'
+    );
+    $graphNode = $response->getGraphNode();
 \end{lstlisting}
 
 O retorno da Listagem \ref{lst:tokenPagina} será um JSON como na Listagem \ref{lst:retornoPagina}, contendo uma lista com todas as páginas e as informações referentes a cada uma delas, como o \textit{token} da página, a categoria, o nome, o id e as permissões que o usuário tem sobre página. 
@@ -114,11 +133,11 @@ O retorno da Listagem \ref{lst:tokenPagina} será um JSON como na Listagem \ref{
 É possível também obter de uma página específica, ao invés de todas as páginas que o usuário é administrador. Para isso é necessário seguir a Listagem \ref{lst:tokenunico} que terá como resposta o \textit{access token} e o ID da página específica. onde o retorno será o JSON da Listagem \ref{lst:retornoTokenunico}.
 
 \begin{lstlisting}[caption={Obtendo Token de uma única página},label={lst:tokenunico}]
-  $response = $fb->get(
-    '/415358248866659',
-    '{access-token}'
-  );
-$graphNode = $response->getGraphNode();
+    $response = $fb->get(
+        '/415358248866659',
+        '{access-token}'
+    );
+    $graphNode = $response->getGraphNode();
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Retorno \textit{token} de uma única página específica},label={lst:retornoTokenunico}]
@@ -133,18 +152,18 @@ $graphNode = $response->getGraphNode();
 Os \textit{token} com duração infinita só podem ser solicitados para página ou usuário, para isso é necessário uma requisição com passagem dos parâmetros ID único, ID secreto, e o uso do \textit{token} de usuário de curta duração, obtido na Listagem \ref{lst:tokenPagina}. Este tipo de requisição é feita conforme ilustrada na Listagem \ref{lst:tokeninfinito}. Obtém-se como retorno um JSON contendo o \textit{token} de acesso vitalício.
 
 \begin{lstlisting}[caption={Obtendo Token Infinito},label={lst:tokeninfinito}]
-  $response = $fb->get(
+$response = $fb->get(
     '/oauth/access_token?grant_type=fb_exchange_token&client_id={ID Unico}&client_secret={ID secreto}&fb_exchange_token={Token} ',
     '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
+);
+$graphNode = $response->getGraphNode();
 \end{lstlisting}
 
 Cada linguagem possui a sua forma específica de obter o \textit{token} por meio do uso da SDK específica de cada uma. Além da chamada usando o SDK, para gerar o token, com exceção do de aplicativo, é necessário um usuário autenticado.
 
 \section{Autenticação}
 \label{sec:autenticacao}
-O Facebook disponibiliza diversas ferramentas, dentre elas está a que viabiliza o login com a rede social, chamada ``login com Facebook''. Ela segue os padrões de conformidade do protocolo OAuth 2.0, que provê um fluxo de autorização específica para aplicações \textit{web}, telefones móveis, entre outras \cite{oauth2018}. 
+O Facebook disponibiliza diversas ferramentas, dentre elas está a que viabiliza o login com a rede social, chamada ``login com Facebook''. Ela segue os padrões de conformidade do protocolo OAuth 2.0, que provê um fluxo de autorização específica para aplicações \textit{Web}, telefones móveis, entre outras \cite{oauth2018}. 
 
 A ferramenta é disponibilizada pela rede social e oferece um sistema de autenticação multiplataforma e controle de acesso, através da análise de permissões, definindo as operações que o usuário poderá usar \cite{facebook2018c}. Ela funciona de forma a autenticar o usuário do aplicativo por meio de uma conta vinculada a rede social.
 
@@ -197,27 +216,24 @@ Algumas permissões, como as de gerenciamento de páginas, necessitam que pré-r
 \section{Requisições}
 As requisições seguem um padrão, onde em todas elas serão necessárias a passagem do tipo, do ID e do \textit{token} de acesso. Entretanto, é possível obter dados mais específicos, para isso é inserido novos parâmetros como as arestas ou os campos. 
 
-As requisições podem ser feitas de diversas formas, é possível recuperar apenas dados um nó específico, seguindo a Listagem \ref{lst:requisicoes1}. A partir de um nó, é possível encontrar outros nós, para isso são utilizadas as arestas, como na Listagem \ref{lst:requisicoes2}. Mas existe a possibilidade de solicitar apenas dados específicos, definindo os campos como na Listagem \ref{lst:requisicoes3}.  
+Em uma requisição é possível recupera diferentes dados um nó específico, seguindo a Listagem \ref{lst:requisicoes1}. A partir de um nó, é possível encontrar outros nós, para isso são utilizadas as arestas, como na Listagem \ref{lst:requisicoes2}. Mas existe a possibilidade de solicitar apenas dados específicos, definindo os campos como na Listagem \ref{lst:requisicoes3}.  
 
 \begin{lstlisting}[caption={Requisição com o uso do ID},label={lst:requisicoes1}]
 	$fb->get(
     	'{ID}',
-    	'{access-token}'
-  	);
+    	'{access-token}');
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Requisição com o uso do ID+aresta},label={lst:requisicoes2}]
 	$fb->get(
     	'{ID}/{aresta}',
-    	'{access-token}'
-  	);
+    	'{access-token}');
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Requisição com o uso do ID+campo},label={lst:requisicoes3}]
 	$fb->get(
 		'{ID}?field={campo}',
-   		'{access-token}'
-	);
+   		'{access-token}');
 \end{lstlisting}
 
 \subsection{Tipos de Requisição}
@@ -298,11 +314,11 @@ Com exceção da requisição anterior, elas devem seguir uma sintaxe, contendo 
 Para que dados básicas de uma postagem sejam obtidos, é necessário a mesma sintaxe da requisição feita para dados de usuários, como é apresentado na Listagem \ref{lst:postagem}. O retorno será estruturado conforme a Listagem \ref{lst:retornoPostagem}.
 
 \begin{lstlisting}[caption={Requisitar informações de uma postagem específica},label={lst:postagem}]
-  $response = $fb->get(
-    '/511846152551201/',
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
+    $response = $fb->get(
+        '/511846152551201/',
+        '{access-token}'
+    );
+    $graphNode = $response->getGraphNode();
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Resposta do servidor a uma requisição \ref{lst:postagem} (Postagem)},label={lst:retornoPostagem}]
@@ -316,11 +332,10 @@ Para que dados básicas de uma postagem sejam obtidos, é necessário a mesma si
 Sendo mais específico ainda é possível requisitar informações como o comentário feito em uma postagem de uma página. Na requisição da Listagem \ref{lst:comentario} é solicitado dados básicos de um comentário. O retorno será estruturado da forma da Listagem \ref{lst:retornoComentario}.
 
 \begin{lstlisting}[caption={Requisitar informações de um comentário específico},label={lst:comentario}]
-  $response = $fb->get(
-    '/511846152551201_515868852148931/',
-    '{access-token}'
-  );
-  $graphNode = $response->getGraphNode();
+    $response = $fb->get(
+        '/511846152551201_515868852148931/',
+        '{access-token}');
+    $graphNode = $response->getGraphNode();
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Resposta do servidor a uma requisição \ref{lst:comentario} (Comentário)},label={lst:retornoComentario}]
