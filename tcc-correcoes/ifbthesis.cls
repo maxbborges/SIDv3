@@ -178,7 +178,7 @@
   \renewcommand{\appendixtocname}{Apêndice}
   \renewcommand{\appendixpagename}{Apêndice}
   \renewcommand{\lstlistingname}{Listagem}
-  \gdef\@lstlistingname{Lista de Algoritmos}
+  \gdef\@lstlistingname{Lista de Listagens}
   \gdef\@listoftablesname{Lista de Tabelas}
   \gdef\@listoffiguresname{Lista de Figuras}
   \gdef\@pagename{página}
@@ -377,10 +377,7 @@
 
 \gdef\@presentationtext{%
 \if\@language0
-Trabalho apresentado ao Programa de
-\@programpt\ do \if\@showdepartment1\@departmentpt\ \else\@institutept\ \fi
-da \@universitypt\ como requisito parcial para obtenção do
-grau de \@degree\ em \@majorfieldpt.
+Monografia apresentada ao curso de Bacharelado em Ciência da Computação do \textit{Campus} Taguatinga do Instituto Federal de Brasília como requisito parcial para obtenção de título de Bacharel em Ciência da Computação.
 \fi
 \if\@language1 %If language is English
 A \@texttype{} presented to the \if\@showdepartment1\@departmenten\
@@ -504,47 +501,88 @@ requirements for the degree of \@degree\ in \@majorfielden.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Frontpage
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Capa
+
 \def\frontpage{%
   \if@openright\cleardoublepage\else\clearpage\fi
   \thispagestyle{empty}
   \begin{center}
-  \includegraphics[scale=0.5]{images/ifblogo} \\
+  \includegraphics[scale=0.2]{images/ifblogo} \\
   \if\@language0
-    {\fontfamily{times}\selectfont \small \@universitypt\\}
-    {\fontfamily{times}\selectfont \small \@programpt\\}
-    {\fontfamily{times}\selectfont \small \@campus\\}
+    {\fontfamily{times}\selectfont \normalsize \@universitypt\\}
+    {\fontfamily{times}\selectfont \normalsize \@campus\\}
+    {\fontfamily{times}\selectfont \normalsize \@programpt\\}
   \else
     {\fontfamily{times}\selectfont \small \@universityen\\}
     {\fontfamily{times}\selectfont \small \@programen\\}
     {\fontfamily{times}\selectfont \small \@campus\\}
   \fi
-  \vfill
+ % {\fontfamily{times}\selectfont \small http://computacaoifb.net\\}
 
+\vspace{5\baselineskip{}}
 
   \begin{center}
-    {\normalsize\bfseries{\MakeUppercase{\@title}}}
+    {\normalsize\bfseries{\MakeUppercase{\@author}}}
+    \vskip7\baselineskip
+    {\Large\bfseries{\MakeUppercase{\@title}}}
     \vskip1\baselineskip
-    \if\@language0
-        {\normalsize \bfseries{Por}}
-    \else
-        {\normalsize \bfseries{By}}
-    \fi
-    \vskip1\baselineskip
-    \normalsize \textit{\bfseries{\MakeUppercase{\@author}}}
-    \vskip1\baselineskip
-    {{\normalsize \bfseries{\@texttype}}}\\
-    \if\@degreetype5
-        {{\normalsize \bfseries{\@module}}}\\
-    \fi
   \end{center}
-  \vspace{6.5cm}
+  \vspace{6cm}
 
 
   \vskip\baselineskip
-  \vskip\baselineskip
-  \@address/\@date
+  \@address
+  \\
+  \@date
   \end{center}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \def\frontpage{%
+%   \if@openright\cleardoublepage\else\clearpage\fi
+%   \thispagestyle{empty}
+%   \begin{center}
+%   \includegraphics[scale=0.5]{images/ifblogo} \\
+%   \if\@language0
+%     {\fontfamily{times}\selectfont \small \@universitypt\\}
+%     {\fontfamily{times}\selectfont \small \@programpt\\}
+%     {\fontfamily{times}\selectfont \small \@campus\\}
+%   \else
+%     {\fontfamily{times}\selectfont \small \@universityen\\}
+%     {\fontfamily{times}\selectfont \small \@programen\\}
+%     {\fontfamily{times}\selectfont \small \@campus\\}
+%   \fi
+%   \vfill
+
+
+%   \begin{center}
+%     {\normalsize\bfseries{\MakeUppercase{\@title}}}
+%     \vskip1\baselineskip
+%     \if\@language0
+%         {\normalsize \bfseries{Por}}
+%     \else
+%         {\normalsize \bfseries{By}}
+%     \fi
+%     \vskip1\baselineskip
+%     \normalsize \textit{\bfseries{\MakeUppercase{\@author}}}
+%     \vskip1\baselineskip
+%     {{\normalsize \bfseries{\@texttype}}}\\
+%     \if\@degreetype5
+%         {{\normalsize \bfseries{\@module}}}\\
+%     \fi
+%   \end{center}
+%   \vspace{6.5cm}
+
+
+%   \vskip\baselineskip
+%   \vskip\baselineskip
+%   \@address/\@date
+%   \end{center}
+% }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -566,12 +604,13 @@ requirements for the degree of \@degree\ in \@majorfielden.
     \quotefonti %
     \@presentationtext
     \vskip2\baselineskip
+    {\quotefont \@advisertitle: \@adviser\\}
     \end{minipage}
   \end{flushright}
-  \flushleft{
-    	{\quotefont \@advisertitle:} \@adviser\\
-    	\if\@showcoadviser1{\quotefont\@coadvisertitle:} \@coadviser\\\fi
-  }
+%   \flushleft{
+%     	{\quotefont \@advisertitle:} \@adviser\\
+%     	\if\@showcoadviser1{\quotefont\@coadvisertitle:} \@coadviser\\\fi
+%   }
   \vfill
  \begin{center}
   		\@address
@@ -609,7 +648,7 @@ requirements for the degree of \@degree\ in \@majorfielden.
 	\hspace{0.5cm} \@title  / \@author. --
 	\@address, \@date-
 
-	\hspace{0.5cm} \pageref{LastPage} p. : il. (algumas color.) ; 30 cm.\\
+	\hspace{0.5cm} \pageref{LastPage} p. : il.\\
 
 	\hspace{0.5cm} \@advisertitle~\@adviser\\
 
@@ -625,7 +664,7 @@ requirements for the degree of \@degree\ in \@majorfielden.
 		III. Campus Taguatinga.
 		IV. \@title
 
-	\hspace{8.75cm} CDU 004\\
+	\hspace{8.75cm} CDU 004.932\\
 
 	\end{minipage}
 	\end{center}
@@ -636,33 +675,58 @@ requirements for the degree of \@degree\ in \@majorfielden.
 %% Banca
 
 \def\banca{%
+ 
+ 
   \if@openright\cleardoublepage\else\clearpage\fi
-  \thispagestyle{empty}
-  \noindent
-  Trabalho de Graduação apresentada por \textbf{\@author} ao programa de Graduação em
-  Ciência da Computação do Instituto Federal de Brasília, sob o título \textbf{\@title}, orientada pelo \textbf{
-  \@adviser} e aprovada pela banca examinadora formada pelos professores:
+ \thispagestyle{empty}
+ \begin{center}
+     {\large \@author}
+ 
+    \vspace{3\baselineskip}
+ 
+    {\large \MakeTextUppercase{\textbf{\@title}}}
+ \end{center}
 
-  \vspace{5\baselineskip}
+ \vspace{2\baselineskip}
+ \begin{flushright}
+ \begin{minipage}{100mm}
+         \noindent 
+         \small Monografia apresentada ao curso de Bacharelado em Ciência da Computação do \textit{Campus} Taguatinga do Instituto Federal de Brasília como requisito parcial para obtenção de título de Bacharel em Ciência da Computação.
+     \end{minipage}
+ \end{flushright}
+  
+\vspace{1\baselineskip}
+     
+\begin{flushleft}
+ \begin{minipage}{100mm}
+         \noindent 
+         Aprovado em 26 de julho de 2018.
+     \end{minipage}
+ \end{flushleft}
+ 
+  \vspace{1\baselineskip}
 
   \begin{center}
-
-  -----------------------------------------------------------------------\\
+  
+  BANCA EXAMINADORA
+  \vspace{2\baselineskip}
+ 
+ -----------------------------------------------------------------------\\
   \@adviser\\
-  Departamento de Computação/IFB\\
+  Instituto Federal de Educação, Ciência e Tecnologia de Brasília\\
   \@advisertitle~
 
-  \vspace{\baselineskip}
+  \vspace{1.5\baselineskip}
+ 
   -----------------------------------------------------------------------\\
   Prof. Dr. Guilherme Novaes Ramos \\
-  Departamento de Computação/UnB\\
-  Convidado 1
+  Departamento de Ciência da Computação/Universidade de Brasília\\
 
-  \vspace{\baselineskip}
+  \vspace{1.5\baselineskip}
   -----------------------------------------------------------------------\\
   Prof. Dr. Fabiano Cavalcanti Fernandes\\
-  Departamento de Computação/IFB\\
-  Convidado 2
+  Instituto Federal de Educação, Ciência e Tecnologia de Brasília\\
+
 
   \vfill
   \@address
@@ -671,6 +735,9 @@ requirements for the degree of \@degree\ in \@majorfielden.
 
   \end{center}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Dedicatory
@@ -941,6 +1008,9 @@ requirements for the degree of \@degree\ in \@majorfielden.
   xleftmargin=0pt,
   tabsize=4
 }
+
+
+
 
 % \lstnewenvironment{code}[1][language=Python,caption=Name,label=code:Name]
 %   {
