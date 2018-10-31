@@ -1,0 +1,76 @@
+1 - Instalar o docker
+pacman -S docker
+
+2 - Baixar a imagem do LAPP (Linux/Apache/Postgres/PHP)
+docker pull turnkeylinux/lapp-14.2
+
+3 - Criar o container com a imagem baixada.
+docker run --name tcc -i -t -d turnkeylinux/lapp-14.2
+
+** AGUARDE ENQUANTO O CONTAINER INSTALA OS ELEMENTOS **
+** PARA ACOMPANHAR:
+CID=$(docker ps -l -q)
+docker logs $CID
+
+4 - Rodar o container (SSH)
+4.1 - Armazenar containers
+CID=$(docker ps -l -q)
+
+4.2 - Recuperar IP
+CIP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CID)
+
+4.3 - Gerar Senha Random para ROOT
+docker logs $CID | grep "Random initial root password"
+
+4.4 - Acessar a maquina virtual
+ssh root@CID
+
+**CASO APRESENTE PROBLEMA COM FINGERPRINT KEY
+ssh-keygen -R $CIP
+
+4.5 - Digite a senha obtida no passo 4.3
+4.6 - Digite e confirme a nova senha de root
+4.7 - Digite e confirme a nova senha para o banco de dados
+4.8 - Apenas aperte enter, sem digitar nada
+4.9 - Selecione a opção Skip e pressione enter
+4.10 - Pressione enter
+4.11 - Pressione enter
+4.12 - Retorne ao passo 4 e digite a nova senha de root
+
+5 - Crie um usuário não root
+adduser --system --group USUARIO --shell /bin/bash
+apt-get install sudo
+adduser USUARIO sudo
+passwd USUARIO
+
+6 - Acesse com o novo usuário criado
+ssh USUARIO@IP
+
+7 - clone o repositório do SID /var/www/
+sudo chmod 777 /var/www
+git clone https://maxbborges@bitbucket.org/maxbborges/tcc.git
+
+8 - Configure o Apache, incluindo a seguinte linha no DocumentRoot
+DocumentRoot /var/www/tcc/SID/public/index.php
+
+9 - Habilite o modulo de sobrescrita do apache
+cd /etc/apache2/mods-enabled/
+sudo a2enmod rewrite
+sudo service apache2 restart
+
+10 - Baixe e instale o composer em /var/www/tcc/SID
+php composer.phar install
+
+10.1 - caso apresente erro, rode e dps faça o passo 10.
+curl -sS https://getcomposer.org/installer | php
+
+11 - Acesse ao postgres e altera a senha para 1234
+sudo -u postgres psql postgres
+\password postgres
+
+12 - Crie e acesse a tablea sidiiff2
+create database sidiiff
+\c sidiiff2
+
+13 - Popular o banco de acordo com o arquivo
+14 - Rodar o sistema pelo IP
