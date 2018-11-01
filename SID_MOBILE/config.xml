@@ -31,6 +31,6 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
-    <engine name="browser" spec="^5.0.3" />
+    <engine name="browser" spec="^5.0.4" />
     <engine name="android" spec="^7.0.0" />
 </widget>
