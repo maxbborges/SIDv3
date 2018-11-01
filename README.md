@@ -1,6 +1,6 @@
 # ORGANIZACAO DO DOCUMENTO #
 
-tcc/
+* tcc/
 |_ SID/ # VERSAO WEB DO SID
    |_ Utils/
       |_ BD_SQL.sql # ARQUIVO PARA CONFIGURACAO DO BANCO DE DADOS

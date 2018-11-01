@@ -1,0 +1,25 @@
+/* Your app styles here */
+.card-content{
+    text-align: center;
+    padding: 10px;
+  }
+  
+  #lista {
+    padding: 0px;
+  }
+  
+  .content-block {
+    margin: 0px;
+  }
+
+  .open-login{
+    background-color: red;
+  }
+
+  #legendaDivulgacao {
+    text-align: center;
+  }
+
+  #qrCodeDivulgacao {
+    text-align: center;
+  }
