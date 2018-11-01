@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>My App</title>
+
+  <link rel="stylesheet" href="framework7/css/framework7.min.css">
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="statusbar"></div>
+    <div class="view view-main ios-edges">
+      <div class="page" data-name="home">
+
+        <!-- BARRA SUPERIOR - TITULO -->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="title">SID</div>
+          </div>
+        </div>
+
+        <!-- BARRA MEIO - BOTAO LOGIN -->
+        <div class="toolbar">
+          <div class="toolbar-inner">
+            <button class="col button open-login">Login</button>
+          </div>
+        </div>
+
+        <!-- CORPO/CONTEUDO -->
+        <div class="page-content">
+          <figure id="img"></figure>
+          <div id="legenda"></div>
+          <button id="acessar" class="col button">Clique aqui e acesse a noticia completa!</button>
+          
+          <div id="comentarios">
+            <div id="imagens">
+              <figure id="imgPerfil"></figure>
+            </div>
+            <div id="inf">
+              <div id="nome"></div>
+              <div id="comentario"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="cordova.js"></script>
+
+    <!-- Framework7 library -->
+    <script src="framework7/js/framework7.min.js"></script>
+
+    <!-- App routes -->
+    <script src="js/routes.js"></script>
+
+    <!-- Your custom app scripts -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+/* Your app styles here */
+.card-content{
+    text-align: center;
+    padding: 10px;
+  }
+  
+  #lista {
+    padding: 0px;
+  }
+  
+  .content-block {
+    margin: 0px;
+  }
+
+  .open-login{
+    background-color: red;
+  }
+
+  .page-content{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  figure#img {
+  margin-right: 40px;
+  height: 40%;
+  }
+
+  #imgDivulgacao {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #img img {
+    display: block;
+    position:relative;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #legenda {
+    height: 5%;
+    min-height: 35px;
+  }
+
+  #acessar{
+    height: 5%  ;
+    min-height: 30px;
+    margin-bottom: 4px;
+  }
+
+  #comentarios{
+    border-top: 2px solid red;
+    display: flex;
+    flex-direction: row;
+    height: 45%;
+  }
+
+  #imagens{
+    margin: 0 5px 0 5px;
+    height: 100%;
+    width: 45%;
+  }
+
+  #imgDivulgacaoPerfil{
+    height: 100%;
+    width: 100%;
+  }
+
+  #inf{
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #nome {
+    width: 100%;
+    height: 25%;
+    min-height: 22px;
+    margin-top: 5px;
+  }
+
+  #comentario{
+    width: 100%;
+    height: 75%;
+  }

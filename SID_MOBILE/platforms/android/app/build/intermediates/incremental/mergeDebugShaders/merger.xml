@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/mnt/ca37e64b-c17c-4476-a103-8b295b0cce9e/PhoneGap/SIDmobile/SID/platforms/android/app/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/mnt/ca37e64b-c17c-4476-a103-8b295b0cce9e/PhoneGap/SIDmobile/SID/platforms/android/app/src/debug/shaders"/></dataSet></merger>
