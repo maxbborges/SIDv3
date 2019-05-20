@@ -42,7 +42,7 @@ var mainView = app.views.create('.view-main', {
 
 
 function trocaPublicacao(dados) {
-  
+
   const intervalo = setInterval(function () {
     app.preloader.hide();
     (document.getElementById("acessar")).style.display = "block";
@@ -84,8 +84,8 @@ function trocaPublicacao(dados) {
 }
 
 function atualizar() {
-  app.request.json('http://200.130.152.84:6670/bd', function (dados) {
-    console.log("nova");
+  app.request.json('http://localhost:201/x', function (dados) {
+    console.log(dados);
     trocaPublicacao(dados);
   }, function (xhr, status) {
     console.log(xhr);
@@ -145,7 +145,9 @@ app.on('pageInit', function (page) {
 
 $$('.open-login').on('click', function () {
   app.dialog.login('Digite sua matricula e senha: ', function (username, password) {
-    app.request.post('http://200.130.152.84:6670/mobile/login/', { matricula: username, senha: password }, function (data) {
+    // app.request.post('http://localhost:201/x/login', { matricula: username, senha: password }, function (data) {
+    app.request.json('http://localhost:201/x/login', function (data) {
+      console.log(data);
       if (data == '"professor"') {
         app.dialog.progress();
         matricula = username;

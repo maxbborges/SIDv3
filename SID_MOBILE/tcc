@@ -1,0 +1,20 @@
+[
+  {
+    "bd": {
+      "linkqr": "abc",
+      "legenda": "abc"
+    }
+  },
+  {
+    "bd": {
+      "linkqr": "def",
+      "legenda": "def"
+    }
+  },
+  {
+    "bd": {
+      "linkqr": "ghi",
+      "legenda": "ghi"
+    }
+  }
+]
