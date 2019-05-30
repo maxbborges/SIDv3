@@ -50,11 +50,11 @@ CREATE TABLE designado(
 	id_turma varchar REFERENCES turma(id)
 );
 
-CREATE TABLE menssagem(
-	id_menssagem serial,
+CREATE TABLE mensagem(
+	id_mensagem serial,
 	id_professor varchar NOT NULL REFERENCES professor(matricula),
 	id_turma varchar NOT NULL REFERENCES turma(id),
-	menssagem varchar NOT NULL
+	mensagem varchar NOT NULL
 );
 
 insert into divulgacao values (0,null,'www.google.com.br','conheca o SID','fixa','2030-01-01');
@@ -63,9 +63,9 @@ insert into divulgacao values (0,null,'www.google.com.br','conheca o SID','fixa'
 insert into turma values ('turma2014');
 insert into aluno values ('aluno1','1',md5('123'));
 insert into matriculado values ('1','turma2014');
-insert into designado values ('1','turma2014');
 insert into professor values ('1','professor1',md5('123'));
-insert into menssagem (id_professor,id_turma,menssagem) values ('1','turma2014','mensagem do professor1');
+insert into designado values ('1','turma2014');
+insert into mensagem (id_professor,id_turma,mensagem) values ('1','turma2014','mensagem do professor1');
 
 insert into config values ('164198740813670', 'f435a5e76649e9d8673170639591b57d','v2.10', true);
 insert into adm (fbid,nome,email,senha) values (1371436046298678,'maxwell','max15borges@gmail.com',md5('123'));
@@ -73,7 +73,7 @@ insert into adm (fbid,nome,email,senha) values (1511647135610791,'flavia','flavi
 
 select * from aluno where senha = md5('123');
 
-drop table menssagem;
+drop table mensagem;
 drop table professor;
 drop table matriculado;
 drop table turma;
