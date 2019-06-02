@@ -35,8 +35,8 @@ CREATE TABLE aluno(
 );
 
 CREATE TABLE matriculado(
-	matricula_aluno varchar REFERENCES aluno (matricula),
-	id_turma varchar REFERENCES turma(id)
+	matricula_aluno varchar REFERENCES aluno (matricula) ON DELETE CASCADE,
+	id_turma varchar REFERENCES turma(id) ON DELETE CASCADE
 );
 
 CREATE TABLE professor(
@@ -46,8 +46,8 @@ CREATE TABLE professor(
 );
 
 CREATE TABLE designado(
-	matricula_professor varchar REFERENCES professor (matricula),
-	id_turma varchar REFERENCES turma(id)
+	matricula_professor varchar REFERENCES professor (matricula) ON DELETE CASCADE,
+	id_turma varchar REFERENCES turma(id) ON DELETE CASCADE
 );
 
 CREATE TABLE mensagem(
