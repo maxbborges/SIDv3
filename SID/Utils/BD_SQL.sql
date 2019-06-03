@@ -52,8 +52,8 @@ CREATE TABLE designado(
 
 CREATE TABLE mensagem(
 	id_mensagem serial,
-	id_professor varchar NOT NULL REFERENCES professor(matricula),
-	id_turma varchar NOT NULL REFERENCES turma(id),
+	id_professor varchar NOT NULL REFERENCES professor(matricula) ON DELETE CASCADE,
+	id_turma varchar NOT NULL REFERENCES turma(id) ON DELETE CASCADE,
 	mensagem varchar NOT NULL
 );
 
