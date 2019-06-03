@@ -40,8 +40,8 @@ CREATE TABLE matriculado(
 );
 
 CREATE TABLE professor(
-	matricula varchar NOT NULL PRIMARY KEY,
 	nome varchar,
+	matricula varchar NOT NULL PRIMARY KEY,
 	senha varchar
 );
 
@@ -63,7 +63,7 @@ insert into divulgacao values (0,null,'www.google.com.br','conheca o SID','fixa'
 insert into turma values ('turma2014');
 insert into aluno values ('aluno1','1',md5('123'));
 insert into matriculado values ('1','turma2014');
-insert into professor values ('1','professor1',md5('123'));
+insert into professor values ('professor1','1',md5('123'));
 insert into designado values ('1','turma2014');
 insert into mensagem (id_professor,id_turma,mensagem) values ('1','turma2014','mensagem do professor1');
 
